@@ -64,9 +64,10 @@ DiscordBot IA/
 ```
 main.py
    └── bot.py
-         ├── bot_client.py => crée le bot
+         ├── client.py => crée le bot
+         └── validation.py => Validation des Q/R detecter par le bot
          └── commands.py   => lie les événements et commandes du bot
-                  └── nlp_engine.py => traite les questions
-                          └── base_loader.py => lit le fichier JSON
+                  └── nlp.py => traite les questions
+                          └── loader.py => lit le fichier JSON
 ```
 
