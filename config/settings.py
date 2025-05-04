@@ -1,4 +1,4 @@
-DISCORD_TOKEN = "YOUR_DISCORD_TOKEN"  # Token du bot Discord (à remplacer par votre token)
+DISCORD_TOKEN = "***REMOVED***"  # Token du bot Discord (à remplacer par votre token)
 KNOWLEDGE_PATH = "ia/knowledge.json" # (pas touche)
 SIMILARITY_THRESHOLD = 0.4  # Seuil minimal de similarité pour accepter une réponse  (la similarité entre la question et la réponse)
 NAME_IA = ["pdl", "PDL"]

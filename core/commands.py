@@ -72,7 +72,6 @@ def register_commands(bot):
     @bot.event
     async def on_message(message):
 
-        starter = settings.NAME_IA
         channel_id = message.channel.id
         content = message.content.strip()
         
@@ -89,8 +88,8 @@ def register_commands(bot):
                 await message.channel.send("Désolé, une erreur s'est produite lors du traitement de votre message.")
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors d'une interaction en DM : {e}" + Style.RESET_ALL)
                 logging.error(f"[ERROR] Une erreur s'est produite lors de la réponse en DM : {e}")
-        
-        if bot.user.mention in message.content or any(starter in message.content for starter in starter) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
+        keyWord = settings.NAME_IA
+        if bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
             try:
                 print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction est en cours dans le serveur")
@@ -140,7 +139,7 @@ def register_commands(bot):
             print(Fore.MAGENTA + f"[SECURITY] Le processus de redémarrage est lancer pour {client.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Le processus de redémarrage est lancer pour {client.name}")
             await bot.close()
-            os.execl(sys.executable, ["python"], sys.argv)
+            os.execl(sys.executable, sys.executable, *sys.argv)
         except Exception as e:
             await interaction.followup.send(f"❌ Une erreur s'est produite lors du redémarrage : {e}", ephemeral=True)
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du redémarrage : {e}"+ Style.RESET_ALL)

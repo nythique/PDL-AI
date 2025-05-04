@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 3. Lancer le bot :
 ```bash
-python main.py
+python main.py Où start start.bat (récommande vm)
 ```
 
 ## Exemple de question
