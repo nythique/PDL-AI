@@ -1,4 +1,4 @@
-# Mon Bot IA (Discord)
+# DiscordBot IA (local database)
 
 Un bot Discord avec une IA simple basée sur TF-IDF pour répondre à des questions selon une base de connaissances locale, disposant d'une capacité d'apprentissage et d'analyse pour un developpement constant  de sa base de donnée locale.
 Une journalisation des different evenement du bot est incluse dans le système.
