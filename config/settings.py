@@ -1,0 +1,16 @@
+DISCORD_TOKEN = "MTM1MzAyNzYxMzc5MDA0NDIwMw.G9vmLg.0fFy-7OeNfvLxrq0d-WRijYXcgr_YmDsQMsURE" 
+KNOWLEDGE_PATH = "ia/knowledge.json" # (pas touche)
+SIMILARITY_THRESHOLD = 0.4  # Seuil minimal de similarité pour accepter une réponse  (la similarité entre la question et la réponse)
+NAME_IA = ["pdl", "PDL"]
+STATUS = ["Surveille le serveur pcpdl", "Les membres sont sages","Le staff aussi est sage", "Et Je suis là pour vous aider", "Mon nom est PDL.BOT IA"] 
+TRAINING_CHANNEL_ID = [1232303023955378199]  # ID des salons où le bot écoute les Q/R
+ROOT_UER = [969287987672268840, 767678057770385438, 1233020939898327092] # ID des admin qui peuvent utiliser les commandes à risque du bot (pour éviter les abus)
+TRAINING_TRIGGER = ["?", 
+                    "Comment", "comment", 
+                    "Pourquoi", "pourquoi", 
+                    "Quel", "quel", "Quelle", "quelle", 
+                    "Ou", "ou", "Où", "où"
+                    "Auriez vous une solution","besoins d'aide"," Besoin d'aide",
+                ]  # Des expressions clés, pour faciliter l'apprentissage automatique (ppour capture_qr.json) (Vous pouvez en rajouter ou reduire)
+LOG_FILE = "logs/bot.log" # (pas touche)
+ALERT_CHANNEL = 1232303023955378199 # Salon d'alerte lorsque le bot capt une nouvelle information de lui-même
