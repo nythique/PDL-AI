@@ -4,13 +4,14 @@ from config import settings
 from itertools import cycle
 from discord.ext import commands, tasks
 from discord.ui import View, Button, Modal, TextInput, Select
+from cluster.vram import memory
 import discord, time, os, sys, json, logging
 
 nlp = NLPEngine()
 status = settings.STATUS
 
 TEMP_QR = {}
-SUGGESTION_FILE = "ia/captured_qr.json"
+SUGGESTION_FILE = settings.CAPTURE_QR_PATH
 
 logging.basicConfig(
     filename=settings.LOG_FILE,
@@ -161,7 +162,7 @@ def register_commands(bot):
         try:
             question = context
             reponse = answer
-            with open("ia/knowledge.json", "r+", encoding="utf-8") as f:
+            with open(settings.KNOWLEDGE_PATH, "r+", encoding="utf-8") as f:
                 data = json.load(f)
                 data.append({"question": question, "reponse": reponse})
                 f.seek(0)
@@ -175,22 +176,37 @@ def register_commands(bot):
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du commit : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du commit : {e}")
 
-    @bot.tree.command(name="empty", description="Vider bot.log et captured_qr")
+    @bot.tree.command(name="empty", description="Vider le logging et ")
     async def empty(interaction: discord.Interaction):
         if not interaction.user.id in settings.ROOT_UER:
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs et q/r : {interaction.user.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs et q/r : {interaction.user.name}")
             return
-        try:
-            with open(settings.LOG_FILE, "w", encoding="utf-8") as log_file:
-                log_file.write("")
-            with open("ia/captured_qr.json", "w", encoding="utf-8") as cap_file:
-                json.dump([], cap_file, indent=2, ensure_ascii=False)
-            await interaction.response.send_message("Les fichiers `bot.log` et `captured_qr.json` ont été vidés.")
-            print(Fore.YELLOW + f"[INFO] Les fichiers `bot.log` et `captured_qr.json` ont été vidés" + Style.RESET_ALL)
-            logging.info(f"[INFO] Les fichiers `bot.log` et `captured_qr.json` ont été vidés. Demandé par {interaction.user.name}")
-        except Exception as e:
-            await interaction.response.send_message(f"Une erreur s'est produite lors du vidage des fichiers")
-            print(Fore.RED + f"[ERROR] Erreur lors du vidage des fichiers : {e}" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Erreur lors du vidage des fichiers (user: {interaction.user.name}) : {e}")
+        files_to_clear = {
+            "Log File": settings.LOG_FILE,
+            "Captured QR File": settings.CAPTURE_QR_PATH,
+        }
+        errors = []
+        for file_name, file_path in files_to_clear.items():
+            try:
+                if not os.path.exists(file_path):
+                    errors.append(f"{file_name} n'existe pas.")
+                    continue
+                with open(file_path, "w", encoding="utf-8") as file:
+                    if file_name == "Captured QR File":
+                        json.dump([], file, indent=2, ensure_ascii=False)
+                    else:
+                        file.write("")
+                print(Fore.GREEN + f"[INFO] {file_name} a été vidé." + Style.RESET_ALL)
+                logging.info(f"[INFO] {file_name} a été vidé. Demandé par {interaction.user.name}")
+            except Exception as e:
+                errors.append(f"Erreur lors du vidage de {file_name} : {e}")
+                logging.error(f"[ERROR] Erreur lors du vidage de {file_name} : {e}")
+        if errors:
+            error_message = "\n".join(errors)
+            await interaction.response.send_message(f"Des erreurs se sont produites :\n{error_message}", ephemeral=True)
+            print(Fore.RED + f"[ERROR] Des erreurs se sont produites :\n{error_message}" + Style.RESET_ALL)
+        else:
+            await interaction.response.send_message("Tous les fichiers ont été vidés avec succès.", ephemeral=True)
+            print(Fore.GREEN + f"[INFO] Tous les fichiers ont été vidés avec succès." + Style.RESET_ALL)

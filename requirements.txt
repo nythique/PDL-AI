@@ -1,2 +1,4 @@
 discod.py
 scikit-learn
+sentence_transformers
+torch

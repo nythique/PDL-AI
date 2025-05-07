@@ -2,8 +2,8 @@ from colorama import Fore, Style
 from config import settings
 import discord, json, logging
 
-SUGGESTION_FILE = "ia/captured_qr.json"
-KNOWLEDGE_FILE = "ia/knowledge.json"
+SUGGESTION_FILE = settings.CAPTURE_QR_PATH
+KNOWLEDGE_FILE = settings.KNOWLEDGE_PATH
 
 logging.basicConfig(
     filename=settings.LOG_FILE,
