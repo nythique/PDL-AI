@@ -1,0 +1,5 @@
+// LANCER LE FILTRE
+self.knowledge = [
+                entry for entry in self.knowledge
+                if filtrer_pair(entry["question"], entry["reponse"], self.knowledge)
+            ]

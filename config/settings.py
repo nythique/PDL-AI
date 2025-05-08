@@ -18,6 +18,10 @@ TRAINING_CHANNEL_ID = [1232303023955378199]  # ID des salons où le bot écoute 
 ALERT_CHANNEL = 1369284565021233182 # Salon d'alerte lorsque le bot capt une nouvelle information de lui-même
 ROOT_UER = (969287987672268840, 767678057770385438, 1233020939898327092) # ID des admin qui peuvent utiliser les commandes à risque du bot (pour éviter les abus)
 #(===========================================================================================================================================================)
-SIMILARITY_THRESHOLD = 0.3  # Seuil minimal de similarité pour accepter une réponse  (la similarité entre la question et la réponse)
+SBERT_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"  # Modèle SBERT utilisé pour l'encodage des questions et réponses
+SIMILARITY_IDF = 0.3  # Seuil minimal de similarité pour accepter une réponse  (TF-IDF)
+SIMILARITY_SBERT = 0.6 # Seuil minimal de similarité pour accepter une réponse (SBERT)
+#(===========================================================================================================================================================)
 HISTORY_LIMIT = 5  # Limite d'historique des messages pour chaque utilisateur
 MEMORY_CLEAR_TIME = 3600  # Durée d'inactivité avant suppression de la mémoire (en secondes)
+#(===========================================================================================================================================================)

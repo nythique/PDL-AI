@@ -1,13 +1,13 @@
-from ia.nlp import NLPEngine
+from ia.nlp import HybridNLPEngine
 from colorama import Fore, Style
 from config import settings
 from itertools import cycle
 from discord.ext import commands, tasks
 from discord.ui import View, Button, Modal, TextInput, Select
 from cluster.vram import memory
-import discord, time, os, sys, json, logging
+import discord, time, os, sys, json, logging, asyncio
 
-nlp = NLPEngine()
+nlp = HybridNLPEngine()
 status = settings.STATUS
 
 TEMP_QR = {}
@@ -82,8 +82,10 @@ def register_commands(bot):
             try:
                 print(Fore.YELLOW + f"[INFO] Une interaction en DM est en cours" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction en DM est en cours")
-                response = nlp.get_answer(message.content)
-                await message.channel.send(response)
+                async with message.channel.typing():
+                    await asyncio.sleep(2)
+                    response = nlp.get_answer(message.content)
+                    await message.channel.send(response)
                 return
             except Exception as e:
                 await message.channel.send("Désolé, une erreur s'est produite lors du traitement de votre message.")
@@ -94,8 +96,10 @@ def register_commands(bot):
             try:
                 print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction est en cours dans le serveur")
-                response = nlp.get_answer(message.content)
-                await message.reply(response)
+                async with message.channel.typing():
+                    await asyncio.sleep(2)
+                    response = nlp.get_answer(message.content)
+                    await message.reply(response)
                 return
             except Exception as e:
                 await message.reply("Désolé, une erreur s'est produite lors du traitement de votre demande")
@@ -147,7 +151,7 @@ def register_commands(bot):
             logging.error(f"[ERROR] Une erreur s'est produite lors du redémarrage : {e}")
             return
     
-    @bot.tree.command(name="commit", description="Enregistrer des informations dans knowledge.")
+    @bot.tree.command(name="commit", description="Enregistrer des informations dans le cloud.")
     async def commit(interaction: discord.Interaction, context: str, answer: str):
         """
         :param interaction: L'interaction Discord.
@@ -176,7 +180,7 @@ def register_commands(bot):
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du commit : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du commit : {e}")
 
-    @bot.tree.command(name="empty", description="Vider le logging et ")
+    @bot.tree.command(name="empty", description="Vider le logging et le buffer.")
     async def empty(interaction: discord.Interaction):
         if not interaction.user.id in settings.ROOT_UER:
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
@@ -206,7 +210,7 @@ def register_commands(bot):
         if errors:
             error_message = "\n".join(errors)
             await interaction.response.send_message(f"Des erreurs se sont produites :\n{error_message}", ephemeral=True)
-            print(Fore.RED + f"[ERROR] Des erreurs se sont produites :\n{error_message}" + Style.RESET_ALL)
+            print(Fore.RED + f"[ERROR] Des erreurs se sont produites :{error_message}" + Style.RESET_ALL)
         else:
             await interaction.response.send_message("Tous les fichiers ont été vidés avec succès.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Tous les fichiers ont été vidés avec succès." + Style.RESET_ALL)
