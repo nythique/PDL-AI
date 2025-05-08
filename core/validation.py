@@ -46,7 +46,7 @@ def add_to_knowledge(q, r):
         logging.error(f"[ERROR] Le téleversement de la sauvegarde a échoué")
 
 def register_validation(bot):
-    @bot.tree.command(name="push", description="Pousser captured_qr(collector) dans knowledge(data)")
+    @bot.tree.command(name="push", description="Pousser le buffer dans le cloud.")
     async def push(interaction: discord.Interaction):
         try:
             if not interaction.user.id in settings.ROOT_UER:

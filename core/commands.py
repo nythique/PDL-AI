@@ -1,6 +1,7 @@
 from ia.nlp import HybridNLPEngine
 from colorama import Fore, Style
 from config import settings
+from datetime import datetime
 from itertools import cycle
 from discord.ext import commands, tasks
 from discord.ui import View, Button, Modal, TextInput, Select
@@ -9,6 +10,8 @@ import discord, time, os, sys, json, logging, asyncio
 
 nlp = HybridNLPEngine()
 status = settings.STATUS
+user_memory = memory()
+bot = None
 
 TEMP_QR = {}
 SUGGESTION_FILE = settings.CAPTURE_QR_PATH
@@ -39,22 +42,113 @@ def slowType(text, delay=0.2):
         time.sleep(delay)
 
 status = cycle(status) 
-@tasks.loop(seconds=5)
+@tasks.loop(seconds=settings.STATUS_TIME)
 async def status_swap(bot):
     await bot.change_presence(activity=discord.CustomActivity(next(status)))
-    print(Fore.YELLOW + f"[INFO] Changement de statut en cours..." + Style.RESET_ALL)
     logging.info(f"[INFO] Changement de statut en cours...")
+#=============()
+@tasks.loop(seconds=settings.MEMORY_UPDATE_TIME)
+async def save_memory_periodically():
+    try:
+        print(Fore.CYAN + "[INFO] Sauvegarde périodique de la mémoire..." + Style.RESET_ALL)
+        logging.info(f"[INFO] Sauvegarde périodique de la mémoire...")
+        if user_memory.modified:
+            user_memory.save_to_file()
+            user_memory.modified = False
+            print(Fore.GREEN + "[INFO] Sauvegarde de la mémoire réussie." + Style.RESET_ALL)
+            logging.info(f"[INFO] Sauvegarde de la mémoire réussie.")
+        else:
+            logging.info("[INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.")
+            print(Fore.YELLOW + "[INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée." + Style.RESET_ALL)
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] La sauvegarde périodique de la mémoire a échoué : {e}" + Style.RESET_ALL)
+        logging.error(f"[ERROR] La sauvegarde périodique de la mémoire a échoué : {e}")
 
-def register_commands(bot):
+@save_memory_periodically.before_loop
+async def before_save_memory():
+    try:
+        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique..." + Style.RESET_ALL)
+        logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...")
+        await bot.wait_until_ready()
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente du bot : {e}" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente du bot : {e}")
+
+@tasks.loop(minutes=settings.MEMORY_CLEAR_TIME)
+async def clear_inactive_users():
+    try:
+        print(Fore.CYAN + "[INFO] Nettoyage des utilisateurs inactifs..." + Style.RESET_ALL)
+        logging.info(f"[INFO] Nettoyage des utilisateurs inactifs...")
+        user_memory.clear_context()
+        print(Fore.GREEN + "[INFO] Nettoyage des utilisateurs inactifs réussi." + Style.RESET_ALL)
+        logging.info(f"[INFO] Nettoyage des utilisateurs inactifs réussi.")
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Le nettoyage des utilisateurs inactifs a échoué : {e}" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Le nettoyage des utilisateurs inactifs a échoué : {e}")
+
+@clear_inactive_users.before_loop
+async def before_clear_inactive_users():
+    try:
+        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs..." + Style.RESET_ALL)
+        logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...")
+        await bot.wait_until_ready()
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente du bot : {e}" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente du bot : {e}")
+
+#=============()
+def display_banner():
+    banner = """
+    ██████╗ ██████╗  ██╗         █████╗ ██╗
+    ██╔══██╗██╔══██╗ ██║        ██╔══██╗██║
+    ██████╔╝██║  ██║ ██║        ███████║██║
+    ██╔═══╝ ██║  ██║ ██║        ██╔══██║██║
+    ██║     ██████╔╝ ███████╗██╗██║  ██║██║
+    ╚═╝     ╚═════╝  ╚══════╝╚═╝╚═╚═╝╚═╝╚═╝
+    """
+    version = "v1.0.0"
+    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    license_message = f"""
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║                                                                  ║
+    ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
+    ║   All rights reserved.                                           ║
+    ║                                                                  ║
+    ║   Version: {version}                                                ║
+    ║   Bot started on: {current_date}                            ║
+    ║                                                                  ║
+    ║   Unauthorized copying, distribution, or modification of this    ║
+    ║   software is strictly prohibited. Use is subject to the terms   ║
+    ║   of the license agreement.                                      ║
+    ║                                                                  ║
+    ╚══════════════════════════════════════════════════════════════════╝
+    """
+    print(Fore.CYAN + banner + Style.RESET_ALL)
+    print(Fore.YELLOW + license_message + Style.RESET_ALL)
+
+def register_commands(bot_instance):
     from core.validation import register_validation
+    global bot
+    bot = bot_instance
     register_validation(bot)
-    slowType(Fore.RED + "   Développé par NYTHIQUE le 01/05/2020.\n" + Style.RESET_ALL, 0.1)
+    display_banner()
     time.sleep(1)
     print(Fore.CYAN + "[INFO] Connexion à l'API discord" + Style.RESET_ALL)
     logging.info(f"[INFO] Connexion à l'API discord")
     @bot.event
     async def on_ready():
-        status_swap.start(bot)
+        try:
+            print(Fore.YELLOW + "[INFO] Démarrage des tâches périodiques..." + Style.RESET_ALL)
+            logging.info(f"[INFO] Démarrage des tâches périodiques...")
+            if not save_memory_periodically.is_running():
+                save_memory_periodically.start()
+            if not clear_inactive_users.is_running():
+                clear_inactive_users.start()
+            if not status_swap.is_running():
+                status_swap.start(bot)
+        except Exception as e:
+            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}" + Style.RESET_ALL)
+            logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
         try:
             client = bot.user
             synced = await bot.tree.sync()
@@ -72,19 +166,21 @@ def register_commands(bot):
 
     @bot.event
     async def on_message(message):
+        if message.author.bot: return # Ignore les messages des bots
 
         channel_id = message.channel.id
         content = message.content.strip()
-        
-        if message.author.bot: return # Ignore les messages des bots
+        user_id = message.author.id
 
         if isinstance(message.channel, discord.DMChannel):
             try:
+                content = message.content.strip()
+                user_context = user_memory.manage(user_id, content)
                 print(Fore.YELLOW + f"[INFO] Une interaction en DM est en cours" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction en DM est en cours")
                 async with message.channel.typing():
-                    await asyncio.sleep(2)
-                    response = nlp.get_answer(message.content)
+                    await asyncio.sleep(settings.TYPING_TIME)
+                    response = nlp.get_answer(" ".join(user_context))
                     await message.channel.send(response)
                 return
             except Exception as e:
@@ -94,11 +190,13 @@ def register_commands(bot):
         keyWord = settings.NAME_IA
         if bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
             try:
+                content = message.content.strip()
+                user_context = user_memory.manage(user_id, content)
                 print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction est en cours dans le serveur")
                 async with message.channel.typing():
-                    await asyncio.sleep(2)
-                    response = nlp.get_answer(message.content)
+                    await asyncio.sleep(settings.TYPING_TIME)
+                    response = nlp.get_answer(" ".join(user_context))
                     await message.reply(response)
                 return
             except Exception as e:
@@ -140,11 +238,10 @@ def register_commands(bot):
             return
         try:
             client = bot.user
-            await interaction.response.send_message(f"🔄 {client.name} va redémarrer...", ephemeral=False)
+            await interaction.response.send_message(f"🔄 {client.name} va redémarrer...", ephemeral=True)
             print(Fore.MAGENTA + f"[SECURITY] Le processus de redémarrage est lancer pour {client.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Le processus de redémarrage est lancer pour {client.name}")
             await bot.close()
-            os.execl(sys.executable, sys.executable, *sys.argv)
         except Exception as e:
             await interaction.followup.send(f"❌ Une erreur s'est produite lors du redémarrage : {e}", ephemeral=True)
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du redémarrage : {e}"+ Style.RESET_ALL)
@@ -214,3 +311,7 @@ def register_commands(bot):
         else:
             await interaction.response.send_message("Tous les fichiers ont été vidés avec succès.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Tous les fichiers ont été vidés avec succès." + Style.RESET_ALL)
+    
+    @bot.tree.command(name="show_memory", description="Afficher la mémoire utilisateur.")
+    async def show_memory(interaction: discord.Interaction):
+        await interaction.response.send_message(f"Conversations : {user_memory.conversations}", ephemeral=True)

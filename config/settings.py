@@ -23,5 +23,9 @@ SIMILARITY_IDF = 0.3  # Seuil minimal de similarité pour accepter une réponse 
 SIMILARITY_SBERT = 0.6 # Seuil minimal de similarité pour accepter une réponse (SBERT)
 #(===========================================================================================================================================================)
 HISTORY_LIMIT = 5  # Limite d'historique des messages pour chaque utilisateur
-MEMORY_CLEAR_TIME = 3600  # Durée d'inactivité avant suppression de la mémoire (en secondes)
+MEMORY_CLEAR_MAX_TIME = 3600  # Durée d'inactivité avant suppression de la mémoire (en secondes)
+TYPING_TIME = 0.2  # Temps de réponse du bot (en secondes)
+STATUS_TIME = 5  # Temps entre chaque changement de statut (en secondes)
+MEMORY_UPDATE_TIME = 5  # Temps entre chaque mise à jour de la mémoire (en secondes)
+MEMORY_CLEAR_TIME  = 10 # Temps entre chaque nettoyage de la mémoire (en minutes)
 #(===========================================================================================================================================================)

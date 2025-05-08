@@ -19,6 +19,7 @@ class HybridNLPEngine:
         try:
             logging.info("[INFO] Chargement de la base de connaissances...")
             print(Fore.YELLOW + "[INFO] Chargement de la base de connaissances..." + Style.RESET_ALL)
+            time.sleep(1)
             self.knowledge = load_knowledge(settings.KNOWLEDGE_PATH)
             if not self.knowledge:
                 logging.warning("[WARNING] Aucune connaissance valide trouvée.")
