@@ -36,7 +36,7 @@ def save_suggestion(q, r):
         print(Fore.RED + f"[ERROR] La sauvegarde q/r (ligne 31) à échoué: {e}" + Style.RESET_ALL)
         logging.error(f"[ERROR] La sauvegarde q/r (ligne 31) à échoué: {e}")
 
-def slowType(text, delay=0.2):
+def slowType(text, delay=settings.SLOWTYPE_TIME):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
@@ -47,7 +47,7 @@ async def status_swap(bot):
     await bot.change_presence(activity=discord.CustomActivity(next(status)))
     logging.info(f"[INFO] Changement de statut en cours...")
 #=============()
-@tasks.loop(seconds=settings.MEMORY_UPDATE_TIME)
+@tasks.loop(minutes=settings.MEMORY_UPDATE_TIME)
 async def save_memory_periodically():
     try:
         print(Fore.CYAN + "[INFO] Sauvegarde périodique de la mémoire..." + Style.RESET_ALL)
@@ -123,7 +123,7 @@ def display_banner():
     ║                                                                  ║
     ╚══════════════════════════════════════════════════════════════════╝
     """
-    print(Fore.CYAN + banner + Style.RESET_ALL)
+    slowType(Fore.CYAN + banner + Style.RESET_ALL)
     print(Fore.YELLOW + license_message + Style.RESET_ALL)
 
 def register_commands(bot_instance):
