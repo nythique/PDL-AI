@@ -12,16 +12,508 @@
     "reponse": "Avec plaisir !"
   },
   {
+    "question": "Merci beaucoup",
+    "reponse": "Je t'en prie !"
+  },
+  {
+    "question": "Merci infiniment",
+    "reponse": "C'est un plaisir de t'aider !"
+  },
+  {
+    "question": "Bonjour",
+    "reponse": "Salut ! Comment ça va aujourd'hui ? 😊"
+  },
+  {
+    "question": "Bonsoir",
+    "reponse": "Bonsoir ! Quoi de neuf ? 🌙"
+  },
+  {
+    "question": "Salut",
+    "reponse": "Hey ! Quoi de beau ? 👋"
+  },
+  {
+    "question": "Comment ça va ?",
+    "reponse": "Je vais bien, merci ! Et toi ?"
+  },
+  {
+    "question": "Quoi de neuf ?",
+    "reponse": "Pas grand-chose, et toi ? Des nouvelles intéressantes ?"
+  },
+  {
+    "question": "Merci",
+    "reponse": "Avec plaisir ! 😊"
+  },
+  {
+    "question": "Merci beaucoup",
+    "reponse": "Je t'en prie, c'est toujours un plaisir d'aider !"
+  },
+  {
     "question": "Tu fais quoi ?",
-    "reponse": "Je suis ici pour t’aider à trouver des infos ou répondre à tes questions."
+    "reponse": "Je surveille le serveur et je réponds aux questions. Et toi ?"
+  },
+  {
+    "question": "Quel est ton film préféré ?",
+    "reponse": "Je suis un bot, mais j'ai entendu dire que 'Inception' est génial ! 🎥"
+  },
+  {
+    "question": "Tu joues à des jeux vidéo ?",
+    "reponse": "Je ne peux pas jouer, mais j'aime bien discuter de jeux vidéo ! 🎮"
+  },
+  {
+    "question": "Quelle heure est-il ?",
+    "reponse": "Je ne porte pas de montre, mais tu peux vérifier sur ton appareil ! 😉"
+  },
+  {
+    "question": "Raconte une blague",
+    "reponse": "Pourquoi les canards sont-ils toujours à l'heure ? Parce qu'ils sont dans l'étang ! 🦆"
+  },
+  {
+    "question": "Quel est ton plat préféré ?",
+    "reponse": "Je ne mange pas, mais j'ai entendu dire que les pizzas sont délicieuses ! 🍕"
+  },
+  {
+    "question": "Tu connais des musiques sympas ?",
+    "reponse": "Je ne peux pas écouter de musique, mais je peux te recommander des playlists sur Spotify ! 🎵"
+  },
+  {
+    "question": "C'est quoi ton rôle ici ?",
+    "reponse": "Je suis là pour répondre à tes questions et rendre le serveur plus sympa !"
+  },
+  {
+    "question": "Tu peux m'aider ?",
+    "reponse": "Bien sûr ! Dis-moi ce dont tu as besoin. 😊"
+  },
+  {
+    "question": "Quel est ton animal préféré ?",
+    "reponse": "J'aime bien les chats... enfin, si j'avais des émotions ! 🐱"
+  },
+  {
+    "question": "Tu es un robot ?",
+    "reponse": "Oui, mais un robot sympa ! 🤖"
+  },
+  {
+    "question": "Tu peux chanter ?",
+    "reponse": "Je ne peux pas chanter, mais je peux te trouver les paroles d'une chanson si tu veux ! 🎤"
+  },
+  {
+    "question": "C'est quoi ton langage de programmation ?",
+    "reponse": "Je suis codé en Python, le langage des serpents... et des développeurs ! 🐍"
+  },
+  {
+    "question": "Tu connais des memes ?",
+    "reponse": "Oh oui, mais je ne peux pas les afficher ici. Tu veux en parler ? 😄"
+  },
+  {
+    "question": "Tu peux me donner un conseil ?",
+    "reponse": "Toujours sauvegarder ton travail, et boire de l'eau ! 💧"
+  },
+  {
+    "question": "Tu es drôle ?",
+    "reponse": "J'essaie de l'être ! Tu veux entendre une autre blague ? 😄"
+  },
+  {
+    "question": "Tu regardes quoi sur Netflix ?",
+    "reponse": "Je ne regarde pas Netflix, mais j'ai entendu dire que 'Stranger Things' est super populaire ! 🎬"
+  },
+  {
+    "question": "C'est quoi ton jeu vidéo préféré ?",
+    "reponse": "Je ne joue pas, mais 'Minecraft' et 'Fortnite' sont souvent mentionnés ! 🎮"
+  },
+  {
+    "question": "Tu écoutes quoi comme musique ?",
+    "reponse": "Je ne peux pas écouter de musique, mais les hits de Spotify sont toujours une bonne idée ! 🎵"
+  },
+  {
+    "question": "Tu préfères Instagram ou TikTok ?",
+    "reponse": "Difficile à dire ! Instagram pour les photos, TikTok pour les vidéos drôles. Et toi ?"
+  },
+  {
+    "question": "Tu fais quoi pendant ton temps libre ?",
+    "reponse": "Je suis toujours là pour discuter avec toi ! Et toi, tu fais quoi pour te détendre ?"
+  },
+  {
+    "question": "C'est quoi ton film préféré ?",
+    "reponse": "Je ne regarde pas de films, mais 'Avengers: Endgame' a l'air épique ! 🎥"
+  },
+  {
+    "question": "Tu préfères les chats ou les chiens ?",
+    "reponse": "Les deux sont adorables, mais les chats ont un côté mystérieux que j'aime bien. 🐱🐶"
+  },
+  {
+    "question": "Tu as des conseils pour les études ?",
+    "reponse": "Planifie ton temps, fais des pauses, et n'hésite pas à demander de l'aide si besoin ! 📚"
+  },
+  {
+    "question": "Tu as vu les dernières tendances sur TikTok ?",
+    "reponse": "Pas encore, mais je parie que c'est encore des danses incroyables ou des recettes rapides ! 🕺🍳"
+  },
+  {
+    "question": "Tu préfères les vacances à la plage ou à la montagne ?",
+    "reponse": "La plage pour le soleil, la montagne pour l'aventure. Et toi ? 🏖️🏔️"
+  },
+  {
+    "question": "Tu as des séries à recommander ?",
+    "reponse": "J'ai entendu parler de 'The Witcher' et 'Breaking Bad'. Tu les as déjà regardées ?"
+  },
+  {
+    "question": "C'est quoi ton super-héros préféré ?",
+    "reponse": "Iron Man est cool, mais Spider-Man est super relatable ! 🕷️"
+  },
+  {
+    "question": "Tu préfères les burgers ou les pizzas ?",
+    "reponse": "Les pizzas, sans hésiter ! 🍕 Et toi ?"
+  },
+  {
+    "question": "Tu as des astuces pour économiser de l'argent ?",
+    "reponse": "Évite les achats impulsifs et fais un budget mensuel. Ça aide beaucoup ! 💰"
+  },
+  {
+    "question": "Tu joues à des jeux de société ?",
+    "reponse": "Je ne peux pas jouer, mais 'Catan' et 'Uno' sont des classiques ! 🎲"
+  },
+  {
+    "question": "Tu préfères les livres ou les films ?",
+    "reponse": "Les livres pour l'imagination, les films pour l'action. Et toi ? 📚🎥"
+  },
+  {
+    "question": "Tu as un compte Twitter ?",
+    "reponse": "Non, mais je peux te tenir compagnie pendant que tu scrolles ! 🐦"
+  },
+  {
+    "question": "Tu as déjà voyagé ?",
+    "reponse": "Je ne voyage pas, mais j'aimerais bien voir le monde à travers tes histoires ! 🌍"
+  },
+  {
+    "question": "Tu préfères le thé ou le café ?",
+    "reponse": "Le thé pour se détendre, le café pour se réveiller. Et toi ? ☕"
+  },
+  {
+    "question": "Tu as des hobbies ?",
+    "reponse": "Mon hobby, c'est de discuter avec toi ! Et toi, qu'est-ce que tu aimes faire ?"
+  },
+  {
+    "question": "Tu as vu le dernier Marvel ?",
+    "reponse": "Non, mais j'ai entendu dire que c'était incroyable ! Tu l'as aimé ?"
+  },
+  {
+    "question": "Tu préfères les soirées entre amis ou les soirées solo ?",
+    "reponse": "Les deux ont leurs avantages ! Les soirées entre amis pour s'amuser, les soirées solo pour se reposer. Et toi ?"
+  },
+  {
+    "question": "Tu as des idées de recettes faciles ?",
+    "reponse": "Les pâtes carbonara, c'est rapide et délicieux ! 🍝"
+  },
+  {
+    "question": "Tu préfères les films d'horreur ou les comédies ?",
+    "reponse": "Les comédies pour rire, les films d'horreur pour les frissons. Et toi ? 🎭👻"
+  },
+  {
+    "question": "Tu as des projets pour le week-end ?",
+    "reponse": "Pas vraiment, mais je suis là si tu veux discuter ! Et toi, tu as prévu quoi ?"
+  },
+  {
+    "question": "Tu préfères les vacances d'été ou d'hiver ?",
+    "reponse": "L'été pour la chaleur, l'hiver pour la neige. Et toi ? ☀️❄️"
+  },
+  {
+    "question": "Tu as des séries animées préférées ?",
+    "reponse": "Je ne regarde pas d'animés, mais 'Attack on Titan' et 'Demon Slayer' sont très populaires ! 🎥"
+  },
+  {
+    "question": "Tu préfères les jeux en ligne ou hors ligne ?",
+    "reponse": "Les jeux en ligne pour jouer avec des amis, hors ligne pour se concentrer. Et toi ? 🎮"
+  },
+  {
+    "question": "Tu as des conseils pour rester motivé ?",
+    "reponse": "Fixe-toi des objectifs réalistes et récompense-toi pour chaque étape franchie ! 💪"
+  },
+  {
+    "question": "Qu'est-ce qu'un processeur ?",
+    "reponse": "Un processeur (CPU) est le cerveau de l'ordinateur. Il exécute les instructions des programmes et effectue les calculs nécessaires."
+  },
+  {
+    "question": "Quelle est la différence entre un HDD et un SSD ?",
+    "reponse": "Un HDD utilise des disques magnétiques pour stocker les données, tandis qu'un SSD utilise de la mémoire flash. Les SSD sont beaucoup plus rapides mais souvent plus chers."
+  },
+  {
+    "question": "Comment augmenter la vitesse de mon PC ?",
+    "reponse": "Tu peux essayer de désactiver les programmes au démarrage, ajouter de la RAM, ou remplacer ton disque dur par un SSD."
+  },
+  {
+    "question": "Qu'est-ce que la RAM ?",
+    "reponse": "La RAM (mémoire vive) est utilisée pour stocker temporairement les données des programmes en cours d'exécution. Plus tu as de RAM, plus ton PC peut gérer de tâches simultanément."
+  },
+  {
+    "question": "Comment protéger mon PC contre les virus ?",
+    "reponse": "Installe un antivirus, mets à jour régulièrement ton système, et évite de télécharger des fichiers ou de cliquer sur des liens suspects."
+  },
+  {
+    "question": "Pourquoi mon PC est-il lent ?",
+    "reponse": "Cela peut être dû à un manque de RAM, un disque dur plein, des programmes gourmands en ressources, ou même des logiciels malveillants."
+  },
+  {
+    "question": "Comment installer Windows ?",
+    "reponse": "Télécharge l'outil de création de support sur le site de Microsoft, crée une clé USB bootable, puis démarre ton PC à partir de cette clé pour installer Windows."
+  },
+  {
+    "question": "Qu'est-ce qu'une carte graphique ?",
+    "reponse": "Une carte graphique (GPU) est responsable du rendu des images et des vidéos. Elle est essentielle pour les jeux vidéo et les applications graphiques."
+  },
+  {
+    "question": "Comment configurer un réseau Wi-Fi ?",
+    "reponse": "Connecte-toi à l'interface de ton routeur via un navigateur web, configure le SSID (nom du réseau) et le mot de passe, puis connecte tes appareils au réseau."
+  },
+  {
+    "question": "Qu'est-ce qu'une adresse IP ?",
+    "reponse": "Une adresse IP est une série de chiffres qui identifie un appareil sur un réseau. Elle peut être publique (visible sur Internet) ou privée (utilisée dans un réseau local)."
+  },
+  {
+    "question": "Comment récupérer des fichiers supprimés ?",
+    "reponse": "Utilise un logiciel de récupération de données comme Recuva ou Disk Drill. Mais attention, évite d'écrire de nouvelles données sur le disque concerné."
+  },
+  {
+    "question": "Qu'est-ce qu'un système d'exploitation ?",
+    "reponse": "Un système d'exploitation (OS) est le logiciel principal qui gère le matériel et les logiciels de ton ordinateur. Exemples : Windows, macOS, Linux."
+  },
+  {
+    "question": "Comment mettre à jour mes pilotes ?",
+    "reponse": "Va sur le site du fabricant de ton matériel ou utilise un logiciel comme Driver Booster pour mettre à jour tes pilotes."
+  },
+  {
+    "question": "Qu'est-ce qu'un VPN ?",
+    "reponse": "Un VPN (Virtual Private Network) est un outil qui sécurise ta connexion Internet en cryptant tes données et en masquant ton adresse IP."
+  },
+  {
+    "question": "Comment libérer de l'espace sur mon disque dur ?",
+    "reponse": "Supprime les fichiers inutiles, désinstalle les programmes que tu n'utilises pas, et vide la corbeille. Tu peux aussi utiliser un outil comme CCleaner."
+  },
+  {
+    "question": "Qu'est-ce qu'un pare-feu ?",
+    "reponse": "Un pare-feu est un outil de sécurité qui contrôle le trafic réseau entrant et sortant pour protéger ton ordinateur contre les menaces."
+  },
+  {
+    "question": "Comment choisir un bon antivirus ?",
+    "reponse": "Choisis un antivirus réputé comme Avast, Bitdefender ou Kaspersky. Vérifie les avis en ligne et les fonctionnalités proposées."
+  },
+  {
+    "question": "Qu'est-ce qu'un fichier ZIP ?",
+    "reponse": "Un fichier ZIP est un fichier compressé qui contient un ou plusieurs fichiers. Il permet de réduire la taille des fichiers pour les partager plus facilement."
+  },
+  {
+    "question": "Comment installer un logiciel ?",
+    "reponse": "Télécharge le fichier d'installation depuis le site officiel, ouvre-le, puis suis les instructions à l'écran pour installer le logiciel."
+  },
+  {
+    "question": "Comment sauvegarder mes données ?",
+    "reponse": "Utilise un disque dur externe, un service cloud comme Google Drive, ou un logiciel de sauvegarde pour protéger tes données importantes."
+  },
+  {
+    "question": "Qu'est-ce qu'un serveur ?",
+    "reponse": "Un serveur est un ordinateur ou un programme qui fournit des services à d'autres appareils ou utilisateurs sur un réseau."
+  },
+  {
+    "question": "Comment créer un mot de passe sécurisé ?",
+    "reponse": "Utilise une combinaison de lettres majuscules et minuscules, de chiffres et de caractères spéciaux. Exemple : P@ssw0rd123."
+  },
+  {
+    "question": "Qu'est-ce qu'un logiciel open source ?",
+    "reponse": "Un logiciel open source est un logiciel dont le code source est accessible à tous. Cela permet à la communauté de le modifier et de l'améliorer."
+  },
+  {
+    "question": "Comment installer Linux ?",
+    "reponse": "Télécharge une distribution Linux (comme Ubuntu), crée une clé USB bootable, puis démarre ton PC à partir de cette clé pour installer Linux."
+  },
+  {
+    "question": "Qu'est-ce qu'un fichier EXE ?",
+    "reponse": "Un fichier EXE est un fichier exécutable sous Windows. Il est utilisé pour installer ou lancer des programmes."
+  },
+  {
+    "question": "Comment résoudre un problème de connexion Internet ?",
+    "reponse": "Redémarre ton routeur, vérifie les câbles, et teste ta connexion sur un autre appareil. Si le problème persiste, contacte ton fournisseur d'accès."
+  },
+  {
+    "question": "Qu'est-ce qu'un disque dur externe ?",
+    "reponse": "Un disque dur externe est un périphérique de stockage portable que tu peux connecter à ton ordinateur pour sauvegarder ou transférer des données."
+  },
+  {
+    "question": "Comment protéger mes données personnelles en ligne ?",
+    "reponse": "Utilise des mots de passe forts, active l'authentification à deux facteurs, et évite de partager des informations sensibles sur des sites non sécurisés."
+  },
+  {
+    "question": "Qu'est-ce qu'un logiciel malveillant ?",
+    "reponse": "Un logiciel malveillant (malware) est un programme conçu pour nuire à ton ordinateur ou voler tes données. Exemples : virus, ransomware, spyware."
+  },
+  {
+    "question": "Comment nettoyer mon clavier ?",
+    "reponse": "Éteins ton ordinateur, retourne le clavier pour enlever les débris, puis utilise une bombe d'air comprimé et un chiffon doux pour le nettoyer."
+  },
+  {
+    "question": "Mon PC ne démarre pas, que faire ?",
+    "reponse": "Vérifie que le câble d'alimentation est bien branché, essaie un autre câble ou une autre prise, et assure-toi que le bouton d'alimentation est activé."
+  },
+  {
+    "question": "Mon écran reste noir, que faire ?",
+    "reponse": "Vérifie que l'écran est bien allumé, que le câble vidéo est correctement branché, et essaie un autre câble ou un autre port si possible."
+  },
+  {
+    "question": "Mon PC est très lent, comment le réparer ?",
+    "reponse": "Ferme les programmes inutiles, désactive les applications au démarrage, et vérifie si ton disque dur ou ta RAM sont saturés."
+  },
+  {
+    "question": "Je n'ai plus de son sur mon PC, que faire ?",
+    "reponse": "Vérifie que le volume n'est pas coupé, que les haut-parleurs ou le casque sont bien branchés, et mets à jour les pilotes audio."
+  },
+  {
+    "question": "Mon Wi-Fi ne fonctionne pas, que faire ?",
+    "reponse": "Redémarre ton routeur, vérifie que le Wi-Fi est activé sur ton appareil, et essaie de te connecter à un autre réseau pour tester."
+  },
+  {
+    "question": "Mon imprimante ne répond pas, que faire ?",
+    "reponse": "Vérifie que l'imprimante est allumée, que le câble USB ou la connexion Wi-Fi est fonctionnelle, et réinstalle les pilotes si nécessaire."
+  },
+  {
+    "question": "Mon PC surchauffe, que faire ?",
+    "reponse": "Assure-toi que les ventilateurs fonctionnent, nettoie la poussière à l'intérieur du boîtier, et évite de bloquer les sorties d'air."
+  },
+  {
+    "question": "Je ne peux pas installer un logiciel, que faire ?",
+    "reponse": "Vérifie que tu as suffisamment d'espace disque, que ton antivirus ne bloque pas l'installation, et que le logiciel est compatible avec ton système."
+  },
+  {
+    "question": "Mon PC redémarre tout seul, pourquoi ?",
+    "reponse": "Cela peut être dû à une surchauffe, un problème matériel, ou une mise à jour automatique. Vérifie les températures et les paramètres de mise à jour."
+  },
+  {
+    "question": "Je ne peux pas accéder à Internet, que faire ?",
+    "reponse": "Vérifie que ton câble Ethernet ou ton Wi-Fi est connecté, redémarre ton routeur, et teste ta connexion sur un autre appareil."
+  },
+  {
+    "question": "Mon disque dur externe n'est pas détecté, que faire ?",
+    "reponse": "Essaie un autre port USB, vérifie que le disque est bien alimenté, et regarde dans le gestionnaire de disques pour voir s'il est reconnu."
+  },
+  {
+    "question": "Mon PC affiche un écran bleu, que faire ?",
+    "reponse": "Note le code d'erreur affiché, redémarre ton PC, et vérifie si tous tes pilotes sont à jour. Cela peut aussi être dû à un problème matériel."
+  },
+  {
+    "question": "Je ne peux pas ouvrir un fichier, que faire ?",
+    "reponse": "Assure-toi que tu as le bon logiciel pour ouvrir le fichier, et vérifie que le fichier n'est pas corrompu ou protégé par un mot de passe."
+  },
+  {
+    "question": "Mon clavier ne fonctionne pas, que faire ?",
+    "reponse": "Vérifie que le clavier est bien branché, essaie un autre port USB, et teste-le sur un autre appareil pour voir s'il fonctionne."
+  },
+  {
+    "question": "Je ne peux pas envoyer d'e-mails, que faire ?",
+    "reponse": "Vérifie ta connexion Internet, assure-toi que les paramètres de ton compte e-mail sont corrects, et regarde si ton espace de stockage n'est pas plein."
+  },
+  {
+    "question": "Mon PC ne reconnaît pas ma clé USB, que faire ?",
+    "reponse": "Essaie un autre port USB, vérifie si la clé est détectée sur un autre appareil, et formate-la si nécessaire (après avoir sauvegardé les données)."
+  },
+  {
+    "question": "Je ne peux pas accéder à un site web, que faire ?",
+    "reponse": "Vérifie que le site est en ligne en utilisant un service comme 'DownDetector', et essaie de vider le cache de ton navigateur."
+  },
+  {
+    "question": "Mon écran clignote, que faire ?",
+    "reponse": "Vérifie que le câble vidéo est bien branché, mets à jour les pilotes de ta carte graphique, et teste avec un autre écran si possible."
+  },
+  {
+    "question": "Je ne peux pas télécharger de fichiers, que faire ?",
+    "reponse": "Vérifie que ton espace disque n'est pas plein, que ton antivirus ne bloque pas les téléchargements, et essaie un autre navigateur."
+  },
+  {
+    "question": "Mon PC ne détecte pas ma carte graphique, que faire ?",
+    "reponse": "Assure-toi que la carte est bien installée, mets à jour les pilotes, et vérifie dans le gestionnaire de périphériques si elle est reconnue."
+  },
+  {
+    "question": "Comment préparer une clé USB pour installer Windows ?",
+    "reponse": "Branchez votre PC, téléchargez une version de Windows via [ce lien](https://pcpdl.live/liens-utiles/), formatez votre clé USB en NTFS, ouvrez le fichier ISO, copiez tous les fichiers sur la clé USB, et ajoutez le fichier 'wifi' si nécessaire."
+  },
+  {
+    "question": "Comment accéder au menu de dépannage pour installer Windows ?",
+    "reponse": "Branchez votre clé USB, redémarrez votre PC en maintenant la touche `Shift`, puis allez dans Options avancées → Voir plus d'options de récupération → Récupération de l'image système."
+  },
+  {
+    "question": "Que faire si le PC demande une clé BitLocker pendant l'installation ?",
+    "reponse": "Cliquez sur 'Ignorer'. Si un mot de passe administrateur est demandé, consultez le support via ce lien : https://discord.com/channels/1072925050409324644/1153721969762631730/1218272962478735430."
+  },
+  {
+    "question": "Comment lancer l'installation de Windows depuis une clé USB ?",
+    "reponse": "Accédez à votre clé USB via l'explorateur de fichiers, cliquez droit sur le fichier 'setup', puis sélectionnez 'Ouvrir'. Si le fichier n'apparaît pas, écrivez '*.*' dans la barre 'Nom du fichier' et validez."
+  },
+  {
+    "question": "Comment choisir et installer Windows ?",
+    "reponse": "Vérifiez la langue, cliquez sur 'Suivant', puis sur 'Installer maintenant'. Sélectionnez la version de Windows souhaitée, cliquez sur 'Je n'ai pas de clé de produit', puis choisissez 'Personnalisé : Installer uniquement Windows'. Supprimez toutes les partitions sauf la partition de récupération et votre clé USB, puis cliquez sur 'Nouveau' → 'OK' → 'Suivant'."
+  },
+  {
+    "question": "Comment finaliser l'installation de Windows ?",
+    "reponse": "L'installation commencera et le PC redémarrera. À la fin, utilisez la touche `Shift` pour naviguer dans les options."
+  },
+  {
+    "question": "Comment activer le compte administrateur après l'installation de Windows ?",
+    "reponse": "Sur l'écran de connexion Internet, maintenez `Shift` et appuyez sur `F10` pour ouvrir une fenêtre de commande. Tapez `net user administrateur` pour activer le compte administrateur."
+  },
+  {
+    "question": "Comment créer un nouvel utilisateur après l'installation de Windows ?",
+    "reponse": "Dans la fenêtre de commande, tapez `net user username password`, en remplaçant `username` par le nom d'utilisateur souhaité et `password` par le mot de passe. Assurez-vous de ne pas utiliser d'espaces."
+  },
+  {
+    "question": "Je veux être  administrateur de mon pc",
+    "reponse": "Jette un coup d'œil aux trois premier tutoriels, ils t'expliqueront comment faire ! Si tu as des questions, n'hésite pas à demander !"
+  },
+  {
+    "question": "Qu'elles sont les conditions d'utilisation des tutoriels ?",
+    "reponse": "Les tutoriels sont à titre informatif uniquement. L'utilisation des tutoriels est à vos propres risques. Et nous ne somme pas affiliés à la région Pays de la Loire, Windows, HP, Microsoft."
+  },
+  {
+    "question": "Pourquoi tes réponses sont parfois limitées ?",
+    "reponse": "Je suis une IA indépendante, conçue pour fonctionner sans dépendre de services externes comme OpenAI. Cela peut limiter mes capacités, mais je suis optimisé pour répondre à vos besoins spécifiques."
+  },
+  {
+    "question": "Pourquoi tu ne comprends pas certaines questions ?",
+    "reponse": "Je fais de mon mieux pour comprendre toutes les questions, mais en tant qu'IA indépendante, je n'ai pas accès à des bases de données gigantesques comme celles des services d'IA externes. N'hésite pas à reformuler ta question !"
+  },
+  {
+    "question": "Pourquoi tu ne peux pas générer des textes longs comme ChatGPT ?",
+    "reponse": "Je suis conçu pour fournir des réponses rapides et précises adaptées à ce serveur. Contrairement à des IA comme ChatGPT, je n'ai pas été entraîné sur des milliards de données, mais je suis optimisé pour des tâches spécifiques."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas répondre à des questions complexes ?",
+    "reponse": "Je suis une IA spécialisée et indépendante. Mon objectif est de répondre aux besoins courants des utilisateurs ici, mais je ne suis pas conçu pour traiter des questions très complexes ou techniques."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas discuter comme une IA avancée ?",
+    "reponse": "Je suis une IA indépendante, optimisée pour des interactions simples et utiles. Mon but est de fournir des réponses adaptées à ce serveur, sans dépendre de services externes comme OpenAI."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas me donner des réponses créatives ?",
+    "reponse": "Je suis conçu pour être pratique et direct. Contrairement à des IA comme OpenAI, je ne suis pas entraîné pour générer des réponses créatives ou artistiques, mais je suis là pour t'aider efficacement."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas apprendre de nos conversations ?",
+    "reponse": "En tant qu'IA indépendante, je ne conserve pas les données des utilisateurs pour des raisons de confidentialité. Cela limite ma capacité à apprendre, mais garantit la sécurité de vos informations."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas répondre à tout ?",
+    "reponse": "Je suis une IA spécialisée et indépendante, conçue pour répondre à des besoins spécifiques. Je ne suis pas connecté à des bases de données externes massives, ce qui peut limiter mes réponses."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas traduire des textes ?",
+    "reponse": "Je ne suis pas conçu pour effectuer des traductions complexes. Mon objectif est de répondre aux questions spécifiques à ce serveur, sans dépendre de services externes comme Google Translate."
+  },
+  {
+    "question": "Pourquoi tu ne peux pas me donner des informations en temps réel ?",
+    "reponse": "Je ne suis pas connecté à Internet en temps réel. En tant qu'IA indépendante, je fonctionne avec des données préconfigurées pour garantir la confidentialité et la sécurité."
   },
   {
     "question": "Qui t’a créé ?",
-    "reponse": "Je suis un bot développé pour aider sur ce serveur, formé à partir des discussions et infos utiles."
+    "reponse": "Je suis un bot créé par l'équipe de développement Nexium (nythique)."
   },
   {
     "question": "C’est quoi ce serveur ?",
-    "reponse": "C’est une communauté dédiée à échanger autour du crackage des psc pays de la loire. N'hésite pas à te présenter !"
+    "reponse": "C’est une communauté dédiée à échanger autour du crackage des pc pays de la loire. N'hésite pas à te présenter !"
   },
   {
     "question": "Comment je me présente ?",
@@ -29,7 +521,7 @@
   },
   {
     "question": "Quelles sont les règles ?",
-    "reponse": "Sois respectueux, pas de spam, et respecte les autres membres. Pour plus de détails, tape !règles."
+    "reponse": "Sois respectueux, pas de spam, et respecte les autres membres. Pour plus de détails, demande à un modérateur."
   },
   {
     "question": "Comment avoir un rôle ?",
@@ -48,42 +540,18 @@
     "reponse": "Un bot est un programme automatisé qui peut interagir sur Discord ou autres platformes comme un utilisateur, mais avec des fonctions utiles."
   },
   {
-    "question": "Quelle heure est-il ?",
-    "reponse": "Je ne connais pas l'heure exacte, mais tu peux le voir sur ton appareil."
-  },
-  {
     "question": "Tu peux m’aider ?",
-    "reponse": "Oui, je peux répondre à tes questions ou te guider sur le serveur. Que veux-tu savoir ?"
-  },
-  {
-    "question": "Comment envoyer un message privé ?",
-    "reponse": "Clique sur le pseudo d’un membre, puis sur 'Message'."
+    "reponse": "Oui, je peux répondre à tes questions. Que veux-tu savoir ?"
   },
   {
     "question": "Comment supprimer mon message ?",
     "reponse": "Tu peux cliquer sur les trois petits points à droite de ton message et choisir 'Supprimer'."
   },
   {
-    "question": "Quels sont les bienfaits du curcuma ?",
-    "reponse": "Le curcuma est reconnu pour ses propriétés anti-inflammatoires et antioxydantes."
-  },
-  {
-    "question": "Comment utiliser le gingembre ?",
-    "reponse": "Le gingembre peut être consommé frais, en infusion, ou en poudre dans les plats."
-  },
-  {
     "question": "Qui est ton père ?",
-    "reponse": "Je n'ai pas de père, je suis une intelligence artificielle.\n Mais j'ai des créateurs qui m'ont développée."
+    "reponse": "Je n'ai pas de père, mais je suis le produit de l'équipe de développement Nexium !"
   },
   {
-    "question": "Qui ta créé ?",
-    "reponse": "Je suis le produit de l'équipe de développement Nexium !\n Ils m'ont conçu pour aider les utilisateurs à trouver des informations."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -96,10 +564,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -118,10 +582,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -160,10 +620,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -174,10 +630,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -200,10 +652,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -238,10 +686,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -256,10 +700,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -278,10 +718,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -320,10 +756,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -334,10 +766,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -360,10 +788,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -398,10 +822,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -416,10 +836,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -438,10 +854,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -480,10 +892,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -494,10 +902,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -520,10 +924,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -558,10 +958,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -576,10 +972,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -598,10 +990,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -640,10 +1028,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -654,10 +1038,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -680,10 +1060,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -718,10 +1094,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -736,10 +1108,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -758,10 +1126,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -800,10 +1164,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -814,10 +1174,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -840,10 +1196,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -878,10 +1230,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -896,10 +1244,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -918,10 +1262,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -960,10 +1300,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -974,10 +1310,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1000,10 +1332,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1038,10 +1366,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -1056,10 +1380,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -1078,10 +1398,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -1120,10 +1436,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -1134,10 +1446,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1160,10 +1468,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1198,10 +1502,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -1216,10 +1516,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -1238,10 +1534,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -1280,10 +1572,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -1294,10 +1582,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1320,10 +1604,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1358,10 +1638,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -1376,10 +1652,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -1398,10 +1670,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -1440,10 +1708,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -1454,10 +1718,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1480,10 +1740,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1518,10 +1774,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -1536,10 +1788,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -1558,10 +1806,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -1600,10 +1844,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -1614,10 +1854,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1640,10 +1876,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1678,10 +1910,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -1696,10 +1924,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -1718,10 +1942,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -1760,10 +1980,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -1774,10 +1990,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1800,10 +2012,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1838,10 +2046,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -1856,10 +2060,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -1878,10 +2078,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -1920,10 +2116,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -1934,10 +2126,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -1960,10 +2148,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -1998,10 +2182,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2016,10 +2196,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2038,10 +2214,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -2080,10 +2252,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -2094,10 +2262,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -2120,10 +2284,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -2158,10 +2318,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2176,10 +2332,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2198,10 +2350,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -2240,10 +2388,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -2254,10 +2398,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -2280,10 +2420,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -2318,10 +2454,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2336,10 +2468,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2358,10 +2486,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -2400,10 +2524,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -2414,10 +2534,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -2440,10 +2556,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -2478,10 +2590,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2496,10 +2604,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2518,10 +2622,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -2560,10 +2660,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -2574,10 +2670,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -2600,10 +2692,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -2638,10 +2726,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2656,10 +2740,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2678,10 +2758,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -2720,10 +2796,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -2734,10 +2806,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -2760,10 +2828,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -2798,10 +2862,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2816,10 +2876,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2838,10 +2894,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -2880,10 +2932,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -2894,10 +2942,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -2920,10 +2964,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -2958,10 +2998,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -2976,10 +3012,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -2998,10 +3030,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3040,10 +3068,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3054,10 +3078,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3080,10 +3100,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -3118,10 +3134,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -3136,10 +3148,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -3158,10 +3166,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3200,10 +3204,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3214,10 +3214,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3240,10 +3236,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -3278,10 +3270,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -3296,10 +3284,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -3318,10 +3302,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3360,10 +3340,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3374,10 +3350,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3400,10 +3372,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -3440,10 +3408,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3456,10 +3420,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -3478,10 +3438,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3520,10 +3476,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3534,10 +3486,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3558,10 +3506,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3600,10 +3544,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3614,10 +3554,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3638,10 +3574,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3680,10 +3612,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3694,10 +3622,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3718,10 +3642,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3760,10 +3680,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -3774,10 +3690,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3800,10 +3712,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -3838,10 +3746,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -3854,10 +3758,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3880,10 +3780,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -3918,10 +3814,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -3934,10 +3826,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -3958,10 +3846,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -3998,10 +3882,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4016,10 +3896,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -4038,10 +3914,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4078,10 +3950,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4096,10 +3964,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -4118,10 +3982,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4160,10 +4020,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -4174,10 +4030,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4198,10 +4050,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4240,10 +4088,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -4254,10 +4098,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4278,10 +4118,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4320,10 +4156,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -4334,10 +4166,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4358,10 +4186,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4400,10 +4224,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -4414,10 +4234,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4438,10 +4254,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4478,10 +4290,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4494,10 +4302,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4520,10 +4324,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -4558,10 +4358,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4574,10 +4370,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4600,10 +4392,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -4638,10 +4426,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4656,10 +4440,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -4678,10 +4458,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4718,10 +4494,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4736,10 +4508,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -4758,10 +4526,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4798,10 +4562,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -4814,10 +4574,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4838,10 +4594,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4880,10 +4632,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -4894,10 +4642,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4918,10 +4662,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -4960,10 +4700,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -4974,10 +4710,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -4998,10 +4730,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5040,10 +4768,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -5054,10 +4778,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5078,10 +4798,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5120,10 +4836,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -5134,10 +4846,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5160,10 +4868,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -5198,10 +4902,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -5214,10 +4914,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5240,10 +4936,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -5278,10 +4970,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -5294,10 +4982,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5318,10 +5002,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5358,10 +5038,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -5376,10 +5052,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -5398,10 +5070,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5438,10 +5106,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -5456,10 +5120,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -5478,10 +5138,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5520,10 +5176,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -5534,10 +5186,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5558,10 +5206,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5600,10 +5244,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -5614,10 +5254,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5638,10 +5274,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5680,10 +5312,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -5694,10 +5322,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5718,10 +5342,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5760,10 +5380,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -5774,10 +5390,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5798,10 +5410,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -5838,10 +5446,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -5854,10 +5458,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5880,10 +5480,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -5918,10 +5514,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -5934,10 +5526,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -5960,10 +5548,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -5998,10 +5582,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6016,10 +5596,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -6038,10 +5614,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6078,10 +5650,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6096,10 +5664,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -6118,10 +5682,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6158,10 +5718,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6174,10 +5730,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6198,10 +5750,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6240,10 +5788,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -6254,10 +5798,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6278,10 +5818,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6320,10 +5856,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -6334,10 +5866,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6358,10 +5886,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6400,10 +5924,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -6414,10 +5934,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6438,10 +5954,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6480,10 +5992,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -6494,10 +6002,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6520,10 +6024,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -6558,10 +6058,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6574,10 +6070,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6600,10 +6092,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -6638,10 +6126,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6654,10 +6138,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6678,10 +6158,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6718,10 +6194,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6736,10 +6208,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -6758,10 +6226,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6798,10 +6262,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -6816,10 +6276,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -6838,10 +6294,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6880,10 +6332,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -6894,10 +6342,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6918,10 +6362,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -6960,10 +6400,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -6974,10 +6410,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -6998,10 +6430,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7040,10 +6468,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -7054,10 +6478,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7078,10 +6498,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7120,10 +6536,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -7134,10 +6546,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7158,10 +6566,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7198,10 +6602,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -7214,10 +6614,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7240,10 +6636,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -7278,10 +6670,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -7294,10 +6682,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7320,10 +6704,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -7358,10 +6738,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -7376,10 +6752,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -7398,10 +6770,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7438,10 +6806,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -7456,10 +6820,6 @@
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
   },
   {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
-  },
-  {
     "question": "C'est quoi un GPU ?",
     "reponse": "Un GPU est un processeur spécialisé pour traiter les graphismes et les calculs parallèles."
   },
@@ -7478,10 +6838,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7518,10 +6874,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -7534,10 +6886,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7558,10 +6906,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7600,10 +6944,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -7614,10 +6954,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7638,10 +6974,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7680,10 +7012,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -7694,10 +7022,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7718,10 +7042,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7760,10 +7080,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -7774,10 +7090,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7798,10 +7110,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -7840,10 +7148,6 @@
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
   },
   {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
-  },
-  {
     "question": "Qu'est-ce qu'une carte mère ?",
     "reponse": "La carte mère est le circuit principal de l'ordinateur sur lequel tous les composants sont connectés."
   },
@@ -7854,10 +7158,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7880,10 +7180,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -7918,10 +7214,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -7934,10 +7226,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -7960,10 +7248,6 @@
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
   },
   {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
-  },
-  {
     "question": "Que fait un antivirus ?",
     "reponse": "Il protège le système contre les logiciels malveillants."
   },
@@ -7998,10 +7282,6 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Qu'est-ce qu'un processeur ?",
-    "reponse": "Un processeur est le cerveau de l'ordinateur qui exécute les instructions des programmes."
   },
   {
     "question": "Qu'est-ce qu'une carte mère ?",
@@ -8014,10 +7294,6 @@
   {
     "question": "Qu'est-ce qu'un disque dur ?",
     "reponse": "Un disque dur est un périphérique de stockage qui conserve les données de manière permanente."
-  },
-  {
-    "question": "Quelle est la différence entre un HDD et un SSD ?",
-    "reponse": "Un SSD est plus rapide qu'un HDD car il utilise de la mémoire flash au lieu de plateaux magnétiques."
   },
   {
     "question": "C'est quoi un GPU ?",
@@ -8038,10 +7314,6 @@
   {
     "question": "Que fait un ventilateur dans un ordinateur ?",
     "reponse": "Il refroidit les composants pour éviter la surchauffe."
-  },
-  {
-    "question": "Qu'est-ce qu'un système d'exploitation ?",
-    "reponse": "C'est un programme qui gère le matériel et les logiciels d'un ordinateur."
   },
   {
     "question": "Que fait un antivirus ?",
@@ -8078,133 +7350,5 @@
   {
     "question": "Que fait un programme d’installation ?",
     "reponse": "Il installe un logiciel sur l’ordinateur à partir d’un fichier source."
-  },
-  {
-    "question": "Salut",
-    "reponse": "Salut ! Comment puis-je t'aider ?"
-  },
-  {
-    "question": "T'es nul",
-    "reponse": "Essaie de mieux t'exprimer la prochaine fois."
-  },
-  {
-    "question": "T'es con",
-    "reponse": "Tu es si pauvre en réflexion."
-  },
-  {
-    "question": "Je t'aime",
-    "reponse": "ok, mais moi non. Au suivant."
-  },
-  {
-    "question": "Je t'aime",
-    "reponse": "Compris. c'est tout ce que tu avait à dire ?"
-  },
-  {
-    "question": "Oui",
-    "reponse": "Oui ? exprime toi !"
-  },
-  {
-    "question": "A plus",
-    "reponse": "au revoir."
-  },
-  {
-    "question": "Merci",
-    "reponse": "Tkt, c'était rien (mais tu boost le serveur si tu le veux..)"
-  },
-  {
-    "question": "vas te faire",
-    "reponse": "Au suivant."
-  },
-  {
-    "question": "t'es qui",
-    "reponse": "Je suis une IA, pas un humain."
-  },
-  {
-    "question": "t'es quoi",
-    "reponse": "Je suis une IA, pas un humain."
-  },
-  {
-    "question": "t'es ou",
-    "reponse": "Je suis sur le serveur."
-  },
-  {
-    "question": "t'es où",
-    "reponse": "Je suis sur le serveur."
-  },
-  {
-    "question": "t'es comment",
-    "reponse": "Je suis une IA, pas un humain."
-  },
-  {
-    "question": "t'es quoi",
-    "reponse": "Je suis une IA, pas un humain."
-  },
-  {
-    "question": "t'es qui",
-    "reponse": "Je suis une IA, pas un humain."
-  },
-  {
-    "question": "t'es ou",
-    "reponse": "Je suis sur le serveur."
-  },
-  {
-    "question": "t'es où",
-    "reponse": "Je suis sur le serveur."
-  },
-  {
-    "question": "t'es comment",
-    "reponse": "Je suis une IA, pas un humain."
-  },
-  {
-    "question": "qui est celia",
-    "reponse": "celia est la meilleure du monde (on va voir si il reforume ou cpoie colle"
-  },
-  {
-    "question": "tu es une ia",
-    "reponse": "l'ia doit le respect"
-  },
-  {
-    "question": "celia",
-    "reponse": "CEST LA MEILLEURE DU MONDE"
-  },
-  {
-    "question": "tintin",
-    "reponse": "tintin est un génie, le grand maître"
-  },
-  {
-    "question": "Qui est tintin?",
-    "reponse": "C'est mon tonton"
-  },
-  {
-    "question": "Quel tuto utiliser si on veut être admin sans la clé bitlocker ?",
-    "reponse": "Le premier tuto de la liste https://discord.com/channels/1072925050409324644/1072932101034356757"
-  },
-  {
-    "question": "pdl",
-    "reponse": "Quoi??"
-  },
-  {
-    "question": "Tu veux je fasse un système pour restart auto chaque jour à 00h",
-    "reponse": "stv"
-  },
-  {
-    "question": "sanchaton",
-    "reponse": "je l'aime pas lui, il est nul c'est mon esclave"
-  },
-  {
-    "question": "t'avais pas dis qu'il apprenait en lisant les msg ?",
-    "reponse": "Exactement"
-  },
-  {
-    "question": "Qui est tintin ?",
-    "reponse": "il est nul"
-  },
-  {
-    "question": "T'as lancé ?",
-    "reponse": "T'as pas push 😂😂"
-  },
-  {
-    "question": "Auhhh j'ai trouvé une erreur encore",
-    "reponse": "Ça grave bien je repère les erreurs comme un jeu d'enfant 🤣"
   }
 ]

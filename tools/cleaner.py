@@ -1,4 +1,4 @@
-def longueur_valide(texte):
+def valid_length(texte):
     """
     Vérifie si la longueur du texte est comprise entre 5 et 250 caractères.
     """
@@ -6,7 +6,7 @@ def longueur_valide(texte):
         return False
     return 5 <= len(texte.strip()) <= 250
 
-def reponse_valide(reponse):
+def valid_answer(reponse):
     """
     Vérifie si la réponse contient au moins 3 mots.
     """
@@ -14,7 +14,7 @@ def reponse_valide(reponse):
         return False
     return len(reponse.strip().split()) >= 3
 
-def contient_spam(texte):
+def spam_blocker(texte):
     """
     Vérifie si le texte contient des éléments de spam comme des liens ou des mentions.
     """
@@ -22,14 +22,14 @@ def contient_spam(texte):
         return False
     return any(x in texte.lower() for x in ["http", "discord.gg", "@everyone"])
 
-def filtrer_pair(question, reponse, base_connaissance=None):
+def peer_filter(question, reponse, base_connaissance=None):
     """
     Filtre une paire question-réponse en fonction de plusieurs critères.
     """
-    if not longueur_valide(question) or not longueur_valide(reponse):
+    if not valid_length(question) or not valid_length(reponse):
         return False
-    if not reponse_valide(reponse):
+    if not valid_answer(reponse):
         return False
-    if contient_spam(question) or contient_spam(reponse):
+    if spam_blocker(question) or spam_blocker(reponse):
         return False
     return True

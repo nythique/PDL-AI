@@ -6,11 +6,13 @@ from itertools import cycle
 from discord.ext import commands, tasks
 from discord.ui import View, Button, Modal, TextInput, Select
 from cluster.vram import memory
+from tools.ocr import OCRProcessor as ocr
 import discord, time, os, sys, json, logging, asyncio
 
 nlp = HybridNLPEngine()
 status = settings.STATUS
 user_memory = memory()
+ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
 bot = None
 
 TEMP_QR = {}
@@ -174,7 +176,20 @@ def register_commands(bot_instance):
 
         if isinstance(message.channel, discord.DMChannel):
             try:
-                content = message.content.strip()
+                if message.attachments:
+                    for attachment in message.attachments:
+                        if any(attachment.filename.lower().endswith(ext) for ext in ['png', 'jpg', 'jpeg']):
+                            async with message.channel.typing():
+                                extracted_text = await ocr_analyser.process_attachment(attachment)
+                                if extracted_text.strip():
+                                    content += f" {extracted_text}"  # Ajouter le texte extrait au contenu
+                                    print(Fore.CYAN + f"[INFO] Texte extrait ajouté au message : {extracted_text}" + Style.RESET_ALL)
+                                    logging.info(f"[INFO] Texte extrait ajouté au message : {extracted_text}")
+                                else:
+                                    print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
+                                    logging.info("[INFO] Aucun texte détecté dans l'image.")
+                            break  # Ne traiter qu'une seule image par message
+                
                 user_context = user_memory.manage(user_id, content)
                 print(Fore.YELLOW + f"[INFO] Une interaction en DM est en cours" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction en DM est en cours")
@@ -190,7 +205,20 @@ def register_commands(bot_instance):
         keyWord = settings.NAME_IA
         if bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
             try:
-                content = message.content.strip()
+                if message.attachments:
+                    for attachment in message.attachments:
+                        if any(attachment.filename.lower().endswith(ext) for ext in ['png', 'jpg', 'jpeg']):
+                            async with message.channel.typing():
+                                extracted_text = await ocr_analyser.process_attachment(attachment)
+                                if extracted_text.strip():
+                                    content += f" {extracted_text}"  # Ajouter le texte extrait au contenu
+                                    print(Fore.CYAN + f"[INFO] Texte extrait ajouté au message : {extracted_text}" + Style.RESET_ALL)
+                                    logging.info(f"[INFO] Texte extrait ajouté au message : {extracted_text}")
+                                else:
+                                    print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
+                                    logging.info("[INFO] Aucun texte détecté dans l'image.")
+                            break  # Ne traiter qu'une seule image par message
+
                 user_context = user_memory.manage(user_id, content)
                 print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction est en cours dans le serveur")
@@ -207,7 +235,7 @@ def register_commands(bot_instance):
         if channel_id in settings.TRAINING_CHANNEL_ID:
             keyword = settings.TRAINING_TRIGGER
             channel = bot.get_channel(settings.ALERT_CHANNEL)
-            if content.endswith("?") or any(keyword in message.content for keyword in keyword):
+            if any(keyword in message.content for keyword in keyword):
                 TEMP_QR[channel_id] = {"question": content, "user_id": message.author.id}
             elif channel_id in TEMP_QR:
                 try:
@@ -217,13 +245,13 @@ def register_commands(bot_instance):
                         del TEMP_QR[channel_id]
                         if channel is not None and isinstance(channel, discord.TextChannel):
                             await channel.send(f"```CAPTURE A VALIDER ENREGISTREE```")
-                        print(Fore.WHITE + f"[DATA] Q/R capturée. En attente de validation." + Style.RESET_ALL)
-                        logging.info(f"[DATA] Q/R capturée. En attente de validation.")
+                        print(Fore.WHITE + f"[DATA] Capture du buffer. En attente de validation." + Style.RESET_ALL)
+                        logging.info(f"[DATA] Capture du buffer. En attente de validation.")
                 except Exception as e:
                     if channel is not None and isinstance(channel, discord.TextChannel):
                         await channel.send(f"```LA CAPTURE A ECHOUEE: {e}```")
-                    print(Fore.RED + f"[ERROR] Un erreur de capture de Q/R s'est produite : {e}" + Style.RESET_ALL)
-                    logging.error(f"[ERROR] Un erreur de capture de Q/R s'est produite : {e}")
+                    print(Fore.RED + f"[ERROR] Un erreur de capture du buffer s'est produite : {e}" + Style.RESET_ALL)
+                    logging.error(f"[ERROR] Un erreur de sapture du buffer s'est produite : {e}")
 
         await bot.process_commands(message)
 
@@ -269,7 +297,7 @@ def register_commands(bot_instance):
                 f.seek(0)
                 json.dump(data, f, ensure_ascii=False, indent=2)
                 f.truncate()
-            await interaction.response.send_message("L'information a bien été commitée dans la base de connaissance.", ephemeral=True)
+            await interaction.response.send_message("L'information a bien été commitée dans le cloud.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Une information a été commitée par {interaction.user.name}" + Style.RESET_ALL)
             logging.info(f"[INFO] Une information: {question} a été commitée par {interaction.user.name}")
         except Exception as e:
@@ -281,8 +309,8 @@ def register_commands(bot_instance):
     async def empty(interaction: discord.Interaction):
         if not interaction.user.id in settings.ROOT_UER:
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
-            print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs et q/r : {interaction.user.name}" + Style.RESET_ALL)
-            logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs et q/r : {interaction.user.name}")
+            print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs et le buffer: {interaction.user.name}" + Style.RESET_ALL)
+            logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs et le buffer: {interaction.user.name}")
             return
         files_to_clear = {
             "Log File": settings.LOG_FILE,
@@ -312,6 +340,3 @@ def register_commands(bot_instance):
             await interaction.response.send_message("Tous les fichiers ont été vidés avec succès.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Tous les fichiers ont été vidés avec succès." + Style.RESET_ALL)
     
-    @bot.tree.command(name="show_memory", description="Afficher la mémoire utilisateur.")
-    async def show_memory(interaction: discord.Interaction):
-        await interaction.response.send_message(f"Conversations : {user_memory.conversations}", ephemeral=True)

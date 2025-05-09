@@ -6,6 +6,8 @@ KNOWLEDGE_PATH = "ia/server/cloud.json"
 CAPTURE_QR_PATH = "ia/server/buffer.json" 
 MEMORY_FILE = "cluster/temp/thread.json" 
 LOG_FILE = "logs/bot.log" 
+UPLOAD_IMAGES = "tools/assets/"
+TESSERACT_PATH = r"C:\\Program Files\Tesseract-OCR\tesseract.exe"
 
 # ========================== IDENTIFIANTS ET NOMS ==========================
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 

@@ -17,6 +17,12 @@ Une journalisation des different evenement du bot est incluse dans le système.
 ```bash
 pip install -r requirements.txt
 ```
+Installez également Tesseract OCR sur votre système:
+   Windows : Téléchargez et installez Tesseract OCR(https://github.com/tesseract-ocr/tesseract/releases/download/5.5.0/tesseract-ocr-w64-setup-5.5.0.20241111.exe).
+   Linux/Mac : Utilisez votre gestionnaire de paquets, par exemple :
+```
+sudo apt install tesseract-ocr
+```
 
 2. Remplacer le token (et la configuration de base) dans `config/settings.py`.
 

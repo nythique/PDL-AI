@@ -1,4 +1,8 @@
 discod.py
+colorama
 scikit-learn
 sentence_transformers
 torch
+pillow 
+pytesseract
+PyNaCl
