@@ -108,7 +108,7 @@ def display_banner():
     ██║     ██████╔╝ ███████╗██╗██║  ██║██║
     ╚═╝     ╚═════╝  ╚══════╝╚═╝╚═╚═╝╚═╝╚═╝
     """
-    version = "v1.0.0"
+    version = settings.VERSION
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     license_message = f"""
     ╔══════════════════════════════════════════════════════════════════╗
@@ -117,7 +117,7 @@ def display_banner():
     ║   All rights reserved.                                           ║
     ║                                                                  ║
     ║   Version: {version}                                                ║
-    ║   Bot started on: {current_date}                            ║
+    ║   Bot started on: {current_date}                             ║
     ║                                                                  ║
     ║   Unauthorized copying, distribution, or modification of this    ║
     ║   software is strictly prohibited. Use is subject to the terms   ║
@@ -168,12 +168,66 @@ def register_commands(bot_instance):
 
     @bot.event
     async def on_message(message):
-        if message.author.bot: return # Ignore les messages des bots
+        if message.author.bot: return 
+        if message.channel.id in settings.BLOCKED_CHANNEL_ID: return
 
         channel_id = message.channel.id
         content = message.content.strip()
         user_id = message.author.id
-
+        identif_key = ["Qui je suis ?", "Tu me connais ?", "Qui suis-je ?", "Je suis qui ?","Identifie moi !", "Je m'appelle comment ?"]
+        ordre_restart = ["Redémarre toi", "redémarre", "restart"]
+        numberMember = ["Combien de membres sur le serveur ?", "Nombres de membres sur le serveur", "Nombre de membre ?", "number of members on the server"]
+        
+        if any(key in content for key in ordre_restart):
+            if message.author.id in settings.ROOT_UER:
+                try:
+                    await message.reply(f"Je vais redémarrer, merci de votre patience !")
+                    print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
+                    logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
+                    await bot.close()
+                except Exception as e:
+                    await message.reply(f"C'est bien essayé, mais je ne peux pas redémarrer avec ton ordre !")
+                    print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
+                    logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
+                    return
+        if any(key in content for key in identif_key):
+            if message.author.id in settings.ROOT_UER:
+                try:
+                    await message.reply(f"Tu es {message.author.name}, un utilisateur privilégié et un agent de confiance ! qui joue un rôle essentiel dans mon bon fonctionnement.")
+                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
+                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
+                    return
+                except Exception as e:
+                    await message.reply(f"Je ne peux pas te dire qui tu es, mais je sais que tu es un utilisateur privilégié !")
+                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
+                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
+                    return
+            else:
+                try:
+                    member = message.author
+                    await message.reply(f"Tu es {message.author.name} ! 💀 membres du serveur depuis le {member.joined_at.strftime('%d/%m/%Y')}")
+                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
+                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
+                    return
+                except Exception as e:
+                    await message.reply(f"Je ne peux pas te dire qui tu es, mais je sais que tu es un utilisateur !")
+                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
+                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
+                    return
+        if any(key in content for key in numberMember):
+            try:
+                guild = message.guild
+                member_count = guild.member_count
+                await message.reply(f"Il y a actuellement {member_count} membres sur le serveur.")
+                print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
+                logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
+                return
+            except Exception as e:
+                await message.reply(f"Je ne peux pas te dire combien de membres il y a sur le serveur !")
+                print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
+                logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
+                return
+            
         if isinstance(message.channel, discord.DMChannel):
             try:
                 if message.attachments:
@@ -191,11 +245,15 @@ def register_commands(bot_instance):
                             break  # Ne traiter qu'une seule image par message
                 
                 user_context = user_memory.manage(user_id, content)
+                context_text = (
+                    " ".join([msg["content"] if isinstance(msg, dict) and "content" in msg else str(msg) for msg in user_context])
+                    if user_context else content
+                    )
                 print(Fore.YELLOW + f"[INFO] Une interaction en DM est en cours" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction en DM est en cours")
                 async with message.channel.typing():
                     await asyncio.sleep(settings.TYPING_TIME)
-                    response = nlp.get_answer(" ".join(user_context))
+                    response = nlp.get_answer(context_text)
                     await message.channel.send(response)
                 return
             except Exception as e:
@@ -220,11 +278,15 @@ def register_commands(bot_instance):
                             break  # Ne traiter qu'une seule image par message
 
                 user_context = user_memory.manage(user_id, content)
+                context_text = (
+                    " ".join([msg["content"] if isinstance(msg, dict) and "content" in msg else str(msg) for msg in user_context])
+                    if user_context else content
+                    )
                 print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction est en cours dans le serveur")
                 async with message.channel.typing():
                     await asyncio.sleep(settings.TYPING_TIME)
-                    response = nlp.get_answer(" ".join(user_context))
+                    response = nlp.get_answer(context_text)
                     await message.reply(response)
                 return
             except Exception as e:
@@ -300,6 +362,10 @@ def register_commands(bot_instance):
             await interaction.response.send_message("L'information a bien été commitée dans le cloud.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Une information a été commitée par {interaction.user.name}" + Style.RESET_ALL)
             logging.info(f"[INFO] Une information: {question} a été commitée par {interaction.user.name}")
+            global nlp
+            nlp = HybridNLPEngine()
+            print(Fore.CYAN + "[INFO] Base NLP rechargée après commit." + Style.RESET_ALL)
+            logging.info("[INFO] Base NLP rechargée après commit.")
         except Exception as e:
             await interaction.response.send_message(f"Une erreur s'est produite lors du commit : {e}", ephemeral=True)
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du commit : {e}" + Style.RESET_ALL)
@@ -332,6 +398,11 @@ def register_commands(bot_instance):
             except Exception as e:
                 errors.append(f"Erreur lors du vidage de {file_name} : {e}")
                 logging.error(f"[ERROR] Erreur lors du vidage de {file_name} : {e}")
+        user_memory.conversations.clear()
+        user_memory.last_message_time.clear()
+        user_memory.modified = True
+        print(Fore.CYAN + "[INFO] Mémoire RAM utilisateur vidée." + Style.RESET_ALL)
+        logging.info("[INFO] Mémoire RAM utilisateur vidée.")
         if errors:
             error_message = "\n".join(errors)
             await interaction.response.send_message(f"Des erreurs se sont produites :\n{error_message}", ephemeral=True)
@@ -340,3 +411,18 @@ def register_commands(bot_instance):
             await interaction.response.send_message("Tous les fichiers ont été vidés avec succès.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Tous les fichiers ont été vidés avec succès." + Style.RESET_ALL)
     
+    @bot.tree.command(name="invite", description="Lien d'invitation du bot.")
+    async def invite(interaction: discord.Interaction):
+        try:
+            if not interaction.user.id in settings.ROOT_UER:
+                await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
+                print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de récupérer le lien d'invitation : {interaction.user.name}" + Style.RESET_ALL)
+                logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de récupérer le lien d'invitation : {interaction.user.name}")
+                return
+            await interaction.response.send_message("Voici le lien d'invitation du bot : https://discord.com/oauth2/authorize?client_id=1294035883309142026&scope=bot", ephemeral=True)
+            print(Fore.GREEN + f"[INFO] Lien d'invitation envoyé à {interaction.user.name}" + Style.RESET_ALL)
+            logging.info(f"[INFO] Lien d'invitation envoyé à {interaction.user.name}")
+        except Exception as e:
+            await interaction.response.send_message(f"Une erreur s'est produite lors de l'envoi du lien d'invitation : {e}", ephemeral=True)
+            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi du lien d'invitation : {e}" + Style.RESET_ALL)
+            logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi du lien d'invitation : {e}")

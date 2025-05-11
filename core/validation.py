@@ -1,10 +1,12 @@
 from colorama import Fore, Style
 from config import settings
 from tools.cleaner import peer_filter  as cleaner
+from ia.nlp import HybridNLPEngine
 import discord, json, logging
 
 SUGGESTION_FILE = settings.CAPTURE_QR_PATH
 KNOWLEDGE_FILE = settings.KNOWLEDGE_PATH
+nlp = HybridNLPEngine()
 
 logging.basicConfig(
     filename=settings.LOG_FILE,
@@ -71,6 +73,11 @@ def register_validation(bot):
                 return
             with open(KNOWLEDGE_FILE, "r", encoding="utf-8") as f:
                 knowledge = json.load(f)
+            if not isinstance(knowledge, list):
+                await interaction.followup.send("La base de connaissances est corrompue ou n'est pas une liste.", ephemeral=True)
+                print(Fore.RED + "[ERROR] La base de connaissances n'est pas une liste !" + Style.RESET_ALL)
+                logging.error("[ERROR] La base de connaissances n'est pas une liste !")
+                return
             valid_count = 0
             for entry in suggestions:
                 question = entry.get("question", "").strip()
@@ -90,6 +97,10 @@ def register_validation(bot):
             await interaction.followup.send(f"{valid_count} Q/R ajoutées à la base après filtrage.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] {valid_count} Q/R ajoutées à la base après filtrage." + Style.RESET_ALL)
             logging.info(f"[INFO] {valid_count} Q/R ajoutées à la base après filtrage.")
+            global nlp
+            nlp = HybridNLPEngine()
+            print(Fore.CYAN + "[INFO] Base NLP rechargée après commit." + Style.RESET_ALL)
+            logging.info("[INFO] Base NLP rechargée après commit.")
         except Exception as e:
             await interaction.followup.send(f"❌ Une erreur de validation s'est produite : {e}", ephemeral=True)
             print(Fore.RED + f"[ERROR] Une erreur de validation s'est produite : {e}"+ Style.RESET_ALL)

@@ -28,8 +28,8 @@ class memory:
         self.last_message_time[user_id] = datetime.datetime.now()
         self.modified = True  # Indique que la mémoire a été modifiée
 
-        # Limite l'historique à max_history messages
-        self.conversations[user_id] = self.conversations[user_id][-self.max_history:]
+        if self.max_history > 0:
+            self.conversations[user_id] = self.conversations[user_id][-self.max_history:]
         return self.conversations[user_id]
 
     def clear_context(self, inactive_time_threshold=settings.MEMORY_CLEAR_MAX_TIME):
