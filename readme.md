@@ -7,8 +7,11 @@ Une journalisation des different evenement du bot est incluse dans le système.
 
 - `main.py` : point d'entrée du programme.
 - `bot.py` : instancie le bot et connecte les événements.
+- `cluster/` : gestion de la memoire.
 - `core/` : logique Discord (client et événements).
 - `ia/` : moteur IA + base de connaissances.
+- `logs/` : Journalisation.
+- `tools/` : fonctionnalitées additionnelles.
 - `config/settings.py` : configuration centrale.
 
 ## Installation
@@ -43,37 +46,38 @@ python main.py Où start start.bat (récommande vm)
 ```
 DiscordBot IA/
 │
-├── bot.py                      # Lanceur du bot (point d’entrée)
-├── main.py                     # Pour exécuter tout proprement
+├── bot.py                     # Lanceur du bot (point d’entrée)
+├── main.py                    # Pour exécuter par start.bat
+├── start.bat                  # Fichier pour executer primcipal
 │
+├── cluster/
+│   └── vram.py                # Gestionnaire de la memoire partielle
+│   └── temp/
+│       └── thread.json        # Memoire persistente pour IDF et SERB
+│             
 ├── config/
-│   └── settings.py             # Config globale (token, chemins, seuils, etc.)
+│   └── settings.py            # Config globale
 │
 ├── core/
-│   ├── client.py           # Classe pour configurer le bot Discord
-│   └── commands.py             # Commandes/événements Discord
-│
+│   ├── client.py              # Classe pour configurer le bot Discord
+│   └── commands.py            # Commandes/événements Discord
+│   └── validation.py          # Commandes de push
 ├── ia/
-│   ├── loader.py          # Lecture de la base JSON ou autre
-│   ├── nlp.py           # Traitement de texte (TF-IDF, recherche) - C’est le cerveau du bot
-│   └── captured_qr.json          # Données de Q/R apprise automatiquement (à valider avec /push)
-│   └── knowledge.json          # Tes données de questions/réponses
+│   ├── loader.py              # Lecture de la base JSON
+│   ├── nlp.py                 # Traitement de texte (TF-IDF, SERB, llama) 
+│   └── server /
+│       └── (Ensemble des fichier requis (deux json et un pdf))
 │
 ├── logs/
-│   └── bot.log                 # Fichier de logs généré automatiquement
+│   └── bot.log               # Fichier de logs généré automatiquement
 │
-├── requirements.txt             # Module requis
+├── tools/
+│   └── upload /  (Dossier pour les image temporaire telecharger)
+│   └── cleaner.py           # Outil de filtrage pour les ajout en memoire
+│   └── ocr.py               # Fichier d'analyse d'image
+│
+├── requirements.txt         # Module requis
 └── README.md                # Documentation
 ```
 
-### Résumé visuel du flux :
-```
-main.py
-   └── bot.py
-         ├── client.py => crée le bot
-         └── validation.py => Validation des Q/R detecter par le bot
-         └── commands.py   => lie les événements et commandes du bot
-                  └── nlp.py => traite les questions
-                          └── loader.py => lit le fichier JSON
-```
 

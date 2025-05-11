@@ -6,3 +6,5 @@ torch
 pillow 
 pytesseract
 PyNaCl
+PyPDF2
+groq

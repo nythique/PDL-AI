@@ -101,8 +101,8 @@ class HybridNLPEngine:
                 return self.answers[best_sbert_index]
             
             # Si aucune réponse pertinente, fallback API
-            logging.warning("[WARNING] Aucune réponse pertinente trouvée. Appel à l'API IA.")
-            print(Fore.MAGENTA + "[INFO] Appel à l'API IA externe..." + Style.RESET_ALL)
+            logging.warning("[WARNING] Aucune réponse pertinente trouvée. appel à l'llama")
+            print(Fore.MAGENTA + "[INFO] Appel à llama..." + Style.RESET_ALL)
             api_response = self.ask_api(question)
             return api_response
         
