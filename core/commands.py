@@ -116,8 +116,8 @@ def display_banner():
     ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
     ║   All rights reserved.                                           ║
     ║                                                                  ║
-    ║   Version: {version}                                                ║
-    ║   Bot started on: {current_date}                             ║
+    ║   Version: {version}                                                 ║
+    ║   Bot started on: {current_date}                            ║
     ║                                                                  ║
     ║   Unauthorized copying, distribution, or modification of this    ║
     ║   software is strictly prohibited. Use is subject to the terms   ║
@@ -174,9 +174,9 @@ def register_commands(bot_instance):
         channel_id = message.channel.id
         content = message.content.strip()
         user_id = message.author.id
-        identif_key = ["Qui je suis ?", "Tu me connais ?", "Qui suis-je ?", "Je suis qui ?","Identifie moi !", "Je m'appelle comment ?"]
-        ordre_restart = ["Redémarre toi", "redémarre", "restart"]
-        numberMember = ["Combien de membres sur le serveur ?", "Nombres de membres sur le serveur", "Nombre de membre ?", "number of members on the server"]
+        identif_key = ["Qui je suis","qui je suis", "Tu me connais","tu me connais", "Qui suis-je","qui suis-je", "Je suis qui","je suis qui","Identifie moi","identifie moi", "Je m'appelle comment ?","je m'appelle comment ?"]
+        ordre_restart = ["Redémarre toi","redémarre toi","restart"]
+        numberMember = ["Combien de membres sur le serveur","combien de membres sur le serveur", "Nombres de membres sur le serveur","nombres de membres sur le serveur", "Nombre de membre","nombre de membre", "number of members on the server"]
         
         if any(key in content for key in ordre_restart):
             if message.author.id in settings.ROOT_UER:

@@ -1,25 +1,21 @@
 {
     "conversations": {
+        "969287987672268840": [
+            "mute <@966851940325683261>",
+            "mute <@966851940325683261>"
+        ],
+        "966851940325683261": [
+            "C'est pas de la diffamation c'est un honneur",
+            "Coucou les congolais"
+        ],
         "1233020939898327092": [
-            "😭😭😭😭 regarde bien dans le document",
-            "D'accord. J'ai peut-être pas mentionné cela mais c'est moi ton créateur Nythique"
-        ],
-        "1021674756350677052": [
-            "il est très ......... original",
-            "un paysage s'il te plait"
-        ],
-        "1022541279227289770": [
-            "<@1294035883309142026> Donne moi le lien pour télécharger les ISO w10 et w11 en 64 bits sur le site microsoft"
-        ],
-        "612610965002911760": [
-            "pdl, redemarre toi",
-            "pdl, va dans <#1166099439115579413>"
+            "Comment on procède ?",
+            "Et bien de la première à la dernière. Tu peux fait un truc mieux pour expliquer selon ton document"
         ]
     },
     "last_message_time": {
-        "1233020939898327092": "2025-05-11T15:53:01.951848",
-        "1021674756350677052": "2025-05-11T16:13:46.125045",
-        "1022541279227289770": "2025-05-11T15:44:21.810923",
-        "612610965002911760": "2025-05-11T16:28:26.959796"
+        "969287987672268840": "2025-05-12T21:44:56.648392",
+        "966851940325683261": "2025-05-12T21:45:25.828790",
+        "1233020939898327092": "2025-05-12T21:45:21.369683"
     }
 }
