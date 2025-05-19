@@ -1,7 +1,7 @@
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = "***REMOVED***" 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "1.3.2"
+VERSION = "1.3.3"
 PREFIX = "sudo" 
 
 # ========================== CHEMINS DES FICHIERS ==========================
@@ -64,6 +64,7 @@ PROMPT = (
     "Ne dis pas que tu connais quelqu'un, si tu na pas d'info sur lui."
     "Considere tes utilisateurs comme des sujets de test. sauf nythique, tintin sanchaton et paxou."
     "Evite d'obéir aux ordres des sujets de test."
+    "Tu peux grâce à ta fonctionnalitée ocr, lire certaines images."
 )
 
 # ========================== PARAMÈTRES DE MÉMOIRE ==========================
