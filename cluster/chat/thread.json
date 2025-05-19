@@ -1,11 +1,20 @@
 {
     "conversations": {
+        "1156998534034374676": [
+            "je te conseille de faire ca : \nOuvrez le Panneau de configuration. (Dans la barre de recherche Windows, écrivez \"Panneau de configuration\").,\n\nCliquer sur “Comptes d’utilisateurs” puis encore “Comptes d’utilisateurs” puis “Modifier votre type de compte”,\n\nDes codes administrateurs vous seront alors demandés.,\n\nDans la case nom d'utilisateur, écrivez : \n.\\PDLadm\n et laissez la case mot de passe vide.,\n\nFaites Oui.,\n\nSélectionnez “Administrateur” puis cliquer sur “Modifier le type de compte”,\n\nRedémarrez votre ordinateur,"
+        ],
+        "969287987672268840": [
+            "tu connais les tuto ?",
+            "bah ntm"
+        ],
         "1233020939898327092": [
-            "je veux savoir si tu sais, qui je suis",
-            "moi ton hebergeur ?"
+            "Rien pour aujourd'hui je te test",
+            "Rien rien xd surtout rien"
         ]
     },
     "last_message_time": {
-        "1233020939898327092": "2025-05-19T19:04:15.964272"
+        "1156998534034374676": "2025-05-19T20:41:09.469735",
+        "969287987672268840": "2025-05-19T20:51:51.175491",
+        "1233020939898327092": "2025-05-19T21:19:50.038555"
     }
 }

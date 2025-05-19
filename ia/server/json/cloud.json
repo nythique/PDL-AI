@@ -1,6 +1,370 @@
 [
     {
-        "question": "test",
-        "reponse": "micro!"
+        "question": "Quelles sont les conditions à accepter avant de suivre ce tutoriel d'installation de Windows ?",
+        "reponse": "En utilisant ce tutoriel, vous certifiez avoir lu et accepté les conditions d’utilisation mentionnées en bas du document. Il est aussi recommandé d'utiliser une souris, même si ce n'est pas obligatoire."
+    },
+    {
+        "question": "Pourquoi est-il recommandé de brancher son PC pendant toute l'installation ?",
+        "reponse": "Il est recommandé de brancher votre PC tout au long de l'installation pour éviter toute interruption due à une panne de batterie, ce qui pourrait endommager le système ou interrompre l'installation."
+    },
+    {
+        "question": "Où peut-on télécharger l'ISO de Windows pour cette installation ?",
+        "reponse": "Vous pouvez télécharger l'ISO de Windows via le lien fourni dans le tutoriel : https://pcpdl.live/liens-utiles/."
+    },
+    {
+        "question": "Pourquoi faut-il formater la clé USB en NTFS ?",
+        "reponse": "Le format NTFS permet de copier de gros fichiers et assure la compatibilité avec l'installation de Windows à partir de la clé USB."
+    },
+    {
+        "question": "Comment copier les fichiers de l'ISO sur la clé USB ?",
+        "reponse": "Ouvrez le fichier ISO en double-cliquant dessus, sélectionnez tous les fichiers, copiez-les, puis collez-les sur la clé USB formatée en NTFS."
+    },
+    {
+        "question": "Pourquoi ajouter le fichier wifi sur la clé USB ?",
+        "reponse": "Le fichier wifi doit être ajouté sur la clé USB pour installer le pilote Wi-Fi si vous n'avez pas de câble ethernet lors de l'installation de Windows."
+    },
+    {
+        "question": "Comment accéder au menu de dépannage pour démarrer l'installation de Windows ?",
+        "reponse": "Branchez la clé USB sur le PC, redémarrez en maintenant la touche Shift, puis allez dans Options avancées > Voir plus d'options de récupération > Récupération de l'image système."
+    },
+    {
+        "question": "Que faire si le PC demande la clé BitLocker ou un mot de passe administrateur lors de l'installation ?",
+        "reponse": "Cliquez sur Ignorer pour la clé BitLocker. Si un mot de passe administrateur est demandé, consultez le lien Discord indiqué dans le tutoriel."
+    },
+    {
+        "question": "Comment lancer l'installation de Windows depuis la clé USB ?",
+        "reponse": "Fermez la fenêtre d'installation de Windows qui s'ouvre, cliquez sur Suivant, puis Avancé, Installer un pilote, OK. Dans l'explorateur, accédez à la clé USB, faites clic droit sur setup et choisissez Ouvrir. Si le fichier setup n'apparaît pas, tapez *.* dans la barre Nom du fichier."
+    },
+    {
+        "question": "Que faire si le fichier setup n'apparaît pas lors de l'installation ?",
+        "reponse": "Si le fichier setup n'apparaît pas, écrivez *.* dans la barre 'Nom du fichier' de l'explorateur, puis validez pour afficher tous les fichiers."
+    },
+    {
+        "question": "Quelles étapes suivre pour installer Windows après avoir lancé le setup ?",
+        "reponse": "Vérifiez la langue, cliquez sur Suivant, puis Installer maintenant. Sélectionnez la version de Windows souhaitée, cliquez sur Je n'ai pas de clé de produit (choisissez la version Professionnelle recommandée), puis Suivant, Personnalisé : Installer uniquement Windows. Supprimez toutes les partitions sauf la partition de récupération et la clé USB, puis cliquez sur Nouveau, OK, Suivant."
+    },
+    {
+        "question": "Pourquoi ne faut-il pas éteindre le PC après avoir supprimé les partitions ?",
+        "reponse": "Après avoir supprimé les partitions, il est important de ne plus éteindre le PC pour éviter de corrompre l'installation en cours."
+    },
+    {
+        "question": "Que faire pendant et après l'installation de Windows ?",
+        "reponse": "L'installation démarre et le PC redémarre. À la fin, utilisez la touche Shift pour naviguer dans les options."
+    },
+    {
+        "question": "Comment ouvrir une invite de commande pendant l'installation de Windows ?",
+        "reponse": "Sur l'écran de connexion Internet, maintenez la touche Shift et appuyez sur F10 pour ouvrir une fenêtre de commande."
+    },
+    {
+        "question": "Comment activer le compte administrateur sous Windows ?",
+        "reponse": "Dans l'invite de commande, tapez : net user administrateur /active:yes"
+    },
+    {
+        "question": "Comment créer un nouvel utilisateur administrateur sous Windows ?",
+        "reponse": "Dans l'invite de commande, tapez : net user /add username password (remplacez username et password par vos choix, sans espace). Pour afficher un nom complet, ajoutez /fullname:\"Prénom Nom\" après le mot de passe. Ajoutez l'utilisateur au groupe administrateurs avec : net localgroup administrateurs username /add. Si Windows est en anglais, utilisez administrator et administrators."
+    },
+    {
+        "question": "Comment installer le pilote Wi-Fi si je n'ai pas de câble ethernet ?",
+        "reponse": "Ouvrez l'explorateur avec explorer.exe, allez sur la clé USB, ouvrez sp150721.exe pour installer le pilote Wi-Fi, puis attendez quelques instants."
+    },
+    {
+        "question": "Comment finaliser la configuration de Windows après l'installation du pilote Wi-Fi ?",
+        "reponse": "Dans l'invite de commande, tapez cd oobe puis msoobe.exe, appuyez sur Entrée, attendez 30 secondes même si le message persiste, puis forcez l'arrêt de l'ordinateur en maintenant le bouton d'alimentation. Redémarrez le PC et connectez-vous avec le compte créé."
+    },
+    {
+        "question": "Pourquoi faut-il attendre 30 secondes après avoir lancé msoobe.exe ?",
+        "reponse": "Après avoir lancé msoobe.exe, il est conseillé d'attendre 30 secondes même si le message 'Veuillez patienter...' reste affiché, afin de s'assurer que la configuration se termine correctement."
+    },
+    {
+        "question": "Comment forcer l'arrêt de l'ordinateur si nécessaire pendant l'installation ?",
+        "reponse": "Pour forcer l'arrêt de l'ordinateur, maintenez le bouton d'alimentation enfoncé jusqu'à l'extinction complète de la machine."
+    },
+    {
+        "question": "Comment désactiver le compte administrateur après l'installation ?",
+        "reponse": "Ouvrez une invite de commande en tant qu'administrateur et tapez : net user administrateur /active:no"
+    },
+    {
+        "question": "Que faire après avoir terminé l'installation de Windows ?",
+        "reponse": "Connectez-vous à un réseau Wi-Fi et effectuez les mises à jour Windows."
+    },
+    {
+        "question": "Que faire si vous avez besoin d'aide supplémentaire pendant l'installation ?",
+        "reponse": "Si vous rencontrez des difficultés ou des messages d'erreur, consultez le lien Discord fourni dans le tutoriel pour obtenir de l'aide."
+    },
+    {
+        "question": "Comment lancer l'installation de Windows avec le fichier setup.exe ?",
+        "reponse": "Après avoir ouvert l'explorateur de fichiers via le menu de dépannage, accédez à votre clé USB, faites un clic droit sur le fichier setup.exe puis choisissez 'Ouvrir' pour démarrer l'installation de Windows."
+    },
+    {
+        "question": "Que faire si le fichier setup.exe n'apparaît pas dans l'explorateur lors de l'installation ?",
+        "reponse": "Si le fichier setup.exe n'apparaît pas, tapez *.* dans la barre 'Nom du fichier' de l'explorateur puis validez pour afficher tous les fichiers présents sur la clé USB."
+    },
+    {
+        "question": "Pourquoi faut-il utiliser le menu 'Installer un pilote' pour accéder au setup.exe ?",
+        "reponse": "Le menu 'Installer un pilote' permet d'ouvrir un explorateur de fichiers depuis le menu de dépannage, ce qui donne accès à la clé USB et au fichier setup.exe pour lancer l'installation de Windows."
+    },
+    {
+        "question": "Est-il possible de lancer setup.exe sans passer par le menu de dépannage ?",
+        "reponse": "Dans ce tutoriel, il est recommandé de passer par le menu de dépannage et l'option 'Installer un pilote' pour garantir que l'installation démarre correctement, surtout si le démarrage classique ne fonctionne pas."
+    },
+    {
+        "question": "Que faire si le double-clic sur setup.exe ne fonctionne pas ?",
+        "reponse": "Si le double-clic ne fonctionne pas, faites un clic droit sur setup.exe puis choisissez 'Ouvrir' dans le menu contextuel pour forcer le lancement du programme d'installation."
+    },
+    {
+        "question": "Quelles sont les conditions d'utilisation de ce tutoriel de déblocage Windows ?",
+        "reponse": "En utilisant ce tutoriel, vous certifiez avoir lu et accepté les conditions d’utilisation. Veuillez suivre attentivement chaque étape, car toute erreur est sous votre responsabilité. Lisez le tutoriel dans son intégralité avant de commencer."
+    },
+    {
+        "question": "Comment ouvrir une fenêtre de commande lors de la demande d'e-mail sous Windows ?",
+        "reponse": "Sur la page de demande de l'e-mail, maintenez la touche Majuscule (Shift) et appuyez sur F10. Cela ouvrira une fenêtre de commande."
+    },
+    {
+        "question": "Comment activer le compte administrateur via l'invite de commande ?",
+        "reponse": "Dans la fenêtre de commande, tapez : net user administrateur /active:yes puis appuyez sur Entrée."
+    },
+    {
+        "question": "Comment créer un nouvel utilisateur avec mot de passe sous Windows ?",
+        "reponse": "Dans la fenêtre de commande, tapez : net user /add username password en remplaçant 'username' par le nom d'utilisateur souhaité (sans espace) et 'password' par le mot de passe (sans espace)."
+    },
+    {
+        "question": "Comment ajouter un nom complet à l'utilisateur créé ?",
+        "reponse": "Pour afficher un nom complet, ajoutez /fullname:\"Prénom Nom\" à la commande de création d'utilisateur. Exemple : net user /add JohnDoe Password123 /fullname:\"John Doe\""
+    },
+    {
+        "question": "Comment ajouter l'utilisateur au groupe Administrateurs ?",
+        "reponse": "Tapez : net localgroup administrateurs username /add en remplaçant 'username' par le nom d'utilisateur choisi. Si votre installation est en anglais, utilisez 'administrator' et 'administrators' à la place."
+    },
+    {
+        "question": "Comment accéder au dossier oobe via l'invite de commande ?",
+        "reponse": "Dans la fenêtre de commande, tapez : cd oobe puis appuyez sur Entrée."
+    },
+    {
+        "question": "Comment exécuter msoobe.exe et à quoi sert cette commande ?",
+        "reponse": "Après être dans le dossier oobe, tapez : msoobe.exe puis appuyez sur Entrée. Cette commande permet de finaliser la configuration de Windows."
+    },
+    {
+        "question": "Que faire lorsque le message 'Veuillez patienter...' s'affiche après msoobe.exe ?",
+        "reponse": "Attendez 30 secondes même si le message 'Veuillez patienter...' reste affiché."
+    },
+    {
+        "question": "Comment forcer l'arrêt de l'ordinateur après la commande msoobe.exe ?",
+        "reponse": "Maintenez le bouton d’allumage enfoncé jusqu’à ce que l’ordinateur s’éteigne complètement."
+    },
+    {
+        "question": "Comment finaliser le déblocage de l'ordinateur après l'arrêt forcé ?",
+        "reponse": "Une fois l’ordinateur éteint, rallumez-le. Vous pourrez alors vous connecter avec le compte que vous avez créé."
+    },
+    {
+        "question": "Comment désactiver le compte administrateur après le déblocage ?",
+        "reponse": "Ouvrez une invite de commande en tant qu'administrateur et tapez : net user administrateur /active:no"
+    },
+    {
+        "question": "Quels sont les avantages d'avoir un compte administrateur après ce tutoriel ?",
+        "reponse": "En suivant ce tutoriel, vous obtenez les permissions administrateur sur votre compte, ce qui vous permet de gérer entièrement votre ordinateur."
+    },
+    {
+        "question": "Les créateurs de ce tutoriel sont-ils responsables en cas de problème ?",
+        "reponse": "Non, les créateurs de ce tutoriel ne sont pas affiliés à la région Pays de la Loire, Windows, HP ou Microsoft et ne peuvent être tenus responsables en cas de dommages causés par une mauvaise utilisation."
+    },
+    {
+        "question": "Que faire si j'ai accès à ma clé BitLocker ?",
+        "reponse": "Si vous avez accès à votre clé BitLocker, rendez-vous directement à l'étape 4 du tutoriel."
+    },
+    {
+        "question": "Quels sont les prérequis pour ce tutoriel de déblocage sans clé BitLocker ?",
+        "reponse": "Vous devez être sur la page de demande d'email de la région. Ce tutoriel part du principe que vous n'avez pas votre clé BitLocker et que BitLocker est désactivé."
+    },
+    {
+        "question": "Comment vérifier et désactiver BitLocker depuis l'invite de commande ?",
+        "reponse": "Ouvrez une fenêtre cmd (Shift + F10), tapez 'manage-bde -status' pour vérifier l'état de BitLocker. Si BitLocker est activé, tapez 'manage-bde -off C:' et attendez la désactivation."
+    },
+    {
+        "question": "Comment créer un compte administrateur temporaire sous Windows ?",
+        "reponse": "Dans l'invite de commande, tapez 'net user 123 abc /add' puis 'net localgroup administrateurs 123 /add' pour créer un compte administrateur temporaire nommé 123 avec le mot de passe abc."
+    },
+    {
+        "question": "Comment redémarrer l'ordinateur en mode avancé via la commande ?",
+        "reponse": "Dans l'invite de commande, tapez 'Shutdown /r /o /t 0' pour redémarrer l'ordinateur en mode avancé."
+    },
+    {
+        "question": "Comment accéder à l'invite de commandes après le redémarrage ?",
+        "reponse": "Après le redémarrage, cliquez sur 'Dépannage', puis sur 'Options avancées' et enfin sur 'Invite de commandes'. Si un compte administrateur est demandé, utilisez le compte '123' avec le mot de passe 'abc'."
+    },
+    {
+        "question": "Comment remplacer utilman.exe et narrator.exe pour obtenir une fenêtre administrateur ?",
+        "reponse": "Dans l'invite de commandes, tapez : 'C:', puis 'copy C:\\Windows\\System32\\utilman.exe C:\\Windows\\System32\\utilman.exe.old', puis 'copy C:\\Windows\\System32\\cmd.exe C:\\Windows\\System32\\utilman.exe'. Si vous êtes sous Windows 11, faites aussi : 'copy C:\\Windows\\System32\\narrator.exe C:\\Windows\\System32\\narrator.exe.old' puis 'copy C:\\Windows\\System32\\cmd.exe C:\\Windows\\System32\\narrator.exe'. Acceptez la confirmation si demandée."
+    },
+    {
+        "question": "Comment ouvrir une fenêtre administrateur à tout moment après la manipulation sur utilman.exe ?",
+        "reponse": "Après avoir remplacé utilman.exe, vous pouvez ouvrir une fenêtre administrateur sur la page de connexion en cliquant sur l'icône d'accessibilité ou en appuyant sur Win + U."
+    },
+    {
+        "question": "Pourquoi supprimer le compte 123 après l'opération ?",
+        "reponse": "Il est conseillé de supprimer le compte 123 avec la commande 'net user 123 /del' pour éviter tout risque de sécurité et de perte de droits administrateur."
+    },
+    {
+        "question": "Comment créer un compte administrateur définitif après avoir accédé à la session ?",
+        "reponse": "Après avoir ouvert une fenêtre de commande administrateur via Win + U, tapez 'net user PDLadm PDLadm /add' puis 'net localgroup administrateurs PDLadm /add' pour créer un compte administrateur nommé PDLadm."
+    },
+    {
+        "question": "Que faire si la commande Win + U ne fonctionne pas sous Windows 11 ?",
+        "reponse": "Si Win + U ne fonctionne pas, cliquez sur le logo d'accessibilité en bas à droite de l'écran de connexion, puis sur 'narrateur' pour ouvrir la fenêtre de commande administrateur."
+    },
+    {
+        "question": "Quels sont les risques à utiliser le compte PDLadm pour se connecter ?",
+        "reponse": "La région peut détecter l'utilisation du compte PDLadm et cela peut remplacer votre session de lycée sur l'écran de connexion. Vous devrez alors ressaisir tous vos identifiants."
+    },
+    {
+        "question": "Comment vérifier que le compte administrateur fonctionne correctement ?",
+        "reponse": "Connectez-vous à votre session lycée, ouvrez une invite de commande en tant qu'administrateur, entrez '.\\PDLadm' comme nom d'utilisateur et 'PDLadm' comme mot de passe pour valider les droits administrateur."
+    },
+    {
+        "question": "Comment faire en sorte que le mot de passe du compte PDLadm n'expire jamais ?",
+        "reponse": "Ouvrez 'Gestion de l'ordinateur' en tant qu'administrateur, allez dans 'Utilisateurs locaux et groupes', sélectionnez 'utilisateurs', double-cliquez sur PDLadm, cochez 'le mot de passe n'expire jamais', puis appliquez et fermez."
+    },
+    {
+        "question": "Que faire si vous êtes sous Windows 11 et que vous ne souhaitez pas réinitialiser le PC ?",
+        "reponse": "Sous Windows 11, il n'est plus obligatoire de réinitialiser le PC. Maintenez Shift, cliquez sur redémarrer, puis reprenez à l'étape 4 en sautant les étapes 6, 7 et 8."
+    },
+    {
+        "question": "Que faire si une confirmation est demandée lors de la copie des fichiers système ?",
+        "reponse": "Si une confirmation est demandée lors de la copie de fichiers système (utilman.exe ou narrator.exe), tapez O ou Y pour accepter."
+    },
+    {
+        "question": "Comment accéder rapidement à l'écran de verrouillage pour finaliser la manipulation ?",
+        "reponse": "Après avoir accès à votre session, appuyez sur Windows + L pour aller sur l'écran de verrouillage."
+    },
+    {
+        "question": "Que faire si je rencontre des problèmes et souhaite revenir sur le système de la région ?",
+        "reponse": "Vous pouvez à tout moment revenir sur le système de la région. Suivez les instructions adaptées à votre situation (PC modifié ou non modifié)."
+    },
+    {
+        "question": "Comment revenir sur le système de la région si mon PC n'est pas modifié ?",
+        "reponse": "Faites le tutoriel indiqué dans le canal <#1072932101034356757>. À l'étape du choix du réseau (Wifi ou Ethernet), sélectionnez votre réseau et cliquez sur Suivant. Si un message comme « Bienvenue chez Conseil Régional des Pays de la Loire – Direction des Lycées ! » ou un logo de la région apparaît, saisissez votre adresse email académique (prenom.nom@[RNE DE VOTRE LYCEE].paysdelaloire.education) et votre mot de passe."
+    },
+    {
+        "question": "Comment revenir sur le système de la région si mon PC est modifié avec les droits administrateur ?",
+        "reponse": "Appuyez sur Win + R, tapez « sysprep » et validez. Dans la fenêtre qui s'ouvre, choisissez « Entrer en mode OOBE (Out-Of-Box Experience) » et assurez-vous que l'option d'extinction est sur « Redémarrer », puis cliquez sur OK. Patientez et suivez les instructions affichées à l'écran."
+    },
+    {
+        "question": "Que faire si la commande sysprep ne fonctionne pas pour revenir sur la région ?",
+        "reponse": "Si sysprep ne fonctionne pas, suivez la procédure prévue pour un PC non modifié, en reprenant le tutoriel depuis le début."
+    },
+    {
+        "question": "Comment vérifier que la fenêtre sysprep est correctement configurée ?",
+        "reponse": "Votre fenêtre sysprep doit être configurée comme indiqué sur la photo du canal #💻revenir-sur-la-région : action de nettoyage sur « Entrer en mode OOBE » et extinction sur « Redémarrer »."
+    },
+    {
+        "question": "Quelles sont les conditions préalables pour activer Office sans email scolaire ?",
+        "reponse": "Avant de commencer, assurez-vous d'avoir installé la dernière version d'Office (Office 2021) sur votre ordinateur."
+    },
+    {
+        "question": "Comment ouvrir PowerShell en mode administrateur pour activer Office ?",
+        "reponse": "Appuyez sur Win + R pour ouvrir la boîte de dialogue Exécuter, tapez PowerShell puis appuyez sur Ctrl + Shift + Entrée pour lancer PowerShell en mode administrateur."
+    },
+    {
+        "question": "Quelle commande faut-il exécuter dans PowerShell pour activer Office ?",
+        "reponse": "Dans PowerShell, tapez la commande : irm https://get.activated.win | iex puis appuyez sur Entrée."
+    },
+    {
+        "question": "Que faire après avoir lancé la commande d'activation dans PowerShell ?",
+        "reponse": "Une deuxième fenêtre va s'ouvrir. Entrez d'abord le numéro 2, puis le numéro 1, en suivant les instructions à l'écran."
+    },
+    {
+        "question": "Que faire une fois l'activation d'Office terminée ?",
+        "reponse": "Patientez jusqu'à la fin du chargement, puis fermez la page. Office devrait maintenant être activé."
+    },
+    {
+        "question": "Où trouver un lien pour installer Office Professionnel Plus 2021 ?",
+        "reponse": "Vous pouvez télécharger Office Professionnel Plus 2021 via ce lien : https://tinyurl.com/OfficePaysDeLaLoire"
+    },
+    {
+        "question": "Qui est l'auteur de ce tutoriel d'activation d'Office ?",
+        "reponse": "Ce tutoriel a été écrit par Myuui."
+    },
+    {
+        "question": "Quels sont les différents moyens d'installer des logiciels et applications du Microsoft Store ?",
+        "reponse": "Il existe plusieurs méthodes pour installer des logiciels et applications du Microsoft Store : via le site officiel du Microsoft Store, via des liens .appx/.appxbundle/.msixbundle, ou en utilisant des méthodes alternatives pour certains logiciels."
+    },
+    {
+        "question": "Comment installer une application directement depuis le Microsoft Store ?",
+        "reponse": "Rendez-vous sur https://apps.microsoft.com/home?hl=fr-fr&gl=FR, recherchez l'application souhaitée, puis cliquez sur 'Télécharger' si le bouton est disponible. Une fois le téléchargement terminé, ouvrez le fichier et cliquez sur 'Installer'."
+    },
+    {
+        "question": "Que faire si le bouton 'Télécharger' n'est pas disponible sur la page d'une application du Microsoft Store ?",
+        "reponse": "Copiez le lien de la page de l'application, allez sur https://store.rg-adguard.net/, collez le lien et cliquez sur ✅. Téléchargez le fichier .appx, .appxbundle ou .msixbundle correspondant à votre application, puis ouvrez-le et cliquez sur 'Installer'."
+    },
+    {
+        "question": "Comment choisir le bon fichier à télécharger sur store.rg-adguard.net ?",
+        "reponse": "Repérez le lien contenant le nom de votre application et se terminant par .appx, .appxbundle ou .msixbundle. S'il y en a plusieurs, comparez les versions indiquées dans le nom du fichier pour choisir la plus récente ou adaptée."
+    },
+    {
+        "question": "Que faire si une alerte de sécurité bloque le téléchargement d'une application ?",
+        "reponse": "Selon votre navigateur, cliquez sur 'autoriser le téléchargement', 'enregistrer', ou faites un clic droit puis 'conserver' pour permettre le téléchargement du fichier."
+    },
+    {
+        "question": "Comment installer un logiciel à partir d'un fichier d'installation classique ?",
+        "reponse": "Téléchargez le fichier d'installation du logiciel, puis téléchargez la pièce jointe disponible dans le salon <#1350199494792183879>. Glissez le fichier d'installation sur cette pièce jointe pour lancer l'installation. Si cela ne fonctionne pas, essayez la méthode suivante."
+    },
+    {
+        "question": "Quelle est la méthode alternative pour installer certains logiciels si l'installation classique ne fonctionne pas ?",
+        "reponse": "Téléchargez le fichier d'installation du logiciel, créez un dossier dans vos téléchargements et déplacez-y le fichier. Faites un clic droit sur le fichier, choisissez 7zip puis 'extraire ici'. Ouvrez le dossier créé et lancez le fichier portant le nom du logiciel."
+    },
+    {
+        "question": "Que faire si le logiciel ne fonctionne pas après avoir essayé toutes les méthodes d'installation ?",
+        "reponse": "Si le logiciel ne fonctionne pas après avoir essayé la méthode classique et l'extraction avec 7zip, il n'est probablement pas possible d'installer ce logiciel sur votre système."
+    },
+    {
+        "question": "Pourquoi ne faut-il pas supprimer le dossier créé lors de l'installation d'un logiciel par extraction ?",
+        "reponse": "Ne supprimez jamais le dossier créé lors de l'extraction, car le logiciel fonctionne à partir de ce dossier. Pour l'utiliser, ouvrez ce dossier et lancez le fichier portant le nom du logiciel."
+    },
+    {
+        "question": "Quels sont les mots de passe d'accès BIOS pour les différentes générations de PC ?",
+        "reponse": "Pour les PC G8 (2021-2022) : ci5Z7mKU97. Pour les PC G9 1ère génération (2022-2023) : 1pvFXs2i5l (ce mot de passe a été changé sur la plupart des PC). Pour les PC G9 2ème génération (2023-2024) et G10 (2024-2025), le mot de passe est en cours de recherche."
+    },
+    {
+        "question": "Comment saisir les chiffres dans le mot de passe BIOS ?",
+        "reponse": "Pour écrire les chiffres dans le mot de passe BIOS, il faut utiliser la touche Shift (flèche du haut) et non la touche Verr. Maj."
+    },
+    {
+        "question": "Comment reconnaître un PC HP G9 1ère génération ?",
+        "reponse": "Si votre PC possède une étiquette HP Wolf Security à côté de l'étiquette Pentium, il s'agit d'un G9 1ère génération. Sinon, ce n'est pas un gen1."
+    },
+    {
+        "question": "Que se passe-t-il si je me connecte à mon compte de la région après avoir déverrouillé le BIOS ?",
+        "reponse": "Si vous vous connectez à votre compte de la région après avoir déverrouillé votre BIOS, il se rebloquera automatiquement avec un mot de passe différent."
+    },
+    {
+        "question": "Comment retirer le logo Pays de la Loire au démarrage du PC ?",
+        "reponse": "Pour retirer le logo Pays de la Loire au démarrage, il faut avoir déverrouillé le BIOS avec les mots de passe fournis et être administrateur sur le PC. Téléchargez le fichier 'hp-cmsl-1.7.1.exe', installez-le dans le path PowerShell, ouvrez PowerShell en tant qu'administrateur, exécutez la commande 'Set-ExecutionPolicy RemoteSigned' puis tapez 'T' pour autoriser tous les scripts. Ensuite, lancez la commande 'Clear-HPFirmwareBootLogo' pour retirer le logo."
+    },
+    {
+        "question": "Quels sont les prérequis pour retirer le logo Pays de la Loire au démarrage ?",
+        "reponse": "Vous devez avoir déverrouillé votre BIOS avec les mots de passe fournis et avoir les droits administrateur sur votre PC."
+    },
+    {
+        "question": "Comment installer l'outil nécessaire pour retirer le logo de démarrage HP ?",
+        "reponse": "Téléchargez le fichier 'hp-cmsl-1.7.1.exe' et choisissez l'option 'installer dans le path PowerShell' lors de l'installation."
+    },
+    {
+        "question": "Quelles commandes PowerShell utiliser pour retirer le logo de démarrage HP ?",
+        "reponse": "Ouvrez PowerShell en tant qu'administrateur, tapez 'Set-ExecutionPolicy RemoteSigned' puis validez avec 'T'. Ensuite, tapez 'Clear-HPFirmwareBootLogo' et appuyez sur Entrée."
+    },
+    {
+        "question": "Comment mettre un logo personnalisé au démarrage du PC HP ?",
+        "reponse": "Pour ajouter un logo personnalisé, utilisez la commande PowerShell : Set-HPFirmwareBootLogo -file votrefichierperso.jpg. Le fichier doit être au format JPEG/JPG, d'une résolution maximale de 1024x768 et d'une taille inférieure à 32751 octets."
+    },
+    {
+        "question": "Quelles sont les conditions pour le fichier image d'un logo personnalisé sur un PC HP ?",
+        "reponse": "L'image doit être au format JPEG ou JPG, avoir une résolution maximale de 1024x768 et une taille inférieure à 32751 octets."
+    },
+    {
+        "question": "Que faire si un mot de passe BIOS est encore actif lors du changement de logo ?",
+        "reponse": "Si vous avez gardé un mot de passe BIOS, ajoutez un espace puis écrivez le mot de passe de votre BIOS à la fin de la commande. Il est recommandé de supprimer le mot de passe BIOS dès que possible pour éviter tout problème."
+    },
+    {
+        "question": "Où trouver des photos pour aider à retirer le logo Pays de la Loire ?",
+        "reponse": "Des photos explicatives sont disponibles dans le salon Discord <#1278024746113437707>."
     }
 ]

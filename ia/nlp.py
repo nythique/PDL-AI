@@ -6,7 +6,7 @@ from config import settings
 from cluster.vram import memory
 from colorama import Fore, Style
 from groq import Groq
-import torch, logging, time, PyPDF2
+import torch, logging, time, PyPDF2, json, os
 
 logging.basicConfig(
     filename=settings.LOG_FILE,
@@ -20,6 +20,20 @@ class HybridNLPEngine:
         self.groq_client = Groq(api_key=settings.KEY) 
         self.pdf_passages = []
         self.conversation_history = []
+
+        try:
+            logging.info("[INFO] Initialisation de HybridNLPEngine...")
+            print(Fore.CYAN + "[INFO] Initialisation de HybridNLPEngine..." + Style.RESET_ALL)
+            with open(settings.KNOWLEDGE_PATH, "r", encoding="utf-8") as f:
+                self.cloud_knowledge = json.load(f)
+            self.cloud_questions = [item["question"] for item in self.cloud_knowledge]
+            self.cloud_answers = [item["reponse"] for item in self.cloud_knowledge]
+            self.cloud_tfidf = TfidfVectorizer().fit(self.cloud_questions)
+            self.cloud_vectors = self.cloud_tfidf.transform(self.cloud_questions)
+        except Exception as e:
+            logging.error(f"[ERROR] Erreur lors du chargement de la base de connaissances cloud : {e}")
+            print(Fore.RED + f"[ERROR] Erreur lors du chargement de la base de connaissances cloud : {e}" + Style.RESET_ALL)
+
         try:
             print(Fore.CYAN + "[INFO] Chargement du PDF..." + Style.RESET_ALL)
             logging.info("[INFO] Chargement du PDF...")
@@ -66,11 +80,6 @@ class HybridNLPEngine:
         sims = cosine_similarity(tfidf[-1], tfidf[:-1])[0]
         top_indices = sims.argsort()[-top_n:][::-1]
         return [(self.pdf_passages[i], sims[i]) for i in top_indices if sims[i] >= min_score]
-
-        #idx = sims.argmax()
-        #best = self.pdf_passages[idx]
-        #score = sims[0, idx]
-        #return best, score
 
     def ask_api(self, question, username=None, messages=None):
         try:
@@ -155,12 +164,20 @@ class HybridNLPEngine:
             logging.warning("[WARNING] Aucune réponse pertinente trouvée. appel à l'IA")
             print(Fore.MAGENTA + "[INFO] Appel à ollama" + Style.RESET_ALL)
             #(((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))
-             
+            # Recherche dans cloud.json
+            cloud_vector = self.cloud_tfidf.transform([question])
+            cloud_similarity = cosine_similarity(cloud_vector, self.cloud_vectors)
+            best_cloud_index = cloud_similarity.argmax()
+            best_cloud_score = cloud_similarity[0, best_cloud_index]
+
+            if best_cloud_score >= settings.MIN_SCORE_CLOUD:  # ajuste le seuil selon tes besoins
+                logging.info(f"[INFO] Réponse trouvée dans cloud.json : {self.cloud_answers[best_cloud_index]}")
+                return self.cloud_answers[best_cloud_index]
+
              # --- Amélioration du contexte PDF ---
-            MAX_PASSAGE_LENGTH = 500  # caractères max par passage
-            TOP_N = 3  # nombre de passages PDF à fournir
-            
-            pdf_passages = self.find_best_pdf_passage(question, top_n=TOP_N, min_score=0.6)
+            MAX_PASSAGE_LENGTH = settings.MAX_PASSAGE_LENGTH  # caractères max par passage
+            TOP_N = settings.TOP_N # nombre de passages PDF à fournir
+            pdf_passages = self.find_best_pdf_passage(question, top_n=TOP_N, min_score=settings.PDF_MIN_SCORE)
             pdf_passages = sorted(pdf_passages, key=lambda x: x[1], reverse=True)[:TOP_N]
             # Ajoute une instruction claire à l'IA
 
@@ -180,7 +197,7 @@ class HybridNLPEngine:
                     "role": "system",
                     "content": f"Extrait du PDF à utiliser pour répondre à la question suivante : '{question}'\n{passage}"
                 })
-                
+
             #(((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))
             api_response = self.ask_api(question, username, messages=messages)
             return api_response
