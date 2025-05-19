@@ -10,73 +10,57 @@ logging.basicConfig(
 )
 
 class memory:
-    """Classe pour gérer le contexte utilisateur en mémoire vive avec persistance."""
-
     def __init__(self, max_history=settings.HISTORY_LIMIT):
-        """Initialisation de la mémoire."""
         self.conversations = {}
         self.max_history = max_history
         self.last_message_time = {}
+        self.modified = False
         self.load_from_file()
-        self.modified = False  # Attribut pour suivre les modifications
-
-    def manage(self, user_id, message_content):
-        """Ajoute un message au contexte utilisateur et limite l'historique."""
-        if user_id not in self.conversations:
-            self.conversations[user_id] = []
-        self.conversations[user_id].append(message_content)
-        self.last_message_time[user_id] = datetime.datetime.now()
-        self.modified = True  # Indique que la mémoire a été modifiée
-
-        if self.max_history > 0:
-            self.conversations[user_id] = self.conversations[user_id][-self.max_history:]
-        return self.conversations[user_id]
 
     def clear_context(self, inactive_time_threshold=settings.MEMORY_CLEAR_MAX_TIME):
-        """Nettoie les contextes des utilisateurs inactifs."""
-        current_time = datetime.datetime.now()
-        inactive_users = [
-            user_id for user_id, last_message_time in self.last_message_time.items()
-            if (current_time - last_message_time).total_seconds() > inactive_time_threshold
-        ]
-        for user_id in inactive_users:
-            del self.conversations[user_id]
-            del self.last_message_time[user_id]
+        """Supprime la mémoire des utilisateurs inactifs depuis plus de inactive_time_threshold secondes."""
+        now = datetime.datetime.now()
+        to_remove = []
+        for user_id, last_time in self.last_message_time.items():
+            if (now - last_time).total_seconds() > inactive_time_threshold:
+                to_remove.append(user_id)
+        for user_id in to_remove:
+            self.conversations.pop(user_id, None)
+            self.last_message_time.pop(user_id, None)
             self.modified = True
 
+    def manage(self, user_id, message_content):
+        user_id = str(user_id)
+        if user_id not in self.conversations:
+            self.conversations[user_id] = []
+        if not self.conversations[user_id] or self.conversations[user_id][-1] != message_content:
+            self.conversations[user_id].append(message_content)
+            self.modified = True
+        self.last_message_time[user_id] = datetime.datetime.now()
+        if self.max_history > 0:
+            self.conversations[user_id] = self.conversations[user_id][-self.max_history:]
+        self.save_to_file()  # Sauvegarde automatique après chaque ajout
+        return self.conversations[user_id]
+
     def get_history(self, user_id):
-        """Récupère l'historique d'un utilisateur."""
+        user_id = str(user_id)
         return self.conversations.get(user_id, [])
 
-    def reset_user_context(self, user_id):
-        """Réinitialise le contexte d'un utilisateur."""
-        if user_id in self.conversations:
-            del self.conversations[user_id]
-        if user_id in self.last_message_time:
-            del self.last_message_time[user_id]
-
     def save_to_file(self):
-        """Sauvegarde l'état de la mémoire dans un fichier JSON."""
         try:
-            print(Fore.GREEN + "[INFO] Sauvegarde de la mémoire..." + Style.RESET_ALL)
-            logging.info("[INFO] Sauvegarde de la mémoire...")
             with open(settings.MEMORY_FILE, "w", encoding="utf-8") as f:
                 json.dump({
                     "conversations": self.conversations,
                     "last_message_time": {k: v.isoformat() for k, v in self.last_message_time.items()}
                 }, f, indent=4, ensure_ascii=False)
-            self.modified = False  # Réinitialiser l'état modifié après la sauvegarde
+            self.modified = False
         except Exception as e:
-            print(Fore.RED + f"[ERROR] Impossible de sauvegarder la mémoire : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Impossible de sauvegarder la mémoire : {e}")
 
     def load_from_file(self):
-        """Charge l'état de la mémoire depuis un fichier JSON."""
         if not os.path.exists(settings.MEMORY_FILE):
             return
         try:
-            print(Fore.GREEN + "[INFO] Chargement de la mémoire..." + Style.RESET_ALL)
-            logging.info("[INFO] Chargement de la mémoire...")
             with open(settings.MEMORY_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 self.conversations = data.get("conversations", {})
@@ -84,5 +68,4 @@ class memory:
                     k: datetime.datetime.fromisoformat(v) for k, v in data.get("last_message_time", {}).items()
                 }
         except Exception as e:
-            print(Fore.YELLOW + f"[ERROR] Impossible de charger la mémoire : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Impossible de charger la mémoire : {e}")

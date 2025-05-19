@@ -49,9 +49,6 @@ def add_to_knowledge(q, r):
         logging.error(f"[ERROR] Le téleversement de la sauvegarde a échoué")
 
 def is_duplicate(question, knowledge):
-    """
-    Vérifie si une question existe déjà dans la base de connaissances.
-    """
     print(Fore.YELLOW + f"[INFO] Vérification de la question : {question}" + Style.RESET_ALL)
     logging.info(f"[INFO] Vérification de la question : {question}")
     return any(entry["question"].strip().lower() == question.strip().lower() for entry in knowledge)

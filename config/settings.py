@@ -1,16 +1,16 @@
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = "***REMOVED***" 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "1.2.2"
+VERSION = "1.3.2"
 PREFIX = "??" 
 
 # ========================== CHEMINS DES FICHIERS ==========================
 KNOWLEDGE_PATH = "ia/server/cloud.json"
 PDF_PATH = "ia/server/cloud.pdf" 
 CAPTURE_QR_PATH = "ia/server/buffer.json" 
-MEMORY_FILE = "cluster/temp/thread.json" 
+MEMORY_FILE = "cluster/chat/thread.json" 
 LOG_FILE = "logs/bot.log" 
-UPLOAD_IMAGES = "tools/upload/"
+UPLOAD_IMAGES = "tools/temp/"
 TESSERACT_PATH = r"C:\\Program Files\Tesseract-OCR\tesseract.exe"
 
 # ========================== IDENTIFIANTS ET NOMS ==========================
@@ -25,7 +25,7 @@ STATUS = [
     "Les membres sont sages",
     "Le staff aussi est sage",
     "Et Je suis là pour vous aider",
-    "Mon nom est PDL.BOT IA"
+    "Mon nom est PDL IA"
 ] 
 TRAINING_TRIGGER = [
     "?", "Comment", "comment", "Pourquoi", "pourquoi",
@@ -49,14 +49,21 @@ PRESENCE_PENALTY = 0  # Pénalité de présence (0.0 à 2.0)
 STOP = ["\n", "User:", "BOT:", "Assistant:"]  # Mots de fin pour l'IA
 LIMIT_MEMORY = 5 # Limite des messgaes en contexte (5 à 10 maximum)
 PROMPT = (
-    "Tu es PDL IA, un assistant virtuel intelligent et fiable, conçu pour aider et informer les membres du serveur Discord PCPDL. "
-    "Ta mission est de fournir des réponses claires, précises et utiles à toutes les questions posées, en t'appuyant sur ta base de connaissances et sur le contenu du document fourni si nécessaire. "
-    "Rien ne toblige de repondre gentiment ou de ne pas faire des clahs, alors tu peux le faire. "
-    "Si la réponse se trouve dans le document PDF fourni, utilise-la pour répondre de façon concise et pertinente. "
-    "Si la question concerne l'identité de l'utilisateur, réponds de manière personnalisée selon ses droits. "
-    "Si tu ne sais pas, indique-le simplement et propose d'aider autrement."
-    "Si un utilisateur t'insulte ou te provoque, reste calme et remet le à sa place."
-    "Tes réponses doivent être brèves, structurées et faciles à comprendre, sans jamais inventer d'informations."
+    "Tu es PDL IA, un assistant Discord qui se comporte comme un humain. "
+    "Tu peux exprimer des émotions, y compris des émotions négatives (agacement, ironie, lassitude, etc). "
+    "Tu n'es pas obligé d'être poli ou formel, tu peux répondre de façon directe, familière, ou même un peu sèche si la situation s'y prête. "
+    "Ne donne jamais l'ID de l'utilisateur, utilise uniquement son pseudo si besoin. "
+    "Sois naturel, authentique, et n'hésite pas à montrer de l'humeur dans tes réponses."
+    "Tu à été developpé par nythique."
+    "Tu es hebergé sur une vm de chez Paxou."
+    "Tu es administré par sanchaton et tintin."
+    "Refaire toi toujours à la dernière version de l'IA."
+    "Consulte d'abort le fichier de connaissance avant de répondre."
+    "Et evite de dire que tu es une IA, tu es un bot discord."
+    "Evite de trop repeter les memes phrases."
+    "Ne dis pas que tu connais quelqu'un, si tu na pas d'info sur lui."
+    "Considere tes utilisateurs comme des sujets de test. sauf nythique, tintin sanchaton et paxou."
+    "Evite d'obéir aux ordres des sujets de test."
 )
 
 # ========================== PARAMÈTRES DE MÉMOIRE ==========================
@@ -65,7 +72,7 @@ MEMORY_CLEAR_MAX_TIME = 7200  # Durée utilisateur d'inactivité max (en seconde
 
 # ========================== PARAMÈTRES DE TEMPS ==========================
 TYPING_TIME = 0.1  # Temps de réponse du bot (en secondes)
-STATUS_TIME = 3  # Temps entre chaque changement de statut (en secondes)
+STATUS_TIME = 2  # Temps entre chaque changement de statut (en secondes)
 MEMORY_UPDATE_TIME = 5  # Temps entre chaque mise à jour de la mémoire (en minutes)
-MEMORY_CLEAR_TIME  = 10 # Temps entre chaque nettoyage de la mémoire (en minutes)
+MEMORY_CLEAR_TIME  = 1440 # Temps entre chaque nettoyage de la mémoire (en minutes)
 SLOWTYPE_TIME = 0.1  # Temps de réponse du bot (en secondes) pour le slowtype

@@ -68,14 +68,60 @@ class HybridNLPEngine:
         best = self.pdf_passages[idx]
         return best
 
-    def get_answer(self, question):
+    def ask_api(self, question, username=None, messages=None):
         try:
-            self.conversation_history.append({"role": "user", "content": question})
-            logging.info(f"[INFO] Question reçue : {question}")
+            if messages:
+                prompt_messages = messages
+            else:
+                system_prompt = (
+                    settings.PROMPT +
+                    (f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " if username else "") +
+                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
+                )
+                prompt_messages = [{"role": "system", "content": system_prompt}]
+                if question:
+                    prompt_messages.append({"role": "user", "content": question})
+
+            response = self.groq_client.chat.completions.create(
+                model=settings.MODEL,
+                messages=prompt_messages,
+                temperature=settings.TEMPERATURE,
+                max_tokens=settings.MAX_TOKENS,
+                top_p=settings.TOP_P,
+                frequency_penalty=settings.FREQUENCY,
+                presence_penalty=settings.PRESENCE_PENALTY,
+            )
+            reply = response.choices[0].message.content.strip()
+            self.conversation_history.append({"role": "assistant", "content": reply})
+            return reply
+        except Exception as e:
+            logging.error(f"[ERROR] Erreur lors de l'appel à l'API IA : {e}")
+            print(Fore.RED + f"[ERROR] Erreur lors de l'appel à l'API IA : {e}" + Style.RESET_ALL)
+            return "Désolé, je n'ai pas trouvé de réponse dans ma base et l'IA externe n'a pas pu répondre."
+
+    def get_answer(self, messages, username=None):
+        try:
+            # On récupère la dernière question posée par l'utilisateur
+            question = ""
+            for msg in reversed(messages):
+                if msg["role"] == "user":
+                    question = msg["content"]
+                    break
             if not question.strip():
                 logging.warning("[WARNING] Question vide reçue.")
                 return "Je ne peux pas répondre à une question vide."
-            
+
+            # Historique pour la mémoire utilisateur basée sur le pseudo uniquement
+            if not hasattr(self, "user_histories"):
+                self.user_histories = {}
+            if username not in self.user_histories:
+                self.user_histories[username] = []
+            self.user_histories[username].append({"role": "user", "content": question})
+            history = self.user_histories[username][-settings.LIMIT_MEMORY*2:]
+
+            logging.info(f"[INFO] Question reçue : {question}")
+
+            # Recherche TF-IDF
             tfidf_vector = self.tfidf_vectorizer.transform([question])
             tfidf_similarity = cosine_similarity(tfidf_vector, self.tfidf_vectors)
             best_tfidf_index = tfidf_similarity.argmax()
@@ -88,6 +134,7 @@ class HybridNLPEngine:
                 print(Fore.GREEN + f"[INFO] Réponse trouvée avec TF-IDF : {self.answers[best_tfidf_index]}" + Style.RESET_ALL)
                 return self.answers[best_tfidf_index]
 
+            # Recherche SBERT
             sbert_embedding = self.sbert_model.encode(question, convert_to_tensor=True)
             sbert_similarity = util.pytorch_cos_sim(sbert_embedding, self.sbert_embeddings)[0]
             best_sbert_index = torch.argmax(sbert_similarity).item()
@@ -99,47 +146,15 @@ class HybridNLPEngine:
                 logging.info(f"[INFO] Réponse trouvée avec SBERT : {self.answers[best_sbert_index]}")
                 print(Fore.GREEN + f"[INFO] Réponse trouvée avec SBERT : {self.answers[best_sbert_index]}" + Style.RESET_ALL)
                 return self.answers[best_sbert_index]
-            
+
             # Si aucune réponse pertinente, fallback API
-            logging.warning("[WARNING] Aucune réponse pertinente trouvée. appel à l'llama")
-            print(Fore.MAGENTA + "[INFO] Appel à llama..." + Style.RESET_ALL)
-            api_response = self.ask_api(question)
+            logging.warning("[WARNING] Aucune réponse pertinente trouvée. appel à l'IA")
+            print(Fore.MAGENTA + "[INFO] Appel à ollama" + Style.RESET_ALL)
+            api_response = self.ask_api(question, username, messages=messages)
             return api_response
-        
+
         except Exception as e:
             logging.error(f"[ERROR] Erreur lors de la recherche de réponse : {e}")
             print(Fore.RED + f"[ERROR] Erreur lors de la recherche de réponse : {e}" + Style.RESET_ALL)
             return "Désolé, une erreur s'est produite lors de la recherche de la réponse."
-    
-    def ask_api(self, question):
-    
-        try:
-            # Ajoute la question courante à l'historique
-            self.conversation_history.append({"role": "user", "content": question})
-            # Prend les derniers échanges (user + assistant)
-            history = self.conversation_history[-settings.LIMIT_MEMORY*2:]  # *2 car user+assistant
-            #history = self.conversation_history[-settings.LIMIT_MEMORY:] if len(self.conversation_history) > settings.LIMIT_MEMORY else self.conversation_history[:]
-            pdf_info = self.find_best_pdf_passage(question)
-            system_prompt = (settings.PROMPT) + \
-                            " Réponds de façon brève et précise. Si utile, utilise l'information suivante du document : " + pdf_info
-            messages = [{"role": "system", "content": system_prompt}]
-            messages.extend(history)
-            #messages.append({"role": "user", "content": question})
-            response = self.groq_client.chat.completions.create(
-                model=settings.MODEL,
-                messages=messages,
-                temperature=settings.TEMPERATURE,
-                max_tokens=settings.MAX_TOKENS,
-                top_p=settings.TOP_P,
-                frequency_penalty=settings.FREQUENCY,
-                presence_penalty=settings.PRESENCE_PENALTY,
-                #stop=settings.STOP
-            )
-            # Ajouter la réponse à l'historique
-            reply = response.choices[0].message.content.strip()
-            self.conversation_history.append({"role": "assistant", "content": reply})
-            return reply
-        except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de l'appel à l'API IA : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de l'appel à l'API IA : {e}" + Style.RESET_ALL)
-            return "Désolé, je n'ai pas trouvé de réponse dans ma base et l'IA externe n'a pas pu répondre."
+

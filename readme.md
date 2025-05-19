@@ -52,7 +52,7 @@ DiscordBot IA/
 │
 ├── cluster/
 │   └── vram.py                # Gestionnaire de la memoire partielle
-│   └── temp/
+│   └── chat/
 │       └── thread.json        # Memoire persistente pour IDF et SERB
 │             
 ├── config/
@@ -72,7 +72,7 @@ DiscordBot IA/
 │   └── bot.log               # Fichier de logs généré automatiquement
 │
 ├── tools/
-│   └── upload /  (Dossier pour les image temporaire telecharger)
+│   └── temp /  (Dossier pour les image temporaire telecharger)
 │   └── cleaner.py           # Outil de filtrage pour les ajout en memoire
 │   └── ocr.py               # Fichier d'analyse d'image
 │

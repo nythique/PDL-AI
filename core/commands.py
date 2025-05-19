@@ -174,10 +174,11 @@ def register_commands(bot_instance):
         channel_id = message.channel.id
         content = message.content.strip()
         user_id = message.author.id
-        identif_key = ["Qui je suis","qui je suis", "Tu me connais","tu me connais", "Qui suis-je","qui suis-je", "Je suis qui","je suis qui","Identifie moi","identifie moi", "Je m'appelle comment ?","je m'appelle comment ?"]
-        ordre_restart = ["Redémarre toi","redémarre toi","restart"]
+        ordre_restart = ["Redémarre toi","redémarre toi","va faire dodo"]
         numberMember = ["Combien de membres sur le serveur","combien de membres sur le serveur", "Nombres de membres sur le serveur","nombres de membres sur le serveur", "Nombre de membre","nombre de membre", "number of members on the server"]
         
+        
+
         if any(key in content for key in ordre_restart):
             if message.author.id in settings.ROOT_UER:
                 try:
@@ -190,30 +191,7 @@ def register_commands(bot_instance):
                     print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
                     logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
                     return
-        if any(key in content for key in identif_key):
-            if message.author.id in settings.ROOT_UER:
-                try:
-                    await message.reply(f"Tu es {message.author.name}, un utilisateur privilégié et un agent de confiance ! qui joue un rôle essentiel dans mon bon fonctionnement.")
-                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
-                    return
-                except Exception as e:
-                    await message.reply(f"Je ne peux pas te dire qui tu es, mais je sais que tu es un utilisateur privilégié !")
-                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
-                    return
-            else:
-                try:
-                    member = message.author
-                    await message.reply(f"Tu es {message.author.name} ! 💀 membres du serveur depuis le {member.joined_at.strftime('%d/%m/%Y')}")
-                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
-                    return
-                except Exception as e:
-                    await message.reply(f"Je ne peux pas te dire qui tu es, mais je sais que tu es un utilisateur !")
-                    print(Fore.YELLOW + f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Demande d'identité de l'utilisateur : {message.author.name}")
-                    return
+
         if any(key in content for key in numberMember):
             try:
                 guild = message.guild
@@ -227,7 +205,8 @@ def register_commands(bot_instance):
                 print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
                 logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
                 return
-            
+#((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))    
+
         if isinstance(message.channel, discord.DMChannel):
             try:
                 if message.attachments:
@@ -236,30 +215,47 @@ def register_commands(bot_instance):
                             async with message.channel.typing():
                                 extracted_text = await ocr_analyser.process_attachment(attachment)
                                 if extracted_text.strip():
-                                    content += f" {extracted_text}"  # Ajouter le texte extrait au contenu
+                                    content += f" {extracted_text}"
                                     print(Fore.CYAN + f"[INFO] Texte extrait ajouté au message : {extracted_text}" + Style.RESET_ALL)
                                     logging.info(f"[INFO] Texte extrait ajouté au message : {extracted_text}")
                                 else:
                                     print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
                                     logging.info("[INFO] Aucun texte détecté dans l'image.")
-                            break  # Ne traiter qu'une seule image par message
-                
+                            break
+
                 user_context = user_memory.manage(user_id, content)
-                context_text = (
-                    " ".join([msg["content"] if isinstance(msg, dict) and "content" in msg else str(msg) for msg in user_context])
-                    if user_context else content
-                    )
+                username = message.author.name
+                user_id = message.author.id
+
+                # Construction du prompt système sans l'ID
+                system_prompt = (
+                    settings.PROMPT +
+                    f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
+                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
+                )
+
+                # Construction de la liste messages pour l'IA
+                messages = []
+                messages.append({"role": "system", "content": system_prompt})
+                for msg in user_context:
+                    if isinstance(msg, dict) and "role" in msg and "content" in msg:
+                        messages.append({"role": msg["role"], "content": msg["content"]})
+                    else:
+                        messages.append({"role": "user", "content": str(msg)})
+                messages.append({"role": "user", "content": content})
+
                 print(Fore.YELLOW + f"[INFO] Une interaction en DM est en cours" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction en DM est en cours")
                 async with message.channel.typing():
                     await asyncio.sleep(settings.TYPING_TIME)
-                    response = nlp.get_answer(context_text)
+                    response = nlp.get_answer(messages, username=username)
                     await message.channel.send(response)
                 return
             except Exception as e:
                 await message.channel.send("Désolé, une erreur s'est produite lors du traitement de votre message.")
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors d'une interaction en DM : {e}" + Style.RESET_ALL)
                 logging.error(f"[ERROR] Une erreur s'est produite lors de la réponse en DM : {e}")
+
         keyWord = settings.NAME_IA
         if bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
             try:
@@ -269,31 +265,48 @@ def register_commands(bot_instance):
                             async with message.channel.typing():
                                 extracted_text = await ocr_analyser.process_attachment(attachment)
                                 if extracted_text.strip():
-                                    content += f" {extracted_text}"  # Ajouter le texte extrait au contenu
+                                    content += f" {extracted_text}"
                                     print(Fore.CYAN + f"[INFO] Texte extrait ajouté au message : {extracted_text}" + Style.RESET_ALL)
                                     logging.info(f"[INFO] Texte extrait ajouté au message : {extracted_text}")
                                 else:
                                     print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
                                     logging.info("[INFO] Aucun texte détecté dans l'image.")
-                            break  # Ne traiter qu'une seule image par message
+                            break
 
                 user_context = user_memory.manage(user_id, content)
-                context_text = (
-                    " ".join([msg["content"] if isinstance(msg, dict) and "content" in msg else str(msg) for msg in user_context])
-                    if user_context else content
-                    )
+                username = message.author.name
+                user_id = message.author.id
+
+                # Construction du prompt système sans l'ID
+                system_prompt = (
+                    settings.PROMPT +
+                    f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
+                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
+                )
+
+                # Construction de la liste messages pour l'IA
+                messages = []
+                messages.append({"role": "system", "content": system_prompt})
+                for msg in user_context:
+                    if isinstance(msg, dict) and "role" in msg and "content" in msg:
+                        messages.append({"role": msg["role"], "content": msg["content"]})
+                    else:
+                        messages.append({"role": "user", "content": str(msg)})
+                messages.append({"role": "user", "content": content})
+
                 print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
                 logging.info(f"[INFO] Une interaction est en cours dans le serveur")
                 async with message.channel.typing():
                     await asyncio.sleep(settings.TYPING_TIME)
-                    response = nlp.get_answer(context_text)
+                    response = nlp.get_answer(messages, username=username)
                     await message.reply(response)
                 return
             except Exception as e:
                 await message.reply("Désolé, une erreur s'est produite lors du traitement de votre demande")
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}" + Style.RESET_ALL)
                 logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")
-        
+
+#(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
         if channel_id in settings.TRAINING_CHANNEL_ID:
             keyword = settings.TRAINING_TRIGGER
             channel = bot.get_channel(settings.ALERT_CHANNEL)
@@ -316,9 +329,12 @@ def register_commands(bot_instance):
                     logging.error(f"[ERROR] Un erreur de sapture du buffer s'est produite : {e}")
 
         await bot.process_commands(message)
+#((((((((((((((((((((((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))))))))))))))))))))))   
 
-        
 
+
+
+#(((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))
     @bot.tree.command(name="restart", description="Redémarrer le bot.")
     async def restart(interaction: discord.Interaction):
         if not interaction.user.id in settings.ROOT_UER:
@@ -410,19 +426,32 @@ def register_commands(bot_instance):
         else:
             await interaction.response.send_message("Tous les fichiers ont été vidés avec succès.", ephemeral=True)
             print(Fore.GREEN + f"[INFO] Tous les fichiers ont été vidés avec succès." + Style.RESET_ALL)
-    
-    @bot.tree.command(name="invite", description="Lien d'invitation du bot.")
-    async def invite(interaction: discord.Interaction):
+
+    @bot.tree.command(name="help", description="Afficher l'aide du bot.")
+    async def help(interaction: discord.Interaction):
         try:
-            if not interaction.user.id in settings.ROOT_UER:
-                await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
-                print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de récupérer le lien d'invitation : {interaction.user.name}" + Style.RESET_ALL)
-                logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de récupérer le lien d'invitation : {interaction.user.name}")
-                return
-            await interaction.response.send_message("Voici le lien d'invitation du bot : https://discord.com/oauth2/authorize?client_id=1294035883309142026&scope=bot", ephemeral=True)
-            print(Fore.GREEN + f"[INFO] Lien d'invitation envoyé à {interaction.user.name}" + Style.RESET_ALL)
-            logging.info(f"[INFO] Lien d'invitation envoyé à {interaction.user.name}")
+            bot_user = bot.user
+            embed = discord.Embed(
+                title="Aide de PDL IA",
+                description="Voici les principales commandes et fonctionnalités du bot :",
+                color=discord.Color.blue()
+            )
+            embed.set_thumbnail(url=bot_user.display_avatar.url)
+            embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
+            embed.add_field(name="/commit <contexte> <réponse>", value="Ajoute une question/réponse à la base de connaissances (admin seulement).", inline=False)
+            embed.add_field(name="/empty", value="Vide les logs et la mémoire du bot (admin seulement).", inline=False)
+            embed.add_field(name="/restart", value="Redémarre le bot (admin seulement).", inline=False)
+            embed.add_field(name="Interaction", value="Mentionne le bot ou utilise son nom pour discuter avec lui.", inline=False)
+            embed.add_field(name="OCR", value="Envoie une image contenant du texte en DM ou sur le serveur pour que le bot l'analyse.", inline=False)
+            embed.set_footer(text="Développé par Nythique • PDL IA")
+            invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot"
+            embed.add_field(name="Lien d'invitation", value=f"[Clique ici pour inviter le bot]({invite_url})", inline=False)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+            print(Fore.GREEN + f"[INFO] Message d'aide envoyé à {interaction.user.name}" + Style.RESET_ALL)
+            logging.info(f"[INFO] Message d'aide envoyé à {interaction.user.name}")
         except Exception as e:
-            await interaction.response.send_message(f"Une erreur s'est produite lors de l'envoi du lien d'invitation : {e}", ephemeral=True)
-            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi du lien d'invitation : {e}" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi du lien d'invitation : {e}")
+            await interaction.response.send_message(f"Une erreur s'est produite lors de l'envoi de l'aide : {e}", ephemeral=True)
+            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}" + Style.RESET_ALL)
+            logging.error(f"[ERROR] Une erreur s'est produite lors de l'envoi de l'aide : {e}")
+
+# ...supprime ou commente la commande invite...
