@@ -58,15 +58,19 @@ class HybridNLPEngine:
             print(Fore.RED + f"[ERROR] Erreur lors de l'initialisation de HybridNLPEngine : {e}" + Style.RESET_ALL)
             raise
 
-    def find_best_pdf_passage(self, question):
+    def find_best_pdf_passage(self, question, top_n=5, min_score=0.6):
         if not self.pdf_passages:
-            return ""
+            return []
         vect = TfidfVectorizer().fit(self.pdf_passages + [question])
         tfidf = vect.transform(self.pdf_passages + [question])
-        sims = cosine_similarity(tfidf[-1], tfidf[:-1])
-        idx = sims.argmax()
-        best = self.pdf_passages[idx]
-        return best
+        sims = cosine_similarity(tfidf[-1], tfidf[:-1])[0]
+        top_indices = sims.argsort()[-top_n:][::-1]
+        return [(self.pdf_passages[i], sims[i]) for i in top_indices if sims[i] >= min_score]
+
+        #idx = sims.argmax()
+        #best = self.pdf_passages[idx]
+        #score = sims[0, idx]
+        #return best, score
 
     def ask_api(self, question, username=None, messages=None):
         try:
@@ -150,6 +154,34 @@ class HybridNLPEngine:
             # Si aucune réponse pertinente, fallback API
             logging.warning("[WARNING] Aucune réponse pertinente trouvée. appel à l'IA")
             print(Fore.MAGENTA + "[INFO] Appel à ollama" + Style.RESET_ALL)
+            #(((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))
+             
+             # --- Amélioration du contexte PDF ---
+            MAX_PASSAGE_LENGTH = 500  # caractères max par passage
+            TOP_N = 3  # nombre de passages PDF à fournir
+            
+            pdf_passages = self.find_best_pdf_passage(question, top_n=TOP_N, min_score=0.6)
+            pdf_passages = sorted(pdf_passages, key=lambda x: x[1], reverse=True)[:TOP_N]
+            # Ajoute une instruction claire à l'IA
+
+            if not messages or not isinstance(messages, list):
+                messages = []
+            messages.insert(0, {
+                "role": "system",
+                "content": (
+                    "Utilise les extraits du PDF ci-dessous pour répondre à la question de l'utilisateur de façon précise et concise. "
+                    "Si l'information n'est pas dans le PDF, indique-le clairement."
+                )
+            })
+
+            for passage, score in pdf_passages:
+                passage = passage[:MAX_PASSAGE_LENGTH] + "..." if len(passage) > MAX_PASSAGE_LENGTH else passage
+                messages.append({
+                    "role": "system",
+                    "content": f"Extrait du PDF à utiliser pour répondre à la question suivante : '{question}'\n{passage}"
+                })
+                
+            #(((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))
             api_response = self.ask_api(question, username, messages=messages)
             return api_response
 

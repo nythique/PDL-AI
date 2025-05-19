@@ -2,12 +2,12 @@
 DISCORD_TOKEN = "***REMOVED***" 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
 VERSION = "1.3.2"
-PREFIX = "??" 
+PREFIX = "sudo" 
 
 # ========================== CHEMINS DES FICHIERS ==========================
-KNOWLEDGE_PATH = "ia/server/cloud.json"
-PDF_PATH = "ia/server/cloud.pdf" 
-CAPTURE_QR_PATH = "ia/server/buffer.json" 
+KNOWLEDGE_PATH = "ia/server/json/cloud.json"
+CAPTURE_QR_PATH = "ia/server/json/buffer.json" 
+PDF_PATH = "ia/server/docs/cloud.pdf" 
 MEMORY_FILE = "cluster/chat/thread.json" 
 LOG_FILE = "logs/bot.log" 
 UPLOAD_IMAGES = "tools/temp/"
