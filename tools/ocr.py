@@ -3,12 +3,25 @@ from config import settings
 from colorama import Fore, Style
 import pytesseract, os, logging, uuid
 
-logging.basicConfig(
-    filename=settings.LOG_FILE,
-    level=logging.INFO,
-    format='[%(levelname)s] %(asctime)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
+"""Handler pour les logs info et warning"""
+info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
+info_handler.setLevel(logging.INFO)
+info_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+"""Handler pour les logs error"""
+error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
+error_handler.setLevel(logging.ERROR)
+error_handler.setFormatter(logging.Formatter(
+    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+))
+
+"""On réinitialise la config root et on ajoute les handlers"""
+logging.getLogger().handlers = []
+logging.getLogger().addHandler(info_handler)
+logging.getLogger().addHandler(error_handler)
+logging.getLogger().setLevel(logging.INFO)
 
 class OCRProcessor:
     def __init__(self, tesseract_path=None):
@@ -20,10 +33,10 @@ class OCRProcessor:
         self.logger = logging.getLogger(__name__)
 
         # Vérifier et créer le répertoire d'upload si nécessaire
-        if not os.path.exists(settings.UPLOAD_IMAGES):
-            os.makedirs(settings.UPLOAD_IMAGES)
-            print(Fore.GREEN + f"[INFO] Répertoire créé : {settings.UPLOAD_IMAGES}" + Style.RESET_ALL)
-            self.logger.info(f"Répertoire créé : {settings.UPLOAD_IMAGES}")
+        if not os.path.exists(settings.TEMP_UPLOAD_PATH):
+            os.makedirs(settings.TEMP_UPLOAD_PATH)
+            print(Fore.GREEN + f"[INFO] Répertoire créé : {settings.TEMP_UPLOAD_PATH}" + Style.RESET_ALL)
+            self.logger.info(f"Répertoire créé : {settings.TEMP_UPLOAD_PATH}")
 
     async def extract_text(self, image_path):
         """
@@ -50,7 +63,7 @@ class OCRProcessor:
         """
         try:
             # Télécharger l'image localement
-            local_filename = os.path.join(settings.UPLOAD_IMAGES, f"{uuid.uuid4()}_{attachment.filename}")
+            local_filename = os.path.join(settings.TEMP_UPLOAD_PATH, f"{uuid.uuid4()}_{attachment.filename}")
             await attachment.save(local_filename)
             print(Fore.CYAN + f"[INFO] Image téléchargée : {local_filename}" + Style.RESET_ALL)
             self.logger.info(f"Image téléchargée : {local_filename}")

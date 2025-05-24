@@ -7,10 +7,7 @@ Le bot gère la mémoire utilisateur, l'analyse d'images (OCR), la journalisatio
 
 ## Fonctionnalités principales
 
-- **Réponses automatiques** via base de connaissances locale (TF-IDF/SBERT)
-- **Fallback IA générative** (Groq/Ollama) avec enrichissement par extraits PDF
-- **Ajout de connaissances** par commande Discord
-- **Analyse de PDF** pour fournir des réponses précises
+- **Fallback IA générative** (Groq/Ollama) avec enrichissement 
 - **OCR** : extraction de texte depuis des images
 - **Journalisation** complète des événements et erreurs
 - **Gestion de la mémoire** (contexte utilisateur, historique)
@@ -22,7 +19,7 @@ Le bot gère la mémoire utilisateur, l'analyse d'images (OCR), la journalisatio
 
 1. **Installer les dépendances Python :**
     ```bash
-    pip install -r requirements.txt
+    pip install -r upload.txt
     ```
 
 2. **Installer Tesseract OCR :**
@@ -37,71 +34,16 @@ Le bot gère la mémoire utilisateur, l'analyse d'images (OCR), la journalisatio
 
 4. **Lancer le bot :**
     ```bash
-    python main.py
+    python starter.py
     ```
     ou utiliser `start.bat` (recommandé sur VM/Windows)
 
 ---
 
-## Exemple d’utilisation
-
-- **Question simple :**  
-  « Quels sont les bienfaits du curcuma ? »
-- **Question sur le PDF :**  
-  « Que dit le document sur la sécurité alimentaire ? »
-- **Ajout de connaissance :**  
-  `/commit <question> <réponse>`
-
----
-
-## Structure du projet
-
-```
-DiscordBot IA/
-│
-├── main.py                    # Point d'entrée du programme
-├── bot.py                     # Lanceur du bot
-├── start.bat                  # Script de démarrage (Windows)
-│
-├── cluster/
-│   ├── vram.py                # Gestion mémoire utilisateur
-│   └── chat/
-│       └── thread.json        # Mémoire persistente pour TF-IDF/SBERT
-│
-├── config/
-│   └── settings.py            # Configuration globale
-│
-├── core/
-│   ├── client.py              # Configuration du bot Discord
-│   ├── commands.py            # Commandes et événements Discord
-│   └── validation.py          # Validation des ajouts
-│
-├── ia/
-│   ├── loader.py              # Chargement de la base JSON
-│   ├── nlp.py                 # Traitement texte (TF-IDF, SBERT, LLM, PDF)
-│   └── server/                # Fichiers nécessaires (JSON, PDF)
-│
-├── logs/
-│   └── bot.log                # Fichier de logs généré automatiquement
-│
-├── tools/
-│   ├── temp/                  # Images temporaires téléchargées
-│   ├── cleaner.py             # Filtrage/validation des ajouts
-│   └── ocr.py                 # Analyse d'image (OCR)
-│
-├── requirements.txt           # Modules requis
-└── README.md                  # Documentation
-```
-
----
-
 ## Notes
 
-- **Base de connaissances** : modifiable dans `ia/knowledge.json`
-- **PDF** : placez vos documents dans `ia/server/`
-- **Logs** : consultables dans `logs/bot.log`
+- **Logs** : consultables dans `logs/`
 - **OCR** : fonctionne sur images envoyées en DM ou sur le serveur
 
----
 
 **Développé par Nythique • PDL IA**

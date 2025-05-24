@@ -1,0 +1,56 @@
+[ERROR] 2025-05-23 23:14:52 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:14:57 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:01 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:05 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:09 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:13 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:17 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:21 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:25 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:15:57 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:16:29 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:17:01 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:17:35 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:18:06 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:19:49 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[ERROR] 2025-05-23 23:26:53 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 413 - {'error': {'message': 'Request too large for model `llama3-70b-8192` in organization `org_01jsy6fyx1fsnt1pzbr6ym5v8j` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Requested 7134, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+[ERROR] 2025-05-23 23:27:07 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 413 - {'error': {'message': 'Request too large for model `llama3-70b-8192` in organization `org_01jsy6fyx1fsnt1pzbr6ym5v8j` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Requested 7143, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+[ERROR] 2025-05-23 23:31:26 - Ignoring exception in on_message
+Traceback (most recent call last):
+  File "D:\VisualStudio\Nythique\pdl.bot Ai\home\core\main.py", line 254, in on_message
+    async with message.channel.typing():
+               ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\context_managers.py", line 82, in __aenter__
+    await channel._state.http.send_typing(channel.id)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\http.py", line 642, in request
+    async with self.__session.request(method, url, **kwargs) as response:
+               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client.py", line 1425, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client.py", line 512, in _request
+    raise RuntimeError("Session is closed")
+RuntimeError: Session is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Nythique\pdl.bot Ai\home\core\main.py", line 260, in on_message
+    await message.reply("Désolé, une erreur s'est produite lors du traitement de votre demande")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\message.py", line 1869, in reply
+    return await self.channel.send(content, reference=self, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\abc.py", line 1644, in send
+    data = await state.http.send_message(channel.id, params=params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\http.py", line 642, in request
+    async with self.__session.request(method, url, **kwargs) as response:
+               ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client.py", line 1425, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client.py", line 512, in _request
+    raise RuntimeError("Session is closed")
+RuntimeError: Session is closed

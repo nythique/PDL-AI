@@ -1,6 +1,6 @@
 @echo off
 :loop
 cls
-python main.py
+python starter.py
 timeout /t 2 
 goto loop
