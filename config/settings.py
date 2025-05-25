@@ -1,8 +1,8 @@
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = "***REMOVED***" 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "Version Installer 1.3.4"
-PREFIX = "q." 
+VERSION = "Version Installer 1.3.5"
+PREFIX = "p." 
 STATUS = [
     "Surveille le serveur pcpdl",
     "Les membres sont sages",
@@ -15,8 +15,7 @@ ERROR_LOG_PATH = "logs/error/error.log" # (journalisation des erreurs)
 SECURITY_LOG_PATH = "logs/security/security.log" # (journalisation securitaire)
 TEMP_UPLOAD_PATH = "home/cluster/temp" # (memoire temporaire)
 ROM_PATH = "home/cluster/rom.json" # (memoire persistante)
-TESSERACT_PATH = r"C:\\Program Files\Tesseract-OCR\tesseract.exe"
-
+TESSERACT_PATH = r"C:\Users\Sparkuwu\AppData\Local\programs\Tesseract-OCR\tesseract.exe"
 # NOTE:========================== PARAMÈTRES DE MÉMOIRE ==========================
 ROM_LIMIT = 5  #stockage persistentes
 ROM_UPDATE_TIME = 5  # (Temps entre chaque mise à jour de la mémoire persistente en minutes)
@@ -25,7 +24,7 @@ MEMORY_CLEAR_TIME  = 1440 # (Temps entre chaque nettoyage de des mémoirs "RAM &
 
 # NOTE:========================== PARAMÈTRES DE STYLE ==========================
 TYPING_TIME = 0.1  # (Temps de réponse du bot en secondes)
-STATUS_TIME = 2  # (Temps entre chaque changement de statut en secondes)
+STATUS_TIME = 3  # (Temps entre chaque changement de statut en secondes)
 SLOWTYPE_TIME = 0.1  # (Temps de réponse du bot en secondes pour le slowtype)
 
 # ========================== IDENTIFIANTS ET NOMS ==========================

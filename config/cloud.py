@@ -38,7 +38,7 @@ Pour créer un compte administrateur temporaire, tapez `net user 123 abc /add` p
 
 Pour obtenir une fenêtre administrateur à tout moment, remplacez utilman.exe et narrator.exe par cmd.exe. Sur Windows 11, faites aussi la manipulation pour narrator.exe. Pour supprimer le compte temporaire, tapez `net user 123 /del`.
 
-Pour créer un compte administrateur définitif, tapez `net user PDLadm PDLadm /add` puis `net localgroup administrateurs PDLadm /add`. Pour vérifier les droits, ouvrez une invite de commande en tant qu’administrateur et connectez-vous avec .\PDLadm / PDLadm. Pour que le mot de passe n’expire jamais, ouvrez "Gestion de l’ordinateur", allez dans "Utilisateurs locaux et groupes", double-cliquez sur PDLadm et cochez "le mot de passe n’expire jamais".
+Pour créer un compte administrateur définitif, tapez `net user PDLadm PDLadm /add` puis `net localgroup administrateurs PDLadm /add`. Pour vérifier les droits, ouvrez une invite de commande en tant qu’administrateur et connectez-vous avec `.\\PDLadm / PDLadm.` Pour que le mot de passe n’expire jamais, ouvrez 'Gestion de l’ordinateur', allez dans "Utilisateurs locaux et groupes", double-cliquez sur PDLadm et cochez "le mot de passe n’expire jamais".
 
 ---
 

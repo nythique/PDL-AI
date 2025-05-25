@@ -1,4 +1,4 @@
-discod.py
+discord.py
 colorama
 scikit-learn
 sentence_transformers

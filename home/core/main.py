@@ -8,6 +8,8 @@ from discord.ui import View, Button, Modal, TextInput, Select
 from home.cluster.vram import memory
 from tools.ocr import OCRProcessor as ocr
 import discord, time, os, sys, json, logging, asyncio
+import colorama
+colorama.init()
 
 nlp = ollama()
 status = settings.STATUS
@@ -122,7 +124,7 @@ def display_banner():
     ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
     ║   All rights reserved.                                           ║
     ║                                                                  ║
-    ║   Version: {version}                                                 ║
+    ║   Version: {version}                               ║
     ║   Bot started on: {current_date}                            ║
     ║                                                                  ║
     ║   Unauthorized copying, distribution, or modification of this    ║
@@ -278,7 +280,7 @@ def register_commands(bot_instance):
         await ctx.defer() #"""Défère la réponse pour éviter le timeout"""
         """Vérifie si l'utilisateur a les permissions nécessaires"""
     
-        if not ctx.author.id not in settings.ROOT_UER:
+        if ctx.author.id not in settings.ROOT_UER:
             print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {ctx.author.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {ctx.author.name}")
             return
@@ -314,17 +316,17 @@ def register_commands(bot_instance):
 
         if bot_latency < 150:
             embed = discord.Embed(
-                title=f"🏓 Latence !{bot_latency} ms",
+                title=f"🏓 Bonne latence : {bot_latency} ms",
                 color=discord.Color.green()
             )
-            embed.set_footer(text="PDL AI • Nexium Portal")
+            embed.set_footer(text="PDL AI • .gg/pcpdl")
             await ctx.send(embed=embed)
         elif bot_latency > 150:
             embed = discord.Embed(
-                title=f"🏓 Pong !{bot_latency} ms",
+                title=f"🏓 Mauvaise latence : {bot_latency} ms",
                 color=discord.Color.orange()
             )
-            embed.set_footer(text="PDL AI • Nexium Portal")
+            embed.set_footer(text="PDL AI • .gg/pcpdl")
             await ctx.send(embed=embed)
         print(Fore.GREEN + f"[INFO] Ping demandé par {ctx.author.name}" + Style.RESET_ALL)
         logging.info(f"[INFO] Ping demandé par {ctx.author.name}")
@@ -353,7 +355,7 @@ def register_commands(bot_instance):
 
     @bot.tree.command(name="empty", description="Vider les fichiers de logs.")
     async def empty(interaction: discord.Interaction):
-        if not interaction.user.id not in settings.ROOT_UER:
+        if interaction.user.id not in settings.ROOT_UER:
             await interaction.response.send_message("Attention ! Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs : {interaction.user.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de vider les logs : {interaction.user.name}")
@@ -402,9 +404,10 @@ def register_commands(bot_instance):
             )
             embed.set_thumbnail(url=bot_user.display_avatar.url)
             embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
-            embed.add_field(name="/commit <contexte> <réponse>", value="Ajoute une question/réponse à la base de connaissances (admin seulement).", inline=False)
-            embed.add_field(name="/empty", value="Vide les logs et la mémoire du bot (admin seulement).", inline=False)
+            embed.add_field(name="/empty", value="Vider les fichiers logs", inline=False)
             embed.add_field(name="/restart", value="Redémarre le bot (admin seulement).", inline=False)
+            embed.add_field(name="Préfix p.", value="errors <num>, voir les errors du logging", inline=False)
+            embed.add_field(name="Préfix p.", value="ping , voir la latence du bot", inline=False)
             embed.add_field(name="Interaction", value="Mentionne le bot ou utilise son nom pour discuter avec lui.", inline=False)
             embed.add_field(name="OCR", value="Envoie une image contenant du texte en DM ou sur le serveur pour que le bot l'analyse.", inline=False)
             embed.set_footer(text="Développé par Nythique • PDL IA")
