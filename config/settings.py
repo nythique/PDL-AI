@@ -15,7 +15,7 @@ ERROR_LOG_PATH = "logs/error/error.log" # (journalisation des erreurs)
 SECURITY_LOG_PATH = "logs/security/security.log" # (journalisation securitaire)
 TEMP_UPLOAD_PATH = "home/cluster/temp" # (memoire temporaire)
 ROM_PATH = "home/cluster/rom.json" # (memoire persistante)
-TESSERACT_PATH = r"C:\Users\Sparkuwu\AppData\Local\programs\Tesseract-OCR\tesseract.exe"
+TESSERACT_PATH = "/usr/bin/tesseract"
 # NOTE:========================== PARAMÈTRES DE MÉMOIRE ==========================
 ROM_LIMIT = 5  #stockage persistentes
 ROM_UPDATE_TIME = 5  # (Temps entre chaque mise à jour de la mémoire persistente en minutes)
