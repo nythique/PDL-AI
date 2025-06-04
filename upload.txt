@@ -1,10 +1,5 @@
 discord.py
 colorama
-scikit-learn
-sentence_transformers
-torch
-pillow 
+pillow
 pytesseract
-PyNaCl
-PyPDF2
 groq
