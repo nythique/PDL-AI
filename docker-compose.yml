@@ -2,10 +2,15 @@ services:
   pdl-ai:
     build: .
     image: pdl-ai
-    container_name: pylauncher
+    container_name: pdl-ai
     volumes:
       - PDL-AILog:/app/PDL-AI/logs/
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '3.00'    
+          memory: 2G       
 
 volumes:
   PDL-AILog:

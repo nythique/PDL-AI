@@ -1,7 +1,7 @@
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = "***REMOVED***" 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "Version Installer 1.3.5"
+VERSION = "Version Installer 1.3.1"
 PREFIX = "p." 
 STATUS = [
     "Surveille le serveur pcpdl",
