@@ -1,0 +1,12 @@
+services:
+  pdl-ai:
+    build: .
+    image: pdl-ai
+    container_name: pylauncher
+    volumes:
+      - PDL-AILog:/app/PDL-AI/logs/
+    restart: unless-stopped
+
+volumes:
+  PDL-AILog:
+    external: true
