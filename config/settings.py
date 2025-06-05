@@ -14,7 +14,8 @@ STATUS = [
 ERROR_LOG_PATH = "logs/error/error.log" # (journalisation des erreurs)
 SECURITY_LOG_PATH = "logs/security/security.log" # (journalisation securitaire)
 TEMP_UPLOAD_PATH = "home/cluster/temp" # (memoire temporaire)
-ROM_PATH = "home/cluster/rom.json" # (memoire persistante)
+ROM_PATH = "home/cluster/temp/rom.json" # (memoire persistante de la memoire RAM)
+SERVER_PATH = "home/cluster/temp/rom.json" # (memoire persistante des données du serveur)
 TESSERACT_PATH = "/usr/bin/tesseract"
 # NOTE:========================== PARAMÈTRES DE MÉMOIRE ==========================
 ROM_LIMIT = 5  #stockage persistentes
