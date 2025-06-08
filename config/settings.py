@@ -1,7 +1,7 @@
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = "***REMOVED***" 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "Version Installer 1.3.2"
+VERSION = "Version Installer 1.3.3 Bêta"
 PREFIX = "p." 
 STATUS = [
     "Surveille le serveur pcpdl",
@@ -11,40 +11,50 @@ STATUS = [
     "Mon nom est PDL IA"
 ] 
 # ========================== CHEMINS DES FICHIERS ==========================
-ERROR_LOG_PATH = "logs/error/error.log" # (journalisation des erreurs)
-SECURITY_LOG_PATH = "logs/security/security.log" # (journalisation securitaire)
-TEMP_UPLOAD_PATH = "home/cluster/temp" # (memoire temporaire)
-ROM_PATH = "home/cluster/temp/rom.json" # (memoire persistante de la memoire RAM)
-SERVER_PATH = "home/cluster/temp/rom.json" # (memoire persistante des données du serveur)
-TESSERACT_PATH = "/usr/bin/tesseract"
-# NOTE:========================== PARAMÈTRES DE MÉMOIRE ==========================
-ROM_LIMIT = 5  #stockage persistentes
-ROM_UPDATE_TIME = 5  # (Temps entre chaque mise à jour de la mémoire persistente en minutes)
-MEMORY_MAX_INACTIVE_TIME = 5  # (Durée d'inactivité max par utilisateur avant suppression de la mémoire en heures)
-MEMORY_CLEAR_TIME  = 1440 # (Temps entre chaque nettoyage de des mémoirs "RAM & ROM" en minutes)
+ERROR_LOG_PATH = r"logs/error/error.log" 
+SECURITY_LOG_PATH = r"logs/security/security.log" 
+TEMP_UPLOAD_PATH = r"home/cluster/temp"
+ROM_PATH = r"home/cluster/temp/rom.json"
+SERVER_PATH = r"home/cluster/temp/rom.json"
+TESSERACT_PATH = r"/usr/bin/tesseract"
+# NOTE:========================== PARAMÈTRES DE GESTION MÉMOIRE ==========================
+ROM_LIMIT = 5  
+ROM_UPDATE_TIME = 5 #minutes (5 minutes) 
+MEMORY_MAX_INACTIVE_TIME = 5 #minutes (5 minutes)
+MEMORY_CLEAR_TIME  = 1440 #minutes (24 heures)
 
 # NOTE:========================== PARAMÈTRES DE STYLE ==========================
-TYPING_TIME = 0.1  # (Temps de réponse du bot en secondes)
-STATUS_TIME = 3  # (Temps entre chaque changement de statut en secondes)
-SLOWTYPE_TIME = 0.1  # (Temps de réponse du bot en secondes pour le slowtype)
-
+TYPING_TIME = 0.1 
+STATUS_TIME = 3  
+SLOWTYPE_TIME = 0.1  
 # ========================== IDENTIFIANTS ET NOMS ==========================
 ALERT_CHANNEL = None 
 BLOCKED_CHANNEL_ID = [1166099439115579413, 1072941154754101278]
 ROOT_UER = (969287987672268840, 767678057770385438, 1233020939898327092) 
 
-# ========================== PARAMÈTRES DE L'IA ==========================
-KEY = "***REMOVED***"  # Clé API OpenAI
-MODEL = "llama3-70b-8192"  # Modèle IA (GPT-3.5 ou GPT-4)
-FREQUENCY = 1  # Fréquence de réponse de l'IA (en secondes)
-TEMPERATURE = 0  # Température de l'IA (0.0 à 1.0)
-MAX_TOKENS = 256  # Nombre maximum de tokens pour la réponse de l'IA
-TOP_P = 0.95  # Top-p sampling (0.0 à 1.0)
-PRESENCE_PENALTY = 0  # Pénalité de présence (0.0 à 2.0)
-STOP = ["\n", "User:", "BOT:", "Assistant:"]  # Mots de fin pour l'IA
-LIMIT_MEMORY = 5 # Limite des messgaes en contexte (5 à 10 maximum)
+# ========================== PARAMÈTRES DE L'IA CHAT ==========================
+CHAT_KEY = "***REMOVED***"  # Clé API OpenAI
+CHAT_MODEL = "llama3-70b-8192"  # Modèle IA (GPT-3.5 ou GPT-4)
+CHAT_FREQUENCY = 1  # Fréquence de réponse de l'IA (en secondes)
+CHAT_TEMPERATURE = 0  # Température de l'IA (0.0 à 1.0)
+CHAT_MAX_TOKENS = 256  # Nombre maximum de tokens pour la réponse de l'IA
+CHAT_TOP_P = 0.95  # Top-p sampling (0.0 à 1.0)
+CHAT_PRESENCE_PENALTY = 0  # Pénalité de présence (0.0 à 2.0)
+CHAT_STOP = ["\n", "User:", "BOT:", "Assistant:"]  # Mots de fin pour l'IA
+CHAT_LIMIT_MEMORY = 5 # Limite des messgaes en contexte (5 à 10 maximum)
 
-# NOTE:========================== PROMPT DE L'IA ==========================
+# NOTE:========================== PARAMÈTRES DE L'IA VOICE ==========================
+VOICE_KEY = ""
+VOICE_MODEL = ""
+VOICE_FREQUENCY = 1 
+VOICE_TEMPERATURE = 0 
+VOICE_MAX_TOKENS = 256  
+VOICE_TOP_P = 0.95  
+VOICE_PRESENCE_PENALTY = 0
+VOICE_STOP = ["\n", "User:", "BOT:", "Assistant:"]  
+VOICE_LIMIT_MEMORY = 5  
+
+# ========================== PROMPTS DE L'IA ==========================
 from config.cloud import data
 PROMPT = (
     "Tu es PDL IA, un assistant qui se comporte comme un humain. "
