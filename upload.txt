@@ -3,3 +3,6 @@ colorama
 pillow
 pytesseract
 groq
+gputil
+psutil
+platform
