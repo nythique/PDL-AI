@@ -19,27 +19,16 @@ logging.getLogger().addHandler(error_handler)
 logging.getLogger().setLevel(logging.INFO)
 
 
-
-gpus = GPUtil.getGPUs()
-for gpu in gpus:
-    print(f"GPU {gpu.id} : {gpu.load*100:.1f}% utilisé, {gpu.memoryUsed}MB/{gpu.memoryTotal}MB")
-
-def monitor_system():
+def get_hardware_info():
     try:
-        cpu_usage = psutil.cpu_percent(interval=1)
-        ram_usage = psutil.virtual_memory().percent
-        disk_usage = psutil.disk_usage('/').percent
-        network_io = psutil.net_io_counters()
-        gpus = GPUtil.getGPUs()
-
-        system_info = {
+        hardware_info = {
             "timestamp": datetime.now().isoformat(),
-            "cpu_usage": cpu_usage,
-            "ram_usage": ram_usage,
-            "disk_usage": disk_usage,
+            "cpu_usage": psutil.cpu_percent(interval=1),
+            "ram_usage": psutil.virtual_memory().percent,
+            "disk_usage": psutil.disk_usage('/').percent,
             "network_io": {
-                "bytes_sent": network_io.bytes_sent,
-                "bytes_recv": network_io.bytes_recv
+                "bytes_sent": psutil.net_io_counters().bytes_sent,
+                "bytes_recv": psutil.net_io_counters().bytes_recv
             },
             "gpus": [
                 {
@@ -47,10 +36,12 @@ def monitor_system():
                     "load": gpu.load * 100,
                     "memory_used": gpu.memoryUsed,
                     "memory_total": gpu.memoryTotal
-                } for gpu in gpus
+                } for gpu in GPUtil.getGPUs()
             ],
             "platform": platform.platform(),
             "processor": platform.processor()
         }
+        return hardware_info
     except Exception as e:
-        pass
+        logging.error(f"Erreur lors de la récupération des informations matérielles: {e}")
+        return None

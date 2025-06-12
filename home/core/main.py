@@ -7,33 +7,40 @@ from discord.ext import commands, tasks
 from discord.ui import View, Button, Modal, TextInput, Select
 from home.cluster.vram import memory
 from tools.ocr import OCRProcessor as ocr
-import discord, time, os, sys, json, logging, asyncio
-import colorama
+from tools.db import Database
+import discord, time, os, sys, json, logging, asyncio, colorama, PyNacl
 colorama.init()
 
+db = Database(settings.SERVER_DB)
+db.backup_database(settings.SERVER_BACKUP)
 nlp = ollama()
-status = settings.STATUS
 keyWord = settings.NAME_IA
 user_memory = memory()
 ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
 bot = None
+ordre_restart = ["Redémarre toi","redémarre toi","va faire dodo"]
+numberMember = ["Combien de membres sur le serveur","combien de membres sur le serveur", "Nombres de membres sur le serveur","nombres de membres sur le serveur", "Nombre de membre","nombre de membre", "number of members on the server"]
+voc_ordre = [
+    "rejoindre moi en vocal",
+    "viens me voir en vocal",
+    "viens en vocal",
+    "connecte toi en vocal",
+    "viens voc",
+    "discutons en vocal"
+]
 
-
-"""Handler pour les logs info et warning"""
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""Handler pour les logs error"""
 error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""On réinitialise la config root et on ajoute les handlers"""
 logging.getLogger().handlers = []
 logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
@@ -45,10 +52,8 @@ def slowType(text, delay=settings.SLOWTYPE_TIME):
         print(char, end='', flush=True)
         time.sleep(delay)
 
-status = cycle(status) 
-@tasks.loop(seconds=settings.STATUS_TIME)
+status = cycle(db.get_bot_status()) 
 async def status_swap(bot):
-    """Change le statut du bot Discord à intervalle régulier"""
     try:
         await bot.change_presence(activity=discord.CustomActivity(next(status)))
         logging.info(f"[INFO] Statut changé : {next(status)}")
@@ -178,18 +183,41 @@ def register_commands(bot_instance):
     @bot.event
     async def on_message(message):
         if message.author.bot: return 
-        if message.channel.id in settings.BLOCKED_CHANNEL_ID: return
-
-        content = message.content.strip()
-        user_id = message.author.id
-        ordre_restart = ["Redémarre toi","redémarre toi","va faire dodo"]
-        numberMember = ["Combien de membres sur le serveur","combien de membres sur le serveur", "Nombres de membres sur le serveur","nombres de membres sur le serveur", "Nombre de membre","nombre de membre", "number of members on the server"]
+        if message.channel.id not in db.get_allowed_channels(): return
         
+        content = message.content.strip().lower()
+        user_id = message.author.id
+
+        voc_orde_true = any(key in content for key in voc_ordre)
+        mention_true = bot.user.mention in message.content
+        keyWord_true = any(keyword in message.content for keyword in keyWord)
+        reference_true = message.reference and message.reference.resolved and message.reference.resolved.author == bot.user
+
+        if voc_orde_true and (mention_true or keyWord_true or reference_true):
+            try:
+                """Si l'utilisateur est dans un salon vocal"""
+                if message.author.voice and message.author.voice.channel:
+                    voc_channel = message.author.voice.channel
+                    if not any(Vc.channel == voc_channel for Vc in bot.voice_clients):
+                        await voc_channel.connect()
+                        await message.reply(f"Je tes rejoint dans le salon vocal !")
+                        logging.info(f"[INFO] Le bot a rejoint le salon vocal : {voc_channel.name}")
+                    else:
+                        await message.reply(f"Je suis déjà dans un salon vocal !")
+                        return
+                else:
+                    await message.reply(f"Rejoins un salon vocal pour que je puisse te rejoindre !")
+                    logging.warning(f"[WARNING] L'utilisateur {message.author.name} n'est pas dans un salon vocal !")
+                    return
+            except Exception as e:
+                await message.reply(f"Je ne peux pas te rejoindre dans un salon vocal ! Envoie un `/set report` pour me signaler l'erreur.")
+                logging.error(f"[ERROR] Une erreur s'est produite lors de la reconnaissance de l'ordre de voc : {e}")
+                return
 
         if any(key in content for key in ordre_restart):
             if message.author.id in settings.ROOT_UER:
                 try:
-                    await message.reply(f"Je vais redémarrer, merci de votre patience !")
+                    await message.reply(f"Je me redémarre, merci de votre patience !")
                     print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
                     logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
                     await bot.close()
@@ -212,7 +240,6 @@ def register_commands(bot_instance):
                 print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
                 logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
                 return           
-#((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))    
 
         if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
             try:
@@ -234,14 +261,12 @@ def register_commands(bot_instance):
                 username = message.author.name
                 user_id = message.author.id
 
-                # Construction du prompt système sans l'ID
                 system_prompt = (
                     settings.PROMPT +
                     f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
                     "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
                 )
 
-                # Construction de la liste messages pour l'IA
                 messages = []
                 messages.append({"role": "system", "content": system_prompt})
                 for msg in user_context:
@@ -264,9 +289,10 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")  
 
         await bot.process_commands(message)
+    
+    @bot.event
+    async def o
         
-#(((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))
-
     @bot.event
     async def on_command_error(ctx, error):
         """Gestion des erreurs de commande préfix"""

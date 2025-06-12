@@ -27,8 +27,8 @@ class Set(commands.GroupCog, name="set"):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="channel", description="Définir le salon run-code pour ce serveur")
-    @app_commands.describe(channel="Salon run-code")
+    @app_commands.command(name="channel", description="ADMIN | Configurer les salons pris en charge")
+    @app_commands.describe(channel="Salon ajouté")
     async def channel(self, interaction: discord.Interaction, channel: discord.TextChannel):
         try:
             member = interaction.guild.get_member(interaction.user.id)
@@ -55,7 +55,7 @@ class Set(commands.GroupCog, name="set"):
             )
             await interaction.response.send_message(embed=embed, ephemeral=True)
 
-    @app_commands.command(name="report", description="Envoyer un rapport ou signaler un problème à l'équipe")
+    @app_commands.command(name="report", description="USER | Signaler un bug ou une suggestion")
     @app_commands.describe(message="Décris ton problème ou ta suggestion")
     async def report(self, interaction: discord.Interaction, message: str):
         try:
@@ -78,7 +78,7 @@ class Set(commands.GroupCog, name="set"):
                 await channel.send(embed=report_embed)
                 logging.info(f"[REPORT] Rapport envoyé par {interaction.user} ({interaction.user.id}) dans {channel.id}")
             else:
-                ADMIN_ID = 1233020939898327092
+                ADMIN_ID = ROOT_UER[1]
                 admin = await self.bot.fetch_user(ADMIN_ID)
                 await admin.send(embed=report_embed)
                 logging.warning(f"[REPORT] Salon de rapport introuvable, rapport envoyé à l'admin {ADMIN_ID}")
@@ -87,6 +87,29 @@ class Set(commands.GroupCog, name="set"):
             embed = discord.Embed(
                 title="Erreur",
                 description="❌ Une erreur est survenue lors de l'envoi du rapport.",
+                color=discord.Color.red()
+            )
+            await interaction.followup.send(embed=embed, ephemeral=True)
+
+    @app_commands.command(name="status", description="ADMIN | Définir le statut du bot")
+    @app_commands.describe(message="Définir le statut du bot")
+    async def status(self, interaction: discord.Interaction, message: str):
+        member = interaction.guild.get_member(interaction.user.id)
+        if not member or not member.guild_permissions.administrator:
+            await interaction.response.send_message(
+                "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
+            )
+            return
+            logging.warning(f"[SET STATUS] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id}")
+        
+        try:
+            await interaction.response.send_message(f"✅ Statut du bot défini : {message}", ephemeral=True)
+            logging.info(f"[STATUS] Statut du bot défini par {interaction.user} ({interaction.user.id}) : {message}")
+        except Exception as e:
+            logging.error(f"[STATUS] Erreur lors de la définition du statut du bot par {interaction.user} ({interaction.user.id}) : {e}", exc_info=True)
+            embed = discord.Embed(
+                title="Erreur",
+                description="```❌ Une erreur est survenue lors de la définition du statut du bot.```",
                 color=discord.Color.red()
             )
             await interaction.followup.send(embed=embed, ephemeral=True)

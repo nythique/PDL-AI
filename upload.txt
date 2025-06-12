@@ -6,3 +6,4 @@ groq
 gputil
 psutil
 platform
+PyNacl

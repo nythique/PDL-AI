@@ -2,8 +2,7 @@ import discord
 from config.settings import SECURITY_LOG_PATH
 from discord.ext import commands
 from discord import app_commands
-from config.settings import ERROR_LOG_PATH
-from home.plugin.rooter import get_admin_ids
+from config.settings import ERROR_LOG_PATH, ROOT_UER
 import os, logging
 from colorama import Fore, Style
 
@@ -28,10 +27,10 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="debug", description="DEVS | Afficher les erreurs du bot")
+    @app_commands.command(name="debug", description="ROOT | Afficher les erreurs du bot")
     @app_commands.describe(lines="Nombre de lignes à afficher (défaut : 10)")
     async def debug(self, interaction: discord.Interaction, lines: int = 10):
-        if interaction.user.id not in get_admin_ids():
+        if interaction.user.id not in ROOT_UER:
             await interaction.response.send_message(
                 "⛔ Vous n'avez pas l'autorisation d'utiliser cette commande.", ephemeral=True
             )

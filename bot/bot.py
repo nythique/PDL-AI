@@ -35,10 +35,12 @@ try:
             cogs = [
                 "commands.admin.debug",
                 "commands.admin.restart",
+                "commands.admin.set",
+                "commands.admin.host",
                 "commands.admin.empty",
                 "commands.public.help",
                 "commands.public.ping",
-                "commands.public.set",
+
             ]
             for cog in cogs:
                 try:

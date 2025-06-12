@@ -31,6 +31,7 @@ def create_bot():
         intents.message_content = True
         intents.members = True
         intents.guilds = True
+        intents.voice_states = True
         bot = commands.Bot(command_prefix=PREFIX, help_command=None, intents=intents)
         logging.info("[INFO] Clients Discord configurés avec succès.")
         print(Fore.GREEN + "[INFO] Clients Discord configurés avec succès." + Style.RESET_ALL)

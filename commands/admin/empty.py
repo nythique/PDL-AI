@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
-from home.plugin.rooter import get_admin_ids
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_UER
 from colorama import Fore, Style
 import logging, os
 
@@ -27,9 +26,9 @@ class Empty(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="empty", description="DEVS | Vider les fichiers de logs")
+    @app_commands.command(name="empty", description="ROOT | Vider les fichiers de logs")
     async def empty(self, interaction: discord.Interaction):
-        if interaction.user.id not in get_admin_ids():
+        if interaction.user.id not in ROOT_UER:
             await interaction.response.send_message(
                 "⛔ Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True
             )
