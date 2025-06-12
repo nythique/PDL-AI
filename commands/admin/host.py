@@ -1,6 +1,6 @@
 import discord, logging
 from tools.pve import get_hardware_info
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_UER
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
 from discord.ext import commands
 from discord import app_commands
 info = get_hardware_info()
@@ -30,11 +30,11 @@ class Host(commands.Cog):
         self.bot = bot
     @app_commands.command(name="host", description="ROOT | Visualiser les informations de l'hôte")
     async def host(self, interaction: discord.Interaction):
-        if interaction.user.id not in ROOT_UER:
+        if interaction.user.id not in ROOT_USER:
             await interaction.response.send_message(
                 "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
-                logging.warning(f"[HOST SECURITY] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id}")
             )
+            logging.warning(f"[HOST SECURITY] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id}")
             return
         try:
             embed = discord.Embed(
@@ -48,12 +48,6 @@ class Host(commands.Cog):
                 ```
                 """,
                 color=discord.Color.green()
-            )
-            invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot&permissions=8"
-            embed.add_field(
-                name="Lien d'invitation",
-                value=f"[Clique ici pour inviter PDL-IA sur ton serveur]({invite_url})",
-                inline=False
             )
             embed.set_footer(
                 text="Développé par Nythique • gg.PcPDL",

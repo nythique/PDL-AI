@@ -1,0 +1,13 @@
+{
+    "Root Users": [],
+    "Bot Status": "offline",
+    "Allowed Channels": [
+        1370867677333291149
+    ],
+    "Bot Stats": {
+        "messages_sent": 0,
+        "commands_executed": 0,
+        "uptime": 0
+    },
+    "user_rankings": {}
+}

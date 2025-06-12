@@ -36,7 +36,7 @@ class Help(commands.Cog):
             )
             embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
             embed.add_field(name="/ping", value="Affiche la latence du bot et de Discord.", inline=False)
-            embed.add_field(name="/set channel <salon>", value="Définir les salons pris en charge. inline=False)
+            embed.add_field(name="/set channel <salon>", value="Définir les salons pris en charge.", inline=False)
             embed.add_field(name="/set report <message>", value="Envoyer un rapport ou une suggestion à l'équipe.", inline=False)
             embed.add_field(name="/set status <message>", value="Définir le statut du bot.", inline=False)
             embed.add_field(name="/empty", value="Vider les logs de debug.", inline=False)

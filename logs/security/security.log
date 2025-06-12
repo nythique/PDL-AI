@@ -1,0 +1,1786 @@
+[ERROR] 2025-06-12 19:29:06 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:29:06 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:29:06 - [INFO] Initialisation de la classe ollama...
+[ERROR] 2025-06-12 19:29:06 - [ERROR] Erreur lors de l'initialisation de la classe ollama : module 'config.settings' has no attribute 'KEY'
+[ERROR] 2025-06-12 19:31:10 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:31:10 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:31:10 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:31:11 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:31:11 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:31:11 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:31:11 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:31:11 - [INFO] Chargement de la mémoire...
+[ERROR] 2025-06-12 19:31:11 - [ERROR] Erreur lors du chargement de la mémoire : Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:31:11 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:31:11 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:31:11 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:31:11 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:31:11 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:31:11 - [COG] Chargée : commands.admin.restart
+[ERROR] 2025-06-12 19:31:11 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.set' : Extension 'commands.admin.set' raised an error: ImportError: cannot import name 'REPORT_CHANNEL_ID' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 2, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, REPORT_CHANNEL_ID
+ImportError: cannot import name 'REPORT_CHANNEL_ID' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.set' raised an error: ImportError: cannot import name 'REPORT_CHANNEL_ID' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[ERROR] 2025-06-12 19:31:11 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.host' : Extension 'commands.admin.host' raised an error: SyntaxError: invalid syntax. Perhaps you forgot a comma? (host.py, line 35)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1090, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 35
+    "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
+                                                                                           ^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.host' raised an error: SyntaxError: invalid syntax. Perhaps you forgot a comma? (host.py, line 35)
+[INFO] 2025-06-12 19:31:11 - [COG] Chargée : commands.admin.empty
+[ERROR] 2025-06-12 19:31:11 - [ERROR] Erreur lors du chargement de la cog 'commands.public.help' : Extension 'commands.public.help' raised an error: SyntaxError: unterminated string literal (detected at line 39) (help.py, line 39)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1090, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\public\help.py", line 39
+    embed.add_field(name="/set channel <salon>", value="Définir les salons pris en charge. inline=False)
+                                                       ^
+SyntaxError: unterminated string literal (detected at line 39)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.public.help' raised an error: SyntaxError: unterminated string literal (detected at line 39) (help.py, line 39)
+[INFO] 2025-06-12 19:31:11 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:31:40 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:31:40 - logging in using static token
+[INFO] 2025-06-12 19:31:43 - Shard ID None has connected to Gateway (Session ID: 360d548386d00ba6d36542ce9d47895a).
+[INFO] 2025-06-12 19:31:45 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:31:45 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:31:45 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:31:45 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:31:45 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:31:45 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:31:45 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:31:45 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:31:45 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:31:45 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:31:45 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:31:45 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:31:45 - [INFO] 4 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:31:45 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:31:45 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:31:50 - [START] Le bot est prêt et en ligne !
+[ERROR] 2025-06-12 19:39:51 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:39:51 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:39:51 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:39:52 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:39:52 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:39:52 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:39:52 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:39:52 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:39:52 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:39:52 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:39:52 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:39:52 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:39:52 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:39:52 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:39:52 - [COG] Chargée : commands.admin.restart
+[ERROR] 2025-06-12 19:39:52 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.set' : Extension 'commands.admin.set' raised an error: ImportError: cannot import name 'REPORT_CHANNEL_ID' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 2, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, REPORT_CHANNEL_ID
+ImportError: cannot import name 'REPORT_CHANNEL_ID' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.set' raised an error: ImportError: cannot import name 'REPORT_CHANNEL_ID' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[ERROR] 2025-06-12 19:39:52 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.host' : Extension 'commands.admin.host' raised an error: SyntaxError: invalid syntax. Perhaps you forgot a comma? (host.py, line 35)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1090, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 35
+    "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
+                                                                                           ^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.host' raised an error: SyntaxError: invalid syntax. Perhaps you forgot a comma? (host.py, line 35)
+[INFO] 2025-06-12 19:39:52 - [COG] Chargée : commands.admin.empty
+[ERROR] 2025-06-12 19:39:52 - [ERROR] Erreur lors du chargement de la cog 'commands.public.help' : Extension 'commands.public.help' raised an error: SyntaxError: unterminated string literal (detected at line 39) (help.py, line 39)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1090, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\public\help.py", line 39
+    embed.add_field(name="/set channel <salon>", value="Définir les salons pris en charge. inline=False)
+                                                       ^
+SyntaxError: unterminated string literal (detected at line 39)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.public.help' raised an error: SyntaxError: unterminated string literal (detected at line 39) (help.py, line 39)
+[INFO] 2025-06-12 19:39:52 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:40:20 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:40:20 - logging in using static token
+[INFO] 2025-06-12 19:40:23 - Shard ID None has connected to Gateway (Session ID: 974383ed13d2ab7fa2657c31ac246525).
+[INFO] 2025-06-12 19:40:25 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:40:25 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:40:25 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:40:25 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:40:25 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:40:25 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:40:25 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:40:25 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:40:25 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:40:25 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:40:25 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:40:25 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:40:25 - [INFO] 4 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:40:25 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:40:25 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:40:30 - [START] Le bot est prêt et en ligne !
+[ERROR] 2025-06-12 19:40:53 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:40:53 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:40:53 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:40:54 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:40:54 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:40:54 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:40:54 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:40:54 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:40:54 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:40:54 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:40:54 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:40:54 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:40:54 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:40:54 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:40:54 - [COG] Chargée : commands.admin.restart
+[ERROR] 2025-06-12 19:40:54 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.set' : Extension 'commands.admin.set' raised an error: ModuleNotFoundError: No module named 'home.plugin'
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 6, in <module>
+    from home.plugin.pipeline import set_whitelisted_channel
+ModuleNotFoundError: No module named 'home.plugin'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.set' raised an error: ModuleNotFoundError: No module named 'home.plugin'
+[ERROR] 2025-06-12 19:40:54 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.host' : Extension 'commands.admin.host' raised an error: SyntaxError: invalid syntax. Perhaps you forgot a comma? (host.py, line 35)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1090, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 35
+    "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
+                                                                                           ^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.host' raised an error: SyntaxError: invalid syntax. Perhaps you forgot a comma? (host.py, line 35)
+[INFO] 2025-06-12 19:40:54 - [COG] Chargée : commands.admin.empty
+[ERROR] 2025-06-12 19:40:54 - [ERROR] Erreur lors du chargement de la cog 'commands.public.help' : Extension 'commands.public.help' raised an error: SyntaxError: unterminated string literal (detected at line 39) (help.py, line 39)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1160, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1090, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\public\help.py", line 39
+    embed.add_field(name="/set channel <salon>", value="Définir les salons pris en charge. inline=False)
+                                                       ^
+SyntaxError: unterminated string literal (detected at line 39)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.public.help' raised an error: SyntaxError: unterminated string literal (detected at line 39) (help.py, line 39)
+[INFO] 2025-06-12 19:40:54 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:41:22 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:41:22 - logging in using static token
+[INFO] 2025-06-12 19:41:25 - Shard ID None has connected to Gateway (Session ID: c3ac96ddc198fab880b38199fac3ee9e).
+[INFO] 2025-06-12 19:41:27 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:41:27 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:41:27 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:41:27 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:41:27 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:41:27 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:41:27 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:41:27 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:41:27 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:41:27 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:41:27 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:41:27 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:41:29 - [INFO] 4 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:41:29 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:41:29 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:41:34 - [START] Le bot est prêt et en ligne !
+[ERROR] 2025-06-12 19:43:24 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:43:24 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:43:24 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:43:26 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:43:26 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:43:26 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:43:26 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:43:26 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:43:26 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:43:26 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:43:26 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:43:26 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:43:26 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:43:26 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:43:26 - [COG] Chargée : commands.admin.restart
+[ERROR] 2025-06-12 19:43:26 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.set' : Extension 'commands.admin.set' raised an error: NameError: name 'settings' is not defined
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 8, in <module>
+    db = Database(settings.SERVER_DB)
+                  ^^^^^^^^
+NameError: name 'settings' is not defined
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.set' raised an error: NameError: name 'settings' is not defined
+[INFO] 2025-06-12 19:43:29 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 19:43:29 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 19:43:29 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 19:43:29 - [COG] Chargée : commands.public.ping
+[ERROR] 2025-06-12 19:44:03 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:44:03 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:44:03 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:44:04 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:44:04 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:44:04 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:44:04 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:44:04 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:44:04 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:44:04 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:44:04 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:44:04 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:44:04 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:44:04 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:44:04 - [COG] Chargée : commands.admin.restart
+[ERROR] 2025-06-12 19:44:04 - Erreur lors du chargement de la base de données: Expecting value: line 1 column 1 (char 0)
+[INFO] 2025-06-12 19:44:04 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 19:44:06 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 19:44:06 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 19:44:06 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 19:44:06 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:44:34 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:44:34 - logging in using static token
+[INFO] 2025-06-12 19:44:36 - Shard ID None has connected to Gateway (Session ID: a16388c25a3d31d46eaf8ef4b5db3ba7).
+[INFO] 2025-06-12 19:44:38 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:44:38 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:44:38 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:44:38 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:44:38 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:44:38 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:44:38 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:44:38 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:44:38 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:44:38 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:44:38 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:44:38 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:44:39 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:44:39 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:44:39 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:44:44 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 19:45:35 - [SET CHANNEL] Salon 1232303023955378199 Ajouté avec succès sur 1232303023053606913 par nythique (1233020939898327092)
+[INFO] 2025-06-12 19:47:26 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:47:26 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:47:27 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:47:27 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:47:27 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:47:27 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:47:27 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:47:27 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:47:27 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:47:27 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:47:27 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:47:27 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:47:27 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:47:27 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 19:47:27 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 19:47:28 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 19:47:28 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 19:47:28 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 19:47:28 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:47:56 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:47:56 - logging in using static token
+[INFO] 2025-06-12 19:47:58 - Shard ID None has connected to Gateway (Session ID: 3af1dca5108f2024793e8f3407c54fac).
+[INFO] 2025-06-12 19:48:01 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:48:01 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:48:01 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:48:01 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:48:01 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:48:01 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:48:01 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:48:01 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:48:01 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:48:01 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:48:01 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:48:01 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:48:01 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:48:01 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:48:01 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:48:06 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 19:48:11 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 19:48:11 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:48:11 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:48:11 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 19:48:11 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 19:48:12 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 19:48:12 - [INFO] Appel à ask ollama avec le message : pdl
+[INFO] 2025-06-12 19:48:12 - [INFO] Recherche de la réponse au message : pdl
+[INFO] 2025-06-12 19:48:12 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+[ERROR] 2025-06-12 19:48:12 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+[ERROR] 2025-06-12 19:48:36 - [HOST] Erreur lors de l'affichage de l'hôte pour nythique (1233020939898327092): name 'bot_user' is not defined
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 52, in host
+    invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot&permissions=8"
+                                                                   ^^^^^^^^
+NameError: name 'bot_user' is not defined
+[INFO] 2025-06-12 19:48:54 - [HELP] Message d'aide envoyé à nythique (1233020939898327092)
+[INFO] 2025-06-12 19:49:20 - [SET CHANNEL] Salon 1232303023955378199 Ajouté avec succès sur 1232303023053606913 par nythique (1233020939898327092)
+[INFO] 2025-06-12 19:49:27 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 19:49:27 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:49:27 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:49:27 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 19:49:27 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 19:49:27 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 19:49:27 - [INFO] Appel à ask ollama avec le message : pdl
+[INFO] 2025-06-12 19:49:27 - [INFO] Recherche de la réponse au message : pdl
+[INFO] 2025-06-12 19:49:29 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+[ERROR] 2025-06-12 19:49:29 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+[INFO] 2025-06-12 19:49:39 - [PING] Pong envoyé à nythique (1233020939898327092) sur 1232303023053606913 (225 ms)
+[INFO] 2025-06-12 19:50:06 - [INFO] Logs d'erreur envoyés à nythique
+[INFO] 2025-06-12 19:53:14 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:53:14 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:53:15 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:53:15 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:53:15 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:53:15 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:53:15 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:53:15 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:53:51 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:53:51 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:53:52 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:53:52 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:53:52 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:53:52 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:53:52 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:53:52 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:53:52 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:53:52 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:53:52 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:53:52 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:53:52 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:53:52 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 19:53:52 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 19:53:54 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 19:53:54 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 19:53:54 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 19:53:54 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:54:22 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:54:22 - logging in using static token
+[INFO] 2025-06-12 19:54:24 - Shard ID None has connected to Gateway (Session ID: bbb3d405f1622c06511672e784a6057e).
+[INFO] 2025-06-12 19:54:27 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:54:27 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:54:27 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:54:27 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:54:27 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:54:27 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:54:27 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:54:27 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:54:27 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:54:27 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:54:27 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:54:27 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:54:27 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:54:27 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:54:27 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:54:32 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 19:54:45 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 19:54:45 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:54:45 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:54:45 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 19:54:45 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 19:54:46 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 19:54:46 - [INFO] Appel à ask ollama avec le message : Pdl
+[INFO] 2025-06-12 19:54:46 - [INFO] Recherche de la réponse au message : Pdl
+[INFO] 2025-06-12 19:54:47 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+[ERROR] 2025-06-12 19:54:47 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+[INFO] 2025-06-12 19:55:11 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 19:55:11 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:55:11 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:55:11 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 19:55:11 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 19:55:12 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 19:55:12 - [INFO] Appel à ask ollama avec le message : pdl, viens en  voc
+[INFO] 2025-06-12 19:55:12 - [INFO] Recherche de la réponse au message : pdl, viens en  voc
+[INFO] 2025-06-12 19:55:13 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+[ERROR] 2025-06-12 19:55:13 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+[INFO] 2025-06-12 19:55:49 - Connecting to voice...
+[INFO] 2025-06-12 19:55:49 - Starting voice handshake... (connection attempt 1)
+[INFO] 2025-06-12 19:55:49 - Voice handshake complete. Endpoint found: madrid3391.discord.media
+[INFO] 2025-06-12 19:55:51 - Voice connection complete.
+[INFO] 2025-06-12 19:55:51 - [INFO] Le bot a rejoint le salon vocal : Generaletesteest
+[INFO] 2025-06-12 19:55:51 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 19:55:51 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:55:51 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:55:51 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 19:55:51 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 19:55:52 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 19:55:52 - [INFO] Appel à ask ollama avec le message : viens voc
+[INFO] 2025-06-12 19:55:52 - [INFO] Recherche de la réponse au message : viens voc
+[INFO] 2025-06-12 19:55:53 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+[ERROR] 2025-06-12 19:55:53 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+[INFO] 2025-06-12 19:57:17 - The voice handshake is being terminated for Channel ID 1232303023955378200 (Guild ID 1232303023053606913)
+[INFO] 2025-06-12 19:57:58 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 19:57:58 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 19:57:59 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 19:57:59 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 19:57:59 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 19:57:59 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 19:57:59 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 19:57:59 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 19:57:59 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 19:57:59 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 19:57:59 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 19:57:59 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 19:57:59 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 19:57:59 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 19:57:59 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 19:58:01 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 19:58:01 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 19:58:01 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 19:58:01 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 19:58:29 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 19:58:29 - logging in using static token
+[INFO] 2025-06-12 19:58:31 - Shard ID None has connected to Gateway (Session ID: ce9517e458a8939c9e9fdb51ba074b6a).
+[INFO] 2025-06-12 19:58:33 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 19:58:33 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 19:58:33 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 19:58:33 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 19:58:33 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:58:33 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 19:58:33 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 19:58:33 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 19:58:33 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 19:58:33 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:58:33 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:58:33 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 19:58:34 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 19:58:34 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 19:58:34 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 19:58:39 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 19:58:53 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 19:58:53 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 19:58:53 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 19:58:53 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 19:58:53 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 19:58:54 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 19:58:54 - [INFO] Appel à ask ollama avec le message : Pdl
+[INFO] 2025-06-12 19:58:54 - [INFO] Recherche de la réponse au message : Pdl
+[INFO] 2025-06-12 19:58:55 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+[ERROR] 2025-06-12 19:58:55 - [ERROR] Erreur lors de la recherche de la réponse : Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+[INFO] 2025-06-12 20:00:25 - Shard ID None has successfully RESUMED session ce9517e458a8939c9e9fdb51ba074b6a.
+[INFO] 2025-06-12 20:00:32 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:00:32 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:00:32 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:00:32 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:00:32 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:00:32 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:00:32 - [INFO] Appel à ask ollama avec le message : Pdl
+[INFO] 2025-06-12 20:00:32 - [INFO] Recherche de la réponse au message : Pdl
+[INFO] 2025-06-12 20:00:33 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:00:34 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:00:34 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:01:06 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:01:06 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:01:06 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:01:06 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:01:06 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:01:07 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:01:07 - [INFO] Appel à ask ollama avec le message : Je veux que tu mentionnes jinx
+[INFO] 2025-06-12 20:01:07 - [INFO] Recherche de la réponse au message : Je veux que tu mentionnes jinx
+[INFO] 2025-06-12 20:01:08 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:01:08 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:01:08 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:01:26 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:01:26 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:01:26 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:01:26 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:01:26 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:01:26 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:01:26 - [INFO] Appel à ask ollama avec le message : Mention le avec Un @
+[INFO] 2025-06-12 20:01:26 - [INFO] Recherche de la réponse au message : Mention le avec Un @
+[INFO] 2025-06-12 20:01:27 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:01:27 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:01:27 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:01:52 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:01:52 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:01:52 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:01:52 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:01:52 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:01:53 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:01:53 - [INFO] Appel à ask ollama avec le message : Ohhh mais mentionne le avec un @ pas un #
+[INFO] 2025-06-12 20:01:53 - [INFO] Recherche de la réponse au message : Ohhh mais mentionne le avec un @ pas un #
+[INFO] 2025-06-12 20:01:54 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:01:54 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:01:54 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:02:16 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:02:16 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:02:16 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:02:16 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:02:16 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:02:16 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:02:16 - [INFO] Appel à ask ollama avec le message : 😂 t'as vrm utilisé un arobase du con
+[INFO] 2025-06-12 20:02:16 - [INFO] Recherche de la réponse au message : 😂 t'as vrm utilisé un arobase du con
+[INFO] 2025-06-12 20:02:17 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:02:17 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:02:17 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:02:35 - Connecting to voice...
+[INFO] 2025-06-12 20:02:35 - Starting voice handshake... (connection attempt 1)
+[INFO] 2025-06-12 20:02:36 - Voice handshake complete. Endpoint found: madrid3391.discord.media
+[INFO] 2025-06-12 20:02:37 - Voice connection complete.
+[INFO] 2025-06-12 20:02:37 - [INFO] Le bot a rejoint le salon vocal : Generaletesteest
+[INFO] 2025-06-12 20:03:33 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:03:33 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[ERROR] 2025-06-12 20:04:37 - [STATUS] Erreur lors de la définition du statut du bot par nythique (1233020939898327092) : 'Database' object has no attribute 'update_bot_status'
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 108, in status
+    status = db.update_bot_status(message)
+             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'update_bot_status'. Did you mean: 'update_bot_stats'?
+[ERROR] 2025-06-12 20:04:42 - Ignoring exception in command 'status'
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 108, in status
+    status = db.update_bot_status(message)
+             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'update_bot_status'. Did you mean: 'update_bot_stats'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 857, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 118, in status
+    await interaction.followup.send(embed=embed, ephemeral=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 1857, in send
+    data = await adapter.execute_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10015): Unknown Webhook
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'status' raised an exception: NotFound: 404 Not Found (error code: 10015): Unknown Webhook
+[ERROR] 2025-06-12 20:05:34 - [HOST] Erreur lors de l'affichage de l'hôte pour nythique (1233020939898327092): name 'bot_user' is not defined
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 52, in host
+    invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot&permissions=8"
+                                                                   ^^^^^^^^
+NameError: name 'bot_user' is not defined
+[INFO] 2025-06-12 20:05:58 - [INFO] Logs d'erreur envoyés à nythique
+[INFO] 2025-06-12 20:06:48 - The voice handshake is being terminated for Channel ID 1232303023955378200 (Guild ID 1232303023053606913)
+[INFO] 2025-06-12 20:07:24 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:07:24 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:07:24 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:07:24 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:07:24 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:07:24 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:07:24 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:07:24 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:07:24 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:07:24 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:07:24 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:07:24 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:07:24 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:07:24 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 20:07:24 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 20:07:26 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 20:07:26 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:07:26 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:07:26 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:07:54 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 20:07:54 - logging in using static token
+[INFO] 2025-06-12 20:07:56 - Shard ID None has connected to Gateway (Session ID: 8931e00984258a1dbf6450651eb47bde).
+[INFO] 2025-06-12 20:07:58 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 20:07:58 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 20:07:58 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 20:07:58 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 20:07:58 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:07:58 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:07:58 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:07:58 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:07:58 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 20:07:58 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:07:58 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:07:58 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 20:07:58 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 20:07:58 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 20:07:58 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 20:08:03 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 20:12:58 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:12:58 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:17:58 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:17:58 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:19:12 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:19:12 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:19:12 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:19:12 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:19:12 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:19:12 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:19:12 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:19:12 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:19:12 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:19:12 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:19:12 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:19:12 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:19:12 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:19:12 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 20:19:12 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 20:19:14 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 20:19:14 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:19:14 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:19:14 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:19:42 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 20:19:42 - logging in using static token
+[INFO] 2025-06-12 20:19:44 - Shard ID None has connected to Gateway (Session ID: 2a48787ef260c93abf5190ac44dd8e1b).
+[INFO] 2025-06-12 20:19:46 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 20:19:46 - [ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 20:19:46 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 20:19:46 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 20:19:46 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:19:46 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:19:46 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:19:46 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:19:46 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 20:19:46 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:19:46 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:19:46 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 20:19:48 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 20:19:48 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 20:19:48 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 20:19:53 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 20:23:31 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:23:31 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:23:32 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:23:32 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:23:32 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:23:32 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:23:32 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:23:32 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:23:32 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:23:32 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:23:32 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:23:32 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:23:32 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:23:32 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 20:23:32 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 20:23:33 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 20:23:33 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:23:33 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:23:33 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:24:01 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 20:24:01 - logging in using static token
+[INFO] 2025-06-12 20:24:03 - Shard ID None has connected to Gateway (Session ID: 82f57f4fc5e35b19028ead3990631b5c).
+[INFO] 2025-06-12 20:24:05 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 20:24:05 - [ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 20:24:05 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 20:24:05 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 20:24:05 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:24:05 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:24:05 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:24:05 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:24:05 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 20:24:05 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:24:05 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:24:05 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 20:24:05 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 20:24:05 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 20:24:05 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 20:24:10 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 20:29:00 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:29:00 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:29:00 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:29:00 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:29:00 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:29:00 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:29:00 - [INFO] Appel à ask ollama avec le message : pdl
+[INFO] 2025-06-12 20:29:00 - [INFO] Recherche de la réponse au message : pdl
+[INFO] 2025-06-12 20:29:02 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:29:02 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:29:02 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:29:05 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:29:05 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:29:31 - Connecting to voice...
+[INFO] 2025-06-12 20:29:31 - Starting voice handshake... (connection attempt 1)
+[INFO] 2025-06-12 20:29:31 - Voice handshake complete. Endpoint found: madrid3391.discord.media
+[INFO] 2025-06-12 20:29:32 - Voice connection complete.
+[INFO] 2025-06-12 20:29:32 - [INFO] Le bot a rejoint le salon vocal : Generaletesteest
+[WARNING] 2025-06-12 20:30:28 - [SET] Accès refusé à nythique (1233020939898327092) sur 1072925050409324644 pour /set channel
+[INFO] 2025-06-12 20:34:05 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:34:05 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:39:05 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:39:05 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:40:53 - The voice handshake is being terminated for Channel ID 1232303023955378200 (Guild ID 1232303023053606913)
+[INFO] 2025-06-12 20:41:25 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:41:25 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:41:26 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:41:26 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:41:26 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:41:26 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:41:26 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:41:26 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:41:26 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:41:26 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:41:26 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:41:26 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:41:26 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:41:26 - [COG] Chargée : commands.admin.restart
+[ERROR] 2025-06-12 20:41:26 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.set' : Extension 'commands.admin.set' raised an error: ImportError: cannot import name 'ROOT_USER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 3, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
+ImportError: cannot import name 'ROOT_USER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.set' raised an error: ImportError: cannot import name 'ROOT_USER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[INFO] 2025-06-12 20:41:28 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 20:41:28 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:41:28 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:41:28 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:42:26 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:42:26 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:42:27 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:42:27 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:42:27 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:42:27 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:42:27 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:42:27 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:42:27 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:42:27 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:42:27 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:42:27 - [INFO] Chargement des cogs...
+[ERROR] 2025-06-12 20:42:27 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.debug' : Extension 'commands.admin.debug' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\debug.py", line 5, in <module>
+    from config.settings import ERROR_LOG_PATH, ROOT_UER
+ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.debug' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[ERROR] 2025-06-12 20:42:27 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.restart' : Extension 'commands.admin.restart' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\restart.py", line 4, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_UER
+ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.restart' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[INFO] 2025-06-12 20:42:27 - [COG] Chargée : commands.admin.set
+[ERROR] 2025-06-12 20:42:28 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.host' : Extension 'commands.admin.host' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 3, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_UER
+ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.host' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[ERROR] 2025-06-12 20:42:28 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.empty' : Extension 'commands.admin.empty' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\empty.py", line 4, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_UER
+ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.empty' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[INFO] 2025-06-12 20:42:28 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:42:28 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:42:57 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 20:42:57 - logging in using static token
+[INFO] 2025-06-12 20:42:58 - Shard ID None has connected to Gateway (Session ID: d566cf487306925a5f9876d3839de91b).
+[INFO] 2025-06-12 20:43:01 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 20:43:01 - [ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 20:43:01 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 20:43:01 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 20:43:01 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:43:01 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:43:01 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:43:01 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:43:01 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 20:43:01 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:43:01 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:43:01 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 20:43:01 - [INFO] 3 commandes synchronisées avec succès !
+[INFO] 2025-06-12 20:43:01 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 20:43:01 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 20:43:06 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 20:43:45 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:43:45 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:43:46 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:43:46 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:43:46 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:43:46 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:43:46 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:43:46 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:43:46 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:43:46 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:43:46 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:43:46 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:43:46 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:43:46 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 20:43:46 - [COG] Chargée : commands.admin.set
+[ERROR] 2025-06-12 20:43:46 - [ERROR] Erreur lors du chargement de la cog 'commands.admin.host' : Extension 'commands.admin.host' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 951, in _load_from_module_spec
+    spec.loader.exec_module(lib)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 3, in <module>
+    from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_UER
+ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\bot\bot.py", line 47, in load_cogs
+    await bot.load_extension(cog)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 1029, in load_extension
+    await self._load_from_module_spec(spec, name)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\ext\commands\bot.py", line 954, in _load_from_module_spec
+    raise errors.ExtensionFailed(key, e) from e
+discord.ext.commands.errors.ExtensionFailed: Extension 'commands.admin.host' raised an error: ImportError: cannot import name 'ROOT_UER' from 'config.settings' (D:\VisualStudio\Private Repository\pdl.bot Ai\config\settings.py)
+[INFO] 2025-06-12 20:43:46 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:43:46 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:43:46 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:44:24 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:44:24 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:44:25 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:44:25 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:44:25 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:44:25 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:44:25 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:44:25 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:44:25 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:44:25 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:44:25 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:44:25 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:44:25 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:44:25 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 20:44:25 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 20:44:26 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 20:44:26 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:44:26 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:44:26 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:44:54 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 20:44:54 - logging in using static token
+[INFO] 2025-06-12 20:44:56 - Shard ID None has connected to Gateway (Session ID: 235947dbb60eda1de52b7c6d16c510e1).
+[INFO] 2025-06-12 20:44:58 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 20:44:58 - [ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 20:44:58 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 20:44:58 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 20:44:58 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:44:58 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:44:58 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:44:58 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:44:58 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 20:44:58 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:44:58 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:44:58 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 20:44:58 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 20:44:58 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 20:44:58 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 20:45:03 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 20:45:40 - [SET CHANNEL] Salon 1370867677333291149 Ajouté avec succès sur 1072925050409324644 par nythique (1233020939898327092)
+[INFO] 2025-06-12 20:46:00 - [SET CHANNEL] Salon 1370867677333291149 Ajouté avec succès sur 1072925050409324644 par nythique (1233020939898327092)
+[INFO] 2025-06-12 20:46:23 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:46:23 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:46:23 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:46:23 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:46:23 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:46:23 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:46:23 - [INFO] Appel à ask ollama avec le message : pdl
+[INFO] 2025-06-12 20:46:23 - [INFO] Recherche de la réponse au message : pdl
+[INFO] 2025-06-12 20:46:24 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:46:24 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:46:24 - [INFO] Réponse générée avec succès
+[ERROR] 2025-06-12 20:47:33 - [STATUS] Erreur lors de la définition du statut du bot par nythique (1233020939898327092) : 'Database' object has no attribute 'update_bot_status'
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 110, in status
+    status = db.update_bot_status(message)
+             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'update_bot_status'. Did you mean: 'update_bot_stats'?
+[ERROR] 2025-06-12 20:47:38 - Ignoring exception in command 'status'
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 110, in status
+    status = db.update_bot_status(message)
+             ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Database' object has no attribute 'update_bot_status'. Did you mean: 'update_bot_stats'?
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 857, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\set.py", line 120, in status
+    await interaction.followup.send(embed=embed, ephemeral=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 1857, in send
+    data = await adapter.execute_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10015): Unknown Webhook
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'status' raised an exception: NotFound: 404 Not Found (error code: 10015): Unknown Webhook
+[INFO] 2025-06-12 20:48:40 - Sauvegarde créée: home/cluster/server/backup.json
+[INFO] 2025-06-12 20:48:40 - [INFO] Initialisation de la classe ollama...
+[INFO] 2025-06-12 20:48:41 - [INFO] La classe ollama initialisé avec succès.
+[INFO] 2025-06-12 20:48:41 - [INFO] Initialisation de la mémoire...
+[INFO] 2025-06-12 20:48:41 - [INFO] Vérification du fichier de mémoire...
+[INFO] 2025-06-12 20:48:41 - [INFO] Fichier de mémoire verifié.
+[INFO] 2025-06-12 20:48:41 - [INFO] Chargement de la mémoire...
+[INFO] 2025-06-12 20:48:41 - [INFO] Mémoire chargée avec succès.
+[INFO] 2025-06-12 20:48:41 - [INFO] Initialisation du bot...
+[INFO] 2025-06-12 20:48:41 - [INFO] Configuration des clients Discord...
+[INFO] 2025-06-12 20:48:41 - [INFO] Clients Discord configurés avec succès.
+[INFO] 2025-06-12 20:48:41 - [INFO] Chargement des cogs...
+[INFO] 2025-06-12 20:48:41 - [COG] Chargée : commands.admin.debug
+[INFO] 2025-06-12 20:48:41 - [COG] Chargée : commands.admin.restart
+[INFO] 2025-06-12 20:48:41 - [COG] Chargée : commands.admin.set
+[INFO] 2025-06-12 20:48:43 - [COG] Chargée : commands.admin.host
+[INFO] 2025-06-12 20:48:43 - [COG] Chargée : commands.admin.empty
+[INFO] 2025-06-12 20:48:43 - [COG] Chargée : commands.public.help
+[INFO] 2025-06-12 20:48:43 - [COG] Chargée : commands.public.ping
+[INFO] 2025-06-12 20:49:11 - [INFO] Connexion aux API discord...
+[INFO] 2025-06-12 20:49:11 - logging in using static token
+[INFO] 2025-06-12 20:49:14 - Shard ID None has connected to Gateway (Session ID: 452a6681c17de3213a58a6c911fe3ab1).
+[INFO] 2025-06-12 20:49:16 - [INFO] Démarrage des tâches périodiques...
+[ERROR] 2025-06-12 20:49:16 - [ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : 'function' object has no attribute 'is_running'
+[INFO] 2025-06-12 20:49:16 - [INFO] Démarrage de la tache de synchronisation...
+[INFO] 2025-06-12 20:49:16 - [INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...
+[INFO] 2025-06-12 20:49:16 - [INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:49:16 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:49:16 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[INFO] 2025-06-12 20:49:16 - [INFO] Nettoyage des utilisateurs inactifs...
+[INFO] 2025-06-12 20:49:16 - [INFO] Suppression de la mémoire des utilisateurs inactifs...
+[INFO] 2025-06-12 20:49:16 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:49:16 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:49:16 - [INFO] Nettoyage des utilisateurs inactifs réussi.
+[INFO] 2025-06-12 20:49:16 - [INFO] 7 commandes synchronisées avec succès !
+[INFO] 2025-06-12 20:49:16 - [INFO] 2 serveurs connectés !
+[INFO] 2025-06-12 20:49:16 - [INFO] Le bot est connecté en tant que PDL.AI (ID: 1294035883309142026) !
+[INFO] 2025-06-12 20:49:21 - [START] Le bot est prêt et en ligne !
+[INFO] 2025-06-12 20:49:30 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:49:30 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:49:30 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:49:30 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:49:30 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:49:30 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:49:30 - [INFO] Appel à ask ollama avec le message : Pdl
+[INFO] 2025-06-12 20:49:30 - [INFO] Recherche de la réponse au message : Pdl
+[INFO] 2025-06-12 20:49:31 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:49:31 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:49:31 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:49:41 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:49:41 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:49:41 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:49:41 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:49:41 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:49:41 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:49:41 - [INFO] Appel à ask ollama avec le message : Bahaha pdl est de retour en vie
+[INFO] 2025-06-12 20:49:41 - [INFO] Recherche de la réponse au message : Bahaha pdl est de retour en vie
+[INFO] 2025-06-12 20:49:42 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:49:42 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:49:42 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:49:43 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:49:43 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:49:43 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:49:43 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:49:43 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:49:44 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:49:44 - [INFO] Appel à ask ollama avec le message : Je t'es dis pas me @
+[INFO] 2025-06-12 20:49:44 - [INFO] Recherche de la réponse au message : Je t'es dis pas me @
+[INFO] 2025-06-12 20:49:44 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:49:44 - Retrying request to /openai/v1/chat/completions in 11.000000 seconds
+[INFO] 2025-06-12 20:49:56 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:49:56 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:49:56 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:49:56 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:49:56 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:49:56 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:49:56 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:49:56 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:49:56 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:49:56 - [INFO] Appel à ask ollama avec le message : Ca Fait quoi de se faire débrancher ?
+[INFO] 2025-06-12 20:49:56 - [INFO] Recherche de la réponse au message : Ca Fait quoi de se faire débrancher ?
+[INFO] 2025-06-12 20:49:57 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:49:57 - Retrying request to /openai/v1/chat/completions in 26.000000 seconds
+[INFO] 2025-06-12 20:50:24 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:50:24 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:50:24 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:50:24 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:50:24 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:50:24 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:50:24 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:50:24 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:50:25 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:50:25 - [INFO] Appel à ask ollama avec le message : Pdl pas gentil de mettre des vents
+[INFO] 2025-06-12 20:50:25 - [INFO] Recherche de la réponse au message : Pdl pas gentil de mettre des vents
+[INFO] 2025-06-12 20:50:25 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:50:25 - Retrying request to /openai/v1/chat/completions in 27.000000 seconds
+[WARNING] 2025-06-12 20:50:48 - Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[INFO] 2025-06-12 20:50:54 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:50:54 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:50:54 - [INFO] Réponse générée avec succès
+[ERROR] 2025-06-12 20:50:54 - Attempting a reconnect in 0.45s
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 704, in connect
+    await self.ws.poll_event()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 627, in poll_event
+    await self.received_message(msg.data)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 532, in received_message
+    await self.send_as_json(beat)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 663, in send_as_json
+    await self.send(utils._to_json(data))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 659, in send
+    await self.socket.send_str(data)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client_ws.py", line 245, in send_str
+    await self._writer.send_frame(
+        data.encode("utf-8"), WSMsgType.TEXT, compress=compress
+    )
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\_websocket\writer.py", line 125, in send_frame
+    raise ClientConnectionResetError("Cannot write to closing transport")
+aiohttp.client_exceptions.ClientConnectionResetError: Cannot write to closing transport
+[INFO] 2025-06-12 20:50:54 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:50:54 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:50:54 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:50:54 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:50:54 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:50:54 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:50:54 - [INFO] Appel à ask ollama avec le message : okay.  Viens en voc
+[INFO] 2025-06-12 20:50:54 - [INFO] Recherche de la réponse au message : okay.  Viens en voc
+[INFO] 2025-06-12 20:50:54 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:50:54 - Retrying request to /openai/v1/chat/completions in 27.000000 seconds
+[INFO] 2025-06-12 20:51:22 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:51:22 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:51:22 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:51:23 - Shard ID None has successfully RESUMED session 452a6681c17de3213a58a6c911fe3ab1.
+[INFO] 2025-06-12 20:51:23 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:51:23 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:51:23 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:51:23 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:51:23 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:51:23 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:51:23 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:51:23 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:51:23 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:51:23 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:51:23 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:51:23 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:51:23 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:51:23 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:51:23 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:51:23 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:51:23 - [INFO] Appel à ask ollama avec le message : Rip pdl qui se fait spam
+[INFO] 2025-06-12 20:51:23 - [INFO] Recherche de la réponse au message : Rip pdl qui se fait spam
+[INFO] 2025-06-12 20:51:23 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:51:23 - Retrying request to /openai/v1/chat/completions in 27.000000 seconds
+[WARNING] 2025-06-12 20:51:45 - Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[INFO] 2025-06-12 20:51:51 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:51:51 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:51:51 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:51:51 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:51:51 - [INFO] Appel à ask ollama avec le message : pdl, veins voc
+[INFO] 2025-06-12 20:51:51 - [INFO] Recherche de la réponse au message : pdl, veins voc
+[INFO] 2025-06-12 20:51:52 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:51:52 - Retrying request to /openai/v1/chat/completions in 27.000000 seconds
+[WARNING] 2025-06-12 20:51:55 - Shard ID None heartbeat blocked for more than 20 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[WARNING] 2025-06-12 20:52:05 - Shard ID None heartbeat blocked for more than 30 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[WARNING] 2025-06-12 20:52:14 - Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[WARNING] 2025-06-12 20:52:15 - Shard ID None heartbeat blocked for more than 40 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[INFO] 2025-06-12 20:52:20 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:52:20 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:52:20 - [INFO] Réponse générée avec succès
+[ERROR] 2025-06-12 20:52:20 - Attempting a reconnect in 1.11s
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 704, in connect
+    await self.ws.poll_event()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 627, in poll_event
+    await self.received_message(msg.data)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 532, in received_message
+    await self.send_as_json(beat)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 663, in send_as_json
+    await self.send(utils._to_json(data))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 659, in send
+    await self.socket.send_str(data)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client_ws.py", line 245, in send_str
+    await self._writer.send_frame(
+        data.encode("utf-8"), WSMsgType.TEXT, compress=compress
+    )
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\_websocket\writer.py", line 125, in send_frame
+    raise ClientConnectionResetError("Cannot write to closing transport")
+aiohttp.client_exceptions.ClientConnectionResetError: Cannot write to closing transport
+[INFO] 2025-06-12 20:52:20 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:52:20 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:52:20 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:52:20 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:52:20 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:52:20 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:52:20 - [INFO] Appel à ask ollama avec le message : Nan nan je parle de toi genre quand t'es hors ligne ça fait quoi de te faire débrancher du réseau et du serveur
+[INFO] 2025-06-12 20:52:20 - [INFO] Recherche de la réponse au message : Nan nan je parle de toi genre quand t'es hors ligne ça fait quoi de te faire débrancher du réseau et du serveur
+[INFO] 2025-06-12 20:52:20 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:52:20 - Retrying request to /openai/v1/chat/completions in 28.000000 seconds
+[INFO] 2025-06-12 20:52:49 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:52:49 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:52:49 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:52:49 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:52:49 - [INFO] Appel à ask ollama avec le message : Je vas mal
+[INFO] 2025-06-12 20:52:49 - [INFO] Recherche de la réponse au message : Je vas mal
+[INFO] 2025-06-12 20:52:49 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:52:49 - Retrying request to /openai/v1/chat/completions in 28.000000 seconds
+[WARNING] 2025-06-12 20:53:11 - Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[INFO] 2025-06-12 20:53:18 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:53:18 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:53:18 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:53:18 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:53:18 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:53:18 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:53:18 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:53:18 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:53:18 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:53:18 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:53:18 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:53:18 - [INFO] Mémoire mise à jour pour l'utilisateur 740182638580727818.
+[INFO] 2025-06-12 20:53:18 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:53:18 - Shard ID None has successfully RESUMED session 452a6681c17de3213a58a6c911fe3ab1.
+[INFO] 2025-06-12 20:53:19 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:53:19 - [INFO] Appel à ask ollama avec le message : C'est pas ma question 😔
+[INFO] 2025-06-12 20:53:19 - [INFO] Recherche de la réponse au message : C'est pas ma question 😔
+[INFO] 2025-06-12 20:53:19 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:53:19 - Retrying request to /openai/v1/chat/completions in 28.000000 seconds
+[INFO] 2025-06-12 20:53:48 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:53:48 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:53:48 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:53:48 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:53:48 - [INFO] Appel à ask ollama avec le message : Ca Va tu te suces bien la quand même
+[INFO] 2025-06-12 20:53:48 - [INFO] Recherche de la réponse au message : Ca Va tu te suces bien la quand même
+[INFO] 2025-06-12 20:53:48 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:53:48 - Retrying request to /openai/v1/chat/completions in 28.000000 seconds
+[WARNING] 2025-06-12 20:54:09 - Shard ID None heartbeat blocked for more than 10 seconds.
+Loop thread traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\run.py", line 28, in <module>
+    bot.run(DISCORD_TOKEN)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 906, in run
+    asyncio.run(runner())
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 481, in _run_event
+    await coro(*args, **kwargs)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\core\main.py", line 297, in on_message
+    response = nlp.get_answer(messages, username=username)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 108, in get_answer
+    api_response = self.ask_ollama(question, username, messages=messages)
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\home\gen\smart.py", line 56, in ask_ollama
+    response = self.groq_client.chat.completions.create(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\resources\chat\completions.py", line 355, in create
+    return self._post(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1222, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1017, in request
+    self._sleep_for_retry(
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\groq\_base_client.py", line 1057, in _sleep_for_retry
+    time.sleep(timeout)
+
+[INFO] 2025-06-12 20:54:17 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:54:17 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:54:17 - [INFO] Réponse générée avec succès
+[INFO] 2025-06-12 20:54:17 - [INFO] Gestion de la mémoire...
+[INFO] 2025-06-12 20:54:17 - [INFO] Sauvegarde de la mémoire...
+[INFO] 2025-06-12 20:54:17 - [INFO] Mémoire sauvegardée avec succès.
+[INFO] 2025-06-12 20:54:17 - [INFO] Mémoire mise à jour pour l'utilisateur 1233020939898327092.
+[INFO] 2025-06-12 20:54:17 - [INFO] Une interaction est en cours dans le serveur
+[INFO] 2025-06-12 20:54:17 - [INFO] Sauvegarde périodique de la mémoire...
+[INFO] 2025-06-12 20:54:17 - [INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.
+[ERROR] 2025-06-12 20:54:17 - Attempting a reconnect in 7.17s
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\client.py", line 704, in connect
+    await self.ws.poll_event()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 627, in poll_event
+    await self.received_message(msg.data)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 532, in received_message
+    await self.send_as_json(beat)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 663, in send_as_json
+    await self.send(utils._to_json(data))
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\gateway.py", line 659, in send
+    await self.socket.send_str(data)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\client_ws.py", line 245, in send_str
+    await self._writer.send_frame(
+        data.encode("utf-8"), WSMsgType.TEXT, compress=compress
+    )
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\aiohttp\_websocket\writer.py", line 125, in send_frame
+    raise ClientConnectionResetError("Cannot write to closing transport")
+aiohttp.client_exceptions.ClientConnectionResetError: Cannot write to closing transport
+[ERROR] 2025-06-12 20:54:18 - [PING] Erreur lors de l'exécution de la commande ping : 404 Not Found (error code: 10062): Unknown interaction
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\public\ping.py", line 46, in ping
+    await interaction.response.send_message(embed=embed, ephemeral=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\interactions.py", line 1004, in send_message
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+[INFO] 2025-06-12 20:54:18 - [INFO] Recuperation du message de l'utilisateur
+[INFO] 2025-06-12 20:54:18 - [INFO] Appel à ask ollama avec le message : Orrrrr t'as Quoi avec les mentions toi!
+[INFO] 2025-06-12 20:54:18 - [INFO] Recherche de la réponse au message : Orrrrr t'as Quoi avec les mentions toi!
+[INFO] 2025-06-12 20:54:18 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+[INFO] 2025-06-12 20:54:18 - Retrying request to /openai/v1/chat/completions in 28.000000 seconds
+[INFO] 2025-06-12 20:54:46 - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] 2025-06-12 20:54:46 - [INFO] Generation de la réponse
+[INFO] 2025-06-12 20:54:46 - [INFO] Réponse générée avec succès
+[ERROR] 2025-06-12 20:54:47 - Ignoring exception in command 'ping'
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\public\ping.py", line 46, in ping
+    await interaction.response.send_message(embed=embed, ephemeral=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\interactions.py", line 1004, in send_message
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 857, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\public\ping.py", line 56, in ping
+    await interaction.response.send_message(embed=error_embed, ephemeral=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\interactions.py", line 1004, in send_message
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'ping' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction
+[INFO] 2025-06-12 20:54:47 - Shard ID None has successfully RESUMED session 452a6681c17de3213a58a6c911fe3ab1.
+[ERROR] 2025-06-12 20:54:47 - [HOST] Erreur lors de l'affichage de l'hôte pour nythique (1233020939898327092): name 'bot_user' is not defined
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 54, in host
+    icon_url=bot_user.display_avatar.url
+             ^^^^^^^^
+NameError: name 'bot_user' is not defined
+[ERROR] 2025-06-12 20:54:47 - Ignoring exception in command 'host'
+Traceback (most recent call last):
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 54, in host
+    icon_url=bot_user.display_avatar.url
+             ^^^^^^^^
+NameError: name 'bot_user' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 857, in _do_call
+    return await self._callback(self.binding, interaction, **params)  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\VisualStudio\Private Repository\pdl.bot Ai\commands\admin\host.py", line 65, in host
+    await interaction.response.send_message(embed=error_embed, ephemeral=True)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\interactions.py", line 1004, in send_message
+    response = await adapter.create_interaction_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\webhook\async_.py", line 224, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10062): Unknown interaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\tree.py", line 1310, in _call
+    await command._invoke_with_namespace(interaction, namespace)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 883, in _invoke_with_namespace
+    return await self._do_call(interaction, transformed_values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\discord\app_commands\commands.py", line 876, in _do_call
+    raise CommandInvokeError(self, e) from e
+discord.app_commands.errors.CommandInvokeError: Command 'host' raised an exception: NotFound: 404 Not Found (error code: 10062): Unknown interaction

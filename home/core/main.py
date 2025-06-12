@@ -8,20 +8,29 @@ from discord.ui import View, Button, Modal, TextInput, Select
 from home.cluster.vram import memory
 from tools.ocr import OCRProcessor as ocr
 from tools.db import Database
-import discord, time, os, sys, json, logging, asyncio, colorama, PyNacl
+import discord, time, os, sys, json, logging, asyncio, colorama
 colorama.init()
 
 db = Database(settings.SERVER_DB)
+db.load_data()
 db.backup_database(settings.SERVER_BACKUP)
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = memory()
 ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
 bot = None
-ordre_restart = ["Redémarre toi","redémarre toi","va faire dodo"]
-numberMember = ["Combien de membres sur le serveur","combien de membres sur le serveur", "Nombres de membres sur le serveur","nombres de membres sur le serveur", "Nombre de membre","nombre de membre", "number of members on the server"]
+ordre_restart = [
+    "Redémarre toi",
+    "redémarre toi",
+    "va faire dodo"
+    ]
+numberMember = [
+    "Combien de membres sur le serveur","combien de membres sur le serveur", 
+    "Nombres de membres sur le serveur","nombres de membres sur le serveur", 
+    "Nombre de membre","nombre de membre", "number of members on the server"
+    ]
 voc_ordre = [
-    "rejoindre moi en vocal",
+    "rejoint moi en vocal",
     "viens me voir en vocal",
     "viens en vocal",
     "connecte toi en vocal",
@@ -157,10 +166,14 @@ def register_commands(bot_instance):
                 save_memory_periodically.start()
             if not clear_inactive_users.is_running():
                 clear_inactive_users.start()
-            if not status_swap.is_running():
-                status_swap.start(bot)
+            try:
+                if not status_swap.is_running():
+                    status_swap.start(bot)
+            except Exception as e:
+                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut {e}" + Style.RESET_ALL)
+                logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : {e}")
         except Exception as e:
-            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques" + Style.RESET_ALL)
+            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
         
         try:
@@ -185,7 +198,7 @@ def register_commands(bot_instance):
         if message.author.bot: return 
         if message.channel.id not in db.get_allowed_channels(): return
         
-        content = message.content.strip().lower()
+        content = message.content.strip()
         user_id = message.author.id
 
         voc_orde_true = any(key in content for key in voc_ordre)
@@ -202,6 +215,7 @@ def register_commands(bot_instance):
                         await voc_channel.connect()
                         await message.reply(f"Je tes rejoint dans le salon vocal !")
                         logging.info(f"[INFO] Le bot a rejoint le salon vocal : {voc_channel.name}")
+                        return
                     else:
                         await message.reply(f"Je suis déjà dans un salon vocal !")
                         return
@@ -289,9 +303,6 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")  
 
         await bot.process_commands(message)
-    
-    @bot.event
-    async def o
         
     @bot.event
     async def on_command_error(ctx, error):

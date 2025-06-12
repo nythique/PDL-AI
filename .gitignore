@@ -1,2 +1,11 @@
 home/cluster/rom.json
 config/cloud.py
+bot/__pycache__
+commands/admin/__pycache__
+commands/public/__pycache__
+tools/__pycache__
+config/__pycache__
+home/cluster/__pycache__
+home/gen/__pycache__
+home/core/__pycache__
+home/cluster/server/

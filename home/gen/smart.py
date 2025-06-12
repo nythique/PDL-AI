@@ -29,7 +29,7 @@ class ollama:
     def __init__(self):
         try:
             logging.info("[INFO] Initialisation de la classe ollama...")
-            self.groq_client = Groq(api_key=settings.KEY) 
+            self.groq_client = Groq(api_key=settings.CHAT_KEY) 
             self.conversation_history = []
             logging.info("[INFO] La classe ollama initialisé avec succès.")
         except Exception as e:
@@ -54,13 +54,13 @@ class ollama:
                     prompt_messages.append({"role": "user", "content": question})
 
             response = self.groq_client.chat.completions.create(
-                model=settings.MODEL,
+                model=settings.CHAT_MODEL,
                 messages=prompt_messages,
-                temperature=settings.TEMPERATURE,
-                max_tokens=settings.MAX_TOKENS,
-                top_p=settings.TOP_P,
-                frequency_penalty=settings.FREQUENCY,
-                presence_penalty=settings.PRESENCE_PENALTY,
+                temperature=settings.CHAT_TEMPERATURE,
+                max_tokens=settings.CHAT_MAX_TOKENS,
+                top_p=settings.CHAT_TOP_P,
+                frequency_penalty=settings.CHAT_FREQUENCY,
+                presence_penalty=settings.CHAT_PRESENCE_PENALTY,
             )
             try:
                 logging.info(f"[INFO] Generation de la réponse")
@@ -74,7 +74,7 @@ class ollama:
                 return "Je suis désolé, une erreur s'est produite. Veuillez réessayer plus tard."
         except Exception as e:
             logging.error(f"[ERROR] Erreur lors de la recherche de la réponse : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la recherche de la réponse" + Style.RESET_ALL)
+            print(Fore.RED + f"[ERROR] Erreur lors de la recherche de la réponse {e}" + Style.RESET_ALL)
             return "Je suis désolé, une erreur s'est produite. Veuillez réessayer plus tard."
 
     def get_answer(self, messages, username=None):

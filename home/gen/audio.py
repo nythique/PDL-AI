@@ -1,6 +1,6 @@
 import colorama, os, sys, time, asyncio, logging
 from colorama import Fore, Style
-from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SERVER_PATH
+from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)

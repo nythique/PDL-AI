@@ -1,10 +1,12 @@
 import discord, logging
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, REPORT_CHANNEL_ID
+from config import settings
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
 from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
-from home.plugin.pipeline import set_whitelisted_channel
+from tools.db import Database
 
+db = Database(settings.SERVER_DB)
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
@@ -32,20 +34,22 @@ class Set(commands.GroupCog, name="set"):
     async def channel(self, interaction: discord.Interaction, channel: discord.TextChannel):
         try:
             member = interaction.guild.get_member(interaction.user.id)
-            if not member or not member.guild_permissions.administrator:
+            admin_perms = not member or not (member.guild_permissions.administrator or member.id in ROOT_USER)
+
+            if admin_perms: 
                 logging.warning(f"[SET] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id} pour /set channel")
                 await interaction.response.send_message(
                     "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
                 )
                 return
 
-            set_whitelisted_channel(interaction.guild.id, channel.id)
+            db.add_allowed_channel(channel.id)
             await interaction.response.send_message(
-                f"✅ Salon run-code pour ce serveur : {channel.mention}", ephemeral=True
+                f"Salon de conversation {channel.mention} ajouté avec succès !", ephemeral=True
             )
-            logging.info(f"[SET] Salon {channel.id} whitelisté sur {interaction.guild.id} par {interaction.user} ({interaction.user.id})")
+            logging.info(f"[SET CHANNEL] Salon {channel.id} Ajouté avec succès sur {interaction.guild.id} par {interaction.user} ({interaction.user.id})")
         except Exception as e:
-            logging.error(f"[SET] Erreur lors du whitelist du salon sur {interaction.guild.id} : {e}", exc_info=True)
+            logging.error(f"[SET CHANNEL] Erreur lors de l'ajout du salon {channel.id} sur {interaction.guild.id} par {interaction.user} ({interaction.user.id}) : {e}", exc_info=True)
             embed = discord.Embed(
                 title="Erreur",
                 description="❌ Une erreur est survenue lors de la configuration du salon."
@@ -72,7 +76,7 @@ class Set(commands.GroupCog, name="set"):
             report_embed.set_footer(
                 text=f"Identifiant de {interaction.user.display_name}: {interaction.user.id}"
             )
-
+            REPORT_CHANNEL_ID = settings.ALERT_CHANNEL
             channel = self.bot.get_channel(REPORT_CHANNEL_ID)
             if channel:
                 await channel.send(embed=report_embed)
@@ -103,8 +107,9 @@ class Set(commands.GroupCog, name="set"):
             logging.warning(f"[SET STATUS] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id}")
         
         try:
-            await interaction.response.send_message(f"✅ Statut du bot défini : {message}", ephemeral=True)
-            logging.info(f"[STATUS] Statut du bot défini par {interaction.user} ({interaction.user.id}) : {message}")
+            status = db.update_bot_status(message)
+            await interaction.response.send_message(f"✅ Statut du bot défini : {status}", ephemeral=True)
+            logging.info(f"[STATUS] Statut du bot défini par {interaction.user} ({interaction.user.id}) : {status}")
         except Exception as e:
             logging.error(f"[STATUS] Erreur lors de la définition du statut du bot par {interaction.user} ({interaction.user.id}) : {e}", exc_info=True)
             embed = discord.Embed(
