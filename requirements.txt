@@ -3,7 +3,9 @@ colorama
 pillow
 pytesseract
 groq
-gputil
+GPUtil
 psutil
-platform
 PyNacl
+aiohttp
+asyncio-mqtt
+wavelink==3.0.0

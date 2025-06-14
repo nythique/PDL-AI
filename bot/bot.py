@@ -2,16 +2,13 @@ from home.core.client import create_bot
 from home.core.main import register_commands
 from colorama import Fore, Style
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH
-import logging
-import asyncio
-
+import logging, asyncio
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
 
 error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
@@ -40,7 +37,6 @@ try:
                 "commands.admin.empty",
                 "commands.public.help",
                 "commands.public.ping",
-
             ]
             for cog in cogs:
                 try:

@@ -4,21 +4,18 @@ from config import settings
 from home.cluster.vram import memory
 import logging, datetime
 
-"""Handler pour les logs info et warning"""
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""Handler pour les logs error"""
 error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""On réinitialise la config root et on ajoute les handlers"""
 logging.getLogger().handlers = []
 logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
@@ -81,8 +78,7 @@ class ollama:
         try:
             logging.info(f"[INFO] Recuperation du message de l'utilisateur")
             print(Fore.MAGENTA + f"[INFO] Recuperation du message de l'utilisateur" + Style.RESET_ALL)
-            question = "" # Initialisation de la question
-            # Vérification de l'historique des messages
+            question = "" 
             for msg in reversed(messages):
                 if msg["role"] == "user":
                     question = msg["content"]
@@ -91,7 +87,6 @@ class ollama:
                 logging.warning("[WARNING] message vide ou non valide.")
                 return "Je ne peux pas répondre à un message vide."
             
-            # Historique pour la mémoire utilisateur basée sur le pseudo uniquement
             if not hasattr(self, "user_histories"):
                 self.user_histories = {}
             if username not in self.user_histories:
@@ -99,8 +94,7 @@ class ollama:
             self.user_histories[username].append({"role": "user", "content": question})
              
             if not messages or not isinstance(messages, list):
-                messages = [] # Initialisation de messages si vide ou non valide
-            # Ajout de l'historique de la conversation
+                messages = [] 
             
             try:
                 logging.info(f"[INFO] Appel à ask ollama avec le message : {question}")

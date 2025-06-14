@@ -1,8 +1,12 @@
 {
     "Root Users": [],
-    "Bot Status": "offline",
+    "Bot Status": [
+        "heeyyy",
+        "hello toi"
+    ],
     "Allowed Channels": [
-        1370867677333291149
+        1370867677333291149,
+        1232303023955378199
     ],
     "Bot Stats": {
         "messages_sent": 0,

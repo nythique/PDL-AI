@@ -1,9 +1,8 @@
-import discord
+import discord,  os, logging
 from config.settings import SECURITY_LOG_PATH
 from discord.ext import commands
 from discord import app_commands
 from config.settings import ERROR_LOG_PATH, ROOT_USER
-import os, logging
 from colorama import Fore, Style
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')

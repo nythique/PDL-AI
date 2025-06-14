@@ -34,11 +34,11 @@ class Restart(commands.Cog):
             logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté de redemarrer le bot : {interaction.user.name}")
             return
         try:
-            client = bot.user
+            client = self.bot.user
             await interaction.response.send_message(f"🔄 Rédemarrage en cours...", ephemeral=True)
             print(Fore.MAGENTA + f"[SECURITY] Le processus de redémarrage est lancer pour {client.name}" + Style.RESET_ALL)
             logging.warning(f"[SECURITY] Le processus de redémarrage est lancer pour {client.name}")
-            await bot.close()
+            await self.bot.close()
         except Exception as e:
             await interaction.followup.send(f"❌ Une erreur s'est produite lors du redémarrage : {e}", ephemeral=True)
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du redémarrage : {e}"+ Style.RESET_ALL)

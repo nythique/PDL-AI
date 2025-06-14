@@ -38,8 +38,10 @@ class Database:
     def get_default_data(self):
         return {
             "Root Users": [],
-            "Bot Status": "offline",
-            "Allowed Channels": [],
+            "Bot Status": [
+                "Je suis le G.O.A.T"
+            ],
+            "Allowed Channel": [],
             "Bot Stats": {
                 "messages_sent": 0,
                 "commands_executed": 0,
@@ -66,7 +68,7 @@ class Database:
             self.save_data()
 
     def set_bot_status(self, status):
-        self.data["Bot status"] = status
+        self.data["Bot Status"] = status
         self.save_data()
 
     def add_allowed_channel(self, channel_id):
@@ -134,8 +136,17 @@ class Database:
         return self.data.get("Allowed Channels", [])
         
     def get_bot_status(self):
-        """Retourne le statut actuel du bot"""
-        return self.data.get("Bot status", "En maintenance")
+        """Retourne la liste des statuts du bot pour le cycle"""
+        status = self.data.get("Bot Status", "En maintenance")
+        # Si c'est un string, on le convertit en liste
+        if isinstance(status, str):
+            return [status]
+        # Si c'est déjà une liste, on la retourne
+        elif isinstance(status, list):
+            return status
+        # Sinon, on retourne une liste par défaut
+        else:
+            return ["En maintenance"]
         
     def get_bot_stats(self):
         """Retourne toutes les statistiques du bot"""
@@ -162,7 +173,7 @@ class Database:
         
     def validate_data_integrity(self):
         """Vérifie l'intégrité des données"""
-        required_keys = ["Root Users", "Bot status", "Allowed Channels", "Bot Stats", "user_rankings"]
+        required_keys = ["Root Users", "Bot Status", "Allowed Channels", "Bot Stats", "user_rankings"]
         for key in required_keys:
             if key not in self.data:
                 self.data[key] = {} if key in ["Bot Stats", "user_rankings"] else [] if key in ["Root Users", "Allowed Channels"] else "Inconnu"

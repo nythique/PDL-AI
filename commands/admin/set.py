@@ -82,7 +82,7 @@ class Set(commands.GroupCog, name="set"):
                 await channel.send(embed=report_embed)
                 logging.info(f"[REPORT] Rapport envoyé par {interaction.user} ({interaction.user.id}) dans {channel.id}")
             else:
-                ADMIN_ID = ROOT_UER[1]
+                ADMIN_ID = ROOT_USER[1]
                 admin = await self.bot.fetch_user(ADMIN_ID)
                 await admin.send(embed=report_embed)
                 logging.warning(f"[REPORT] Salon de rapport introuvable, rapport envoyé à l'admin {ADMIN_ID}")
@@ -90,7 +90,7 @@ class Set(commands.GroupCog, name="set"):
             logging.error(f"[REPORT] Erreur lors de l'envoi du rapport par {interaction.user} ({interaction.user.id}) : {e}", exc_info=True)
             embed = discord.Embed(
                 title="Erreur",
-                description="❌ Une erreur est survenue lors de l'envoi du rapport.",
+                description="❌ Une erreur est survenue lors de l'envoi du rapport. Veuillez rejoindre le support pour y remedier",
                 color=discord.Color.red()
             )
             await interaction.followup.send(embed=embed, ephemeral=True)
@@ -99,17 +99,34 @@ class Set(commands.GroupCog, name="set"):
     @app_commands.describe(message="Définir le statut du bot")
     async def status(self, interaction: discord.Interaction, message: str):
         member = interaction.guild.get_member(interaction.user.id)
-        if not member or not member.guild_permissions.administrator:
+        permi = not member or not member.guild_permissions.administrator
+        if permi or member not in ROOT_USER:
             await interaction.response.send_message(
-                "⛔ Vous devez être administrateur du serveur pour utiliser cette commande.", ephemeral=True
+                "⛔ Vous devez être administrateur ou root du serveur pour utiliser cette commande.", ephemeral=True
             )
-            return
             logging.warning(f"[SET STATUS] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id}")
+            return
+            
         
         try:
-            status = db.update_bot_status(message)
-            await interaction.response.send_message(f"✅ Statut du bot défini : {status}", ephemeral=True)
-            logging.info(f"[STATUS] Statut du bot défini par {interaction.user} ({interaction.user.id}) : {status}")
+            # Récupérer les statuts actuels
+            current_statuses = db.get_bot_status()
+            
+            # Si c'est une liste, ajouter le nouveau statut
+            if isinstance(current_statuses, list):
+                if message not in current_statuses:
+                    current_statuses.append(message)
+                    db.set_bot_status(current_statuses)
+                    await interaction.response.send_message(f"✅ Statut ajouté : {message}\nStatuts disponibles : {', '.join(current_statuses)}", ephemeral=True)
+                else:
+                    await interaction.response.send_message(f"⚠️ Ce statut existe déjà : {message}", ephemeral=True)
+            else:
+                # Si c'est un string, le convertir en liste avec le nouveau statut
+                new_statuses = [current_statuses, message] if current_statuses != message else [message]
+                db.set_bot_status(new_statuses)
+                await interaction.response.send_message(f"✅ Statut défini : {message}\nStatuts disponibles : {', '.join(new_statuses)}", ephemeral=True)
+            
+            logging.info(f"[STATUS] Statut du bot défini par {interaction.user} ({interaction.user.id}) : {message}")
         except Exception as e:
             logging.error(f"[STATUS] Erreur lors de la définition du statut du bot par {interaction.user} ({interaction.user.id}) : {e}", exc_info=True)
             embed = discord.Embed(

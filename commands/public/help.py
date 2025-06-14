@@ -3,7 +3,6 @@ from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from discord.ext import commands
 from discord import app_commands
 
-
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
@@ -43,15 +42,12 @@ class Help(commands.Cog):
             embed.add_field(name="/restart", value="Redémarre le pdl-ia.", inline=False)
             embed.add_field(name="Interaction", value="Mentionne le bot ou utilise son nom pour discuter avec lui.", inline=False)
             embed.add_field(name="OCR", value="Envoie une image contenant du texte en DM ou sur le serveur pour que le bot l'analyse.", inline=False)
+            embed.add_field(name="Musique", value="Demande moi de jouer une musique et je donnerai rendez-vous en voc.", inline=False)
             invite_url = f"https://discord.com/oauth2/authorize?client_id={bot_user.id}&scope=bot&permissions=8"
             embed.add_field(
                 name="Lien d'invitation",
                 value=f"[Clique ici pour inviter PDL-IA sur ton serveur]({invite_url})",
                 inline=False
-            )
-            embed.set_footer(
-                text="Développé par Nythique • gg.PcPDL",
-                icon_url=bot_user.display_avatar.url
             )
             embed.set_thumbnail(url=bot_user.display_avatar.url)
             await interaction.response.send_message(embed=embed, ephemeral=True)

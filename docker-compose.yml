@@ -1,17 +1,42 @@
 services:
-  pdl-ai:
-    build: .
-    image: pdl-ai
-    container_name: pdl-ai
-    volumes:
-      - PDL-AILog:/app/PDL-AI/logs/
+  # Serveur Lavalink
+  lavalink:
+    image: ghcr.io/lavalink-devs/lavalink:4
+    container_name: pdl-lavalink
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '3.00'    
-          memory: 2G       
+    ports:
+      - "2333:2333"
+    environment:
+      - SERVER_PORT=2333
+      - LAVALINK_SERVER_PASSWORD=youshallnotpass
+    volumes:
+      - ./lavalink/application.yml:/opt/lavalink/application.yml
+      - ./lavalink/plugins:/opt/lavalink/plugins
+    networks:
+      - pdl-network
+
+  # Bot Discord
+  bot:
+    build: .
+    container_name: pdl-bot
+    restart: unless-stopped
+    depends_on:
+      - lavalink
+    environment:
+      - LAVALINK_HOST=lavalink
+      - LAVALINK_PORT=${LAVALINK_PORT}
+      - LAVALINK_PASSWORD=${LAVALINK_PASSWORD}
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+      - ./home:/app/home
+    networks:
+      - pdl-network
+
+networks:
+  pdl-network:
+    driver: bridge
 
 volumes:
-  PDL-AILog:
-    external: true
+  lavalink_data:

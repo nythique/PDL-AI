@@ -38,20 +38,9 @@ class Host(commands.Cog):
             return
         try:
             embed = discord.Embed(
-                title="Informations de l'hôte",
-                description=f"""
-                ```
-                Utilisation CPU: {info['cpu_usage']}%
-                Utilisation RAM: {info['ram_usage']}%
-                Utilisation Disque: {info['disk_usage']}%
-                Nombre de GPUs: {len(info['gpus'])} détectées
-                ```
-                """,
+                title="Hoster Monitoring",
+                description=f"""```Utilisation CPU: {info['cpu_usage']}%\nUtilisation RAM: {info['ram_usage']}%\nUtilisation Disque: {info['disk_usage']}%\nNombre de GPUs: {len(info['gpus'])} détectées```""",
                 color=discord.Color.green()
-            )
-            embed.set_footer(
-                text="Développé par Nythique • gg.PcPDL",
-                icon_url=bot_user.display_avatar.url
             )
             await interaction.response.send_message(embed=embed, ephemeral=False)
             logging.info(f"[HOST] Informations de l'hôte envoyées à {interaction.user} ({interaction.user.id})")

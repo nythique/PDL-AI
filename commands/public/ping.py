@@ -34,15 +34,10 @@ class SlashUtils(commands.Cog):
             color = discord.Color.green() if ws_latency < 100 else discord.Color.orange() if ws_latency < 250 else discord.Color.red()
 
             embed = discord.Embed(
-                description=f"```Mon ping est de{ws_latency} ms.```",
-                color=color,
-                timestamp=datetime.now()
+                description=f"Mon ping est de {ws_latency} ms.",
+                color=color
             )
-            embed.set_author(name=self.bot.user.display_name, icon_url=self.bot.user.display_avatar.url)
-            embed.set_footer(
-                text="PDL-IA • Propulsé par gg.PcPDL",
-                icon_url=self.bot.user.display_avatar.url
-            )
+
             await interaction.response.send_message(embed=embed, ephemeral=False)
             logging.info(f"[PING] Pong envoyé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id if interaction.guild else 'DM'} ({ws_latency} ms)")
         except Exception as e:
