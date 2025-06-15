@@ -23,8 +23,6 @@ class Database:
     def __init__(self, db_file):
         self.db_file = db_file
         self.data = self.load_data()
-        if "Allowed Channels" not in self.data:
-            self.data["Allowed Channels"] = []
 
     def load_data(self):
         if os.path.exists(self.db_file):
@@ -43,7 +41,7 @@ class Database:
             "Bot Status": [
                 "Je suis le G.O.A.T"
             ],
-            "Allowed Channel": [],
+            "Allowed Channels": [],
             "Bot Stats": {
                 "messages_sent": 0,
                 "commands_executed": 0,
