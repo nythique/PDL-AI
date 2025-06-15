@@ -29,7 +29,6 @@ class Help(commands.Cog):
         try:
             bot_user = self.bot.user
             embed = discord.Embed(
-                title="Aide de PDL IA",
                 description="Voici les principales commandes et fonctionnalités du bot :",
                 color=discord.Color.blue()
             )

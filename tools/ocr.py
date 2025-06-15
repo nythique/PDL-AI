@@ -3,21 +3,18 @@ from config import settings
 from colorama import Fore, Style
 import pytesseract, os, logging, uuid
 
-"""Handler pour les logs info et warning"""
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""Handler pour les logs error"""
 error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""On réinitialise la config root et on ajoute les handlers"""
 logging.getLogger().handlers = []
 logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
@@ -62,13 +59,11 @@ class OCRProcessor:
         :param attachment: Pièce jointe Discord.
         """
         try:
-            # Télécharger l'image localement
             local_filename = os.path.join(settings.TEMP_UPLOAD_PATH, f"{uuid.uuid4()}_{attachment.filename}")
             await attachment.save(local_filename)
             print(Fore.CYAN + f"[INFO] Image téléchargée : {local_filename}" + Style.RESET_ALL)
             self.logger.info(f"Image téléchargée : {local_filename}")
 
-            # Extraire le texte de l'image
             extracted_text = await self.extract_text(local_filename)
             return "Description de l'image:" + extracted_text if extracted_text else "❌ Aucun texte détecté dans l'image."
         
@@ -79,7 +74,6 @@ class OCRProcessor:
         finally:
             if os.path.exists(local_filename):
                 try:
-                    # Supprimer le fichier local après traitement
                     os.remove(local_filename)
                     print(Fore.YELLOW + f"[INFO] Fichier supprimé : {local_filename}" + Style.RESET_ALL)
                     self.logger.info(f"Fichier supprimé : {local_filename}")

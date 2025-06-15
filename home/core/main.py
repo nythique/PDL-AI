@@ -248,9 +248,9 @@ def register_commands(bot_instance):
             try:
                 if music_command == "help_music":
                     embed = music_manager.create_music_embed(
-                        "Aide Musicale",
+                        "Option musicale",
                         """
-                        **🎵 Commandes Musicales Disponibles :**
+                        **🎵 Intéractions Musicales Disponibles :**
                         
                         **Lecture :**
                         • `pdl joue [recherche/URL]` - Lance une musique depuis YouTube
@@ -267,7 +267,7 @@ def register_commands(bot_instance):
                         • `pdl lance https://youtube.com/watch?v=...`
                         • `pdl volume 50`
                         
-                        **Sources supportées :** YouTube, SoundCloud, Bandcamp, Twitch, Vimeo
+                        **Sources supportées :** YouTube, SoundCloud, Bandcamp, Vimeo
                         """,
                         discord.Color.green()
                     )
@@ -358,7 +358,7 @@ def register_commands(bot_instance):
                         track = await music_manager.search_track(music_query)
                         
                         if not track:
-                            await message.reply(f"J'ai pas trouvé le son {music_query}. Vérifiez si tu ne t'est planté 🤥.")
+                            await message.reply(f"J'ai pas trouvé le son. Vérifiez si tu ne t'est pas planté 🤥.")
                             logging.warning(f"[MUSIC] Aucune musique trouvée pour: {music_query}")
                             return
 
@@ -378,7 +378,7 @@ def register_commands(bot_instance):
                                 print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {title}" + Style.RESET_ALL)
                                 logging.info(f"[MUSIC] Musique lancée avec succès: {title}")
                             else:
-                                await message.reply("Je crois mon serveur musical à pété. Reviens plustard tenter ta chance 🤧.")
+                                await message.reply("Je crois mon serveur musical à pété. Reviens plus tard tenter ta chance 🤧.")
                                 logging.error(f"[MUSIC] Erreur lors de la lecture de la musique pour: {music_query}")
                         else:
                             await message.reply("J'ai pas les permissions pour te rejoindre en vocal. tu peux que t'en vouloir 😤.")
@@ -391,7 +391,7 @@ def register_commands(bot_instance):
                     return
 
             except Exception as e:
-                await message.reply("J'ai pas compris ta demande correctement. On réseille ?")
+                await message.reply("J'ai pas correctement compris ta demande . On réseille ?")
                 logging.error(f"[MUSIC] Erreur lors de la commande musicale : {e}")
                 return
 
@@ -400,7 +400,7 @@ def register_commands(bot_instance):
                 if bot.voice_clients:
                     for voice_client in bot.voice_clients:
                         await voice_client.disconnect()
-                    await message.reply(f"J'ai quitté le salon vocal !")
+                    await message.reply(f"J'ai quitté le salon vocal 🤧.")
                     logging.info(f"[INFO] Le bot a quitté le salon vocal sur demande de {message.author.name}")
                     return
                 else:

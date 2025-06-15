@@ -2,7 +2,7 @@ import os
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN") 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "Version Installer 1.3.3 Bêta"
+VERSION = "Version Installer 2.0.0 Bêta"
 PREFIX = "p." 
 
 # ========================== CHEMINS DES FICHIERS ==========================
@@ -13,7 +13,6 @@ ROM_PATH = r"home/cluster/temp/rom.json"
 SERVER_DB = r"home/cluster/server/db.json"
 SERVER_BACKUP = r"home/cluster/server/backup.json"
 TESSERACT_PATH = r"/usr/bin/tesseract"
-AUDIO_LIST = r"home/cluster/audio/"
 # NOTE:========================== PARAMÈTRES DE GESTION MÉMOIRE ==========================
 ROM_LIMIT = 5  
 ROM_UPDATE_TIME = 5 #minutes (5 minutes) 
@@ -29,7 +28,7 @@ ALERT_CHANNEL = None
 ROOT_USER = (969287987672268840, 767678057770385438, 1233020939898327092) 
 
 # ========================== PARAMÈTRES DE L'IA CHAT ==========================
-CHAT_KEY = os.getenv("GROQ_API")
+CHAT_KEY = os.getenv("GROQ_API_KEY") 
 CHAT_MODEL = "llama3-70b-8192"  # Modèle IA (GPT-3.5 ou GPT-4)
 CHAT_FREQUENCY = 1  # Fréquence de réponse de l'IA (en secondes)
 CHAT_TEMPERATURE = 0  # Température de l'IA (0.0 à 1.0)

@@ -8,4 +8,4 @@ psutil
 PyNacl
 aiohttp
 asyncio-mqtt
-wavelink==3.0.0
+wavelink

@@ -109,10 +109,8 @@ class Set(commands.GroupCog, name="set"):
             
         
         try:
-            # Récupérer les statuts actuels
             current_statuses = db.get_bot_status()
             
-            # Si c'est une liste, ajouter le nouveau statut
             if isinstance(current_statuses, list):
                 if message not in current_statuses:
                     current_statuses.append(message)

@@ -96,36 +96,6 @@ class Database:
     def get_top_users(self, limit=10):
         sorted_users = sorted(self.data["user_rankings"].items(), key=lambda x: x[1], reverse=True)
         return sorted_users[:limit]
-
-        """
-        Exemple d'utilisation de la classe DatabaseManager :
-        
-        # Initialisation
-        db = DatabaseManager("path/to/database.json")
-        
-        # Gestion des utilisateurs root
-        db.add_root_user(123456789)
-        db.remove_root_user(123456789)
-        
-        # Gestion du statut du bot
-        db.set_bot_status("En ligne")
-        
-        # Gestion des canaux autorisés
-        db.add_allowed_channel(987654321)
-        db.remove_allowed_channel(987654321)
-        
-        # Mise à jour des statistiques
-        db.update_bot_stats("messages_processed", 1500)
-        db.update_bot_stats("commands_executed", 250)
-        
-        # Gestion des classements utilisateurs
-        db.update_user_ranking(123456789, 100)
-        points = db.get_user_ranking(123456789)
-        top_users = db.get_top_users(5)
-        
-        # Sauvegarde automatique
-        db.save_data()
-        """
         
     def get_all_root_users(self):
         """Retourne la liste de tous les utilisateurs root"""
@@ -138,13 +108,10 @@ class Database:
     def get_bot_status(self):
         """Retourne la liste des statuts du bot pour le cycle"""
         status = self.data.get("Bot Status", "En maintenance")
-        # Si c'est un string, on le convertit en liste
         if isinstance(status, str):
             return [status]
-        # Si c'est déjà une liste, on la retourne
         elif isinstance(status, list):
             return status
-        # Sinon, on retourne une liste par défaut
         else:
             return ["En maintenance"]
         

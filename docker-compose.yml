@@ -2,7 +2,7 @@ services:
   # Serveur Lavalink
   lavalink:
     image: ghcr.io/lavalink-devs/lavalink:4
-    container_name: pdl-lavalink
+    container_name: lavalink
     restart: unless-stopped
     ports:
       - "2333:2333"
@@ -10,27 +10,29 @@ services:
       - SERVER_PORT=2333
       - LAVALINK_SERVER_PASSWORD=youshallnotpass
     volumes:
-      - ./lavalink/application.yml:/opt/lavalink/application.yml
-      - ./lavalink/plugins:/opt/lavalink/plugins
+      - Lavalink-App:/apt/lavalink/application.yml
+      - Lavalink-Plugins:/apt/lavalink/plugins
+      - PDL-LOGS:/app/PDL-AI/logs/
     networks:
       - pdl-network
 
-  # Bot Discord
-  bot:
+  pdl-ai:
     build: .
-    container_name: pdl-bot
+    image: pdl-ai:laster-beta
+    container_name: pdl-ai
     restart: unless-stopped
     depends_on:
       - lavalink
     environment:
       - LAVALINK_HOST=lavalink
-      - LAVALINK_PORT=${LAVALINK_PORT}
-      - LAVALINK_PASSWORD=${LAVALINK_PASSWORD}
+      - LAVALINK_PORT=2333
+      - LAVALINK_PASSWORD=youshallnotpass
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - GROQ_API_KEY=${GROQ_API_KEY}
     volumes:
-      - ./config:/app/config
-      - ./logs:/app/logs
-      - ./home:/app/home
+     - PDL-DB:/app/PDL-AI/home/cluster/server/
+     - PDL-ROM:/app/PDL-AI/home/cluster/temp/
+     - PDL-LOGS:/app/PDL-AI/logs/
     networks:
       - pdl-network
 
@@ -39,4 +41,14 @@ networks:
     driver: bridge
 
 volumes:
-  lavalink_data:
+  PDL-DB:
+    external: true
+  PDL-ROM:
+    external: true
+  PDL-LOGS:
+    external: true
+  Lavalink-App:
+    external: true
+  Lavalink-Plugins:
+    external: true
+      
