@@ -6,13 +6,13 @@ VERSION = "Version Installer 2.0.0 Bêta"
 PREFIX = "p." 
 
 # ========================== CHEMINS DES FICHIERS ==========================
-ERROR_LOG_PATH = r"logs/error/error.log" 
-SECURITY_LOG_PATH = r"logs/security/security.log" 
-TEMP_UPLOAD_PATH = r"home/cluster/temp"
-ROM_PATH = r"home/cluster/temp/rom.json"
-SERVER_DB = r"home/cluster/server/db.json"
-SERVER_BACKUP = r"home/cluster/server/backup.json"
-TESSERACT_PATH = r"/usr/bin/tesseract"
+ERROR_LOG_PATH = "logs/error/error.log" 
+SECURITY_LOG_PATH = "logs/security/security.log" 
+TEMP_UPLOAD_PATH = "home/cluster/temp"
+ROM_PATH = "home/cluster/temp/rom.json"
+SERVER_DB = "home/cluster/server/db.json"
+SERVER_BACKUP = "home/cluster/server/backup.json"
+TESSERACT_PATH = "/usr/bin/tesseract"
 # NOTE:========================== PARAMÈTRES DE GESTION MÉMOIRE ==========================
 ROM_LIMIT = 5  
 ROM_UPDATE_TIME = 5 #minutes (5 minutes) 

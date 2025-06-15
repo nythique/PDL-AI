@@ -1,4 +1,3 @@
-home/cluster/rom.json
 config/cloud.py
 bot/__pycache__
 commands/admin/__pycache__
@@ -9,4 +8,4 @@ home/cluster/__pycache__
 home/gen/__pycache__
 home/core/__pycache__
 home/cluster/server/
-
+test
