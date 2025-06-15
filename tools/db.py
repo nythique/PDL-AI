@@ -74,7 +74,8 @@ class Database:
         self.save_data()
 
     def add_allowed_channel(self, channel_id):
-        self.data.setdefault("Allowed Channels", [])
+        if "Allowed Channels" not in self.data:
+            self.data["Allowed Channels"] = []
         if channel_id not in self.data["Allowed Channels"]:
             self.data["Allowed Channels"].append(channel_id)
             self.save_data()
