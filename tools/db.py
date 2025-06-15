@@ -23,6 +23,8 @@ class Database:
     def __init__(self, db_file):
         self.db_file = db_file
         self.data = self.load_data()
+        if "Allowed Channels" not in self.data:
+            self.data["Allowed Channels"] = []
 
     def load_data(self):
         if os.path.exists(self.db_file):
@@ -72,6 +74,7 @@ class Database:
         self.save_data()
 
     def add_allowed_channel(self, channel_id):
+        self.data.setdefault("Allowed Channels", [])
         if channel_id not in self.data["Allowed Channels"]:
             self.data["Allowed Channels"].append(channel_id)
             self.save_data()
