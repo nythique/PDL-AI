@@ -1,4 +1,4 @@
-import discord, wavelink, logging, colorama, os
+import discord, logging, colorama, os, lavalink
 from colorama import Fore, Style
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from typing import Optional, List, cast
@@ -22,33 +22,33 @@ if not logger.handlers:
 
 colorama.init()
 
-class WavelinkManager:
+class lavalinkManager:
     def __init__(self, bot):
         self.bot = bot
         self.players = {}
         self.node = None
         self.queues = {}
 
-    async def setup_wavelink(self):
+    async def setup_lavalink(self):
         try:
-            nodes = [wavelink.Node(
+            nodes = [lavalink.Node(
                 uri=f"http://{os.getenv('LAVALINK_HOST', 'lavalink')}:{os.getenv('LAVALINK_PORT', '2333')}",
                 password=os.getenv('LAVALINK_PASSWORD', 'youshallnotpass')
             )]
             
-            await wavelink.Pool.connect(nodes=nodes, client=self.bot, cache_capacity=100)
+            await lavalink.Pool.connect(nodes=nodes, client=self.bot, cache_capacity=100)
             
-            logger.info("[WAVELINK] Connecté au serveur Lavalink")
-            print(Fore.GREEN + "[WAVELINK] Connecté au serveur Lavalink" + Style.RESET_ALL)
+            logger.info("[lavalink] Connecté au serveur Lavalink")
+            print(Fore.GREEN + "[lavalink] Connecté au serveur Lavalink" + Style.RESET_ALL)
             
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de connexion: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de connexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de connexion: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de connexion: {e}" + Style.RESET_ALL)
 
-    async def on_wavelink_node_ready(self, payload: wavelink.NodeReadyEventPayload) -> None:
-        logger.info(f"[WAVELINK] Nœud {payload.node} prêt! Résumé: {payload.resumed}")
+    async def on_lavalink_node_ready(self, payload: lavalink.NodeReadyEventPayload) -> None:
+        logger.info(f"[lavalink] Nœud {payload.node} prêt! Résumé: {payload.resumed}")
 
-    async def on_wavelink_track_end(self, payload: wavelink.TrackEndEventPayload) -> None:
+    async def on_lavalink_track_end(self, payload: lavalink.TrackEndEventPayload) -> None:
         try:
             player = payload.player
             if not player:
@@ -59,48 +59,48 @@ class WavelinkManager:
                 next_track = self.queues[guild_id].pop(0)
                 await self.play_track(guild_id, next_track)
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur fin de piste: {e}")
+            logger.error(f"[lavalink] Erreur fin de piste: {e}")
 
-    def get_player(self, guild_id: int) -> Optional[wavelink.Player]:
+    def get_player(self, guild_id: int) -> Optional[lavalink.Player]:
         return self.players.get(guild_id)
 
     async def join_voice_channel(self, voice_channel: discord.VoiceChannel) -> bool:
         try:
-            player = await voice_channel.connect(cls=wavelink.Player)
+            player = await voice_channel.connect(cls=lavalink.Player)
             self.players[voice_channel.guild.id] = player
             
-            player.autoplay = wavelink.AutoPlayMode.disabled
+            player.autoplay = lavalink.AutoPlayMode.disabled
             player.home = voice_channel.guild.system_channel or voice_channel.guild.text_channels[0]
             
-            logger.info(f"[WAVELINK] Connecté au salon: {voice_channel.name}")
+            logger.info(f"[lavalink] Connecté au salon: {voice_channel.name}")
             return True
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de connexion: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de connexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de connexion: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de connexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def search_track(self, query: str) -> Optional[wavelink.Playable]:
+    async def search_track(self, query: str) -> Optional[lavalink.Playable]:
         try:
-            tracks: wavelink.Search = await wavelink.Playable.search(query)
+            tracks: lavalink.Search = await lavalink.Playable.search(query)
             if tracks and len(tracks) > 0:
                 return tracks[0]
             return None
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de recherche: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de recherche: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de recherche: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de recherche: {e}" + Style.RESET_ALL)
             return None
 
-    async def play_track(self, guild_id: int, track: wavelink.Playable) -> bool:
+    async def play_track(self, guild_id: int, track: lavalink.Playable) -> bool:
         try:
             player = self.get_player(guild_id)
             if player:
                 await player.play(track, volume=30)
-                logger.info(f"[WAVELINK] Lecture: {track.title}")
+                logger.info(f"[lavalink] Lecture: {track.title}")
                 return True
             return False
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de lecture: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de lecture: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de lecture: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de lecture: {e}" + Style.RESET_ALL)
             return False
 
     async def stop_playback(self, guild_id: int) -> bool:
@@ -111,8 +111,8 @@ class WavelinkManager:
                 return True
             return False
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur d'arrêt: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur d'arrêt: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur d'arrêt: {e}")
+            print(Fore.RED + f"[lavalink] Erreur d'arrêt: {e}" + Style.RESET_ALL)
             return False
 
     async def pause_playback(self, guild_id: int) -> bool:
@@ -123,8 +123,8 @@ class WavelinkManager:
                 return True
             return False
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de pause: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de pause: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de pause: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de pause: {e}" + Style.RESET_ALL)
             return False
 
     async def resume_playback(self, guild_id: int) -> bool:
@@ -135,8 +135,8 @@ class WavelinkManager:
                 return True
             return False
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de reprise: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de reprise: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de reprise: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de reprise: {e}" + Style.RESET_ALL)
             return False
 
     async def set_volume(self, guild_id: int, volume: int) -> bool:
@@ -147,8 +147,8 @@ class WavelinkManager:
                 return True
             return False
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de volume: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de volume: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de volume: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de volume: {e}" + Style.RESET_ALL)
             return False
 
     async def disconnect(self, guild_id: int) -> bool:
@@ -161,21 +161,21 @@ class WavelinkManager:
                 return True
             return False
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur de déconnexion: {e}")
-            print(Fore.RED + f"[WAVELINK] Erreur de déconnexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[lavalink] Erreur de déconnexion: {e}")
+            print(Fore.RED + f"[lavalink] Erreur de déconnexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def add_to_queue(self, guild_id: int, track: wavelink.Playable) -> bool:
+    async def add_to_queue(self, guild_id: int, track: lavalink.Playable) -> bool:
         try:
             if guild_id not in self.queues:
                 self.queues[guild_id] = []
             self.queues[guild_id].append(track)
             return True
         except Exception as e:
-            logger.error(f"[WAVELINK] Erreur d'ajout à la queue: {e}")
+            logger.error(f"[lavalink] Erreur d'ajout à la queue: {e}")
             return False
 
-    def get_queue(self, guild_id: int) -> List[wavelink.Playable]:
+    def get_queue(self, guild_id: int) -> List[lavalink.Playable]:
         return self.queues.get(guild_id, [])
 
     def format_duration(self, duration_ms: int) -> str:
