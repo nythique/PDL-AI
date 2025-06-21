@@ -8,4 +8,4 @@ psutil
 PyNacl
 aiohttp
 asyncio-mqtt
-wavelink
+lavalink

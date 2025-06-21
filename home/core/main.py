@@ -6,7 +6,7 @@ from datetime import datetime
 from itertools import cycle
 from discord.ext import commands, tasks
 from home.cluster.vram import memory
-from home.gen.music import WavelinkManager
+from home.gen.music import LavalinkManager
 from tools.ocr import OCRProcessor as ocr
 from tools.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
@@ -180,7 +180,7 @@ def display_banner():
 def register_commands(bot_instance):
     global bot, music_manager
     bot = bot_instance
-    music_manager = WavelinkManager(bot)
+    music_manager = LavalinkManager(bot)
     display_banner()
     logging.info("[INFO] Connexion aux API discord...")
     @bot.event
@@ -205,6 +205,11 @@ def register_commands(bot_instance):
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
         
         try:
+            # Initialisation de Lavalink
+            print(Fore.YELLOW + "[INFO] Initialisation de Lavalink..." + Style.RESET_ALL)
+            logging.info("[INFO] Initialisation de Lavalink...")
+            await music_manager.setup_lavalink()
+            
             logging.info("[INFO] Démarrage de la tache de synchronisation...")
             print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
             client = bot.user
@@ -220,6 +225,14 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes : {e}")
+
+    @bot.event
+    async def on_lavalink_node_ready(payload):
+        await music_manager.on_lavalink_node_ready(payload)
+
+    @bot.event
+    async def on_lavalink_track_end(payload):
+        await music_manager.on_lavalink_track_end(payload)
 
     @bot.event
     async def on_message(message):
@@ -364,10 +377,10 @@ def register_commands(bot_instance):
 
                         if await music_manager.join_voice_channel(message.author.voice.channel):
                             if await music_manager.play_track(message.author.voice.channel.guild.id, track):
-                                track_info = track.get('info', {})
-                                title = track_info.get('title', 'Unknown')
-                                author = track_info.get('author', 'Unknown')
-                                duration = music_manager.format_duration(track_info.get('length', 0))
+                                # Récupération des informations de la piste avec lavalink.py
+                                title = getattr(track, 'title', 'Unknown')
+                                author = getattr(track, 'author', 'Unknown')
+                                duration = music_manager.format_duration(getattr(track, 'length', 0))
                                 
                                 embed = music_manager.create_music_embed(
                                     "🎵 Lecture en cours",

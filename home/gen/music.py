@@ -22,7 +22,7 @@ if not logger.handlers:
 
 colorama.init()
 
-class lavalinkManager:
+class LavalinkManager:
     def __init__(self, bot):
         self.bot = bot
         self.players = {}
@@ -31,12 +31,15 @@ class lavalinkManager:
 
     async def setup_lavalink(self):
         try:
-            nodes = [lavalink.Node(
+            # Configuration du nœud Lavalink
+            node = lavalink.Node(
                 uri=f"http://{os.getenv('LAVALINK_HOST', 'lavalink')}:{os.getenv('LAVALINK_PORT', '2333')}",
                 password=os.getenv('LAVALINK_PASSWORD', 'youshallnotpass')
-            )]
+            )
             
-            await lavalink.Pool.connect(nodes=nodes, client=self.bot, cache_capacity=100)
+            # Connexion au nœud
+            await node.connect(client=self.bot)
+            self.node = node
             
             logger.info("[lavalink] Connecté au serveur Lavalink")
             print(Fore.GREEN + "[lavalink] Connecté au serveur Lavalink" + Style.RESET_ALL)
@@ -45,10 +48,10 @@ class lavalinkManager:
             logger.error(f"[lavalink] Erreur de connexion: {e}")
             print(Fore.RED + f"[lavalink] Erreur de connexion: {e}" + Style.RESET_ALL)
 
-    async def on_lavalink_node_ready(self, payload: lavalink.NodeReadyEventPayload) -> None:
+    async def on_lavalink_node_ready(self, payload) -> None:
         logger.info(f"[lavalink] Nœud {payload.node} prêt! Résumé: {payload.resumed}")
 
-    async def on_lavalink_track_end(self, payload: lavalink.TrackEndEventPayload) -> None:
+    async def on_lavalink_track_end(self, payload) -> None:
         try:
             player = payload.player
             if not player:
@@ -61,14 +64,16 @@ class lavalinkManager:
         except Exception as e:
             logger.error(f"[lavalink] Erreur fin de piste: {e}")
 
-    def get_player(self, guild_id: int) -> Optional[lavalink.Player]:
+    def get_player(self, guild_id: int):
         return self.players.get(guild_id)
 
     async def join_voice_channel(self, voice_channel: discord.VoiceChannel) -> bool:
         try:
+            # Utiliser la classe Player de lavalink.py
             player = await voice_channel.connect(cls=lavalink.Player)
             self.players[voice_channel.guild.id] = player
             
+            # Configuration du player
             player.autoplay = lavalink.AutoPlayMode.disabled
             player.home = voice_channel.guild.system_channel or voice_channel.guild.text_channels[0]
             
@@ -79,9 +84,10 @@ class lavalinkManager:
             print(Fore.RED + f"[lavalink] Erreur de connexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def search_track(self, query: str) -> Optional[lavalink.Playable]:
+    async def search_track(self, query: str):
         try:
-            tracks: lavalink.Search = await lavalink.Playable.search(query)
+            # Recherche avec lavalink.py
+            tracks = await lavalink.Playable.search(query)
             if tracks and len(tracks) > 0:
                 return tracks[0]
             return None
@@ -90,11 +96,14 @@ class lavalinkManager:
             print(Fore.RED + f"[lavalink] Erreur de recherche: {e}" + Style.RESET_ALL)
             return None
 
-    async def play_track(self, guild_id: int, track: lavalink.Playable) -> bool:
+    async def play_track(self, guild_id: int, track) -> bool:
         try:
             player = self.get_player(guild_id)
             if player:
-                await player.play(track, volume=30)
+                # Lecture avec lavalink.py
+                await player.play(track)
+                # Définir le volume après la lecture
+                await player.set_volume(30)
                 logger.info(f"[lavalink] Lecture: {track.title}")
                 return True
             return False
@@ -157,7 +166,8 @@ class lavalinkManager:
             if player:
                 await player.disconnect()
                 del self.players[guild_id]
-                del self.queues[guild_id]
+                if guild_id in self.queues:
+                    del self.queues[guild_id]
                 return True
             return False
         except Exception as e:
@@ -165,7 +175,7 @@ class lavalinkManager:
             print(Fore.RED + f"[lavalink] Erreur de déconnexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def add_to_queue(self, guild_id: int, track: lavalink.Playable) -> bool:
+    async def add_to_queue(self, guild_id: int, track) -> bool:
         try:
             if guild_id not in self.queues:
                 self.queues[guild_id] = []
@@ -175,7 +185,7 @@ class lavalinkManager:
             logger.error(f"[lavalink] Erreur d'ajout à la queue: {e}")
             return False
 
-    def get_queue(self, guild_id: int) -> List[lavalink.Playable]:
+    def get_queue(self, guild_id: int) -> List:
         return self.queues.get(guild_id, [])
 
     def format_duration(self, duration_ms: int) -> str:
