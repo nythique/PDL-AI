@@ -1,16 +1,16 @@
 import datetime, os, json, logging
 from colorama import Fore, Style
-from config import settings as statics
+from config import settings
 
 """Handler pour les logs info et warning"""
-info_handler = logging.FileHandler(statics.SECURITY_LOG_PATH, encoding='utf-8')
+info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
 """Handler pour les logs error"""
-error_handler = logging.FileHandler(statics.ERROR_LOG_PATH, encoding='utf-8')
+error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
@@ -22,8 +22,8 @@ logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
 logging.getLogger().setLevel(logging.INFO)
 
-class Vmemory:
-    def __init__(self, max_history=statics.ROM_LIMIT):
+class Vocram:
+    def __init__(self, max_history=settings.ROM_LIMIT):
         try:
             logging.info("[INFO] Initialisation de la mémoire...")
             print(Fore.GREEN + "[INFO] Initialisation de la mémoire..." + Style.RESET_ALL)
@@ -36,7 +36,7 @@ class Vmemory:
             logging.error(f"[ERROR] Erreur lors de l'initialisation de la mémoire : {e}")
             print(Fore.RED + f"[ERROR] Erreur lors de l'initialisation de la mémoire" + Style.RESET_ALL)
 
-    def clear_context(self, inactive_time_threshold=statics.MEMORY_MAX_INACTIVE_TIME * 3600):
+    def clear_context(self, inactive_time_threshold=settings.MEMORY_MAX_INACTIVE_TIME * 3600):
         """Supprime la mémoire des utilisateurs inactifs depuis plus de inactive_time_threshold secondes."""
         try:
             logging.info("[INFO] Suppression de la mémoire des utilisateurs inactifs...")
@@ -92,7 +92,7 @@ class Vmemory:
         try:
             logging.info("[INFO] Sauvegarde de la mémoire...")
             print(Fore.GREEN + "[INFO] Sauvegarde de la mémoire..." + Style.RESET_ALL)
-            with open(statics.ROM_PATH, "w", encoding="utf-8") as f:
+            with open(settings.ROM_PATH, "w", encoding="utf-8") as f:
                 json.dump({
                     "conversations": self.conversations,
                     "last_message_time": {k: v.isoformat() for k, v in self.last_message_time.items()}
@@ -108,7 +108,7 @@ class Vmemory:
         """Charge la mémoire depuis un fichier JSON."""
         try:
             logging.info("[INFO] Vérification du fichier de mémoire...")
-            if not os.path.exists(statics.ROM_PATH):
+            if not os.path.exists(settings.ROM_PATH):
                 return
             logging.info("[INFO] Fichier de mémoire verifié.")
         except Exception as e:
@@ -117,7 +117,7 @@ class Vmemory:
             return
         try:
             logging.info("[INFO] Chargement de la mémoire...")
-            with open(statics.ROM_PATH, "r", encoding="utf-8") as f:
+            with open(settings.ROM_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 self.conversations = data.get("conversations", {})
                 self.last_message_time = {

@@ -31,15 +31,17 @@ class LavalinkManager:
 
     async def setup_lavalink(self):
         try:
-            # Configuration du nœud Lavalink
-            node = lavalink.Node(
-                uri=f"http://{os.getenv('LAVALINK_HOST', 'lavalink')}:{os.getenv('LAVALINK_PORT', '2333')}",
-                password=os.getenv('LAVALINK_PASSWORD', 'youshallnotpass')
+            # Créer le nœud Lavalink avec la syntaxe correcte
+            self.node = lavalink.Node(
+                client=self.bot,
+                host=os.getenv('LAVALINK_HOST', 'lavalink'),
+                port=int(os.getenv('LAVALINK_PORT', '2333')),
+                password=os.getenv('LAVALINK_PASSWORD', 'youshallnotpass'),
+                region='eu'  # Région optionnelle
             )
             
-            # Connexion au nœud
-            await node.connect(client=self.bot)
-            self.node = node
+            # Connecter le nœud
+            await self.node.connect()
             
             logger.info("[lavalink] Connecté au serveur Lavalink")
             print(Fore.GREEN + "[lavalink] Connecté au serveur Lavalink" + Style.RESET_ALL)
@@ -86,11 +88,37 @@ class LavalinkManager:
 
     async def search_track(self, query: str):
         try:
-            # Recherche avec lavalink.py
-            tracks = await lavalink.Playable.search(query)
-            if tracks and len(tracks) > 0:
+            if not self.node:
+                logger.error("[lavalink] Aucun nœud Lavalink n'est connecté.")
+                print(Fore.RED + "[lavalink] Aucun nœud Lavalink n'est connecté." + Style.RESET_ALL)
+                return None
+
+            results = await self.node.get_tracks(query)
+            logger.info(f"[lavalink] Résultat brut de la recherche pour '{query}': {results}")
+            print(Fore.GREEN + f"[lavalink] Résultat brut de la recherche pour '{query}': {results}" + Style.RESET_ALL)
+
+            # Vérification de la structure du résultat
+            if not results:
+                logger.info(f"[lavalink] Aucun résultat retourné pour '{query}'")
+                print(Fore.RED + f"[lavalink] Aucun résultat retourné pour '{query}'" + Style.RESET_ALL)
+                return None
+
+            # Selon la version, results.tracks peut être une liste ou un attribut
+            tracks = getattr(results, "tracks", None)
+            if tracks is None:
+                logger.info(f"[lavalink] L'attribut 'tracks' est manquant dans le résultat pour '{query}'")
+                print(Fore.RED + f"[lavalink] L'attribut 'tracks' est manquant dans le résultat pour '{query}'" + Style.RESET_ALL)
+                return None
+
+            if len(tracks) > 0:
+                logger.info(f"[lavalink] {len(tracks)} pistes trouvées pour '{query}'")
+                print(Fore.GREEN + f"[lavalink] {len(tracks)} pistes trouvées pour '{query}'" + Style.RESET_ALL)
                 return tracks[0]
+
+            logger.info(f"[lavalink] Aucune piste trouvée pour '{query}'")
+            print(Fore.RED + f"[lavalink] Aucune piste trouvée pour '{query}'" + Style.RESET_ALL)
             return None
+
         except Exception as e:
             logger.error(f"[lavalink] Erreur de recherche: {e}")
             print(Fore.RED + f"[lavalink] Erreur de recherche: {e}" + Style.RESET_ALL)
