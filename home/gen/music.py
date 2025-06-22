@@ -3,7 +3,7 @@ from colorama import Fore, Style
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from typing import Optional, List, cast
 
-logger = logging.getLogger("audio")
+logger = logging.getLogger("music")
 logger.setLevel(logging.INFO)
 
 if not logger.handlers:
