@@ -10,8 +10,8 @@ services:
       - SERVER_PORT=2333
       - LAVALINK_SERVER_PASSWORD=youshallnotpass
     volumes:
-      - Lavalink-App:/apt/lavalink/application.yml
-      - Lavalink-Plugins:/apt/lavalink/plugins
+      - ./lavalink/application.yml:/app/PDL-AI/lavalink/application.yml
+      - Lavalink-Plugins:/app/PDL-AI/lavalink/plugins/
       - PDL-LOGS:/app/PDL-AI/logs/
     networks:
       - pdl-network
@@ -46,8 +46,6 @@ volumes:
   PDL-ROM:
     external: true
   PDL-LOGS:
-    external: true
-  Lavalink-App:
     external: true
   Lavalink-Plugins:
     external: true

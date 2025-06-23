@@ -1,12 +1,14 @@
 server:
   port: 2333
   address: 0.0.0.0
+  websocket:
+    buffer-pool-size: 512
 
 lavalink:
   server:
     password: "youshallnotpass"
     sources:
-      youtube: true
+      youtube: false
       bandcamp: true
       soundcloud: true
       twitch: true
@@ -31,9 +33,9 @@ lavalink:
     soundcloudSearchEnabled: true
     gc-warnings: true
 
-  plugins:
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.8.3"
-      snapshot: false
+# plugins:
+#     - dependency: "dev.lavalink.youtube:youtube-plugin:1.8.3"
+#       snapshot: false
 
   youtube:
     enabled: true
@@ -41,10 +43,10 @@ lavalink:
     allowDirectVideoIds: true
     allowDirectPlaylistIds: true
     clients:
-      - MUSIC
-      - ANDROID_VR
       - WEB
       - WEBEMBEDDED
+      - ANDROID_VR
+      - MUSIC
 
 logging:
   file:
