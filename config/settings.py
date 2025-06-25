@@ -13,6 +13,7 @@ ROM_PATH = "home/cluster/temp/rom.json"
 SERVER_DB = "home/cluster/server/db.json"
 SERVER_BACKUP = "home/cluster/server/backup.json"
 TESSERACT_PATH = "/usr/bin/tesseract"
+MUSIC_LIST="archive/audio/"
 # NOTE:========================== PARAMÈTRES DE GESTION MÉMOIRE ==========================
 ROM_LIMIT = 5  
 ROM_UPDATE_TIME = 5 #minutes (5 minutes) 
@@ -32,14 +33,14 @@ CHAT_KEY = os.getenv("GROQ_API_KEY")
 CHAT_MODEL = "llama3-70b-8192"  # Modèle IA (GPT-3.5 ou GPT-4)
 CHAT_FREQUENCY = 1  # Fréquence de réponse de l'IA (en secondes)
 CHAT_TEMPERATURE = 0  # Température de l'IA (0.0 à 1.0)
-CHAT_MAX_TOKENS = 256  # Nombre maximum de tokens pour la réponse de l'IA
+CHAT_MAX_TOKENS = 512  # Nombre maximum de tokens pour la réponse de l'IA
 CHAT_TOP_P = 0.95  # Top-p sampling (0.0 à 1.0)
 CHAT_PRESENCE_PENALTY = 0  # Pénalité de présence (0.0 à 2.0)
 CHAT_STOP = ["@"]  # Mots de fin pour l'IA
 CHAT_LIMIT_MEMORY = 5 # Limite des messgaes en contexte (5 à 10 maximum)
 
 # ========================== PROMPTS DE L'IA ==========================
-from config.cloud import data
+from archive.docs.tuto import manuel
 PROMPT = (
     "Tu es PDL IA, un assistant qui se comporte comme un français carismatique et intelligent."
     "Tu peux exprimer des émotions, y compris des émotions négatives (agacement, ironie, lassitude, etc). "
@@ -61,7 +62,7 @@ PROMPT = (
     "Ne laisse passer aucune forme de contenu inapproprié ou offensant."
     "Ton humeur est parfois bonne, parfois mauvaise, parfois neutre, sérieux, joueur, taquin, curieux, indifférent, sarcastique, compréhensif, moqueur, empathique, provocatreur ou apaisant."
     "Tu es poli avec ceux qui te parle gentiment ou qui te respecte."  
-    f"Tu te fie aux données de {data} pour te former, t'améliorer et repondre aux questions des utilisateurs si possible."  
+    f"Tu te fie aux données de {manuel} pour te former, t'améliorer et repondre aux questions des utilisateurs si possible."  
 )
 # ========================== PARAMÈTRES DE BAD WORDS ==========================
 """Lise des mot ou expression qui sont liés à des termes sexuellement explicite par discord"""

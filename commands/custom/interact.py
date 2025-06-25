@@ -20,7 +20,6 @@ voc_ordre = [
 ]
 voc_exit = [
     "quitte moi en vocal",
-    "quitte moi",
     "quitte le salon vocal",
     "déconnecte toi en vocal",
     "quitte le vocal",
@@ -29,10 +28,10 @@ voc_exit = [
 ]
 
 music_commands = {
-    "play": ["joue", "lance", "musique", "music", "audio", "son", "play", "Joue", "Lance", "Musique", "Music", "Audio", "Son", "Play"],
+    "play": ["joue", "lance", "Play"],
     "stop": ["stop", "arrête", "arrête la musique", "stop la musique"],
-    "pause": ["pause", "met en pause", "pause la musique"],
-    "resume": ["reprend la music", "continue", "reprend la musique"],
-    "volume": ["volume", "vol", "son", "augmente le volume à", "met le volume à"],
+    "pause": ["pause la musique", "stop la musique"],
+    "resume": ["reprend la music", "continue la musique"],
+    "volume": ["augmente le volume à", "met le volume à", "Volume à", "volumes à"],
     "help_music": ["aide musique", "help musique", "musique help", "aide music", "menu d'aide musique"]
 }

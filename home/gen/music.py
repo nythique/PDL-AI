@@ -1,7 +1,7 @@
 import discord, logging, colorama, os, lavalink
 from colorama import Fore, Style
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
-from typing import Optional, List, cast
+from typing import List, cast
 
 logger = logging.getLogger("music")
 logger.setLevel(logging.INFO)

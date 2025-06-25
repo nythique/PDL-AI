@@ -1,8 +1,7 @@
 from colorama import Fore, Style
 from groq import Groq
 from config import settings
-from home.cluster.vram import memory
-import logging, datetime
+import logging
 
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)

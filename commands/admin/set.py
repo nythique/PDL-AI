@@ -99,8 +99,8 @@ class Set(commands.GroupCog, name="set"):
     @app_commands.describe(message="Définir le statut du bot")
     async def status(self, interaction: discord.Interaction, message: str):
         member = interaction.guild.get_member(interaction.user.id)
-        permi = not member or not member.guild_permissions.administrator
-        if permi or member not in ROOT_USER:
+        admin_perms = not member or not (member.guild_permissions.administrator or member.id in ROOT_USER)
+        if admin_perms: 
             await interaction.response.send_message(
                 "⛔ Vous devez être administrateur ou root du serveur pour utiliser cette commande.", ephemeral=True
             )
