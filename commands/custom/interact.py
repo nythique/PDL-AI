@@ -33,5 +33,6 @@ music_commands = {
     "pause": ["pause la musique", "stop la musique"],
     "resume": ["reprend la music", "continue la musique"],
     "volume": ["augmente le volume à", "met le volume à", "Volume à", "volumes à"],
-    "help_music": ["aide musique", "help musique", "musique help", "aide music", "menu d'aide musique"]
+    "help_music": ["aide musique", "help musique", "musique help", "aide music", "menu d'aide musique"],
+    "list_music": ["liste musique", "musiques disponibles", "liste des musiques", "musiques", "liste music"]
 }

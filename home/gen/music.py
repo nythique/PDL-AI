@@ -1,7 +1,8 @@
-import discord, logging, colorama, os, lavalink
+import discord, logging, colorama, os, asyncio, random
 from colorama import Fore, Style
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
-from typing import List, cast
+from typing import List, Dict, Optional
+import glob
 
 logger = logging.getLogger("music")
 logger.setLevel(logging.INFO)
@@ -22,210 +23,225 @@ if not logger.handlers:
 
 colorama.init()
 
-class LavalinkManager:
+class LocalTrack:
+    def __init__(self, file_path: str, title: str = None):
+        self.file_path = file_path
+        self.title = title or os.path.basename(file_path).replace('.mp3', '')
+        self.duration = 0  # Durée en secondes (peut être calculée si nécessaire)
+
+class MusicManager:
     def __init__(self, bot):
         self.bot = bot
-        self.players = {}
-        self.node = None
-        self.queues = {}
-
-    async def setup_lavalink(self):
-        try:
-            # Créer le nœud Lavalink avec la syntaxe correcte
-            self.node = lavalink.Node(
-                client=self.bot,
-                host=os.getenv('LAVALINK_HOST', 'lavalink'),
-                port=int(os.getenv('LAVALINK_PORT', '2333')),
-                password=os.getenv('LAVALINK_PASSWORD', 'youshallnotpass'),
-                region='eu'  # Région optionnelle
-            )
+        self.players = {}  # {guild_id: voice_client}
+        self.queues = {}   # {guild_id: [LocalTrack]}
+        self.current_tracks = {}  # {guild_id: LocalTrack}
+        self.audio_folder = "archive/audio"
+        self.available_tracks = self._load_local_tracks()
+        
+    def _load_local_tracks(self) -> List[LocalTrack]:
+        """Charge tous les fichiers audio disponibles"""
+        tracks = []
+        audio_pattern = os.path.join(self.audio_folder, "*.mp3")
+        
+        for file_path in glob.glob(audio_pattern):
+            track = LocalTrack(file_path)
+            tracks.append(track)
             
-            # Connecter le nœud
-            await self.node.connect()
-            
-            logger.info("[lavalink] Connecté au serveur Lavalink")
-            print(Fore.GREEN + "[lavalink] Connecté au serveur Lavalink" + Style.RESET_ALL)
-            
-        except Exception as e:
-            logger.error(f"[lavalink] Erreur de connexion: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de connexion: {e}" + Style.RESET_ALL)
-
-    async def on_lavalink_node_ready(self, payload) -> None:
-        logger.info(f"[lavalink] Nœud {payload.node} prêt! Résumé: {payload.resumed}")
-
-    async def on_lavalink_track_end(self, payload) -> None:
-        try:
-            player = payload.player
-            if not player:
-                return
-                
-            guild_id = player.guild.id
-            if guild_id in self.queues and self.queues[guild_id]:
-                next_track = self.queues[guild_id].pop(0)
-                await self.play_track(guild_id, next_track)
-        except Exception as e:
-            logger.error(f"[lavalink] Erreur fin de piste: {e}")
-
-    def get_player(self, guild_id: int):
-        return self.players.get(guild_id)
+        logger.info(f"[local] {len(tracks)} pistes locales chargées")
+        print(Fore.GREEN + f"[local] {len(tracks)} pistes locales chargées" + Style.RESET_ALL)
+        return tracks
+    
+    def get_available_tracks(self) -> List[LocalTrack]:
+        """Retourne la liste des pistes disponibles"""
+        return self.available_tracks.copy()
+    
+    def search_track_by_name(self, query: str) -> Optional[LocalTrack]:
+        """Recherche une piste par nom"""
+        query_lower = query.lower()
+        for track in self.available_tracks:
+            if query_lower in track.title.lower():
+                return track
+        return None
+    
+    def get_random_track(self) -> Optional[LocalTrack]:
+        """Retourne une piste aléatoire"""
+        if self.available_tracks:
+            return random.choice(self.available_tracks)
+        return None
 
     async def join_voice_channel(self, voice_channel: discord.VoiceChannel) -> bool:
+        """Rejoint un salon vocal"""
         try:
-            # Utiliser la classe Player de lavalink.py
-            player = await voice_channel.connect(cls=lavalink.Player)
-            self.players[voice_channel.guild.id] = player
+            voice_client = await voice_channel.connect()
+            self.players[voice_channel.guild.id] = voice_client
             
-            # Configuration du player
-            player.autoplay = lavalink.AutoPlayMode.disabled
-            player.home = voice_channel.guild.system_channel or voice_channel.guild.text_channels[0]
-            
-            logger.info(f"[lavalink] Connecté au salon: {voice_channel.name}")
+            logger.info(f"[local] Connecté au salon: {voice_channel.name}")
+            print(Fore.GREEN + f"[local] Connecté au salon: {voice_channel.name}" + Style.RESET_ALL)
             return True
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur de connexion: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de connexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur de connexion: {e}")
+            print(Fore.RED + f"[local] Erreur de connexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def search_track(self, query: str):
+    async def play_track(self, guild_id: int, track: LocalTrack) -> bool:
+        """Joue une piste locale"""
         try:
-            if not self.node:
-                logger.error("[lavalink] Aucun nœud Lavalink n'est connecté.")
-                print(Fore.RED + "[lavalink] Aucun nœud Lavalink n'est connecté." + Style.RESET_ALL)
-                return None
-
-            results = await self.node.get_tracks(query)
-            logger.info(f"[lavalink] Résultat brut de la recherche pour '{query}': {results}")
-            print(Fore.GREEN + f"[lavalink] Résultat brut de la recherche pour '{query}': {results}" + Style.RESET_ALL)
-
-            # Vérification de la structure du résultat
-            if not results:
-                logger.info(f"[lavalink] Aucun résultat retourné pour '{query}'")
-                print(Fore.RED + f"[lavalink] Aucun résultat retourné pour '{query}'" + Style.RESET_ALL)
-                return None
-
-            # Selon la version, results.tracks peut être une liste ou un attribut
-            tracks = getattr(results, "tracks", None)
-            if tracks is None:
-                logger.info(f"[lavalink] L'attribut 'tracks' est manquant dans le résultat pour '{query}'")
-                print(Fore.RED + f"[lavalink] L'attribut 'tracks' est manquant dans le résultat pour '{query}'" + Style.RESET_ALL)
-                return None
-
-            if len(tracks) > 0:
-                logger.info(f"[lavalink] {len(tracks)} pistes trouvées pour '{query}'")
-                print(Fore.GREEN + f"[lavalink] {len(tracks)} pistes trouvées pour '{query}'" + Style.RESET_ALL)
-                return tracks[0]
-
-            logger.info(f"[lavalink] Aucune piste trouvée pour '{query}'")
-            print(Fore.RED + f"[lavalink] Aucune piste trouvée pour '{query}'" + Style.RESET_ALL)
-            return None
-
+            voice_client = self.players.get(guild_id)
+            if not voice_client:
+                logger.error(f"[local] Aucun client vocal pour le serveur {guild_id}")
+                return False
+            
+            # Arrêter la lecture actuelle si elle existe
+            if voice_client.is_playing():
+                voice_client.stop()
+            
+            # Créer la source audio
+            audio_source = discord.FFmpegPCMAudio(
+                track.file_path,
+                options='-vn -b:a 192k'
+            )
+            
+            # Lancer la lecture
+            voice_client.play(audio_source)
+            self.current_tracks[guild_id] = track
+            
+            logger.info(f"[local] Lecture: {track.title}")
+            print(Fore.GREEN + f"[local] Lecture: {track.title}" + Style.RESET_ALL)
+            return True
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur de recherche: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de recherche: {e}" + Style.RESET_ALL)
-            return None
-
-    async def play_track(self, guild_id: int, track) -> bool:
-        try:
-            player = self.get_player(guild_id)
-            if player:
-                # Lecture avec lavalink.py
-                await player.play(track)
-                # Définir le volume après la lecture
-                await player.set_volume(30)
-                logger.info(f"[lavalink] Lecture: {track.title}")
-                return True
-            return False
-        except Exception as e:
-            logger.error(f"[lavalink] Erreur de lecture: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de lecture: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur de lecture: {e}")
+            print(Fore.RED + f"[local] Erreur de lecture: {e}" + Style.RESET_ALL)
             return False
 
     async def stop_playback(self, guild_id: int) -> bool:
+        """Arrête la lecture"""
         try:
-            player = self.get_player(guild_id)
-            if player:
-                await player.stop()
+            voice_client = self.players.get(guild_id)
+            if voice_client and voice_client.is_playing():
+                voice_client.stop()
+                if guild_id in self.current_tracks:
+                    del self.current_tracks[guild_id]
                 return True
             return False
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur d'arrêt: {e}")
-            print(Fore.RED + f"[lavalink] Erreur d'arrêt: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur d'arrêt: {e}")
+            print(Fore.RED + f"[local] Erreur d'arrêt: {e}" + Style.RESET_ALL)
             return False
 
     async def pause_playback(self, guild_id: int) -> bool:
+        """Met en pause la lecture"""
         try:
-            player = self.get_player(guild_id)
-            if player:
-                await player.pause(True)
+            voice_client = self.players.get(guild_id)
+            if voice_client and voice_client.is_playing():
+                voice_client.pause()
                 return True
             return False
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur de pause: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de pause: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur de pause: {e}")
+            print(Fore.RED + f"[local] Erreur de pause: {e}" + Style.RESET_ALL)
             return False
 
     async def resume_playback(self, guild_id: int) -> bool:
+        """Reprend la lecture"""
         try:
-            player = self.get_player(guild_id)
-            if player:
-                await player.pause(False)
+            voice_client = self.players.get(guild_id)
+            if voice_client and voice_client.is_paused():
+                voice_client.resume()
                 return True
             return False
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur de reprise: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de reprise: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur de reprise: {e}")
+            print(Fore.RED + f"[local] Erreur de reprise: {e}" + Style.RESET_ALL)
             return False
 
     async def set_volume(self, guild_id: int, volume: int) -> bool:
+        """Définit le volume (note: FFmpegPCMAudio ne supporte pas le changement de volume)"""
         try:
-            player = self.get_player(guild_id)
-            if player:
-                await player.set_volume(volume)
-                return True
-            return False
+            # FFmpegPCMAudio ne supporte pas le changement de volume dynamique
+            # Il faudrait utiliser discord.PCMVolumeTransformer pour cela
+            logger.info(f"[local] Volume demandé: {volume}% (non supporté avec FFmpegPCMAudio)")
+            return True
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur de volume: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de volume: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur de volume: {e}")
             return False
 
     async def disconnect(self, guild_id: int) -> bool:
+        """Se déconnecte du salon vocal"""
         try:
-            player = self.get_player(guild_id)
-            if player:
-                await player.disconnect()
+            voice_client = self.players.get(guild_id)
+            if voice_client:
+                await voice_client.disconnect()
                 del self.players[guild_id]
+                if guild_id in self.current_tracks:
+                    del self.current_tracks[guild_id]
                 if guild_id in self.queues:
                     del self.queues[guild_id]
                 return True
             return False
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur de déconnexion: {e}")
-            print(Fore.RED + f"[lavalink] Erreur de déconnexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[local] Erreur de déconnexion: {e}")
+            print(Fore.RED + f"[local] Erreur de déconnexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def add_to_queue(self, guild_id: int, track) -> bool:
+    async def add_to_queue(self, guild_id: int, track: LocalTrack) -> bool:
+        """Ajoute une piste à la queue"""
         try:
             if guild_id not in self.queues:
                 self.queues[guild_id] = []
             self.queues[guild_id].append(track)
             return True
+            
         except Exception as e:
-            logger.error(f"[lavalink] Erreur d'ajout à la queue: {e}")
+            logger.error(f"[local] Erreur d'ajout à la queue: {e}")
             return False
 
-    def get_queue(self, guild_id: int) -> List:
+    def get_queue(self, guild_id: int) -> List[LocalTrack]:
+        """Retourne la queue d'un serveur"""
         return self.queues.get(guild_id, [])
 
-    def format_duration(self, duration_ms: int) -> str:
-        seconds = int(duration_ms / 1000)
-        minutes = int(seconds // 60)
-        seconds = int(seconds % 60)
-        return f"{minutes:02d}:{seconds:02d}"
+    def get_current_track(self, guild_id: int) -> Optional[LocalTrack]:
+        """Retourne la piste actuellement en cours"""
+        return self.current_tracks.get(guild_id)
+
+    def is_playing(self, guild_id: int) -> bool:
+        """Vérifie si une musique est en cours de lecture"""
+        voice_client = self.players.get(guild_id)
+        return voice_client and voice_client.is_playing()
+
+    def is_paused(self, guild_id: int) -> bool:
+        """Vérifie si la musique est en pause"""
+        voice_client = self.players.get(guild_id)
+        return voice_client and voice_client.is_paused()
 
     def create_music_embed(self, title: str, description: str, color=discord.Color.blue()) -> discord.Embed:
+        """Crée un embed pour les informations de musique"""
         embed = discord.Embed(
             title=f"🎵 {title}",
             description=description,
             color=color
         )
+        return embed
+
+    def get_track_list_embed(self) -> discord.Embed:
+        """Crée un embed avec la liste des pistes disponibles"""
+        embed = discord.Embed(
+            title="🎵 Musiques Locales Disponibles",
+            description="Voici toutes les musiques disponibles :",
+            color=discord.Color.green()
+        )
+        
+        for i, track in enumerate(self.available_tracks, 1):
+            embed.add_field(
+                name=f"{i}. {track.title}",
+                value=f"Fichier: `{os.path.basename(track.file_path)}`",
+                inline=False
+            )
+        
         return embed

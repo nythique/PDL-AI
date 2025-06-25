@@ -6,12 +6,12 @@ from datetime import datetime
 from itertools import cycle
 from discord.ext import commands, tasks
 from home.cluster.vram import memory
-from home.gen.music import LavalinkManager
+from home.gen.music import MusicManager
 from plugins.ocr import OCRProcessor as ocr
 from plugins.voc import Speechio as voc
 from plugins.utils.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
-import discord, time, logging, asyncio, colorama
+import discord, time, logging, asyncio, colorama, os
 colorama.init()
 
 db = Database(settings.SERVER_DB)
@@ -184,7 +184,7 @@ def display_banner():
 def register_commands(bot_instance):
     global bot, music_manager
     bot = bot_instance
-    music_manager = LavalinkManager(bot)
+    music_manager = MusicManager(bot)
     display_banner()
     logging.info("[INFO] Connexion aux API discord...")
     @bot.event
@@ -209,10 +209,9 @@ def register_commands(bot_instance):
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
         
         try:
-            # Initialisation de Lavalink
-            print(Fore.YELLOW + "[INFO] Initialisation de Lavalink..." + Style.RESET_ALL)
-            logging.info("[INFO] Initialisation de Lavalink...")
-            await music_manager.setup_lavalink()
+            # Initialisation du système de musique locale
+            print(Fore.YELLOW + "[INFO] Système de musique locale initialisé..." + Style.RESET_ALL)
+            logging.info("[INFO] Système de musique locale initialisé...")
             
             logging.info("[INFO] Démarrage de la tache de synchronisation...")
             print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
@@ -229,14 +228,6 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes : {e}")
-
-    @bot.event
-    async def on_lavalink_node_ready(payload):
-        await music_manager.on_lavalink_node_ready(payload)
-
-    @bot.event
-    async def on_lavalink_track_end(payload):
-        await music_manager.on_lavalink_track_end(payload)
 
     @bot.event
     async def on_message(message):
@@ -267,24 +258,27 @@ def register_commands(bot_instance):
                     embed = music_manager.create_music_embed(
                         "Option musicale",
                         """
-                        **🎵 Intéractions Musicales Disponibles :**
+                        **🎵 Intéractions Musicales Locales Disponibles :**
                         
                         **Lecture :**
-                        • `pdl joue [recherche/URL]` - Lance une musique depuis YouTube
-                        • `pdl lance [recherche/URL]` - Lance une musique depuis YouTube
+                        • `pdl joue [nom de la musique]` - Lance une musique locale
+                        • `pdl lance [nom de la musique]` - Lance une musique locale
+                        • `pdl joue aléatoire` - Lance une musique aléatoire
                         
                         **Contrôle :**
                         • `pdl stop` - Arrête la musique
                         • `pdl pause` - Met en pause
                         • `pdl reprend` - Reprend la lecture
-                        • `pdl volume [0-100]` - Change le volume
+                        
+                        **Informations :**
+                        • `pdl liste musique` - Affiche toutes les musiques disponibles
                         
                         **Exemples :**
-                        • `pdl joue despacito`
-                        • `pdl lance https://youtube.com/watch?v=...`
-                        • `pdl volume 50`
+                        • `pdl joue relaxing piano`
+                        • `pdl lance bad bitch rap`
+                        • `pdl joue aléatoire`
                         
-                        **Sources supportées :** YouTube, SoundCloud, Bandcamp, Vimeo
+                        **Musiques disponibles :** 17 pistes locales dans les archives audio
                         """,
                         discord.Color.green()
                     )
@@ -372,28 +366,27 @@ def register_commands(bot_instance):
                         print(Fore.CYAN + f"[MUSIC] Recherche de la musique: {music_query}" + Style.RESET_ALL)
                         logging.info(f"[MUSIC] Recherche de la musique: {music_query}")
                         
-                        track = await music_manager.search_track(music_query)
+                        # Recherche de la piste locale
+                        if music_query.lower() in ["aléatoire", "random", "alea"]:
+                            track = music_manager.get_random_track()
+                        else:
+                            track = music_manager.search_track_by_name(music_query)
                         
                         if not track:
-                            await message.reply(f"J'ai pas trouvé le son. Vérifiez si tu ne t'est pas planté 🤥.")
+                            await message.reply(f"J'ai pas trouvé le son '{music_query}'. Utilise 'pdl liste musique' pour voir les musiques disponibles 🤥.")
                             logging.warning(f"[MUSIC] Aucune musique trouvée pour: {music_query}")
                             return
 
                         if await music_manager.join_voice_channel(message.author.voice.channel):
                             if await music_manager.play_track(message.author.voice.channel.guild.id, track):
-                                # Récupération des informations de la piste avec lavalink.py
-                                title = getattr(track, 'title', 'Unknown')
-                                author = getattr(track, 'author', 'Unknown')
-                                duration = music_manager.format_duration(getattr(track, 'length', 0))
-                                
                                 embed = music_manager.create_music_embed(
                                     "🎵 Lecture en cours",
-                                    f"**Titre :** {title}\n**Artiste :** {author}\n**Durée :** {duration}\n**Salon :** {message.author.voice.channel.name}",
+                                    f"**Titre :** {track.title}\n**Fichier :** {os.path.basename(track.file_path)}\n**Salon :** {message.author.voice.channel.name}",
                                     discord.Color.green()
                                 )
                                 await message.reply(embed=embed)
-                                print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {title}" + Style.RESET_ALL)
-                                logging.info(f"[MUSIC] Musique lancée avec succès: {title}")
+                                print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {track.title}" + Style.RESET_ALL)
+                                logging.info(f"[MUSIC] Musique lancée avec succès: {track.title}")
                             else:
                                 await message.reply("Je crois mon serveur musical à pété. Reviens plus tard tenter ta chance 🤧.")
                                 logging.error(f"[MUSIC] Erreur lors de la lecture de la musique pour: {music_query}")
@@ -405,6 +398,18 @@ def register_commands(bot_instance):
                         await message.reply(f"Petite ou grosse erreur lorsque je recherchais la musicque. Fais un ``/set report`` pour le signaler 🥲.")
                         print(Fore.RED + f"[MUSIC] Erreur lors de la recherche: {e}" + Style.RESET_ALL)
                         logging.error(f"[MUSIC] Erreur lors de la recherche de '{music_query}': {e}")
+                    return
+
+                elif music_command == "list_music":
+                    try:
+                        embed = music_manager.get_track_list_embed()
+                        await message.reply(embed=embed)
+                        print(Fore.GREEN + f"[MUSIC] Liste des musiques affichée pour {message.author.name}" + Style.RESET_ALL)
+                        logging.info(f"[MUSIC] Liste des musiques affichée pour {message.author.name}")
+                    except Exception as e:
+                        await message.reply("Erreur lors de l'affichage de la liste des musiques 😔")
+                        print(Fore.RED + f"[MUSIC] Erreur lors de l'affichage de la liste: {e}" + Style.RESET_ALL)
+                        logging.error(f"[MUSIC] Erreur lors de l'affichage de la liste: {e}")
                     return
 
             except Exception as e:
