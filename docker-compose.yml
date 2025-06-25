@@ -11,7 +11,7 @@ services:
       - LAVALINK_SERVER_PASSWORD=youshallnotpass
     volumes:
       - ./lavalink/application.yml:/app/PDL-AI/lavalink/application.yml
-      - /home/pdlai/PDL/volumes/Lavalink-Plugins:/app/PDL-AI/lavalink/plugins/
+      - Lavalink-Plugins:/app/PDL-AI/lavalink/plugins/
     networks:
       - pdl-network
 
@@ -29,12 +29,9 @@ services:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - GROQ_API_KEY=${GROQ_API_KEY}
     volumes:
-#     - /mnt/d/codingLab/Volumes/pdlai/Pdl-DB:/app/PDL-AI/home/cluster/server/
-#     - /mnt/d/codingLab/Volumes/pdlai/Pdl-ROM:/app/PDL-AI/home/cluster/temp/
-#     - /mnt/d/codingLab/Volumes/pdlai/Pdl--LOGS:/app/PDL-AI/logs/
-     - /home/pdlai/PDL/volumes/Pdl-DB:/app/PDL-AI/home/cluster/server/
-     - /home/pdlai/PDL/volumes/pdlai/Pdl-ROM:/app/PDL-AI/home/cluster/temp/
-     - /home/pdlai/PDL/volumes/pdlai/Pdl--LOGS:/app/PDL-AI/logs/
+     - PDL-DB:/app/PDL-AI/home/cluster/server/
+     - PDL-ROM:/app/PDL-AI/home/cluster/temp/
+     - PDL-LOGS:/app/PDL-AI/logs/
     networks:
       - pdl-network
 
