@@ -2,7 +2,7 @@ import discord, logging, colorama, os, asyncio, random
 from colorama import Fore, Style
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from typing import List, Dict, Optional
-import glob
+import yt_dlp
 
 logger = logging.getLogger("music")
 logger.setLevel(logging.INFO)
@@ -23,96 +23,91 @@ if not logger.handlers:
 
 colorama.init()
 
-class LocalTrack:
-    def __init__(self, file_path: str, title: str = None):
-        self.file_path = file_path
-        self.title = title or os.path.basename(file_path).replace('.mp3', '')
-        self.duration = 0  # Durée en secondes (peut être calculée si nécessaire)
-
 class MusicManager:
     def __init__(self, bot):
         self.bot = bot
         self.players = {}  # {guild_id: voice_client}
-        self.queues = {}   # {guild_id: [LocalTrack]}
-        self.current_tracks = {}  # {guild_id: LocalTrack}
-        self.audio_folder = "archive/audio"
-        self.available_tracks = self._load_local_tracks()
-        
-    def _load_local_tracks(self) -> List[LocalTrack]:
-        """Charge tous les fichiers audio disponibles"""
-        tracks = []
-        audio_pattern = os.path.join(self.audio_folder, "*.mp3")
-        
-        for file_path in glob.glob(audio_pattern):
-            track = LocalTrack(file_path)
-            tracks.append(track)
-            
-        logger.info(f"[local] {len(tracks)} pistes locales chargées")
-        print(Fore.GREEN + f"[local] {len(tracks)} pistes locales chargées" + Style.RESET_ALL)
-        return tracks
-    
-    def get_available_tracks(self) -> List[LocalTrack]:
-        """Retourne la liste des pistes disponibles"""
-        return self.available_tracks.copy()
-    
-    def search_track_by_name(self, query: str) -> Optional[LocalTrack]:
-        """Recherche une piste par nom"""
-        query_lower = query.lower()
-        for track in self.available_tracks:
-            if query_lower in track.title.lower():
-                return track
-        return None
-    
-    def get_random_track(self) -> Optional[LocalTrack]:
-        """Retourne une piste aléatoire"""
-        if self.available_tracks:
-            return random.choice(self.available_tracks)
-        return None
+        self.queues = {}   # {guild_id: [track_dict]}
+        self.current_tracks = {}  # {guild_id: track_dict}
+        self.default_volume = 0.5  # Volume par défaut (50%)
+
+    def search_youtube(self, query: str) -> Optional[dict]:
+        """Recherche une musique sur YouTube et retourne un dict avec titre, url, audio_url"""
+        ydl_opts = {'format': 'bestaudio', 'noplaylist': 'True'}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            try:
+                info = ydl.extract_info(f"ytsearch1:{query}", download=False)
+                video = info['entries'][0]
+                return {
+                    'title': video['title'],
+                    'url': video['webpage_url'],
+                    'audio_url': video['url']
+                }
+            except Exception as e:
+                logger.error(f"[yt-dlp] Erreur de recherche: {e}")
+                return None
 
     async def join_voice_channel(self, voice_channel: discord.VoiceChannel) -> bool:
         """Rejoint un salon vocal"""
         try:
             voice_client = await voice_channel.connect()
             self.players[voice_channel.guild.id] = voice_client
-            
-            logger.info(f"[local] Connecté au salon: {voice_channel.name}")
-            print(Fore.GREEN + f"[local] Connecté au salon: {voice_channel.name}" + Style.RESET_ALL)
+            logger.info(f"[yt] Connecté au salon: {voice_channel.name}")
+            print(Fore.GREEN + f"[yt] Connecté au salon: {voice_channel.name}" + Style.RESET_ALL)
             return True
-            
         except Exception as e:
-            logger.error(f"[local] Erreur de connexion: {e}")
-            print(Fore.RED + f"[local] Erreur de connexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[yt] Erreur de connexion: {e}")
+            print(Fore.RED + f"[yt] Erreur de connexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def play_track(self, guild_id: int, track: LocalTrack) -> bool:
-        """Joue une piste locale"""
+    async def play_track(self, guild_id: int, query: str, volume: float = None) -> bool:
+        """Joue une musique YouTube (par mot-clé ou lien)"""
         try:
             voice_client = self.players.get(guild_id)
             if not voice_client:
-                logger.error(f"[local] Aucun client vocal pour le serveur {guild_id}")
+                logger.error(f"[yt] Aucun client vocal pour le serveur {guild_id}")
                 return False
-            
+
             # Arrêter la lecture actuelle si elle existe
             if voice_client.is_playing():
                 voice_client.stop()
-            
-            # Créer la source audio
-            audio_source = discord.FFmpegPCMAudio(
-                track.file_path,
-                options='-vn -b:a 192k'
+
+            # Recherche YouTube
+            if query.startswith('http'):
+                # Lien direct YouTube
+                ydl_opts = {'format': 'bestaudio', 'noplaylist': 'True'}
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(query, download=False)
+                    title = info.get('title', 'Inconnu')
+                    audio_url = info['url']
+                    url = info['webpage_url']
+            else:
+                # Recherche par mot-clé
+                result = self.search_youtube(query)
+                if not result:
+                    logger.error(f"[yt] Aucun résultat pour: {query}")
+                    return False
+                title = result['title']
+                audio_url = result['audio_url']
+                url = result['url']
+
+            # Créer la source audio avec volume
+            if volume is None:
+                volume = self.default_volume
+            source = discord.PCMVolumeTransformer(
+                discord.FFmpegPCMAudio(audio_url, options='-vn'),
+                volume=volume
             )
-            
+
             # Lancer la lecture
-            voice_client.play(audio_source)
-            self.current_tracks[guild_id] = track
-            
-            logger.info(f"[local] Lecture: {track.title}")
-            print(Fore.GREEN + f"[local] Lecture: {track.title}" + Style.RESET_ALL)
+            voice_client.play(source)
+            self.current_tracks[guild_id] = {'title': title, 'url': url, 'audio_url': audio_url, 'volume': volume}
+            logger.info(f"[yt] Lecture: {title}")
+            print(Fore.GREEN + f"[yt] Lecture: {title}" + Style.RESET_ALL)
             return True
-            
         except Exception as e:
-            logger.error(f"[local] Erreur de lecture: {e}")
-            print(Fore.RED + f"[local] Erreur de lecture: {e}" + Style.RESET_ALL)
+            logger.error(f"[yt] Erreur de lecture: {e}")
+            print(Fore.RED + f"[yt] Erreur de lecture: {e}" + Style.RESET_ALL)
             return False
 
     async def stop_playback(self, guild_id: int) -> bool:
@@ -125,10 +120,9 @@ class MusicManager:
                     del self.current_tracks[guild_id]
                 return True
             return False
-            
         except Exception as e:
-            logger.error(f"[local] Erreur d'arrêt: {e}")
-            print(Fore.RED + f"[local] Erreur d'arrêt: {e}" + Style.RESET_ALL)
+            logger.error(f"[yt] Erreur d'arrêt: {e}")
+            print(Fore.RED + f"[yt] Erreur d'arrêt: {e}" + Style.RESET_ALL)
             return False
 
     async def pause_playback(self, guild_id: int) -> bool:
@@ -139,10 +133,9 @@ class MusicManager:
                 voice_client.pause()
                 return True
             return False
-            
         except Exception as e:
-            logger.error(f"[local] Erreur de pause: {e}")
-            print(Fore.RED + f"[local] Erreur de pause: {e}" + Style.RESET_ALL)
+            logger.error(f"[yt] Erreur de pause: {e}")
+            print(Fore.RED + f"[yt] Erreur de pause: {e}" + Style.RESET_ALL)
             return False
 
     async def resume_playback(self, guild_id: int) -> bool:
@@ -153,22 +146,25 @@ class MusicManager:
                 voice_client.resume()
                 return True
             return False
-            
         except Exception as e:
-            logger.error(f"[local] Erreur de reprise: {e}")
-            print(Fore.RED + f"[local] Erreur de reprise: {e}" + Style.RESET_ALL)
+            logger.error(f"[yt] Erreur de reprise: {e}")
+            print(Fore.RED + f"[yt] Erreur de reprise: {e}" + Style.RESET_ALL)
             return False
 
-    async def set_volume(self, guild_id: int, volume: int) -> bool:
-        """Définit le volume (note: FFmpegPCMAudio ne supporte pas le changement de volume)"""
+    async def set_volume(self, guild_id: int, volume: float) -> bool:
+        """Définit le volume (0.0 à 1.0)"""
         try:
-            # FFmpegPCMAudio ne supporte pas le changement de volume dynamique
-            # Il faudrait utiliser discord.PCMVolumeTransformer pour cela
-            logger.info(f"[local] Volume demandé: {volume}% (non supporté avec FFmpegPCMAudio)")
-            return True
-            
+            voice_client = self.players.get(guild_id)
+            if voice_client and voice_client.source:
+                voice_client.source.volume = volume
+                if guild_id in self.current_tracks:
+                    self.current_tracks[guild_id]['volume'] = volume
+                logger.info(f"[yt] Volume changé: {volume*100:.0f}%")
+                return True
+            return False
         except Exception as e:
-            logger.error(f"[local] Erreur de volume: {e}")
+            logger.error(f"[yt] Erreur de volume: {e}")
+            print(Fore.RED + f"[yt] Erreur de volume: {e}" + Style.RESET_ALL)
             return False
 
     async def disconnect(self, guild_id: int) -> bool:
@@ -184,30 +180,28 @@ class MusicManager:
                     del self.queues[guild_id]
                 return True
             return False
-            
         except Exception as e:
-            logger.error(f"[local] Erreur de déconnexion: {e}")
-            print(Fore.RED + f"[local] Erreur de déconnexion: {e}" + Style.RESET_ALL)
+            logger.error(f"[yt] Erreur de déconnexion: {e}")
+            print(Fore.RED + f"[yt] Erreur de déconnexion: {e}" + Style.RESET_ALL)
             return False
 
-    async def add_to_queue(self, guild_id: int, track: LocalTrack) -> bool:
-        """Ajoute une piste à la queue"""
+    async def add_to_queue(self, guild_id: int, query: str) -> bool:
+        """Ajoute une musique à la queue (par mot-clé ou lien)"""
         try:
             if guild_id not in self.queues:
                 self.queues[guild_id] = []
-            self.queues[guild_id].append(track)
+            self.queues[guild_id].append(query)
             return True
-            
         except Exception as e:
-            logger.error(f"[local] Erreur d'ajout à la queue: {e}")
+            logger.error(f"[yt] Erreur d'ajout à la queue: {e}")
             return False
 
-    def get_queue(self, guild_id: int) -> List[LocalTrack]:
+    def get_queue(self, guild_id: int) -> List[str]:
         """Retourne la queue d'un serveur"""
         return self.queues.get(guild_id, [])
 
-    def get_current_track(self, guild_id: int) -> Optional[LocalTrack]:
-        """Retourne la piste actuellement en cours"""
+    def get_current_track(self, guild_id: int) -> Optional[dict]:
+        """Retourne la musique actuellement en cours"""
         return self.current_tracks.get(guild_id)
 
     def is_playing(self, guild_id: int) -> bool:
@@ -229,19 +223,18 @@ class MusicManager:
         )
         return embed
 
-    def get_track_list_embed(self) -> discord.Embed:
-        """Crée un embed avec la liste des pistes disponibles"""
+    def get_queue_embed(self, guild_id: int) -> discord.Embed:
+        """Crée un embed avec la liste des musiques dans la queue"""
+        queue = self.get_queue(guild_id)
         embed = discord.Embed(
-            title="🎵 Musiques Locales Disponibles",
-            description="Voici toutes les musiques disponibles :",
+            title="🎵 File d'attente",
+            description="Voici la file d'attente :",
             color=discord.Color.green()
         )
-        
-        for i, track in enumerate(self.available_tracks, 1):
+        for i, query in enumerate(queue, 1):
             embed.add_field(
-                name=f"{i}. {track.title}",
-                value=f"Fichier: `{os.path.basename(track.file_path)}`",
+                name=f"{i}.",
+                value=f"{query}",
                 inline=False
             )
-        
         return embed

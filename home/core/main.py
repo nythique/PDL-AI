@@ -209,7 +209,6 @@ def register_commands(bot_instance):
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
         
         try:
-            # Initialisation du système de musique locale
             print(Fore.YELLOW + "[INFO] Système de musique locale initialisé..." + Style.RESET_ALL)
             logging.info("[INFO] Système de musique locale initialisé...")
             
@@ -348,13 +347,13 @@ def register_commands(bot_instance):
                 elif music_command == "play":
                     words = content.split()
                     music_query = None
-                    
+
                     for i, word in enumerate(words):
                         if any(keyword in word.lower() for keyword in music_commands["play"]):
                             if i + 1 < len(words):
                                 music_query = " ".join(words[i + 1:])
                                 break
-                    
+
                     if not music_query:
                         await message.reply("Je dois jouer quoi ? soit compréhensible !")
                         return
@@ -362,40 +361,25 @@ def register_commands(bot_instance):
                     if not message.author.voice or not message.author.voice.channel:
                         await message.reply("Rejoins un salon vocal pour écouter de la musique avec moi 😤.")
                         return
+
                     try:
                         print(Fore.CYAN + f"[MUSIC] Recherche de la musique: {music_query}" + Style.RESET_ALL)
                         logging.info(f"[MUSIC] Recherche de la musique: {music_query}")
-                        
-                        # Recherche de la piste locale
-                        if music_query.lower() in ["aléatoire", "random", "alea"]:
-                            track = music_manager.get_random_track()
-                        else:
-                            track = music_manager.search_track_by_name(music_query)
-                        
-                        if not track:
-                            await message.reply(f"J'ai pas trouvé le son '{music_query}'. Utilise 'pdl liste musique' pour voir les musiques disponibles 🤥.")
-                            logging.warning(f"[MUSIC] Aucune musique trouvée pour: {music_query}")
-                            return
 
                         if await music_manager.join_voice_channel(message.author.voice.channel):
-                            if await music_manager.play_track(message.author.voice.channel.guild.id, track):
-                                embed = music_manager.create_music_embed(
-                                    "🎵 Lecture en cours",
-                                    f"**Titre :** {track.title}\n**Fichier :** {os.path.basename(track.file_path)}\n**Salon :** {message.author.voice.channel.name}",
-                                    discord.Color.green()
-                                )
-                                await message.reply(embed=embed)
-                                print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {track.title}" + Style.RESET_ALL)
-                                logging.info(f"[MUSIC] Musique lancée avec succès: {track.title}")
+                            if await music_manager.play_track(message.author.voice.channel.guild.id, music_query):
+                                await message.reply(f"Lecture de : {music_query} 🎵")
+                                print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {music_query}" + Style.RESET_ALL)
+                                logging.info(f"[MUSIC] Musique lancée avec succès: {music_query}")
                             else:
-                                await message.reply("Je crois mon serveur musical à pété. Reviens plus tard tenter ta chance 🤧.")
+                                await message.reply("Je n'ai pas pu lancer la musique, désolé !")
                                 logging.error(f"[MUSIC] Erreur lors de la lecture de la musique pour: {music_query}")
                         else:
-                            await message.reply("J'ai pas les permissions pour te rejoindre en vocal. tu peux que t'en vouloir 😤.")
+                            await message.reply("Je n'ai pas pu te rejoindre en vocal.")
                             logging.error(f"[MUSIC] Impossible de rejoindre le salon vocal: {message.author.voice.channel.name}")
-                            
+
                     except Exception as e:
-                        await message.reply(f"Petite ou grosse erreur lorsque je recherchais la musicque. Fais un ``/set report`` pour le signaler 🥲.")
+                        await message.reply(f"Petite ou grosse erreur lorsque je recherchais la musique. Fais un ``/set report`` pour le signaler 🥲.")
                         print(Fore.RED + f"[MUSIC] Erreur lors de la recherche: {e}" + Style.RESET_ALL)
                         logging.error(f"[MUSIC] Erreur lors de la recherche de '{music_query}': {e}")
                     return

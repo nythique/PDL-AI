@@ -8,3 +8,4 @@ psutil
 PyNacl
 aiohttp
 asyncio-mqtt
+yt-dlp

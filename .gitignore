@@ -6,3 +6,4 @@ config/__pycache__
 home/cluster/__pycache__
 home/gen/__pycache__
 home/core/__pycache__
+archive/audio/
