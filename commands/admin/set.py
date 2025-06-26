@@ -4,7 +4,7 @@ from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
 from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
-from tools.db import Database
+from plugins.utils.db import Database
 
 db = Database(settings.SERVER_DB)
 
