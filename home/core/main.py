@@ -8,14 +8,12 @@ from discord.ext import commands, tasks
 from home.cluster.vram import memory
 from home.gen.music import MusicManager
 from plugins.ocr import OCRProcessor as ocr
-from plugins.voc import Speechio as voc
 from plugins.utils.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 import discord, time, logging, asyncio, colorama, os
 colorama.init()
 
 db = Database(settings.SERVER_DB)
-db.backup_database(settings.SERVER_BACKUP)
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = memory()
@@ -54,13 +52,8 @@ async def status_swap():
         global status
         status = cycle(db.get_bot_status())
         current_status = next(status)
-        await bot.change_presence(activity=discord.CustomActivity(current_status))
+        await bot.change_presence(activity=discord.CustomActivity(current_status)) # type: ignore
         logging.info(f"[INFO] Statut changé : {current_status}")
-        try:
-            db.load_data()
-        except Exception as a:
-            print(Fore.RED + f"[LOAD DATA] Erreuir lors du chargement des données.")
-            logging.error(f"[LOAD DATA] Erreur de donée chargé: {a}.")
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du changement de statut" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors du changement de statut : {e}")
@@ -70,7 +63,7 @@ async def before_status_swap():
     try:
         print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le changement de statut..." + Style.RESET_ALL)
         logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer le changement de statut...")
-        await bot.wait_until_ready()
+        await bot.wait_until_ready() # type: ignore
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant le changement de statut" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant le changement de statut : {e}")
@@ -97,7 +90,7 @@ async def before_save_memory():
     try:
         print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique..." + Style.RESET_ALL)
         logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...")
-        await bot.wait_until_ready()
+        await bot.wait_until_ready() # type: ignore
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la sauvegarde périodique" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la sauvegarde périodique : {e}")
@@ -120,7 +113,7 @@ async def before_clear_inactive_users():
     try:
         print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le nettoyage des inactifs..." + Style.RESET_ALL)
         logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...")
-        await bot.wait_until_ready()
+        await bot.wait_until_ready() # type: ignore
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant le nettoyage des utilisateurs inactifs" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant le nettoyage des utilisateurs inactifs : {e}")
@@ -129,7 +122,7 @@ async def before_clear_inactive_users():
 async def check_empty_voice_channels():
     """Vérifie si le bot est seul en vocal et le fait quitter"""
     try:
-        for voice_client in bot.voice_clients:
+        for voice_client in bot.voice_clients: # type: ignore
             if voice_client.channel:
                 members_in_channel = [member for member in voice_client.channel.members if not member.bot]
                 
@@ -146,7 +139,7 @@ async def before_check_empty_voice_channels():
     try:
         print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer la vérification des salons vocaux..." + Style.RESET_ALL)
         logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer la vérification des salons vocaux...")
-        await bot.wait_until_ready()
+        await bot.wait_until_ready() # type: ignore
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux : {e}")
@@ -169,8 +162,8 @@ def display_banner():
     ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
     ║   All rights reserved.                                           ║
     ║                                                                  ║
-    ║   Version: {version}                               ║
-    ║   Bot started on: {current_date}                            ║
+    ║   Version: {version}                                             ║
+    ║   Bot started on: {current_date}                                 ║
     ║                                                                  ║
     ║   Unauthorized copying, distribution, or modification of this    ║
     ║   software is strictly prohibited. Use is subject to the terms   ║
@@ -201,6 +194,8 @@ def register_commands(bot_instance):
             try:
                 if not status_swap.is_running():
                     status_swap.start()
+                    db.load_data()
+                    db.backup_database(settings.SERVER_BACKUP)
             except Exception as e:
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut {e}" + Style.RESET_ALL)
                 logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : {e}")
@@ -214,12 +209,12 @@ def register_commands(bot_instance):
             
             logging.info("[INFO] Démarrage de la tache de synchronisation...")
             print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
-            client = bot.user
-            synced = await bot.tree.sync()
+            client = bot.user # type: ignore
+            synced = await bot.tree.sync() # type: ignore 
             print(Fore.GREEN + f"[INFO] {len(synced)} commandes synchronisées avec succès !" + Style.RESET_ALL)
             logging.info(f"[INFO] {len(synced)} commandes synchronisées avec succès !")
-            print(Fore.GREEN + f"[INFO] {len(bot.guilds)} serveurs connectés !" + Style.RESET_ALL)
-            logging.info(f"[INFO] {len(bot.guilds)} serveurs connectés !")
+            print(Fore.GREEN + f"[INFO] {len(bot.guilds)} serveurs connectés !" + Style.RESET_ALL) # type: ignore
+            logging.info(f"[INFO] {len(bot.guilds)} serveurs connectés !") # type: ignore
             print(Fore.GREEN + f"[INFO] Le bot est connecté en tant que {client.name} (ID: {client.id}) !" + Style.RESET_ALL)
             logging.info(f"[INFO] Le bot est connecté en tant que {client.name} (ID: {client.id}) !")
             slowType(Fore.LIGHTGREEN_EX + f"[START] Le bot est prêt et en ligne !\n" + Style.RESET_ALL)
@@ -242,9 +237,9 @@ def register_commands(bot_instance):
         voc_orde_true = any(key in content for key in voc_ordre)
         voc_exit_true = any(key in content for key in voc_exit)
         music_command = None
-        mention_true = bot.user.mention in message.content
+        mention_true = bot.user.mention in message.content # type: ignore
         keyWord_true = any(keyword in message.content for keyword in keyWord)
-        reference_true = message.reference and message.reference.resolved and message.reference.resolved.author == bot.user
+        reference_true = message.reference and message.reference.resolved and message.reference.resolved.author == bot.user # type: ignore
         
         for cmd, keywords in music_commands.items():
             if any(keyword in content.lower() for keyword in keywords):
@@ -254,7 +249,7 @@ def register_commands(bot_instance):
         if music_command and (mention_true or keyWord_true or reference_true):
             try:
                 if music_command == "help_music":
-                    embed = music_manager.create_music_embed(
+                    embed = music_manager.create_music_embed( # type: ignore
                         "Option musicale",
                         """
                         **🎵 Intéractions Musicales Locales Disponibles :**
@@ -280,14 +275,14 @@ def register_commands(bot_instance):
                         **Musiques disponibles :** 17 pistes locales dans les archives audio
                         """,
                         discord.Color.green()
-                    )
+                    ) 
                     await message.reply(embed=embed)
                     return
 
                 elif music_command == "stop":
-                    if bot.voice_clients:
-                        for voice_client in bot.voice_clients:
-                            if await music_manager.stop_playback(voice_client.channel.guild.id):
+                    if bot.voice_clients: # type: ignore
+                        for voice_client in bot.voice_clients: # type: ignore
+                            if await music_manager.stop_playback(voice_client.channel.guild.id): # type: ignore
                                 await message.reply("J'ai arrêté la musique !.")
                                 return
                         await message.reply(f"Il n'y a rien à arrêter {message.author.name}.")
@@ -296,9 +291,9 @@ def register_commands(bot_instance):
                     return
 
                 elif music_command == "pause":
-                    if bot.voice_clients:
-                        for voice_client in bot.voice_clients:
-                            if await music_manager.pause_playback(voice_client.channel.guild.id):
+                    if bot.voice_clients: # type: ignore
+                        for voice_client in bot.voice_clients: # type: ignore
+                            if await music_manager.pause_playback(voice_client.channel.guild.id): # type: ignore
                                 await message.reply("Je te laisse reprendre ton soufle.")
                                 return
                         await message.reply("Tu aimes bien la desinformation.")
@@ -307,9 +302,9 @@ def register_commands(bot_instance):
                     return
 
                 elif music_command == "resume":
-                    if bot.voice_clients:
-                        for voice_client in bot.voice_clients:
-                            if await music_manager.resume_playback(voice_client.channel.guild.id):
+                    if bot.voice_clients: # type: ignore
+                        for voice_client in bot.voice_clients: # type: ignore
+                            if await music_manager.resume_playback(voice_client.channel.guild.id): # type: ignore
                                 await message.reply("La partie reprend 😏")
                                 return
                         await message.reply("Il y avait quoi en pause déjà ? RIEN !")
@@ -334,9 +329,9 @@ def register_commands(bot_instance):
                         await message.reply(f"Un volume de {volume}, 💀 Je pourrai pas t'aider.")
                         return
 
-                    if bot.voice_clients:
-                        for voice_client in bot.voice_clients:
-                            if await music_manager.set_volume(voice_client.channel.guild.id, volume):
+                    if bot.voice_clients: # type: ignore
+                        for voice_client in bot.voice_clients: # type: ignore
+                            if await music_manager.set_volume(voice_client.channel.guild.id, volume): # type: ignore
                                 await message.reply(f"J'ai adjusté le volume à {volume}% 😎.")
                                 return
                         await message.reply("Bon bah, t'as pas de chance, j'ai pas réeussi à changer le volume 😜.")
@@ -366,8 +361,8 @@ def register_commands(bot_instance):
                         print(Fore.CYAN + f"[MUSIC] Recherche de la musique: {music_query}" + Style.RESET_ALL)
                         logging.info(f"[MUSIC] Recherche de la musique: {music_query}")
 
-                        if await music_manager.join_voice_channel(message.author.voice.channel):
-                            if await music_manager.play_track(message.author.voice.channel.guild.id, music_query):
+                        if await music_manager.join_voice_channel(message.author.voice.channel): # type: ignore
+                            if await music_manager.play_track(message.author.voice.channel.guild.id, music_query): # type: ignore
                                 await message.reply(f"Lecture de : {music_query} 🎵")
                                 print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {music_query}" + Style.RESET_ALL)
                                 logging.info(f"[MUSIC] Musique lancée avec succès: {music_query}")
@@ -386,7 +381,7 @@ def register_commands(bot_instance):
 
                 elif music_command == "list_music":
                     try:
-                        embed = music_manager.get_track_list_embed()
+                        embed = music_manager.get_track_list_embed() # type: ignore
                         await message.reply(embed=embed)
                         print(Fore.GREEN + f"[MUSIC] Liste des musiques affichée pour {message.author.name}" + Style.RESET_ALL)
                         logging.info(f"[MUSIC] Liste des musiques affichée pour {message.author.name}")
@@ -403,8 +398,8 @@ def register_commands(bot_instance):
 
         if voc_exit_true and (mention_true or keyWord_true or reference_true):
             try:
-                if bot.voice_clients:
-                    for voice_client in bot.voice_clients:
+                if bot.voice_clients: # type: ignore
+                    for voice_client in bot.voice_clients: # type: ignore
                         await voice_client.disconnect()
                     await message.reply(f"J'ai quitté le salon vocal 🤧.")
                     logging.info(f"[INFO] Le bot a quitté le salon vocal sur demande de {message.author.name}")
@@ -421,7 +416,7 @@ def register_commands(bot_instance):
             try:
                 if message.author.voice and message.author.voice.channel:
                     voc_channel = message.author.voice.channel
-                    if not any(Vc.channel == voc_channel for Vc in bot.voice_clients):
+                    if not any(Vc.channel == voc_channel for Vc in bot.voice_clients): # type: ignore
                         await voc_channel.connect()
                         await message.reply(f"Je tes rejoint dans le salon vocal !")
                         logging.info(f"[INFO] Le bot a rejoint le salon vocal : {voc_channel.name}")
@@ -444,7 +439,7 @@ def register_commands(bot_instance):
                     await message.reply(f"Je me redémarre, merci de ta patience {message.author.name} 🤧")
                     print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
                     logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
-                    await bot.close()
+                    await bot.close() # type: ignore
                 except Exception as e:
                     await message.reply(f"C'est bien essayé, mais je ne peux pas redémarrer avec tes permissions !")
                     print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
@@ -465,7 +460,7 @@ def register_commands(bot_instance):
                 logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
                 return           
 
-        if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user:
+        if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user: # type: ignore
             try:
                 if message.attachments:
                     for attachment in message.attachments:
@@ -493,7 +488,7 @@ def register_commands(bot_instance):
 
                 messages = []
                 messages.append({"role": "system", "content": system_prompt})
-                for msg in user_context:
+                for msg in user_context: # type: ignore
                     if isinstance(msg, dict) and "role" in msg and "content" in msg:
                         messages.append({"role": msg["role"], "content": msg["content"]})
                     else:
@@ -512,13 +507,13 @@ def register_commands(bot_instance):
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}" + Style.RESET_ALL)
                 logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")  
 
-        await bot.process_commands(message)
+        await bot.process_commands(message) # type: ignore
         
     @bot.event
     async def on_voice_state_update(member, before, after):
         try:
             if before.channel and not after.channel:
-                for voice_client in bot.voice_clients:
+                for voice_client in bot.voice_clients: # type: ignore
                     if voice_client.channel == before.channel:
                         remaining_members = [m for m in before.channel.members if not m.bot]
                         

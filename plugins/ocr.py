@@ -45,7 +45,7 @@ class OCRProcessor:
         :param image_path: Chemin de l'image à analyser.
         """
         try:
-            # Ouvrir l'image
+            
             image = Image.open(image_path)
             # Extraire le texte avec Tesseract
             extracted_text = pytesseract.image_to_string(image)
