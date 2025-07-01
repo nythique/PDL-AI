@@ -1,90 +1,231 @@
-manuel = """# Guide d'installation, de configuration et de personnalisation des PC Région Pays de la Loire
+manuel = """
+**En utilisant ce tutoriel, vous certifiez avoir lu et accepté les conditions d’utilisation.**  
+**Veuillez suivre attentivement les étapes suivantes. Si vous commettez des erreurs, cela ne sera pas de notre responsabilité.**
+---
+# 1 - ADMIN PC SANS BITLOCKER
 
-## Préambule
+## ⚙️ Préparation de l’installation
 
-Avant de commencer toute manipulation, il est impératif de lire et d’accepter les conditions d’utilisation mentionnées dans les tutoriels. Il est recommandé d’utiliser une souris pour plus de confort. Pensez à brancher votre PC tout au long des opérations pour éviter toute interruption due à une panne de batterie.
+### 1️⃣ Branchement et téléchargement
+
+- Branchez votre PC tout au long de l'opération.
+- Téléchargez la version de Windows de votre choix via ce lien : [Windows ISO](https://pcpdl.live/liens-utiles/).
+- Formatez votre clé USB au format **NTFS** (clic droit sur la clé, puis "Formater").
+- Ouvrez le fichier ISO en double-cliquant dessus.
+- Sélectionnez tous les fichiers, copiez-les, puis collez-les sur votre clé USB.
+- Ajoutez également ce fichier : [wifi](https://pcpdl.live/liens-utiles/) sur la clé USB (sauf si vous avez un câble ethernet).
+
+## 🔄 Démarrage et installation
+
+### 2️⃣ Accéder au menu de dépannage
+
+- Branchez votre clé USB sur le PC.
+- Redémarrez votre PC en maintenant la touche `Shift` (majuscule) pour accéder au menu de dépannage.
+- Allez dans :  
+  Options avancées → Voir plus d'options de récupération → Récupération de l'image système.
+
+### 3️⃣ Lancer l’installation
+
+- Lorsque le PC demande la clé BitLocker, cliquez sur `Ignorer`.
+- Si un mot de passe administrateur est demandé, consultez : https://discord.com/channels/1072925050409324644/1153721969762631730/1218272962478735430
+- Une fenêtre d'installation de Windows s'ouvrira, fermez-la.
+- Cliquez sur :
+  1. `Suivant`
+  2. `Avancé`
+  3. `Installer un pilote`
+  4. `OK`
+- Un explorateur de fichiers s’ouvrira.
+- Accédez à votre clé USB, faites un clic droit sur le fichier `setup`, puis choisissez **Exécuter**.
+
+  ⚠️ *Si le fichier setup n'apparaît pas :*  
+  Écrivez `*.*` dans la barre "Nom du fichier", puis validez.
+
+## 🖥️ Installation de Windows
+
+### 4️⃣ Choisir et installer Windows
+
+- Vérifiez la langue, puis cliquez sur `Suivant`.
+- Cliquez sur `Installer maintenant`.
+- Sélectionnez la version de Windows souhaitée.
+- Cliquez sur `Je n'ai pas de clé de produit` (*choisissez la version **Professionnelle** recommandée*).
+- Cliquez sur :  
+  `Suivant` → `Personnalisé : Installer uniquement Windows`
+- Supprimez toutes les partitions, sauf la partition de récupération et votre clé USB !  
+  *(À partir d'ici, ne plus éteindre votre PC !)*
+- Cliquez sur `Nouveau` → `OK` → `Suivant`.
+
+### 5️⃣ Finalisation de l’installation
+
+- L'installation commencera et le PC redémarrera.
+- À la fin de l’installation, utilisez la touche `Shift` pour naviguer dans les options.
+
+## 🔑 Création d’un compte administrateur
+
+### 6️⃣ Activer le compte administrateur
+
+- Sur l'écran de connexion Internet, maintenez `Shift` et appuyez sur `F10` pour ouvrir une fenêtre de commande.
+- Tapez la commande suivante et appuyez sur `Entrée` :
+
+```cmd
+net user administrateur /active:yes
+```
+
+- Ajoutez un nouvel utilisateur :
+
+```cmd
+net user /add username password
+```
+Remplacez `username` par le nom d'utilisateur de votre choix (**sans espace**).  
+Remplacez `password` par le mot de passe souhaité (**sans espace**).  
+Pour afficher un nom complet, ajoutez `/fullname:"Prénom Nom"` après `password`.
+
+- Ajoutez l'utilisateur aux administrateurs :
+
+```cmd
+net localgroup administrateurs username /add
+```
+*(Si Windows est en anglais, remplacez `administrateur` par `administrator` et `administrateurs` par `administrators`.)*
+
+### 📶 Installer le pilote Wi-Fi (sauf si vous avez un câble ethernet)
+
+1. Tapez :
+   ```cmd
+   explorer.exe
+   ```
+   Une fenêtre d'explorateur Windows s'ouvrira.
+2. Allez dans la clé USB et ouvrez `sp150721.exe`, installez-le et attendez quelques instants.
+3. Revenez sur l’invite de commandes et tapez :
+   ```cmd
+   cd oobe
+   ```
+   puis :
+   ```cmd
+   msoobe.exe
+   ```
+   Attendez **30 secondes**, même si le message "Veuillez patienter..." persiste.
+4. *Forcer l'arrêt de l'ordinateur* : Maintenez le bouton d'alimentation enfoncé.
+5. Redémarrez votre PC et connectez-vous avec le compte créé.
+
+### ❌ Retirer le compte administrateur de la connexion
+
+Ouvrez une invite de commande en tant qu'administrateur et tapez :
+
+```cmd
+net user administrateur /active:no
+```
+
+Connectez-vous à un réseau Wi-Fi et effectuez les mises à jour Windows !
 
 ---
 
-## Installation de Windows
+# 2 - ADMIN PC PREMIER DÉMARRAGE
 
-Pour installer Windows, commencez par télécharger l’ISO de Windows via le lien officiel (https://pcpdl.live/liens-utiles/). Formatez votre clé USB en NTFS, puis ouvrez l’ISO et copiez tous les fichiers sur la clé USB. Ajoutez également le fichier wifi si vous n’avez pas de câble ethernet.
+## 🛠️ Étapes à suivre
 
-Branchez la clé USB sur le PC, redémarrez en maintenant la touche Shift, puis accédez au menu de dépannage (Options avancées > Voir plus d’options de récupération > Récupération de l’image système). Si le PC demande la clé BitLocker, cliquez sur Ignorer. Si un mot de passe administrateur est demandé, consultez le lien Discord du tutoriel.
+1️⃣ Sur la page de demande de l'e-mail, maintenez la touche **Majuscule/Shift** et appuyez sur **F10** pour ouvrir une fenêtre de commande.
 
-Pour lancer l’installation, fermez la fenêtre d’installation qui s’ouvre, cliquez sur Suivant, puis Avancé, Installer un pilote, OK. Dans l’explorateur, accédez à la clé USB, faites clic droit sur setup et choisissez Ouvrir. Si le fichier setup n’apparaît pas, tapez `*.*` dans la barre Nom du fichier.
+2️⃣ Tapez :
+```cmd
+net user administrateur /active:yes
+```
 
-Après avoir lancé le setup, vérifiez la langue, cliquez sur Installer maintenant, sélectionnez la version de Windows souhaitée, puis cliquez sur Je n’ai pas de clé de produit (version Professionnelle recommandée). Supprimez toutes les partitions sauf la partition de récupération et la clé USB, puis cliquez sur Nouveau, OK, Suivant. N’éteignez plus le PC à partir de cette étape.
+3️⃣ Tapez ensuite :
+```cmd
+net user /add username password
+```
+Remplacez `username` par le nom d'utilisateur de votre choix (**sans espace**).  
+Remplacez `password` par le mot de passe souhaité (**sans espace**).  
+Optionnel : ajoutez `/fullname:"Prénom Nom"` après le mot de passe.
 
-L’installation démarre et le PC redémarre. À la fin, utilisez la touche Shift pour naviguer dans les options.
+4️⃣ Ajoutez l'utilisateur au groupe Administrateurs :
+```cmd
+net localgroup administrateurs username /add
+```
+*(Si votre installation est en anglais, remplacez `administrateur` par `administrator` et `administrateurs` par `administrators`.)*
 
----
+5️⃣ Tapez :
+```cmd
+cd oobe
+```
 
-## Comptes et droits administrateur
+6️⃣ Exécutez la commande suivante :
+```cmd
+msoobe.exe
+```
 
-Sur l’écran de connexion Internet, ouvrez une invite de commande (Shift + F10). Pour activer le compte administrateur, tapez `net user administrateur /active:yes`. Pour créer un nouvel utilisateur, tapez `net user /add username password` (remplacez username et password par vos choix, sans espace). Pour afficher un nom complet, ajoutez `/fullname:"Prénom Nom"`. Ajoutez l’utilisateur au groupe administrateurs avec `net localgroup administrateurs username /add`. Si Windows est en anglais, utilisez administrator et administrators.
+7️⃣ Votre ordinateur affichera "Veuillez patienter...".  
+Attendez 30 secondes.
 
-Pour installer le pilote Wi-Fi, ouvrez l’explorateur avec `explorer.exe`, allez sur la clé USB, ouvrez sp150721.exe et attendez. Pour finaliser la configuration, tapez `cd oobe` puis `msoobe.exe`. Attendez 30 secondes même si le message "Veuillez patienter..." reste affiché, puis forcez l’arrêt du PC en maintenant le bouton d’alimentation. Redémarrez et connectez-vous avec le compte créé.
+8️⃣ Même si le message "Veuillez patienter..." est toujours affiché, forcez l'arrêt de votre ordinateur en maintenant le bouton d’allumage enfoncé.
 
-Après installation, connectez-vous à un réseau Wi-Fi et effectuez les mises à jour Windows. Pour désactiver le compte administrateur, ouvrez une invite de commande en tant qu’administrateur et tapez `net user administrateur /active:no`.
+9️⃣ Une fois votre ordinateur éteint, rallumez-le.
 
----
+🔟 Votre ordinateur est maintenant déverrouillé.  
+Vous pouvez vous connecter en utilisant le compte que vous avez créé.
 
-## Déblocage et récupération
+### ❌ Retirer le compte administrateur de la connexion
 
-Si vous avez accès à votre clé BitLocker, rendez-vous directement à l’étape 4 du tutoriel. Sinon, vérifiez que BitLocker est désactivé avec `manage-bde -status`. Si besoin, désactivez-le avec `manage-bde -off C:`.
+Ouvrez une invite de commande en tant qu'administrateur et tapez :
 
-Pour créer un compte administrateur temporaire, tapez `net user 123 abc /add` puis `net localgroup administrateurs 123 /add`. Redémarrez en mode avancé avec `Shutdown /r /o /t 0`. Après redémarrage, accédez à l’invite de commandes via Dépannage > Options avancées > Invite de commandes. Utilisez le compte 123/abc si demandé.
+```cmd
+net user administrateur /active:no
+```
 
-Pour obtenir une fenêtre administrateur à tout moment, remplacez utilman.exe et narrator.exe par cmd.exe. Sur Windows 11, faites aussi la manipulation pour narrator.exe. Pour supprimer le compte temporaire, tapez `net user 123 /del`.
+## 🎁 Bonus
 
-Pour créer un compte administrateur définitif, tapez `net user PDLadm PDLadm /add` puis `net localgroup administrateurs PDLadm /add`. Pour vérifier les droits, ouvrez une invite de commande en tant qu’administrateur et connectez-vous avec `.\\PDLadm / PDLadm.` Pour que le mot de passe n’expire jamais, ouvrez 'Gestion de l’ordinateur', allez dans "Utilisateurs locaux et groupes", double-cliquez sur PDLadm et cochez "le mot de passe n’expire jamais".
+En débridant votre ordinateur, vous avez maintenant les permissions administrateur sur votre compte.
 
----
-
-## Restauration du système de la région
-
-En cas de problème, il est possible de revenir sur le système de la région. Si le PC n’est pas modifié, suivez le tutoriel du canal Discord dédié, choisissez votre réseau, puis connectez-vous avec votre adresse email académique et votre mot de passe. Si le PC est modifié, lancez `sysprep` (Win + R), choisissez "Entrer en mode OOBE" et "Redémarrer", puis suivez les instructions à l’écran. Si sysprep ne fonctionne pas, suivez la procédure pour PC non modifié.
-
----
-
-## Activation d’Office sans email scolaire
-
-Installez Office 2021. Ouvrez PowerShell en administrateur (Win + R, tapez PowerShell, puis Ctrl + Shift + Entrée). Exécutez la commande `irm https://get.activated.win | iex`. Dans la fenêtre qui s’ouvre, entrez d’abord le numéro 2, puis le numéro 1. Patientez jusqu’à la fin du chargement, puis fermez la page. Office est maintenant activé. Lien d’installation Office Professionnel Plus 2021 : https://tinyurl.com/OfficePaysDeLaLoire
-
----
-
-## Installation de logiciels et applications
-
-Pour installer une application du Microsoft Store, rendez-vous sur https://apps.microsoft.com/home?hl=fr-fr&gl=FR, recherchez l’application, cliquez sur "Télécharger" si disponible, puis ouvrez et installez le fichier. Si le bouton n’est pas disponible, copiez le lien de la page, allez sur https://store.rg-adguard.net/, collez le lien, cliquez sur ✅, puis téléchargez le fichier .appx, .appxbundle ou .msixbundle correspondant. Autorisez le téléchargement si une alerte de sécurité apparaît.
-
-Pour certains logiciels, téléchargez le fichier d’installation, puis la pièce jointe du salon Discord <#1350199494792183879>. Glissez le fichier d’installation sur cette pièce jointe pour lancer l’installation. Si cela ne fonctionne pas, créez un dossier dans vos téléchargements, déplacez-y le fichier, faites clic droit > 7zip > extraire ici, puis ouvrez le dossier et lancez le fichier du logiciel. Ne supprimez jamais ce dossier, car le logiciel fonctionne à partir de celui-ci.
-
----
-
-## BIOS et personnalisation
-
-Les mots de passe BIOS sont :  
-- G8 (2021-2022) : ci5Z7mKU97  
-- G9 1ère génération (2022-2023) : 1pvFXs2i5l (souvent changé)  
-- G9 2ème génération (2023-2024) et G10 (2024-2025) : en cours de recherche
-
-Pour saisir les chiffres dans le mot de passe BIOS, utilisez la touche Shift (flèche du haut) et non Verr. Maj.  
-Pour reconnaître un PC HP G9 1ère génération, cherchez une étiquette HP Wolf Security à côté de l’étiquette Pentium.
-
-Attention : si vous vous connectez à votre compte de la région après avoir déverrouillé le BIOS, il se rebloquera automatiquement avec un mot de passe différent.
+**Note importante :**  
+Les créateurs de ce tutoriel ne sont pas affiliés à la région Pays de la Loire, Windows, HP ou Microsoft.  
+Ils ne peuvent être tenus responsables en cas de dommages causés par une mauvaise utilisation de ce tutoriel.  
+Vidéo explicative : [ici](https://youtu.be/xctHB2zrns4?si=-QzJUdmTmiEvvzNy) (à partir de 2 minutes).
 
 ---
 
-## Retirer ou personnaliser le logo Pays de la Loire au démarrage
+# 3 - REVENIR SOUS LA RÉGION
 
-Prérequis : avoir déverrouillé le BIOS et être administrateur.  
-Téléchargez « hp-cmsl-1.7.1.exe », installez-le dans le path PowerShell, ouvrez PowerShell en administrateur, tapez `Set-ExecutionPolicy RemoteSigned` puis validez avec « T ». Tapez ensuite `Clear-HPFirmwareBootLogo` pour retirer le logo.
+Si jamais vous rencontrez des problèmes, vous pouvez à tout moment revenir sur le système de la région.
 
-Pour mettre un logo personnalisé, utilisez : `Set-HPFirmwareBootLogo -file votrefichierperso.jpg`  
-Le fichier doit être JPEG/JPG, résolution maximale 1024x768, taille inférieure à 32751 octets.
+- Si votre PC n'est pas modifié : suivez le tutoriel <#1072932101034356757>, et lors du choix du réseau, sélectionnez votre réseau, cliquez sur Suivant et patientez.  
+  Si vous voyez un texte comme « Bienvenue chez Conseil Régional des Pays de la Loire – Direction des Lycées ! » ou un logo de la région, saisissez votre adresse email de la région (prenom.nom@[RNE DE VOTRE LYCEE].paysdelaloire.education) puis votre mot de passe.
 
-Si un mot de passe BIOS est encore actif, ajoutez un espace puis le mot de passe à la fin de la commande. Il est recommandé de supprimer le mot de passe BIOS dès que possible.  
-Des photos explicatives sont disponibles dans le salon Discord <#1278024746113437707>.
+- Si votre PC est modifié (et que vous avez bien tout configuré sur les permissions **Administrateur**) : faites `Win + R`, tapez « sysprep » et validez.  
+  Sur "l'action de nettoyage du système", choisissez « Entrer en mode OOBE (Out-Of-Box Experience) » et « Redémarrer », puis cliquez sur « OK ».  
+  Patientez et suivez les instructions à l'écran.  
+  Si `sysprep` ne fonctionne pas, suivez la procédure du PC non modifié.
 
----"""
+> Votre fenêtre doit être configurée comme sur la photo dans le salon <#1140219251379146873>.
+
+---
+
+# 4 - ACTIVATION DES SERVICES MICROSOFT
+
+## Activation d'Office sans email scolaire
+
+⚠️ **Avertissement :** Pour commencer ce tutoriel, veuillez avoir installé la dernière version d'Office (Office 2021).
+
+### Étape 1
+
+Appuyez sur `Win + R` sur votre clavier.  
+Dans la boîte de dialogue **Exécuter**, tapez `PowerShell` puis faites `Ctrl + Shift + Entrée`.
+
+### Étape 2
+
+Dans PowerShell, tapez la commande suivante puis appuyez sur Entrée :
+```powershell
+irm https://get.activated.win | iex
+```
+
+### Étape 3
+
+Une deuxième fenêtre s'ouvre, entrez d'abord le numéro 2, puis le numéro 1.
+
+### Fin du tutoriel
+
+Patientez jusqu'à la fin du chargement, puis fermez la page.
+
+---
+# 5 - RETIRER LE LOGO DE DÉMARRAGE
+
+Se référer au contenu du salon <#1278024746113437707> qui est très explicite.
+"""
