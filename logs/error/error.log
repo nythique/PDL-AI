@@ -1,0 +1,3 @@
+[ERROR] 2025-07-02 21:16:09 - Erreur de transcription pour home/cluster/temp/bot_testuser_1751490633637.mp3 : Audio file could not be read as PCM WAV, AIFF/AIFF-C, or Native FLAC; check if file is corrupted or in another format
+[ERROR] 2025-07-02 21:19:37 - Erreur de transcription pour home/cluster/temp/bot_testuser_1751490633637.mp3 : [WinError 2] Le fichier spécifié est introuvable
+[ERROR] 2025-07-02 21:42:07 - Erreur de transcription pour home/cluster/temp/bot_testuser_1751490633637.mp3 : [WinError 2] Le fichier spécifié est introuvable

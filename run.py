@@ -22,7 +22,7 @@ logging.getLogger().setLevel(logging.INFO)
 
 if __name__ == "__main__":
     try:
-        bot.run(DISCORD_TOKEN)
+        bot.run(DISCORD_TOKEN) # type: ignore
     except KeyboardInterrupt:
         logging.info("[INFO] Bot Stoppé par l'utilisateur.")
     except Exception as e:

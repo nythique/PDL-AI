@@ -9,3 +9,4 @@ PyNacl
 aiohttp
 asyncio-mqtt
 yt-dlp
+discord-ext-audiorec

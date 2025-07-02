@@ -4,19 +4,22 @@ from config import settings
 from config.settings import BAD_WORDS
 from datetime import datetime
 from itertools import cycle
-from discord.ext import commands, tasks
+from discord.ext import commands, tasks, audiorec # type: ignore
 from home.cluster.vram import memory
 from home.gen.music import MusicManager
 from plugins.ocr import OCRProcessor as ocr
+from plugins.speechio import speech_to_text, text_to_speech # type: ignore
 from plugins.utils.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 import discord, time, logging, asyncio, colorama, os
 colorama.init()
 
+
 db = Database(settings.SERVER_DB)
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = memory()
+recorder = audiorec.Recorder() # type: ignore
 ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
 music_manager = None
 bot = None
@@ -202,11 +205,16 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
-        
         try:
-            print(Fore.YELLOW + "[INFO] Système de musique locale initialisé..." + Style.RESET_ALL)
-            logging.info("[INFO] Système de musique locale initialisé...")
-            
+            print(Fore.YELLOW + "[INFO] Démarrage du système d'enregistrement audio..." + Style.RESET_ALL)
+            logging.info("[INFO] Démarrage du système d'enregistrement audio...")
+            recorder.start(bot)
+            print(Fore.GREEN + "[INFO] Système d'enregistrement audio démarré avec succès !" + Style.RESET_ALL)
+            logging.info("[INFO] Système d'enregistrement audio démarré avec succès !")
+        except Exception as e:
+            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage du système d'enregistrement audio {e}" + Style.RESET_ALL)
+            logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage du système d'enregistrement audio : {e}")
+        try:   
             logging.info("[INFO] Démarrage de la tache de synchronisation...")
             print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
             client = bot.user # type: ignore
@@ -433,7 +441,7 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Une erreur s'est produite lors de la reconnaissance de l'ordre de voc : {e}")
                 return
 
-        if any(key in content for key in ordre_restart) and (mention_true or keyWord_true or reference_true):
+        if any(key in content.lower() for key in ordre_restart) and (mention_true or keyWord_true or reference_true):
             if message.author.id in settings.ROOT_USER:
                 try:
                     await message.reply(f"Je me redémarre, merci de ta patience {message.author.name} 🤧")
@@ -446,7 +454,7 @@ def register_commands(bot_instance):
                     logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
                     return
 
-        if any(key in content for key in numberMember) and (mention_true or keyWord_true or reference_true):
+        if any(key in content.lower() for key in numberMember) and (mention_true or keyWord_true or reference_true):
             try:
                 guild = message.guild
                 member_count = guild.member_count
@@ -531,5 +539,44 @@ def register_commands(bot_instance):
         """Gestion des erreurs de commande préfix"""
         if isinstance(error, commands.CommandNotFound):
             return
-
- 
+    
+    @recorder.audio
+    async def on_audio(packet):
+        try:
+            texte = await speech_to_text(packet.file)
+            if texte.strip():
+                logging.info(f"[AUDIO] {packet.user.display_name} : {texte}")
+                user_id = packet.user.id
+                username = packet.user.display_name
+                user_context = user_memory.manage(user_id, texte)
+                system_prompt = (
+                    settings.PROMPT +
+                    f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
+                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
+                )
+                messages = [{"role": "system", "content": system_prompt}]
+                for msg in user_context:
+                    if isinstance(msg, dict) and "role" in msg and "content" in msg:
+                        messages.append({"role": msg["role"], "content": msg["content"]})
+                    else:
+                        messages.append({"role": "user", "content": str(msg)})
+                messages.append({"role": "user", "content": texte})
+                response = nlp.get_answer(messages, username=username)
+    
+                # Génération de la réponse vocale
+                audio_path = await text_to_speech(response, user_id)
+                # Lecture dans le salon vocal de l'utilisateur
+                voice_channel = packet.voice_channel if hasattr(packet, "voice_channel") else None
+                if not voice_channel and hasattr(packet.user, "voice") and packet.user.voice:
+                    voice_channel = packet.user.voice.channel
+                if voice_channel:
+                    # Connexion ou récupération du voice client
+                    voice_client = discord.utils.get(bot.voice_clients, guild=voice_channel.guild)
+                    if not voice_client or not voice_client.is_connected():
+                        voice_client = await voice_channel.connect()
+                    if voice_client.is_playing():
+                        voice_client.stop()
+                    audio_source = discord.FFmpegPCMAudio(audio_path)
+                    voice_client.play(audio_source)
+        except Exception as e:
+            print(Fore.RED + f"[AUDIO][ERROR] {e}" + Style.RESET_ALL)
