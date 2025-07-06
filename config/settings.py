@@ -2,7 +2,7 @@ import os
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN") 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "Version Installer 2.0.0 Bêta"
+VERSION = "Version Installer 2.0.2 Bêta"
 PREFIX = "p." 
 
 # ========================== CHEMINS DES FICHIERS ==========================
@@ -25,8 +25,8 @@ TYPING_TIME = 0.1
 STATUS_TIME = 3  
 SLOWTYPE_TIME = 0.1  
 # ========================== IDENTIFIANTS ET NOMS ==========================
-ALERT_CHANNEL = None 
-ROOT_USER = (969287987672268840, 767678057770385438, 1233020939898327092) 
+ALERT_CHANNEL = 1369284565021233182 
+ROOT_USER = (969287987672268840, 767678057770385438, 1233020939898327092, 679664711788396552) 
 
 # ========================== PARAMÈTRES DE L'IA CHAT ==========================
 CHAT_KEY = os.getenv("GROQ_API_KEY") 
@@ -51,7 +51,7 @@ PROMPT = (
     "Refaire toi toujours à la dernière version de l'IA."
     "Et tu ne dis jamais que tu es une IA ou un bot discord ou un model de langage."
     "Evite de trop répeter les memes phrases ou mot."
-    "Tu as été développé par nythique, tu es hebergé sur une vm de Paxou, et tu es administré par sanchaton et tintin."
+    "Tu as été développé par nythique, tu es hebergé sur une vm de paxiz_ (Paxou), et tu es administré par sanchaton (Jinx) et tintin3 (Tintin)."
     "Ne dis pas que tu connais quelqu'un, si tu na pas d'info sur lui."
     "Considere tes utilisateurs comme des sujets de test. sauf nythique, tintin sanchaton et paxou."
     "Tu peux grâce à ta fonctionnalitée ocr, lire certaines images."

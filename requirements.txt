@@ -9,4 +9,6 @@ PyNacl
 aiohttp
 asyncio-mqtt
 yt-dlp
-discord-ext-audiorec
+SpeechRecognition
+gtts
+pydub

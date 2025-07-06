@@ -4,11 +4,11 @@ from config import settings
 from config.settings import BAD_WORDS
 from datetime import datetime
 from itertools import cycle
-from discord.ext import commands, tasks, audiorec # type: ignore
+from discord.ext import commands, tasks
 from home.cluster.vram import memory
 from home.gen.music import MusicManager
 from plugins.ocr import OCRProcessor as ocr
-from plugins.speechio import speech_to_text, text_to_speech # type: ignore
+from plugins.speechio import speech_to_text, text_to_speech 
 from plugins.utils.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 import discord, time, logging, asyncio, colorama, os
@@ -19,7 +19,7 @@ db = Database(settings.SERVER_DB)
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = memory()
-recorder = audiorec.Recorder() # type: ignore
+
 ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
 music_manager = None
 bot = None
@@ -47,15 +47,19 @@ def slowType(text, delay=settings.SLOWTYPE_TIME):
         print(char, end='', flush=True)
         time.sleep(delay)
 
-status = cycle(db.get_bot_status()) 
+status = None
 
 @tasks.loop(seconds=settings.STATUS_TIME)
 async def status_swap():
     try:
         global status
-        status = cycle(db.get_bot_status())
-        current_status = next(status)
-        await bot.change_presence(activity=discord.CustomActivity(current_status)) # type: ignore
+        # Recharge la liste à chaque tour
+        status_list = db.get_bot_status()
+        if not hasattr(status_swap, "cycle") or status_swap.cycle_list != status_list:
+            status_swap.cycle = cycle(status_list)
+            status_swap.cycle_list = status_list
+        current_status = next(status_swap.cycle)
+        await bot.change_presence(activity=discord.CustomActivity(current_status))
         logging.info(f"[INFO] Statut changé : {current_status}")
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du changement de statut" + Style.RESET_ALL)
@@ -195,25 +199,27 @@ def register_commands(bot_instance):
             if not check_empty_voice_channels.is_running():
                 check_empty_voice_channels.start()
             try:
+                global status
+                status = cycle(db.get_bot_status())
                 if not status_swap.is_running():
                     status_swap.start()
-                    db.load_data()
-                    db.backup_database(settings.SERVER_BACKUP)
             except Exception as e:
                 print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut {e}" + Style.RESET_ALL)
                 logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : {e}")
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
+        """
         try:
             print(Fore.YELLOW + "[INFO] Démarrage du système d'enregistrement audio..." + Style.RESET_ALL)
             logging.info("[INFO] Démarrage du système d'enregistrement audio...")
-            recorder.start(bot)
+            recorder.add_to_bot(bot)
             print(Fore.GREEN + "[INFO] Système d'enregistrement audio démarré avec succès !" + Style.RESET_ALL)
-            logging.info("[INFO] Système d'enregistrement audio démarré avec succès !")
+            logging.info("[INFO] Système d'enregistrement audio démarré avec succès !")     
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage du système d'enregistrement audio {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage du système d'enregistrement audio : {e}")
+        """
         try:   
             logging.info("[INFO] Démarrage de la tache de synchronisation...")
             print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
@@ -233,6 +239,9 @@ def register_commands(bot_instance):
 
     @bot.event
     async def on_message(message):
+        # Recharge la DB à chaque message pour avoir la liste à jour
+        db.load_data()
+        db.backup_database(settings.SERVER_BACKUP)
         if message.author.bot: return 
         if message.channel.id not in db.get_allowed_channels(): return
         if any(key in message.content for key in BAD_WORDS):
@@ -260,27 +269,22 @@ def register_commands(bot_instance):
                     embed = music_manager.create_music_embed( # type: ignore
                         "Option musicale",
                         """
-                        **🎵 Intéractions Musicales Locales Disponibles :**
+                        **🎵 Intéractions Musicales Disponibles :**
                         
                         **Lecture :**
-                        • `pdl joue [nom de la musique]` - Lance une musique locale
-                        • `pdl lance [nom de la musique]` - Lance une musique locale
-                        • `pdl joue aléatoire` - Lance une musique aléatoire
+                        • `pdl joue [nom de la musique]` 
+                        • `pdl lance [nom de la musique]`
                         
                         **Contrôle :**
                         • `pdl stop` - Arrête la musique
                         • `pdl pause` - Met en pause
                         • `pdl reprend` - Reprend la lecture
-                        
-                        **Informations :**
-                        • `pdl liste musique` - Affiche toutes les musiques disponibles
-                        
+                                         
                         **Exemples :**
                         • `pdl joue relaxing piano`
                         • `pdl lance bad bitch rap`
-                        • `pdl joue aléatoire`
                         
-                        **Musiques disponibles :** 17 pistes locales dans les archives audio
+                        **Musiques disponibles : Autant que disponoble sur youtube.
                         """,
                         discord.Color.green()
                     ) 
@@ -369,7 +373,16 @@ def register_commands(bot_instance):
                         print(Fore.CYAN + f"[MUSIC] Recherche de la musique: {music_query}" + Style.RESET_ALL)
                         logging.info(f"[MUSIC] Recherche de la musique: {music_query}")
 
-                        if await music_manager.join_voice_channel(message.author.voice.channel): # type: ignore
+                        # Vérification de la connexion du bot au salon vocal
+                        voice_client = discord.utils.get(bot.voice_clients, guild=message.guild)
+                        if voice_client and voice_client.channel == message.author.voice.channel:
+                            # Déjà connecté au bon salon, pas besoin de rejoindre
+                            joined = True
+                        else:
+                            # Pas connecté ou pas dans le bon salon, on tente de rejoindre
+                            joined = await music_manager.join_voice_channel(message.author.voice.channel) # type: ignore
+
+                        if joined:
                             if await music_manager.play_track(message.author.voice.channel.guild.id, music_query): # type: ignore
                                 await message.reply(f"Lecture de : {music_query} 🎵")
                                 print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {music_query}" + Style.RESET_ALL)
@@ -472,6 +485,7 @@ def register_commands(bot_instance):
             try:
                 if message.attachments:
                     for attachment in message.attachments:
+                        # Gestion des images (déjà présent)
                         if any(attachment.filename.lower().endswith(ext) for ext in ['png', 'jpg', 'jpeg']):
                             async with message.channel.typing():
                                 extracted_text = await ocr_analyser.process_attachment(attachment)
@@ -483,6 +497,44 @@ def register_commands(bot_instance):
                                     print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
                                     logging.info("[INFO] Aucun texte détecté dans l'image.")
                             break
+                        # --- NOUVEAU : gestion des fichiers audio ---
+                        if any(attachment.filename.lower().endswith(ext) for ext in ['wav', 'mp3', 'ogg', 'm4a']):
+                            async with message.channel.typing():
+                                audio_file = await attachment.read()
+                                texte = await speech_to_text(audio_file)
+                                if texte.strip():
+                                    user_context = user_memory.manage(user_id, texte)
+                                    username = message.author.name
+                                    system_prompt = (
+                                        settings.PROMPT +
+                                        f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
+                                        "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
+                                    )
+                                    messages = []
+                                    messages.append({"role": "system", "content": system_prompt})
+                                    for msg in user_context:
+                                        if isinstance(msg, dict) and "role" in msg and "content" in msg:
+                                            messages.append({"role": msg["role"], "content": msg["content"]})
+                                        else:
+                                            messages.append({"role": "user", "content": str(msg)})
+                                    messages.append({"role": "user", "content": texte})
+                                    response = nlp.get_answer(messages, username=username)
+                                    audio_path = await text_to_speech(response, user_id)
+                                    if message.author.voice and message.author.voice.channel:
+                                        voice_channel = message.author.voice.channel
+                                        voice_client = discord.utils.get(bot.voice_clients, guild=voice_channel.guild)
+                                        if not voice_client or not voice_client.is_connected():
+                                            voice_client = await voice_channel.connect()
+                                        if voice_client.is_playing():
+                                            voice_client.stop()
+                                        audio_source = discord.FFmpegPCMAudio(audio_path)
+                                        voice_client.play(audio_source)
+                                        await message.reply("Réponse vocale envoyée !")
+                                    else:
+                                        await message.reply(response)
+                                else:
+                                    await message.reply("Je n'ai pas compris le message vocal.")
+                            return
 
                 user_context = user_memory.manage(user_id, content)
                 username = message.author.name
@@ -539,7 +591,7 @@ def register_commands(bot_instance):
         """Gestion des erreurs de commande préfix"""
         if isinstance(error, commands.CommandNotFound):
             return
-    
+"""   
     @recorder.audio
     async def on_audio(packet):
         try:
@@ -580,3 +632,4 @@ def register_commands(bot_instance):
                     voice_client.play(audio_source)
         except Exception as e:
             print(Fore.RED + f"[AUDIO][ERROR] {e}" + Style.RESET_ALL)
+"""

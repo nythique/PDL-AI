@@ -33,6 +33,7 @@ try:
                 "commands.admin.debug",
                 "commands.admin.restart",
                 "commands.admin.set",
+                "commands.admin.remove"
                 "commands.admin.host",
                 "commands.admin.empty",
                 "commands.public.help",

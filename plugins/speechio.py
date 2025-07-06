@@ -66,11 +66,22 @@ async def speech_to_text(file_path: str, lang: str = "fr-FR") -> Optional[str]:
         def recognize():
             with sr.AudioFile(file_to_process) as source:
                 audio = recognizer.record(source)
-            return recognizer.recognize_google(audio, language=lang)
+            try:
+                # Utilisation de recognize_google si disponible, sinon lever une erreur explicite
+                recognize_google = getattr(recognizer, "recognize_google", None)
+                if not callable(recognize_google):
+                    raise AttributeError("La méthode recognize_google n'est pas disponible dans la classe Recognizer.")
+                return recognize_google(audio, language=lang)
+            except AttributeError as e:
+                logger.error(f"Erreur : {e}")
+                return None
 
         text = await asyncio.get_event_loop().run_in_executor(None, recognize)
-        logger.info(f"Transcription réussie pour {file_path}")
-        return text
+        if isinstance(text, str):
+            logger.info(f"Transcription réussie pour {file_path}")
+            return text
+        else:
+            return None
     except Exception as e:
         logger.error(f"Erreur de transcription pour {file_path} : {e}")
         return None

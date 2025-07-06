@@ -34,7 +34,7 @@ class SlashUtils(commands.Cog):
             color = discord.Color.green() if ws_latency < 100 else discord.Color.orange() if ws_latency < 250 else discord.Color.red()
 
             embed = discord.Embed(
-                description=f"Mon ping est de {ws_latency} ms.",
+                description=f"<:earlysupporter:1298709460520275983>**Mon ping est de** {ws_latency} ms.",
                 color=color
             )
 

@@ -1,12 +1,11 @@
 import discord, logging
-from config import settings
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER, ALERT_CHANNEL, SERVER_DB
 from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
 from plugins.utils.db import Database
 
-db = Database(settings.SERVER_DB)
+db = Database(SERVER_DB)
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
@@ -76,8 +75,7 @@ class Set(commands.GroupCog, name="set"):
             report_embed.set_footer(
                 text=f"Identifiant de {interaction.user.display_name}: {interaction.user.id}"
             )
-            REPORT_CHANNEL_ID = settings.ALERT_CHANNEL
-            channel = self.bot.get_channel(REPORT_CHANNEL_ID)
+            channel = self.bot.get_channel(ALERT_CHANNEL)
             if channel:
                 await channel.send(embed=report_embed)
                 logging.info(f"[REPORT] Rapport envoyé par {interaction.user} ({interaction.user.id}) dans {channel.id}")
