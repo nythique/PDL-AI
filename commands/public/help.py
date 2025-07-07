@@ -32,7 +32,7 @@ class Help(commands.Cog):
                 description="Voici les principales commandes et fonctionnalités du bot :",
                 color=discord.Color.blue()
             )
-            embed.add_field(name="/help", value="Affiche ce message d'aide.", inline=False)
+            embed.set_author(name=bot_user.name, icon_url=bot_user.display_avatar.url)
             embed.add_field(name="/ping", value="Affiche la latence du bot et de Discord.", inline=False)
             embed.add_field(name="/set channel <salon>", value="Définir les salons pris en charge.", inline=False)
             embed.add_field(name="/set report <message>", value="Envoyer un rapport ou une suggestion à l'équipe.", inline=False)

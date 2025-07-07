@@ -12,3 +12,8 @@ yt-dlp
 SpeechRecognition
 gtts
 pydub
+discord.py[voice]>=2.2.0
+pytest
+pytest-asyncio
+pydub
+requests

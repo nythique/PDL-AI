@@ -3,8 +3,8 @@ from plugins.utils.pve import get_hardware_info
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
 from discord.ext import commands
 from discord import app_commands
-info = get_hardware_info()
 
+info = get_hardware_info()
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(

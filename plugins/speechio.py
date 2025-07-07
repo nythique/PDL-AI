@@ -10,7 +10,7 @@ import asyncio
 import tempfile
 from pydub import AudioSegment
 
-# --- Configuration du logging ---
+
 def setup_logger() -> None:
     """Configure les gestionnaires de logs pour info et erreur."""
     info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')

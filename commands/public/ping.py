@@ -27,7 +27,7 @@ class SlashUtils(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="ping", description="USER | Consulter le statut de latence")
+    @app_commands.command(name="ping", description="USER | Consulter la latence")
     async def ping(self, interaction: discord.Interaction):
         try:
             ws_latency = round(self.bot.latency * 1000)

@@ -1,11 +1,7 @@
-"""
-Optical Character Recognition:
-        Pour la réconnaissance de texte dans une image.
-"""
+import pytesseract, os, logging, uuid
 from PIL import Image
 from config import settings
 from colorama import Fore, Style
-import pytesseract, os, logging, uuid
 
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
@@ -26,9 +22,7 @@ logging.getLogger().setLevel(logging.INFO)
 
 class OCRProcessor:
     def __init__(self, tesseract_path=None):
-        """
-        Initialise le processeur OCR avec le chemin de Tesseract.
-        """
+
         if tesseract_path:
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
         self.logger = logging.getLogger(__name__)

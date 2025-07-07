@@ -1,4 +1,4 @@
-import discord, logging
+import discord, logging, time
 from discord import app_commands
 from discord.ext import commands
 from config import settings
@@ -6,7 +6,7 @@ from plugins.utils.db import Database
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER, ALERT_CHANNEL, SERVER_DB
 
 
-db = Database(settings.SERVER_DB)
+db = Database(SERVER_DB)
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
@@ -29,9 +29,7 @@ class Remove(commands.GroupCog, name="remove"):
         self.bot = bot
 
     async def interaction_is_admin(self, interaction: discord.Interaction) -> bool:
-        # Vérifie si l'utilisateur est admin OU dans ROOT_USER
         member = interaction.user
-        # Vérifie que c'est bien un membre de la guild
         if isinstance(member, discord.Member):
             if member.guild_permissions.administrator:
                 return True

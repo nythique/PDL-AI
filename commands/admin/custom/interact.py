@@ -28,10 +28,11 @@ voc_exit = [
 ]
 
 music_commands = {
-    "play": ["joue", "lance", "Play"],
-    "stop": ["stop", "arrête", "arrête la musique", "stop la musique"],
+    "play": ["joue"],
+    "stop": ["stop la music", "stop le son", "arrête", "arrête la musique", "stop la musique"],
     "pause": ["pause la musique", "stop la musique"],
     "resume": ["reprend la music", "continue la musique"],
     "volume": ["augmente le volume à", "met le volume à", "Volume à", "volumes à"],
-    "help_music": ["aide musique", "help musique", "musique help", "aide music", "menu d'aide musique"],
+    "help_music": ["aide musique", "help musique", "musique help", "aide music", "menu d'aide musique",
+                   "ouverture du menu d'aide musique", "aide pour la musique", "aide pour la music",],
 }

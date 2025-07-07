@@ -1,9 +1,8 @@
-import discord
+import discord, logging, os
 from discord.ext import commands
 from discord import app_commands
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
 from colorama import Fore, Style
-import logging, os
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)

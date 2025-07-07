@@ -25,7 +25,7 @@ class Empty(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="empty", description="ROOT | Vider les fichiers de logs")
+    @app_commands.command(name="empty", description="ROOT | Vider les fichiers de Debug")
     async def empty(self, interaction: discord.Interaction):
         if interaction.user.id not in ROOT_USER:
             await interaction.response.send_message(

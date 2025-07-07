@@ -1,6 +1,6 @@
 import discord, logging
 from discord.ext import commands
-from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, PREFIX, PREFIX
+from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, PREFIX
 from colorama import Fore, Style
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')

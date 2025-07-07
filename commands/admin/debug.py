@@ -26,7 +26,7 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="debug", description="ROOT | Afficher les erreurs du bot")
+    @app_commands.command(name="debug", description="ROOT | Consulter les bugs du identifiés")
     @app_commands.describe(lines="Nombre de lignes à afficher (défaut : 10)")
     async def debug(self, interaction: discord.Interaction, lines: int = 10):
         if interaction.user.id not in ROOT_USER:

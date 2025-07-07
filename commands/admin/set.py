@@ -6,7 +6,6 @@ from datetime import datetime
 from plugins.utils.db import Database
 
 db = Database(SERVER_DB)
-
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
@@ -117,7 +116,6 @@ class Set(commands.GroupCog, name="set"):
                 else:
                     await interaction.response.send_message(f"⚠️ Ce statut existe déjà : {message}", ephemeral=True)
             else:
-                # Si c'est un string, le convertir en liste avec le nouveau statut
                 new_statuses = [current_statuses, message] if current_statuses != message else [message]
                 db.set_bot_status(new_statuses)
                 await interaction.response.send_message(f"✅ Statut défini : {message}\nStatuts disponibles : {', '.join(new_statuses)}", ephemeral=True)

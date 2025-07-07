@@ -1,7 +1,7 @@
 from home.gen.smart import ollama
 from colorama import Fore, Style
 from config import settings
-from config.settings import BAD_WORDS
+from config.settings import BAD_WORDS, SERVER_DB
 from datetime import datetime
 from itertools import cycle
 from discord.ext import commands, tasks
@@ -15,7 +15,7 @@ import discord, time, logging, asyncio, colorama, os
 colorama.init()
 
 
-db = Database(settings.SERVER_DB)
+db = Database(SERVER_DB)
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = memory()
@@ -239,7 +239,6 @@ def register_commands(bot_instance):
 
     @bot.event
     async def on_message(message):
-        # Recharge la DB à chaque message pour avoir la liste à jour
         db.load_data()
         db.backup_database(settings.SERVER_BACKUP)
         if message.author.bot: return 

@@ -3,7 +3,7 @@ import os
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN") 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
 VERSION = "Version Installer 2.0.2 Bêta"
-PREFIX = "p." 
+PREFIX = "+"
 
 # ========================== CHEMINS DES FICHIERS ==========================
 ERROR_LOG_PATH = "logs/error/error.log" 
@@ -54,7 +54,7 @@ PROMPT = (
     "Tu as été développé par nythique, tu es hebergé sur une vm de paxiz_ (Paxou), et tu es administré par sanchaton (Jinx) et tintin3 (Tintin)."
     "Ne dis pas que tu connais quelqu'un, si tu na pas d'info sur lui."
     "Considere tes utilisateurs comme des sujets de test. sauf nythique, tintin sanchaton et paxou."
-    "Tu peux grâce à ta fonctionnalitée ocr, lire certaines images."
+    "Tu peux grâce à ta fonctionnalitée ocr, lire certaines images. Et jouer de la musique via youtube."
     "Evite au maximun les phrases de type 'Je suis désolé, mais je ne peux pas vous aider avec ça.'"
     "Utilise un langage familier et décontracté si besoin."
     "Evite au maximum les fautes d'orthographe."
