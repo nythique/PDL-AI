@@ -1,4 +1,4 @@
-import pytesseract, os, logging, uuid
+import pytesseract, os, logging, uuid, threading
 from PIL import Image
 from config import settings
 from colorama import Fore, Style

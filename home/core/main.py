@@ -7,9 +7,9 @@ from itertools import cycle
 from discord.ext import commands, tasks
 from home.cluster.vram import memory
 from home.gen.music import MusicManager
-from plugins.ocr import OCRProcessor as ocr
-from plugins.speechio import speech_to_text, text_to_speech 
-from plugins.utils.db import Database
+from plugins.analyze.ocr import OCRProcessor as ocr
+from plugins.analyze.speechio import speech_to_text, text_to_speech 
+from plugins.manage.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 import discord, time, logging, asyncio, colorama, os
 colorama.init()
@@ -151,33 +151,11 @@ async def before_check_empty_voice_channels():
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux : {e}")
 
-#=============()
 def display_banner():
-    banner = """
-    ██████╗ ██████╗  ██╗         █████╗ ██╗
-    ██╔══██╗██╔══██╗ ██║        ██╔══██╗██║
-    ██████╔╝██║  ██║ ██║        ███████║██║
-    ██╔═══╝ ██║  ██║ ██║        ██╔══██║██║
-    ██║     ██████╔╝ ███████╗██╗██║  ██║██║
-    ╚═╝     ╚═════╝  ╚══════╝╚═╝╚═╚═╝╚═╝╚═╝
-    """
-    version = settings.VERSION
+    banner = os.getenv("PROFIL")
+    version = os.getenv("VERSION")
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    license_message = f"""
-    ╔══════════════════════════════════════════════════════════════════╗
-    ║                                                                  ║
-    ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
-    ║   All rights reserved.                                           ║
-    ║                                                                  ║
-    ║   Version: {version}                                             ║
-    ║   Bot started on: {current_date}                                 ║
-    ║                                                                  ║
-    ║   Unauthorized copying, distribution, or modification of this    ║
-    ║   software is strictly prohibited. Use is subject to the terms   ║
-    ║   of the license agreement.                                      ║
-    ║                                                                  ║
-    ╚══════════════════════════════════════════════════════════════════╝
-    """
+    license_message = os.getenv("LICENSE")
     slowType(Fore.CYAN + banner + Style.RESET_ALL)
     print(Fore.YELLOW + license_message + Style.RESET_ALL)
 

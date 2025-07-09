@@ -2,7 +2,7 @@ import discord, logging, time
 from discord import app_commands
 from discord.ext import commands
 from config import settings
-from plugins.utils.db import Database 
+from plugins.manage.db import Database 
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER, ALERT_CHANNEL, SERVER_DB
 
 

@@ -1,7 +1,7 @@
 from colorama import Fore, Style
 from groq import Groq
 from config import settings
-import logging
+import logging, threading
 
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)

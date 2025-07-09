@@ -3,7 +3,7 @@ from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER, ALERT_
 from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
-from plugins.utils.db import Database
+from plugins.manage.db import Database
 
 db = Database(SERVER_DB)
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')

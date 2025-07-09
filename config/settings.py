@@ -2,8 +2,8 @@ import os
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN") 
 NAME_IA = ("pdl", "PDL", "Pdl", "pDL") 
-VERSION = "Version Installer 2.0.2 Bêta"
-PREFIX = "+"
+VERSION = os.getenv("VERSION") 
+PREFIX = os.getenv("PREFIX", "+")  
 
 # ========================== CHEMINS DES FICHIERS ==========================
 ERROR_LOG_PATH = "logs/error/error.log" 
