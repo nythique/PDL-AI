@@ -36,3 +36,4 @@ music_commands = {
     "help_music": ["aide musique", "help musique", "musique help", "aide music", "menu d'aide musique",
                    "ouverture du menu d'aide musique", "aide pour la musique", "aide pour la music",],
 }
+
