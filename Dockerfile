@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app/PDL-AI
 
-COPY requirements.txt .
-
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install poetry
+COPY pyproject.toml poetry.lock* ./
+RUN poetry install --no-root --no-interaction
 
 COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "run.py"]
+CMD ["poetry", "run", "python", "run.py"]

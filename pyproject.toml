@@ -1,0 +1,36 @@
+[project]
+name = "pdlai"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "nythique"}
+]
+license = "LICENSE"
+readme = "README.md"
+
+requires-python = ">=3.11"
+dependencies = [
+    "discord.py",
+    "discord.py[voice]>=2.2.0",
+    "colorama",
+    "pillow",
+    "pytesseract",
+    "groq",
+    "GPUtil",
+    "psutil",
+    "PyNacl",
+    "aiohttp",
+    "asyncio-mqtt",
+    "yt-dlp",
+    "SpeechRecognition",
+    "gtts",
+    "pydub",
+    "pytest",
+    "pytest-asyncio",
+    "requests",
+    "websockets"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

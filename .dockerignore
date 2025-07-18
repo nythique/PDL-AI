@@ -1,2 +1,9 @@
+LICENSE
+CONTRIBUTING.md
+CHANGELOG.md
+README.md
 docker.sh
+.example.env
 .gitignore
+.github/
+

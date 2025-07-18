@@ -1,4 +1,15 @@
 #!/bin/bash
+#==================================================================
+# docker.sh - Script to install Docker on Ubuntu
+# This script is intended for Ubuntu systems and requires sudo privileges.
+# Ensure the script is run with root privileges
+# Usage: ./docker.sh
+# Author: nythique
+# License: GNU AFFERO GENERAL PUBLIC LICENSE
+# Version: 1.0
+# Date: 2025-07-18
+#==================================================================
+
 set -e
 
 echo "==================🚀 Mise à jour du système...=================="
