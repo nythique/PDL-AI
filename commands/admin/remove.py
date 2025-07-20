@@ -2,11 +2,9 @@ import discord, logging, time
 from discord import app_commands
 from discord.ext import commands
 from config import settings
-from plugins.manage.db import Database 
+from home.core.main import db
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER, ALERT_CHANNEL, SERVER_DB
 
-
-db = Database(SERVER_DB)
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
@@ -43,10 +41,8 @@ class Remove(commands.GroupCog, name="remove"):
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             return
         try:
-            allowed_channels = db.get_allowed_channels()
-            if channel.id in allowed_channels:
-                allowed_channels.remove(channel.id)
-                db.set_allowed_channels(allowed_channels)
+            if channel.id in db.get_allowed_channels():
+                db.remove_allowed_channel(channel.id)
                 db.save_data()
                 logging.info(f"[REMOVE] Salon retiré : {channel.name} (ID: {channel.id}) par {interaction.user}.")
                 await interaction.response.send_message(f"Salon retiré : {channel.mention} (ID: {channel.id}) de la liste des salons autorisés.", ephemeral=True)

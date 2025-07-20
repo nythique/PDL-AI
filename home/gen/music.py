@@ -48,8 +48,25 @@ class MusicManager:
                 return None
 
     async def join_voice_channel(self, voice_channel: discord.VoiceChannel) -> bool:
-        """Rejoint un salon vocal"""
+        """Rejoint un salon vocal sans double connexion"""
         try:
+            # Vérifie si déjà connecté au bon salon
+            existing_client = discord.utils.get(self.bot.voice_clients, guild=voice_channel.guild)
+            if existing_client:
+                if existing_client.channel == voice_channel:
+                    # Déjà connecté au bon salon
+                    self.players[voice_channel.guild.id] = existing_client
+                    logger.info(f"[yt] Déjà connecté au salon: {voice_channel.name}")
+                    print(Fore.GREEN + f"[yt] Déjà connecté au salon: {voice_channel.name}" + Style.RESET_ALL)
+                    return True
+                else:
+                    # Déjà connecté ailleurs, on déplace
+                    await existing_client.move_to(voice_channel)
+                    self.players[voice_channel.guild.id] = existing_client
+                    logger.info(f"[yt] Déplacé dans le salon: {voice_channel.name}")
+                    print(Fore.GREEN + f"[yt] Déplacé dans le salon: {voice_channel.name}" + Style.RESET_ALL)
+                    return True
+            # Sinon, on connecte normalement
             voice_client = await voice_channel.connect()
             self.players[voice_channel.guild.id] = voice_client
             logger.info(f"[yt] Connecté au salon: {voice_channel.name}")

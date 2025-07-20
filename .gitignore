@@ -8,4 +8,5 @@ requirements.txt
 tests
 secrets.txt
 bfg.jar
+archive/meta/
 CHANGELOG.md

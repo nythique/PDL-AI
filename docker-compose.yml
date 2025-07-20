@@ -1,7 +1,7 @@
 services:
   pdl-ai:
     build: .
-    image: pdl-ai:laster-beta
+    image: pdl-ai:laster
     container_name: pdl-ai
     restart: unless-stopped
     environment:

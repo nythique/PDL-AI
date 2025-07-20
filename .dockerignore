@@ -3,8 +3,10 @@ CONTRIBUTING.md
 CHANGELOG.md
 README.md
 tests
+discord
+bfg.jar
 docker.sh
 .example.env
 .gitignore
-.github/
+.github
 

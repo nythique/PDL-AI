@@ -7,9 +7,9 @@ import logging
 import logging.handlers
 import colorama
 import shutil
-from threading import Lock
+from threading import RLock
 from colorama import Fore, Style
-from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH
+from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SERVER_DB
 
 # Constantes pour les clés de la base de données
 ROOT_USERS_KEY = "Root Users"
@@ -48,9 +48,9 @@ logger.addHandler(info_handler)
 logger.addHandler(error_handler)
 
 class Database:
-    def __init__(self, db_file):
+    def __init__(self, db_file = SERVER_DB):
         self.db_file = db_file
-        self._lock = Lock()
+        self._lock = RLock()
         self.data = self.load_data()
         self.validate_data_integrity()  # Vérifie l'intégrité dès le chargement
 
