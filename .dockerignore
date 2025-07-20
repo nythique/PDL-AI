@@ -2,6 +2,7 @@ LICENSE
 CONTRIBUTING.md
 CHANGELOG.md
 README.md
+tests
 docker.sh
 .example.env
 .gitignore

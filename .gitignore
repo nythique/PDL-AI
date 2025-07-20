@@ -8,3 +8,4 @@ requirements.txt
 tests
 secrets.txt
 bfg.jar
+CHANGELOG.md

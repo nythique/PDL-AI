@@ -53,7 +53,7 @@ status = None
 async def status_swap():
     try:
         global status
-        # Recharge la liste à chaque tour
+        db.load_data()
         status_list = db.get_bot_status()
         if not hasattr(status_swap, "cycle") or status_swap.cycle_list != status_list:
             status_swap.cycle = cycle(status_list)
@@ -151,11 +151,51 @@ async def before_check_empty_voice_channels():
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux : {e}")
 
+@tasks.loop(seconds=10)
+async def reload_database():
+    """Recharge périodiquement la base de données"""
+    try:
+        db.load_data()
+        logging.info("[DEBUG] Base de données rechargée périodiquement")
+    except Exception as e:
+        logging.error(f"[ERROR] Erreur lors du rechargement périodique de la DB : {e}")
+
+@reload_database.before_loop
+async def before_reload_database():
+    try:
+        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le rechargement de la base de données..." + Style.RESET_ALL)
+        logging.info("[INFO] En attente que le bot soit prêt pour démarrer le rechargement de la base de données...")
+        await bot.wait_until_ready() # type: ignore
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant le rechargement de la base de données" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant le rechargement de la base de données : {e}")
+
 def display_banner():
-    banner = os.getenv("PROFIL")
+    banner = """
+██████╗ ██████╗  ██╗         █████╗ ██╗
+██╔══██╗██╔══██╗ ██║        ██╔══██╗██║
+██████╔╝██║  ██║ ██║        ███████║██║
+██╔═══╝ ██║  ██║ ██║        ██╔══██║██║
+██║     ██████╔╝ ███████╗██╗██║  ██║██║
+╚═╝     ╚═════╝  ╚══════╝╚═╝╚═╚═╝╚═╝╚═╝
+"""
     version = os.getenv("VERSION")
     current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    license_message = os.getenv("LICENSE")
+    license_message = """
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
+║   All rights reserved.                                           ║
+║                                                                  ║
+║   Version: {version}                                             ║
+║   Bot started on: {current_date}                                 ║
+║                                                                  ║
+║   Unauthorized copying, distribution, or modification of this    ║
+║   software is strictly prohibited. Use is subject to the terms   ║
+║   of the license agreement.                                      ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+"""
     slowType(Fore.CYAN + banner + Style.RESET_ALL)
     print(Fore.YELLOW + license_message + Style.RESET_ALL)
 
@@ -176,6 +216,8 @@ def register_commands(bot_instance):
                 clear_inactive_users.start()
             if not check_empty_voice_channels.is_running():
                 check_empty_voice_channels.start()
+            if not reload_database.is_running():
+                reload_database.start()
             try:
                 global status
                 status = cycle(db.get_bot_status())
@@ -218,7 +260,6 @@ def register_commands(bot_instance):
     @bot.event
     async def on_message(message):
         db.load_data()
-        db.backup_database(settings.SERVER_BACKUP)
         if message.author.bot: return 
         if message.channel.id not in db.get_allowed_channels(): return
         if any(key in message.content for key in BAD_WORDS):
@@ -415,10 +456,13 @@ def register_commands(bot_instance):
                 if message.author.voice and message.author.voice.channel:
                     voc_channel = message.author.voice.channel
                     if not any(Vc.channel == voc_channel for Vc in bot.voice_clients): # type: ignore
-                        await voc_channel.connect()
-                        await message.reply(f"Je tes rejoint dans le salon vocal !")
-                        logging.info(f"[INFO] Le bot a rejoint le salon vocal : {voc_channel.name}")
-                        return
+                        if await music_manager.join_voice_channel(voc_channel):
+                            await message.reply(f"Je t'ai rejoint dans le salon vocal !")
+                            logging.info(f"[INFO] Le bot a rejoint le salon vocal : {voc_channel.name}")
+                            return
+                        else:
+                            await message.reply("Je n'ai pas pu te rejoindre dans le salon vocal !")
+                            return
                     else:
                         await message.reply(f"Je suis déjà dans un salon vocal !")
                         return
