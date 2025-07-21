@@ -16,6 +16,4 @@ RUN poetry install --no-root --no-interaction
 
 COPY . .
 
-EXPOSE 8000
-
 CMD ["poetry", "run", "python", "run.py"]
