@@ -591,7 +591,7 @@ def register_commands(bot_instance):
         """Gestion des erreurs de commande préfix"""
         if isinstance(error, commands.CommandNotFound):
             return
-"""   
+    """   
     @recorder.audio
     async def on_audio(packet):
         try:
@@ -632,7 +632,8 @@ def register_commands(bot_instance):
                     voice_client.play(audio_source)
         except Exception as e:
             print(Fore.RED + f"[AUDIO][ERROR] {e}" + Style.RESET_ALL)
-"""
+    """
+
     @bot.event
     async def on_disconnect():
         periodic_tasks = [status_swap, save_memory_periodically, clear_inactive_users, check_empty_voice_channels]
@@ -647,6 +648,7 @@ def register_commands(bot_instance):
                     logging.error(f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}")
         print(Fore.YELLOW + "[INFO] Toutes les tâches périodiques ont été arrêtées." + Style.RESET_ALL)
         logging.info("[INFO] Toutes les tâches périodiques ont été arrêtées.")
+
 
     @bot.event
     async def on_guild_join(guild):
