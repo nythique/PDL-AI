@@ -129,5 +129,29 @@ class Set(commands.GroupCog, name="set"):
             )
             await interaction.followup.send(embed=embed, ephemeral=True)
 
+    @app_commands.command(name="root", description="ADMIN | Ajouter un utilisateur root")
+    @app_commands.describe(user="Utilisateur à ajouter comme root")
+    async def root(self, interaction: discord.Interaction, user: discord.User):
+        member = interaction.guild.get_member(interaction.user.id)
+        admin_perms = not member or not (member.guild_permissions.administrator or member.id in ROOT_USER)
+        if admin_perms:
+            await interaction.response.send_message(
+                "⛔ Vous devez être administrateur ou root du serveur pour utiliser cette commande.", ephemeral=True
+            )
+            logging.warning(f"[SET ROOT] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id}")
+            return
+        try:
+            db.add_root_user(user.id)
+            await interaction.response.send_message(f"{user.mention} ajouté comme root.", ephemeral=True)
+            logging.info(f"[SET ROOT] {user.id} ajouté comme root par {interaction.user} ({interaction.user.id})")
+        except Exception as e:
+            logging.error(f"[SET ROOT] Erreur lors de l'ajout de root : {e}", exc_info=True)
+            embed = discord.Embed(
+                title="Erreur",
+                description="❌ Une erreur est survenue lors de l'ajout de l'utilisateur root.",
+                color=discord.Color.red()
+            )
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+
 async def setup(bot):
     await bot.add_cog(Set(bot))

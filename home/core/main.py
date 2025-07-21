@@ -151,25 +151,6 @@ async def before_check_empty_voice_channels():
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux : {e}")
 
-@tasks.loop(seconds=10)
-async def reload_database():
-    """Recharge périodiquement la base de données"""
-    try:
-        db.load_data()
-        logging.info("[DEBUG] Base de données rechargée périodiquement")
-    except Exception as e:
-        logging.error(f"[ERROR] Erreur lors du rechargement périodique de la DB : {e}")
-
-@reload_database.before_loop
-async def before_reload_database():
-    try:
-        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le rechargement de la base de données..." + Style.RESET_ALL)
-        logging.info("[INFO] En attente que le bot soit prêt pour démarrer le rechargement de la base de données...")
-        await bot.wait_until_ready() # type: ignore
-    except Exception as e:
-        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant le rechargement de la base de données" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant le rechargement de la base de données : {e}")
-
 def display_banner():
     banner = """
 ██████╗ ██████╗  ██╗         █████╗ ██╗
@@ -216,8 +197,6 @@ def register_commands(bot_instance):
                 clear_inactive_users.start()
             if not check_empty_voice_channels.is_running():
                 check_empty_voice_channels.start()
-            if not reload_database.is_running():
-                reload_database.start()
             try:
                 global status
                 status = cycle(db.get_bot_status())
@@ -654,3 +633,75 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[AUDIO][ERROR] {e}" + Style.RESET_ALL)
 """
+    @bot.event
+    async def on_disconnect():
+        periodic_tasks = [status_swap, save_memory_periodically, clear_inactive_users, check_empty_voice_channels]
+        for task in periodic_tasks:
+            if task.is_running():
+                try:
+                    print(Fore.YELLOW + f"[INFO] Arrêt de la tâche périodique : {task.get_task().get_name()}..." + Style.RESET_ALL)
+                    logging.info(f"[INFO] Arrêt de la tâche périodique : {task.get_task().get_name()}...")
+                    task.cancel()
+                except Exception as e:
+                    print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}" + Style.RESET_ALL)
+                    logging.error(f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}")
+        print(Fore.YELLOW + "[INFO] Toutes les tâches périodiques ont été arrêtées." + Style.RESET_ALL)
+        logging.info("[INFO] Toutes les tâches périodiques ont été arrêtées.")
+
+    @bot.event
+    async def on_guild_join(guild):
+        notif_channel = bot.get_channel(settings.NOTIFS_CHANNEL_ID)
+        if notif_channel:
+            invite_url = None
+            for channel in guild.text_channels:
+                if channel.permissions_for(guild.me).create_instant_invite:
+                    try:
+                        invite = await channel.create_invite(max_age=3600, max_uses=1, unique=True)
+                        invite_url = invite.url
+                        break
+                    except Exception:
+                        continue
+            if not invite_url:
+                invite_url = "Aucune invitation disponible"
+
+            adder = guild.owner
+            adder_name = adder.display_name if adder else "Inconnu"
+            adder_id = adder.id if adder else "?"
+            adder_avatar = adder.display_avatar.url if adder else None
+
+            embed = discord.Embed(
+                title="✅ Ajouté sur un nouveau serveur !",
+                description=(
+                    f"**Nom :** {guild.name}\n"
+                    f"**ID :** {guild.id}\n"
+                    f"**Membres :** {guild.member_count}\n"
+                    f"**Invitation :** {invite_url}"
+                ),
+                color=discord.Color.green()
+            )
+            embed.set_thumbnail(url=guild.icon.url if guild.icon else discord.Embed.Empty)
+            embed.set_footer(
+                text=f"Ajouté par : {adder_name} | ID : {adder_id}",
+                icon_url=adder_avatar
+            )
+            await notif_channel.send(embed=embed)
+
+    @bot.event
+    async def on_guild_remove(guild):
+        notif_channel = bot.get_channel(settings.NOTIFS_CHANNEL_ID)
+        if notif_channel:
+            embed = discord.Embed(
+                title="❌ Retiré d'un serveur",
+                description=(
+                    f"**Nom :** {guild.name}\n"
+                    f"**ID :** {guild.id}\n"
+                    f"**Membres :** {guild.member_count}"
+                ),
+                color=discord.Color.red()
+            )
+            embed.set_thumbnail(url=guild.icon.url if guild.icon else discord.Embed.Empty)
+            embed.set_footer(
+                text="Bot retiré du serveur",
+                icon_url=bot.user.display_avatar.url
+            )
+            await notif_channel.send(embed=embed)

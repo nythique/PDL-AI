@@ -11,7 +11,6 @@ SECURITY_LOG_PATH = "logs/security/security.log"
 TEMP_UPLOAD_PATH = "home/cluster/temp"
 ROM_PATH = "archive/temp/rom.json"
 SERVER_DB = "home/cluster/server/db.json"
-SERVER_BACKUP = "home/cluster/server/backup.json"
 TESSERACT_PATH = "/usr/bin/tesseract"
 MUSIC_LIST="archive/audio/"
 # NOTE:========================== PARAMÈTRES DE GESTION MÉMOIRE ==========================

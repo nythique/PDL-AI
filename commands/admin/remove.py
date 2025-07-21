@@ -80,5 +80,28 @@ class Remove(commands.GroupCog, name="remove"):
             for s in statuses if current.lower() in s.lower()
         ][:25]
 
+    @app_commands.command(name="root", description="ADMIN | Retirer un utilisateur root")
+    @app_commands.describe(user="Utilisateur à retirer des root")
+    async def remove_root(self, interaction: discord.Interaction, user: discord.User):
+        if not await self.interaction_is_admin(interaction):
+            await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
+            return
+        try:
+            root_users = db.get_all_root_users()
+            if user.id in root_users:
+                db.remove_root_user(user.id)
+                await interaction.response.send_message(f"{user.mention} retiré des root.", ephemeral=True)
+                logging.info(f"[REMOVE ROOT] {user.id} retiré des root par {interaction.user} ({interaction.user.id})")
+            else:
+                await interaction.response.send_message(f"{user.mention} n'est pas root.", ephemeral=True)
+        except Exception as e:
+            logging.error(f"[REMOVE ROOT] Erreur lors du retrait de root : {e}", exc_info=True)
+            embed = discord.Embed(
+                title="Erreur",
+                description="❌ Une erreur est survenue lors du retrait de l'utilisateur root.",
+                color=discord.Color.red()
+            )
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+
 async def setup(bot):
     await bot.add_cog(Remove(bot))

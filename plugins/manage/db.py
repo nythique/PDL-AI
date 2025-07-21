@@ -170,13 +170,13 @@ class Database:
             logger.info(f"Classement mis à jour - Utilisateur {user_id}: {points} points")
 
     def get_user_ranking(self, user_id):
-        """Obtient le classement d'un utilisateur"""
+        self.data = self.load_data()
         with self._lock:
             user_id = str(user_id)
             return self.data[USER_RANKINGS_KEY].get(user_id, 0)
 
     def get_top_users(self, limit=10):
-        """Obtient le top des utilisateurs"""
+        self.data = self.load_data()
         with self._lock:
             if not isinstance(limit, int) or limit < 1:
                 raise ValueError("La limite doit être un entier positif")
@@ -188,17 +188,17 @@ class Database:
             return sorted_users[:limit]
         
     def get_all_root_users(self):
-        """Retourne la liste de tous les utilisateurs root"""
+        self.data = self.load_data()
         with self._lock:
             return self.data.get(ROOT_USERS_KEY, [])
         
     def get_allowed_channels(self):
-        """Retourne la liste de tous les canaux autorisés"""
+        self.data = self.load_data()
         with self._lock:
             return self.data.get(ALLOWED_CHANNELS_KEY, [])
         
     def get_bot_status(self):
-        """Retourne la liste des statuts du bot pour le cycle"""
+        self.data = self.load_data()
         with self._lock:
             status = self.data.get(BOT_STATUS_KEY, "En maintenance")
             if isinstance(status, str):
@@ -209,7 +209,7 @@ class Database:
                 return ["En maintenance"]
         
     def get_bot_stats(self):
-        """Retourne toutes les statistiques du bot"""
+        self.data = self.load_data()
         with self._lock:
             return self.data.get(BOT_STATS_KEY, {})
         
