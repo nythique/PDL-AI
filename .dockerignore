@@ -9,4 +9,5 @@ docker.sh
 .example.env
 .gitignore
 .github
+certified.py
 

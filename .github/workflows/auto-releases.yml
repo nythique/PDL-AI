@@ -1,0 +1,112 @@
+name: Auto-Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.11'
+  DOCKER_IMAGE: 'pdl-ai'
+  PROJECT_NAME: 'PDL-IA'
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        poetry config virtualenvs.create false
+        poetry install --no-dev --no-interaction
+
+    - name: Run tests (if tests folder exists)
+      run: |
+        if [ -d tests ]; then poetry run pytest tests/ -v; else echo "Pas de tests à exécuter"; fi
+        poetry run black --check .
+        poetry run flake8 .
+
+    - name: Build application
+      run: |
+        poetry build
+        poetry run pyinstaller --onefile run.py --name pdl-bot
+
+    - name: Build Docker image
+      run: |
+        docker build -t ${{ env.DOCKER_IMAGE }}:${{ github.ref_name }} .
+        docker save ${{ env.DOCKER_IMAGE }}:${{ github.ref_name }} > ${{ env.DOCKER_IMAGE }}-${{ github.ref_name }}.tar
+
+    - name: Generate changelog
+      run: |
+        git log --oneline $(git describe --tags --abbrev=0 HEAD^)..HEAD > CHANGELOG.md
+
+    - name: Create install script
+      run: |
+        cat > install.sh << 'EOF'
+        #!/bin/bash
+        echo "🎉 Installation de PDL Bot ${{ github.ref_name }}"
+        echo "📦 Téléchargement de l'image Docker..."
+        docker pull pdl-bot:${{ github.ref_name }}
+        echo "✅ Installation terminée !"
+        echo "🚀 Pour démarrer : docker run pdl-bot:${{ github.ref_name }}"
+        EOF
+        chmod +x install.sh
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          dist/*.whl
+          ${{ env.DOCKER_IMAGE }}-${{ github.ref_name }}.tar
+          pdl-bot
+          install.sh
+          CHANGELOG.md
+          README.md
+          docker-compose.yml
+        body: |
+          ## 🎉 PDL Bot ${{ github.ref_name }}
+
+          ### Nouveautés
+          - Voir le changelog pour les nouveautés
+
+          ### Installation rapide
+          ```bash
+          chmod +x install.sh
+          ./install.sh
+          ```
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+        make_latest: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Notify Discord
+      if: success()
+      run: |
+        curl -H "Content-Type: application/json" \
+             -d '{
+                   "embeds": [{
+                     "title": "🎉 Nouvelle version PDL AI",
+                     "description": "Version ${{ github.ref_name }} disponible !",
+                     "color": 0,
+                     "fields": [
+                       {"name": "Version", "value": "${{ github.ref_name }}", "inline": true},
+                       {"name": "Commit", "value": "${{ github.sha }}", "inline": true}
+                     ]
+                   }]
+                 }' \
+             ${{ secrets.DISCORD_WEBHOOK }}
