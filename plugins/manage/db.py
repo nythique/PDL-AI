@@ -11,7 +11,6 @@ from threading import RLock
 from colorama import Fore, Style
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SERVER_DB
 
-# Constantes pour les clés de la base de données
 ROOT_USERS_KEY = "Root Users"
 BOT_STATUS_KEY = "Bot Status"
 ALLOWED_CHANNELS_KEY = "Allowed Channels"
