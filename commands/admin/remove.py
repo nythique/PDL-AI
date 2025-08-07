@@ -28,11 +28,12 @@ class Remove(commands.GroupCog, name="remove"):
 
     async def interaction_is_admin(self, interaction: discord.Interaction) -> bool:
         member = interaction.user
-        if isinstance(member, discord.Member):
-            if member.guild_permissions.administrator:
-                return True
-        root_users = db.get_all_root_users()
-        return member.id in root_users
+        # Vérifier d'abord les permissions Discord natives
+        if isinstance(member, discord.Member) and member.guild_permissions.administrator:
+            return True
+        # Ensuite vérifier les root users depuis la base de données
+        root_users = db.get_all_root_users()  # Cette méthode recharge déjà les données
+        return str(member.id) in root_users  # Conversion en str pour assurer la compatibilité
 
     @app_commands.command(name="channel", description="ADMIN | Retirer un salon de la liste des salons autorisés")
     @app_commands.describe(channel="Salon à retirer")
@@ -41,9 +42,9 @@ class Remove(commands.GroupCog, name="remove"):
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             return
         try:
-            if channel.id in db.get_allowed_channels():
-                db.remove_allowed_channel(channel.id)
-                db.save_data()
+            allowed_channels = db.get_allowed_channels()  # Charge les données une seule fois
+            if channel.id in allowed_channels:
+                db.remove_allowed_channel(channel.id)  # Cette méthode fait déjà un save_data()
                 logging.info(f"[REMOVE] Salon retiré : {channel.name} (ID: {channel.id}) par {interaction.user}.")
                 await interaction.response.send_message(f"Salon retiré : {channel.mention} (ID: {channel.id}) de la liste des salons autorisés.", ephemeral=True)
             else:
@@ -62,10 +63,11 @@ class Remove(commands.GroupCog, name="remove"):
             statuses = db.get_bot_status()
             if status in statuses:
                 statuses.remove(status)
-                db.set_bot_status(statuses)
-                db.save_data()
+                db.set_bot_status(statuses)  # Cette méthode fait déjà un save_data()
                 logging.info(f"[REMOVE] Statut retiré : {status} par {interaction.user}.")
-                await interaction.response.send_message(f"Statut retiré : `{status}`\nListe actuelle : {statuses if statuses else 'Aucun statut.'}", ephemeral=True)
+                # Recharger les statuts pour confirmer la mise à jour
+                current_statuses = db.get_bot_status()
+                await interaction.response.send_message(f"Statut retiré : `{status}`\nListe actuelle : {current_statuses if current_statuses else 'Aucun statut.'}", ephemeral=True)
             else:
                 await interaction.response.send_message(f"Le statut n'est pas dans la liste.\nStatuts actuels : {statuses}", ephemeral=True)
         except Exception as e:

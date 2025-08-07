@@ -137,8 +137,14 @@ class Database:
             channel_id = str(channel_id)
             if channel_id not in self.data[ALLOWED_CHANNELS_KEY]:
                 self.data[ALLOWED_CHANNELS_KEY].append(channel_id)
-                self.save_data()
-                logger.info(f"Canal ajouté aux autorisés: {channel_id}")
+                success = self.save_data()
+                if success:
+                    self.data = self.load_data()  # Rechargement des données
+                    logger.info(f"Canal ajouté aux autorisés: {channel_id}")
+                    return True
+                else:
+                    logger.error(f"Échec de la sauvegarde après ajout du canal {channel_id}")
+                    return False
 
     def remove_allowed_channel(self, channel_id):
         """Supprime un canal autorisé"""
@@ -169,8 +175,8 @@ class Database:
             logger.info(f"Classement mis à jour - Utilisateur {user_id}: {points} points")
 
     def get_user_ranking(self, user_id):
-        self.data = self.load_data()
         with self._lock:
+            self.data = self.load_data()  # Rechargement des données
             user_id = str(user_id)
             return self.data[USER_RANKINGS_KEY].get(user_id, 0)
 
@@ -187,13 +193,13 @@ class Database:
             return sorted_users[:limit]
         
     def get_all_root_users(self):
-        self.data = self.load_data()
         with self._lock:
+            self.data = self.load_data()  # Rechargement des données
             return self.data.get(ROOT_USERS_KEY, [])
         
     def get_allowed_channels(self):
-        self.data = self.load_data()
         with self._lock:
+            self.data = self.load_data()  # Rechargement des données
             return self.data.get(ALLOWED_CHANNELS_KEY, [])
         
     def get_bot_status(self):

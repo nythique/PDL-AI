@@ -7,8 +7,7 @@ from itertools import cycle
 from discord.ext import commands, tasks
 from home.cluster.vram import memory
 from home.gen.music import MusicManager
-from plugins.analyze.ocr import OCRProcessor as ocr
-from plugins.analyze.speechio import speech_to_text, text_to_speech 
+from plugins.analyze.ocr import OCRProcessor as ocr 
 from plugins.manage.db import Database
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 import discord, time, logging, asyncio, colorama, os
@@ -105,12 +104,19 @@ async def before_save_memory():
 @tasks.loop(minutes=settings.MEMORY_CLEAR_TIME)
 async def clear_inactive_users():
     try:
-        print(Fore.CYAN + "[INFO] Nettoyage des utilisateurs inactifs..." + Style.RESET_ALL)
-        logging.info(f"[INFO] Nettoyage des utilisateurs inactifs...")
-        user_memory.clear_context()
-        user_memory.save_to_file()  
-        print(Fore.GREEN + "[INFO] Nettoyage des utilisateurs inactifs réussi." + Style.RESET_ALL)
-        logging.info(f"[INFO] Nettoyage des utilisateurs inactifs réussi.")
+        print(Fore.CYAN + "[INFO] Nettoyage intelligent des utilisateurs inactifs..." + Style.RESET_ALL)
+        logging.info(f"[INFO] Nettoyage intelligent des utilisateurs inactifs...")
+        
+        # Utilisez le nettoyage intelligent au lieu du nettoyage simple
+        for user_id in user_memory.conversations.keys():
+            # Évaluation de la performance d'apprentissage
+            user_memory._evaluate_learning_performance()
+            # Nettoyage intelligent de l'historique
+            user_memory._smart_trim_history(user_id)
+        
+        user_memory.save_to_file()
+        print(Fore.GREEN + "[INFO] Nettoyage intelligent des utilisateurs inactifs réussi." + Style.RESET_ALL)
+        logging.info(f"[INFO] Nettoyage intelligent des utilisateurs inactifs réussi.")
     except Exception as e:
         print(Fore.RED + f"[ERROR] Le nettoyage des utilisateurs inactifs a échoué : {e}" + Style.RESET_ALL)
         logging.error(f"[ERROR] Le nettoyage des utilisateurs inactifs a échoué : {e}")
@@ -208,17 +214,7 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
-        """
-        try:
-            print(Fore.YELLOW + "[INFO] Démarrage du système d'enregistrement audio..." + Style.RESET_ALL)
-            logging.info("[INFO] Démarrage du système d'enregistrement audio...")
-            recorder.add_to_bot(bot)
-            print(Fore.GREEN + "[INFO] Système d'enregistrement audio démarré avec succès !" + Style.RESET_ALL)
-            logging.info("[INFO] Système d'enregistrement audio démarré avec succès !")     
-        except Exception as e:
-            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage du système d'enregistrement audio {e}" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage du système d'enregistrement audio : {e}")
-        """
+
         try:   
             logging.info("[INFO] Démarrage de la tache de synchronisation...")
             print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
@@ -483,6 +479,28 @@ def register_commands(bot_instance):
 
         if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user: # type: ignore
             try:
+                # Analyse du sentiment et des insights avant de traiter le message
+                user_insights = user_memory.get_interaction_insights(user_id)
+                sentiment = user_memory._analyze_sentiment(content)
+                
+                # Ajuster le ton de la réponse en fonction du sentiment
+                system_prompt_context = ""
+                if sentiment > 0.5:
+                    system_prompt_context = "L'utilisateur semble être de bonne humeur, garde un ton positif et enthousiaste."
+                elif sentiment < -0.5:
+                    system_prompt_context = "L'utilisateur semble contrarié, adopte un ton compréhensif et rassurant."
+                    
+                # Utiliser les insights pour personnaliser la réponse
+                if user_insights and 'frequent_topics' in user_insights:
+                    topics = list(user_insights['frequent_topics'].keys())[:3]
+                    system_prompt_context += f"\nSujets d'intérêt de l'utilisateur : {', '.join(topics)}"
+                    
+                if user_insights and 'active_hours' in user_insights:
+                    current_hour = datetime.now().hour
+                    if current_hour in user_insights['active_hours']:
+                        system_prompt_context += "\nL'utilisateur est dans sa période active habituelle."
+
+                # Gestion des pièces jointes
                 if message.attachments:
                     for attachment in message.attachments:
                         # Gestion des images (déjà présent)
@@ -536,15 +554,34 @@ def register_commands(bot_instance):
                                     await message.reply("Je n'ai pas compris le message vocal.")
                             return
 
-                user_context = user_memory.manage(user_id, content)
+                # Analyse sémantique et contextuelle
+                semantic_key = user_memory._generate_semantic_key(content)
+                context_type = user_memory._determine_context_type(content)
+                topic_vectors = user_memory._generate_topic_vectors(content)
+
+                # Gestion enrichie du contexte utilisateur
+                user_context = user_memory.manage(user_id, content,
+                    channel_id=message.channel.id,
+                    is_bot_message=False,
+                    mentions=[user.id for user in message.mentions]
+                )
+
                 username = message.author.name
                 user_id = message.author.id
 
+                # Construction du prompt système enrichi
                 system_prompt = (
                     settings.PROMPT +
                     f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
-                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
+                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. " +
+                    "Sois naturel et pertinent.\n" + system_prompt_context
                 )
+
+                # Ajustement basé sur le type de contexte
+                if context_type == "question":
+                    system_prompt += "\nL'utilisateur pose une question, sois précis et informatif."
+                elif context_type == "feedback":
+                    system_prompt += "\nL'utilisateur donne un retour, montre que tu as bien compris."
 
                 messages = []
                 messages.append({"role": "system", "content": system_prompt})
@@ -591,48 +628,6 @@ def register_commands(bot_instance):
         """Gestion des erreurs de commande préfix"""
         if isinstance(error, commands.CommandNotFound):
             return
-    """   
-    @recorder.audio
-    async def on_audio(packet):
-        try:
-            texte = await speech_to_text(packet.file)
-            if texte.strip():
-                logging.info(f"[AUDIO] {packet.user.display_name} : {texte}")
-                user_id = packet.user.id
-                username = packet.user.display_name
-                user_context = user_memory.manage(user_id, texte)
-                system_prompt = (
-                    settings.PROMPT +
-                    f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
-                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
-                )
-                messages = [{"role": "system", "content": system_prompt}]
-                for msg in user_context:
-                    if isinstance(msg, dict) and "role" in msg and "content" in msg:
-                        messages.append({"role": msg["role"], "content": msg["content"]})
-                    else:
-                        messages.append({"role": "user", "content": str(msg)})
-                messages.append({"role": "user", "content": texte})
-                response = nlp.get_answer(messages, username=username)
-    
-                # Génération de la réponse vocale
-                audio_path = await text_to_speech(response, user_id)
-                # Lecture dans le salon vocal de l'utilisateur
-                voice_channel = packet.voice_channel if hasattr(packet, "voice_channel") else None
-                if not voice_channel and hasattr(packet.user, "voice") and packet.user.voice:
-                    voice_channel = packet.user.voice.channel
-                if voice_channel:
-                    # Connexion ou récupération du voice client
-                    voice_client = discord.utils.get(bot.voice_clients, guild=voice_channel.guild)
-                    if not voice_client or not voice_client.is_connected():
-                        voice_client = await voice_channel.connect()
-                    if voice_client.is_playing():
-                        voice_client.stop()
-                    audio_source = discord.FFmpegPCMAudio(audio_path)
-                    voice_client.play(audio_source)
-        except Exception as e:
-            print(Fore.RED + f"[AUDIO][ERROR] {e}" + Style.RESET_ALL)
-    """
 
     @bot.event
     async def on_disconnect():

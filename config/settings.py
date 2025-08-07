@@ -12,7 +12,6 @@ TEMP_UPLOAD_PATH = "home/cluster/temp"
 ROM_PATH = "archive/temp/rom.json"
 SERVER_DB = "home/cluster/server/db.json"
 TESSERACT_PATH = "/usr/bin/tesseract"
-MUSIC_LIST="archive/audio/"
 # NOTE:========================== PARAMÈTRES DE GESTION MÉMOIRE ==========================
 ROM_LIMIT = 5  
 ROM_UPDATE_TIME = 5 # en minutes
