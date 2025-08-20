@@ -63,6 +63,9 @@ class Database:
                 return data
             except json.JSONDecodeError as e:
                 logger.error(f"Erreur de décodage JSON: {e}")
+                default_data = self.get_default_data()
+                self.data = default_data
+                self.save_data()
                 return self.get_default_data()
             except Exception as e:
                 logger.error(f"Erreur lors du chargement de la base de données: {e}")
@@ -96,10 +99,12 @@ class Database:
                     json.dump(self.data, f, indent=4)
                 os.replace(temp_file, self.db_file)
                 logger.info("Base de données sauvegardée avec succès")
+                return True
             except Exception as e:
                 logger.error(f"Erreur lors de la sauvegarde: {e}")
                 if os.path.exists(temp_file):
                     os.remove(temp_file)
+                    return False
                 raise
 
     def add_root_user(self, user_id):

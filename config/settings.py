@@ -8,7 +8,7 @@ PREFIX = os.getenv("PREFIX")
 # ========================== CHEMINS DES FICHIERS ==========================
 ERROR_LOG_PATH = "logs/error/error.log" 
 SECURITY_LOG_PATH = "logs/security/security.log" 
-TEMP_UPLOAD_PATH = "home/cluster/temp"
+TEMP_UPLOAD_PATH = "archive/temp/"
 ROM_PATH = "archive/temp/rom.json"
 SERVER_DB = "home/cluster/server/db.json"
 TESSERACT_PATH = "/usr/bin/tesseract"
