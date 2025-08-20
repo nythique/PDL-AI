@@ -8,6 +8,6 @@ requirements.txt
 tests
 secrets.txt
 bfg.jar
-archive/meta/
+archive/meta/rules.py
 CHANGELOG.md
 verified.py

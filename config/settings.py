@@ -40,11 +40,11 @@ CHAT_STOP = ["@"]
 CHAT_LIMIT_MEMORY = 10 
 
 #  NOTE:========================== PROMPTS DE L'IA ==========================
-from archive.meta import prompt
-PROMPT = prompt.PROMPT
+from archive.meta.rules import prompt
+PROMPT = prompt
 
 #  NOTE:========================== PARAMÈTRES DE BAD WORDS ==========================
-from archive.meta import badword
-BAD_WORDS = badword.BAD_WORDS
+from archive.meta.rules import badword
+BAD_WORDS = badword
 
 
