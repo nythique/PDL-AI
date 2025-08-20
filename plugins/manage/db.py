@@ -55,7 +55,7 @@ class Database:
 
     def load_data(self):
         """Charge les données depuis le fichier JSON avec gestion des erreurs"""
-        if os.path.exists(self.db_file):
+        if os.path.exists(self.db_file) and os.path.getsize(self.db_file) > 0:
             try:
                 with open(self.db_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
@@ -66,13 +66,16 @@ class Database:
                 default_data = self.get_default_data()
                 self.data = default_data
                 self.save_data()
-                return self.get_default_data()
+                return default_data
             except Exception as e:
                 logger.error(f"Erreur lors du chargement de la base de données: {e}")
                 return self.get_default_data()
         else:
-            logger.info(f"Fichier {self.db_file} non trouvé, création d'une nouvelle base")
-            return self.get_default_data()
+            logger.warning(f"Fichier {self.db_file} non trouvé, création d'une nouvelle base")
+            default_data = self.get_default_data()
+            self.data = default_data
+            self.save_data()
+            return default_data
 
     def get_default_data(self):
         """Retourne la structure par défaut de la base de données"""
@@ -81,13 +84,14 @@ class Database:
             BOT_STATUS_KEY: [
                 "Je suis le G.O.A.T"
             ],
-            ALLOWED_CHANNELS_KEY: [],
+            ALLOWED_CHANNELS_KEY: [1370867677333291149, 1232303023955378199],
             BOT_STATS_KEY: {
                 "messages_sent": 0,
                 "commands_executed": 0,
                 "uptime": 0
             },
             USER_RANKINGS_KEY: {}
+            "version": "1.0"
         }
 
     def save_data(self):
@@ -96,16 +100,20 @@ class Database:
             temp_file = f"{self.db_file}.tmp"
             try:
                 with open(temp_file, 'w', encoding='utf-8') as f:
-                    json.dump(self.data, f, indent=4)
+                    json.dump(self.data, f, indent=4, ensure_ascii=False)
                 os.replace(temp_file, self.db_file)
                 logger.info("Base de données sauvegardée avec succès")
                 return True
-            except Exception as e:
+            except TypeError as e:
                 logger.error(f"Erreur lors de la sauvegarde: {e}")
                 if os.path.exists(temp_file):
                     os.remove(temp_file)
-                    return False
-                raise
+                return False
+            except Exception as e:
+                logger.error(f"Erreur lors de la suppression du fichier temporaire: {e}")
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+                return False
 
     def add_root_user(self, user_id):
         """Ajoute un utilisateur root avec validation"""
