@@ -41,7 +41,7 @@ class ollama:
                 prompt_messages = messages
             else:
                 system_prompt = (
-                    settings.PROMPT +
+                    settings.PROMPT_SYSTEM +
                     (f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " if username else "") +
                     "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
                 )

@@ -27,7 +27,7 @@ Si vous identifiez une faille de sécurité :
 
 1. **Ne la divulguez pas publiquement.**
 2. Contactez le mainteneur du projet en privé :
-   - Email : [votre.email@domaine.com]
+   - Discord: [@nythique]
 3. Fournissez un maximum de détails pour permettre la reproduction et la correction du problème.
 
 Nous nous engageons à traiter tout signalement dans les meilleurs délais.

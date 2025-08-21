@@ -20,12 +20,12 @@ logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
 logging.getLogger().setLevel(logging.INFO)
 
-class Help(commands.Cog):
+class Info(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-    @app_commands.command(name="help", description="USER | Consulter le menu d'aide du bot")
-    async def help(self, interaction: discord.Interaction):
+    @app_commands.command(name="info", description="USER | Consulter les informations du bot")
+    async def info(self, interaction: discord.Interaction):
         try:
             bot_user = self.bot.user
             embed = discord.Embed(
@@ -62,4 +62,4 @@ class Help(commands.Cog):
             await interaction.response.send_message(embed=error_embed, ephemeral=True)
 
 async def setup(bot):
-    await bot.add_cog(Help(bot))
+    await bot.add_cog(Info(bot))

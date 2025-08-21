@@ -1,5 +1,5 @@
 import discord, logging
-from plugins.manage.vms import get_hardware_info
+from plugins.manage.monitoring import get_hardware_info
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
 from discord.ext import commands
 from discord import app_commands
@@ -28,7 +28,7 @@ class Host(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-    @app_commands.command(name="host", description="ROOT | Visualiser les informations de l'hôte")
+    @app_commands.command(name="hoster", description="ROOT | Visualiser les informations de l'hôte")
     async def host(self, interaction: discord.Interaction):
         if interaction.user.id not in ROOT_USER:
             await interaction.response.send_message(

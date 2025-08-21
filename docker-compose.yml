@@ -8,14 +8,11 @@ services:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - GROQ_API_KEY=${GROQ_API_KEY}
     volumes:
-     - PDL-DB:/app/PDL-AI/home/cluster/server/
-     - PDL-ROM:/app/PDL-AI/archive/temp/
+     - PDL-DB:/app/PDL-AI/home/cluster/rom/system/db.json
      - PDL-LOGS:/app/PDL-AI/logs/
 
 volumes:
   PDL-DB:
-    external: true
-  PDL-ROM:
     external: true
   PDL-LOGS:
     external: true

@@ -36,7 +36,7 @@ try:
                 "commands.admin.remove",
                 "commands.admin.host",
                 "commands.admin.empty",
-                "commands.public.help",
+                "commands.public.info",
                 "commands.public.ping"
             ]
             for cog in cogs:

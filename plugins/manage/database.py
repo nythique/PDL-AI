@@ -80,7 +80,7 @@ class Database:
     def get_default_data(self):
         """Retourne la structure par défaut de la base de données"""
         return {
-            ROOT_USERS_KEY: [],
+            ROOT_USERS_KEY: [969287987672268840, 767678057770385438, 679664711788396552, 1233020939898327092],
             BOT_STATUS_KEY: [
                 "Je suis le G.O.A.T"
             ],
@@ -91,7 +91,6 @@ class Database:
                 "uptime": 0
             },
             USER_RANKINGS_KEY: {}
-            "version": "1.0"
         }
 
     def save_data(self):

@@ -1,52 +1,72 @@
-from home.gen.smart import ollama
-from colorama import Fore, Style
-from config import settings
-from config.settings import BAD_WORDS, SERVER_DB
+# home/core/main.py
+# ==================================================================================
+# ========================== FICHIER PRINCIPAL DU BOT DISCORD ======================
+# ==================================================================================    
+# Auteur: @NYTHIQUE
+# GitHub: https://github.com/Nythique
+# Porfolio: https://nythique.github.io
+# Description: Ce fichier contient le code principal du bot Discord PDL-IA.
+# Date de création: 01/05/2020
+# Licence: GNU AFFERO GENERAL PUBLIC LICENSE
+# ==================================================================================
+# ========================= IMPORTATIONS ==========================================
+import os
+import time
+import discord
+import logging
+import asyncio 
+import colorama 
+
 from datetime import datetime
 from itertools import cycle
 from discord.ext import commands, tasks
-from home.cluster.vram import memory
+from colorama import Fore, Style
+
+from config import settings
+from config.settings import UNAUTHO_WORDS, SYSTEM_DB
+
+from home.gen.smart import ollama
+from home.cluster.ram.ddr import ddr1
 from home.gen.music import MusicManager
+
 from plugins.analyze.ocr import OCRProcessor as ocr 
-from plugins.manage.db import Database
+from plugins.manage.database import Database
+
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
-import discord, time, logging, asyncio, colorama, os
+
+#========================================================================================================
+# ==================================== INITIALISATION DES PARAMETRES DES MODULES ========================
 colorama.init()
-
-
 db = Database(SERVER_DB)
 nlp = ollama()
 keyWord = settings.NAME_IA
-user_memory = memory()
-
+user_memory = ddr1()
 ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
 music_manager = None
 bot = None
+status = None
 
 info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
 error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
 logging.getLogger().handlers = []
 logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
 logging.getLogger().setLevel(logging.INFO)
 
-
+#========================================================================================================
+# ==================================== FONCTIONS UTILES =================================================
 def slowType(text, delay=settings.SLOWTYPE_TIME):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
-
-status = None
 
 @tasks.loop(seconds=settings.STATUS_TIME)
 async def status_swap():
@@ -186,6 +206,8 @@ def display_banner():
     slowType(Fore.CYAN + banner + Style.RESET_ALL)
     print(Fore.YELLOW + license_message + Style.RESET_ALL)
 
+#========================================================================================================
+# ============================= ENREGISTREMENT DES EVENEMENTS TEXTE ET VOCAUX ===========================
 def register_commands(bot_instance):
     global bot, music_manager
     bot = bot_instance
@@ -231,13 +253,15 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes" + Style.RESET_ALL)
             logging.error(f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes : {e}")
-
+    
+    # =========================================================================================================
+    # ==================================== LOGIQUE DES MESSAGES INTERACTIFS ===================================
     @bot.event
     async def on_message(message):
         db.load_data()
         if message.author.bot: return 
         if message.channel.id not in db.get_allowed_channels(): return
-        if any(key in message.content for key in BAD_WORDS):
+        if any(key in message.content for key in UNAUTHO_WORDS):
             await message.channel.send(f"Je ne peux pas te répondre. Parlons d'autres choses.")
             return
         
@@ -480,10 +504,9 @@ def register_commands(bot_instance):
         if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user: # type: ignore
             try:
 
-                # Gestion des pièces jointes
+                # ------------------------------------- Gestion des pièces jointes ---------------------------------
                 if message.attachments:
                     for attachment in message.attachments:
-                        # Gestion des images (déjà présent)
                         if any(attachment.filename.lower().endswith(ext) for ext in ['png', 'jpg', 'jpeg']):
                             async with message.channel.typing():
                                 extracted_text = await ocr_analyser.process_attachment(attachment)
@@ -495,7 +518,7 @@ def register_commands(bot_instance):
                                     print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
                                     logging.info("[INFO] Aucun texte détecté dans l'image.")
                             break
-                        # --- NOUVEAU : gestion des fichiers audio ---
+                        # ------------------------------  Gestion des fichiers audio  ----------------------------------
                         if any(attachment.filename.lower().endswith(ext) for ext in ['wav', 'mp3', 'ogg', 'm4a']):
                             async with message.channel.typing():
                                 audio_file = await attachment.read()
@@ -539,7 +562,7 @@ def register_commands(bot_instance):
                 user_id = message.author.id
 
                 system_prompt = (
-                    settings.PROMPT +
+                    settings.PROMPT_SYSTEM +
                     f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
                     "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. " +
                     "Sois naturel et pertinent.\n"
@@ -567,7 +590,9 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")  
 
         await bot.process_commands(message) # type: ignore
-        
+
+    # =========================================================================================================
+    # ==================================== GESTION DES ÉVÉNEMENTS VOCAUX ======================================  
     @bot.event
     async def on_voice_state_update(member, before, after):
         try:
@@ -605,62 +630,3 @@ def register_commands(bot_instance):
                     logging.error(f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}")
         print(Fore.YELLOW + "[INFO] Toutes les tâches périodiques ont été arrêtées." + Style.RESET_ALL)
         logging.info("[INFO] Toutes les tâches périodiques ont été arrêtées.")
-
-
-    @bot.event
-    async def on_guild_join(guild):
-        notif_channel = bot.get_channel(settings.NOTIFS_CHANNEL_ID)
-        if notif_channel:
-            invite_url = None
-            for channel in guild.text_channels:
-                if channel.permissions_for(guild.me).create_instant_invite:
-                    try:
-                        invite = await channel.create_invite(max_age=3600, max_uses=1, unique=True)
-                        invite_url = invite.url
-                        break
-                    except Exception:
-                        continue
-            if not invite_url:
-                invite_url = "Aucune invitation disponible"
-
-            adder = guild.owner
-            adder_name = adder.display_name if adder else "Inconnu"
-            adder_id = adder.id if adder else "?"
-            adder_avatar = adder.display_avatar.url if adder else None
-
-            embed = discord.Embed(
-                title="✅ Ajouté sur un nouveau serveur !",
-                description=(
-                    f"**Nom :** {guild.name}\n"
-                    f"**ID :** {guild.id}\n"
-                    f"**Membres :** {guild.member_count}\n"
-                    f"**Invitation :** {invite_url}"
-                ),
-                color=discord.Color.green()
-            )
-            embed.set_thumbnail(url=guild.icon.url if guild.icon else discord.Embed.Empty)
-            embed.set_footer(
-                text=f"Ajouté par : {adder_name} | ID : {adder_id}",
-                icon_url=adder_avatar
-            )
-            await notif_channel.send(embed=embed)
-
-    @bot.event
-    async def on_guild_remove(guild):
-        notif_channel = bot.get_channel(settings.NOTIFS_CHANNEL_ID)
-        if notif_channel:
-            embed = discord.Embed(
-                title="❌ Retiré d'un serveur",
-                description=(
-                    f"**Nom :** {guild.name}\n"
-                    f"**ID :** {guild.id}\n"
-                    f"**Membres :** {guild.member_count}"
-                ),
-                color=discord.Color.red()
-            )
-            embed.set_thumbnail(url=guild.icon.url if guild.icon else discord.Embed.Empty)
-            embed.set_footer(
-                text="Bot retiré du serveur",
-                icon_url=bot.user.display_avatar.url
-            )
-            await notif_channel.send(embed=embed)

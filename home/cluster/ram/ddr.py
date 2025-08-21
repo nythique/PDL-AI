@@ -1,29 +1,31 @@
-import datetime, os, json, logging
+import os
+import sys
+import json
+import logging
+import colorama
+import datetime
+import threading
 from colorama import Fore, Style
 from config import settings as statics
 
-"""Handler pour les logs info et warning"""
 info_handler = logging.FileHandler(statics.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""Handler pour les logs error"""
 error_handler = logging.FileHandler(statics.ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-"""On réinitialise la config root et on ajoute les handlers"""
 logging.getLogger().handlers = []
 logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
 logging.getLogger().setLevel(logging.INFO)
 
-
-class memory:
+class ddr1:
     def __init__(self, max_history=statics.ROM_LIMIT):
         try:
             logging.info("[INFO] Initialisation de la mémoire...")
