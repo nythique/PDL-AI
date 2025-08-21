@@ -37,7 +37,7 @@ from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc
 #========================================================================================================
 # ==================================== INITIALISATION DES PARAMETRES DES MODULES ========================
 colorama.init()
-db = Database(SERVER_DB)
+db = Database(SYSTEM_DB)
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = ddr1()
