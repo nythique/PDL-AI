@@ -528,21 +528,40 @@ class memory:
         try:
             logging.info("[INFO] Vérification du fichier de mémoire...")
             if not os.path.exists(statics.ROM_PATH):
+                logging.warning("[WARNING] Fichier de mémoire non trouvé, initialisation par défaut.")
+                self._reset_memory_file()
                 return
-            logging.info("[INFO] Fichier de mémoire verifié.")
-        except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de la vérification du fichier de mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la vérification du fichier de mémoire" + Style.RESET_ALL)
-            return
-        try:
-            logging.info("[INFO] Chargement de la mémoire...")
+            if os.path.getsize(statics.ROM_PATH) == 0:
+                logging.warning("[WARNING] Fichier de mémoire vide, reinitialisation.")
+                self._reset_memory_file()
+                return
+            logging.info("[INFO] Chargement de la mémoire depuis le fichier...")
             with open(statics.ROM_PATH, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                try:
+                    data = json.load(f)
+                except json.JSONDecodeError:
+                    logging.error("[ERROR] Fichier de mémoire corrompu, réinitialisation.")
+                    self._reset_memory_file()
+                    return
                 self.conversations = data.get("conversations", {})
                 self.last_message_time = {
                     k: datetime.datetime.fromisoformat(v) for k, v in data.get("last_message_time", {}).items()
                 }
-            logging.info("[INFO] Mémoire chargée avec succès.")
+                logging.info("[INFO] Mémoire chargée avec succès.")
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors du chargement de la mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors du chargement de la mémoire" + Style.RESET_ALL)
+            logging.error(f"[ERROR] Erreur lors de la vérification du fichier de mémoire : {e}")
+            print(Fore.RED + f"[ERROR] Erreur lors de la vérification du fichier de mémoire" + Style.RESET_ALL)
+
+    def _reset_memory_file(self):
+        """Réinitialise le fichier de mémoire avec une structure par défaut."""
+        self.conversations = {}
+        self.last_message_time = {}
+        try:
+            with open(statics.ROM_PATH, "w", encoding="utf-8") as f:
+                json.dump({
+                    "conversations": self.conversations,
+                    "last_message_time": {}
+                }, f, indent=4, ensure_ascii=False)
+            logging.info("[INFO] Fichier de mémoire réinitialisé avec succès.")
+        except Exception as e:
+            logging.error(f"[ERROR] Erreur lors de la réinitialisation du fichier de mémoire : {e}")
