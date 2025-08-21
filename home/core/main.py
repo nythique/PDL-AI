@@ -479,26 +479,6 @@ def register_commands(bot_instance):
 
         if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user: # type: ignore
             try:
-                # Analyse du sentiment et des insights avant de traiter le message
-                user_insights = user_memory.get_interaction_insights(user_id)
-                sentiment = user_memory._analyze_sentiment(content)
-                
-                # Ajuster le ton de la réponse en fonction du sentiment
-                system_prompt_context = ""
-                if sentiment > 0.5:
-                    system_prompt_context = "L'utilisateur semble être de bonne humeur, garde un ton positif et enthousiaste."
-                elif sentiment < -0.5:
-                    system_prompt_context = "L'utilisateur semble contrarié, adopte un ton compréhensif et rassurant."
-                    
-                # Utiliser les insights pour personnaliser la réponse
-                if user_insights and 'frequent_topics' in user_insights:
-                    topics = list(user_insights['frequent_topics'].keys())[:3]
-                    system_prompt_context += f"\nSujets d'intérêt de l'utilisateur : {', '.join(topics)}"
-                    
-                if user_insights and 'active_hours' in user_insights:
-                    current_hour = datetime.now().hour
-                    if current_hour in user_insights['active_hours']:
-                        system_prompt_context += "\nL'utilisateur est dans sa période active habituelle."
 
                 # Gestion des pièces jointes
                 if message.attachments:
@@ -554,34 +534,16 @@ def register_commands(bot_instance):
                                     await message.reply("Je n'ai pas compris le message vocal.")
                             return
 
-                # Analyse sémantique et contextuelle
-                semantic_key = user_memory._generate_semantic_key(content)
-                context_type = user_memory._determine_context_type(content)
-                topic_vectors = user_memory._generate_topic_vectors(content)
-
-                # Gestion enrichie du contexte utilisateur
-                user_context = user_memory.manage(user_id, content,
-                    channel_id=message.channel.id,
-                    is_bot_message=False,
-                    mentions=[user.id for user in message.mentions]
-                )
-
+                user_context = user_memory.manage(user_id, content)
                 username = message.author.name
                 user_id = message.author.id
 
-                # Construction du prompt système enrichi
                 system_prompt = (
                     settings.PROMPT +
                     f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
                     "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. " +
-                    "Sois naturel et pertinent.\n" + system_prompt_context
+                    "Sois naturel et pertinent.\n"
                 )
-
-                # Ajustement basé sur le type de contexte
-                if context_type == "question":
-                    system_prompt += "\nL'utilisateur pose une question, sois précis et informatif."
-                elif context_type == "feedback":
-                    system_prompt += "\nL'utilisateur donne un retour, montre que tu as bien compris."
 
                 messages = []
                 messages.append({"role": "system", "content": system_prompt})
