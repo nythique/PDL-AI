@@ -9,7 +9,7 @@ import colorama
 import shutil
 from threading import RLock
 from colorama import Fore, Style
-from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SERVER_DB
+from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SYSTEM_DB
 
 ROOT_USERS_KEY = "Root Users"
 BOT_STATUS_KEY = "Bot Status"
@@ -47,7 +47,7 @@ logger.addHandler(info_handler)
 logger.addHandler(error_handler)
 
 class Database:
-    def __init__(self, db_file = SERVER_DB):
+    def __init__(self, db_file = SYSTEM_DB):
         self.db_file = db_file
         self._lock = RLock()
         self.data = self.load_data()
