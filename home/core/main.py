@@ -29,8 +29,8 @@ from home.gen.smart import ollama
 from home.cluster.ram.ddr import ddr1
 from home.gen.music import MusicManager
 
-from plugins.analyze.ocr import OCRProcessor as ocr 
-from plugins.manage.database import Database
+from plugins.processing.ocr import OCRProcessor as ocr 
+from plugins.integrating.storing.database import Database
 
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 
@@ -279,15 +279,15 @@ def register_commands(bot_instance):
             if any(keyword in content.lower() for keyword in keywords):
                 music_command = cmd
                 break
-
+        # ------------------------------ Gestion des commandes interactives vocales --------------------------------
+        """
         if music_command and (mention_true or keyWord_true or reference_true):
             try:
                 if music_command == "help_music":
                     embed = music_manager.create_music_embed( # type: ignore
                         "Option musicale",
-                        """
-                        **🎵 Intéractions Musicales Disponibles :**
-                        
+                        \"""
+                        s
                         **Lecture :**
                         • `pdl joue [nom de la musique]` 
                         • `pdl lance [nom de la musique]`
@@ -302,7 +302,7 @@ def register_commands(bot_instance):
                         • `pdl lance bad bitch rap`
                         
                         **Musiques disponibles : Autant que disponoble sur youtube.
-                        """,
+                        \""",
                         discord.Color.green()
                     ) 
                     await message.reply(embed=embed)
@@ -473,7 +473,8 @@ def register_commands(bot_instance):
                 await message.reply(f"Je ne peux pas te rejoindre dans un salon vocal ! Envoie un `/set report` pour me signaler l'erreur.")
                 logging.error(f"[ERROR] Une erreur s'est produite lors de la reconnaissance de l'ordre de voc : {e}")
                 return
-
+        """
+        # ----------------------------------- Gestion des commandes interactices spéciales -----------------------------------
         if any(key in content.lower() for key in ordre_restart) and (mention_true or keyWord_true or reference_true):
             if message.author.id in settings.ROOT_USER:
                 try:
@@ -500,7 +501,7 @@ def register_commands(bot_instance):
                 print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
                 logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
                 return           
-
+        # ----------------------------------- Gestion des messages texte -----------------------------------
         if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user: # type: ignore
             try:
 
@@ -556,7 +557,8 @@ def register_commands(bot_instance):
                                 else:
                                     await message.reply("Je n'ai pas compris le message vocal.")
                             return
-
+                # ------------------------------  Fin gestion des pièces jointes  ----------------------------------
+                # ---------------------------------- Gestion de la conversation -----------------------------------
                 user_context = user_memory.manage(user_id, content)
                 username = message.author.name
                 user_id = message.author.id
@@ -590,6 +592,12 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")  
 
         await bot.process_commands(message) # type: ignore
+    
+    @bot.event
+    async def on_command_error(ctx, error):
+        """Gestion des erreurs de commande préfix"""
+        if isinstance(error, commands.CommandNotFound):
+            return
 
     # =========================================================================================================
     # ==================================== GESTION DES ÉVÉNEMENTS VOCAUX ======================================  
@@ -609,12 +617,6 @@ def register_commands(bot_instance):
         except Exception as e:
             print(Fore.RED + f"[ERROR] Erreur lors de la gestion de l'événement voice_state_update : {e}" + Style.RESET_ALL)
             logging.error(f"[ERROR] Erreur lors de la gestion de l'événement voice_state_update : {e}")
-        
-    @bot.event
-    async def on_command_error(ctx, error):
-        """Gestion des erreurs de commande préfix"""
-        if isinstance(error, commands.CommandNotFound):
-            return
 
     @bot.event
     async def on_disconnect():

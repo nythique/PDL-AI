@@ -1,3 +1,14 @@
+# ==================================================================================
+# ========================== GESTION MEMOIRE DU BOT DISCORD ========================
+# ==================================================================================    
+# Auteur: @NYTHIQUE
+# GitHub: https://github.com/Nythique
+# Porfolio: https://nythique.github.io
+# Description: Ce fichier contient le code principal du bot Discord PDL-IA.
+# Date de création: 01/05/2020
+# Licence: GNU AFFERO GENERAL PUBLIC LICENSE
+# ==================================================================================
+# ========================= IMPORTATIONS ===========================================
 import json
 import os
 import sys
@@ -11,17 +22,17 @@ from threading import RLock
 from colorama import Fore, Style
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SYSTEM_DB
 
+#======================================================================================
+# ================= INITIALISATION DES PARAMETRES DE LOGS & CASES =====================
+
 ROOT_USERS_KEY = "Root Users"
 BOT_STATUS_KEY = "Bot Status"
 ALLOWED_CHANNELS_KEY = "Allowed Channels"
 BOT_STATS_KEY = "Bot Stats"
 USER_RANKINGS_KEY = "user_rankings"
 
-# Configuration du logging
 logger = logging.getLogger('database')
 logger.setLevel(logging.INFO)
-
-# Handler pour les logs de sécurité
 info_handler = logging.FileHandler(
     SECURITY_LOG_PATH,
     encoding='utf-8'
@@ -31,8 +42,6 @@ info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
-# Handler pour les logs d'erreur
 error_handler = logging.FileHandler(
     ERROR_LOG_PATH,
     encoding='utf-8')
@@ -41,11 +50,12 @@ error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
 logger.handlers = []
 logger.addHandler(info_handler)
 logger.addHandler(error_handler)
 
+# =====================================================================================
+# ======================= GESTIONNAIRE DE LA BASE DE DONNEES ==========================
 class Database:
     def __init__(self, db_file = SYSTEM_DB):
         self.db_file = db_file

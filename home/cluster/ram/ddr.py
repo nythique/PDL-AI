@@ -1,3 +1,14 @@
+# ==================================================================================
+# ========================== GESTION MEMOIRE DU BOT DISCORD ========================
+# ==================================================================================    
+# Auteur: @NYTHIQUE
+# GitHub: https://github.com/Nythique
+# Porfolio: https://nythique.github.io
+# Description: Ce fichier contient le code principal du bot Discord PDL-IA.
+# Date de création: 01/05/2020
+# Licence: GNU AFFERO GENERAL PUBLIC LICENSE
+# ==================================================================================
+# ========================= IMPORTATIONS ===========================================
 import os
 import sys
 import json
@@ -8,6 +19,8 @@ import threading
 from colorama import Fore, Style
 from config import settings as statics
 
+#======================================================================================
+# ======================= INITIALISATION DES PARAMETRES DE LOGS =======================
 info_handler = logging.FileHandler(statics.SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
@@ -25,6 +38,8 @@ logging.getLogger().addHandler(info_handler)
 logging.getLogger().addHandler(error_handler)
 logging.getLogger().setLevel(logging.INFO)
 
+#======================================================================================
+# =================== GESTIONNAIRE DE MEMOIRE DDR1 (PREMIERE VERSION) =================
 class ddr1:
     def __init__(self, max_history=statics.ROM_LIMIT):
         try:
@@ -130,3 +145,8 @@ class ddr1:
         except Exception as e:
             logging.error(f"[ERROR] Erreur lors du chargement de la mémoire : {e}")
             print(Fore.RED + f"[ERROR] Erreur lors du chargement de la mémoire" + Style.RESET_ALL)
+
+#======================================================================================
+# =================== GESTIONNAIRE DE MEMOIRE DDR2 (DEUXIEME VERSION) =================
+class ddr2:
+    pass
