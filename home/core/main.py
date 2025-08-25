@@ -29,7 +29,7 @@ from home.gen.smart import ollama
 from home.cluster.ram.ddr import ddr1
 from home.gen.music import MusicManager
 
-from plugins.processing.ocr import OCRProcessor as ocr 
+from plugins.processing.recognition.orc import OCRProcessor as ocr 
 from plugins.integrating.storing.database import Database
 
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
