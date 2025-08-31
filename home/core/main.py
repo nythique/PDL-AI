@@ -27,7 +27,7 @@ from config.settings import UNAUTHO_WORDS, SYSTEM_DB
 
 from home.gen.smart import ollama
 from home.cluster.ram.ddr import ddr1
-from home.gen.music import MusicManager
+# from home.gen.music import MusicManager
 
 from plugins.processing.recognition.orc import OCRProcessor as ocr 
 from plugins.integrating.storing.database import Database
@@ -601,6 +601,7 @@ def register_commands(bot_instance):
 
     # =========================================================================================================
     # ==================================== GESTION DES ÉVÉNEMENTS VOCAUX ======================================  
+    """
     @bot.event
     async def on_voice_state_update(member, before, after):
         try:
@@ -632,3 +633,4 @@ def register_commands(bot_instance):
                     logging.error(f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}")
         print(Fore.YELLOW + "[INFO] Toutes les tâches périodiques ont été arrêtées." + Style.RESET_ALL)
         logging.info("[INFO] Toutes les tâches périodiques ont été arrêtées.")
+        """
