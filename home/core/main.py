@@ -520,6 +520,7 @@ def register_commands(bot_instance):
                                     logging.info("[INFO] Aucun texte détecté dans l'image.")
                             break
                         # ------------------------------  Gestion des fichiers audio  ----------------------------------
+                        """
                         if any(attachment.filename.lower().endswith(ext) for ext in ['wav', 'mp3', 'ogg', 'm4a']):
                             async with message.channel.typing():
                                 audio_file = await attachment.read()
@@ -557,6 +558,7 @@ def register_commands(bot_instance):
                                 else:
                                     await message.reply("Je n'ai pas compris le message vocal.")
                             return
+                        """
                 # ------------------------------  Fin gestion des pièces jointes  ----------------------------------
                 # ---------------------------------- Gestion de la conversation -----------------------------------
                 user_context = user_memory.manage(user_id, content)
