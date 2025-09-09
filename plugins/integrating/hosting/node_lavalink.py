@@ -10,12 +10,12 @@ from config.settings import LAVALINK_HOST1, LAVALINK_PORT1, LAVALINK_PWDS1
 from config.settings import LAVALINK_HOST2, LAVALINK_PORT2, LAVALINK_PWDS2
 from config.settings import LAVALINK_HOST3, LAVALINK_PORT3, LAVALINK_PWDS3
 
-info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
+info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
-error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
+error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
@@ -34,24 +34,30 @@ class LavalinkManager:
             {
                 "host": LAVALINK_HOST1,
                 "port": int(LAVALINK_PORT1),
-                "password": LAVALINK_PWDS1
+                "password": LAVALINK_PWDS1,
+                "identifier": "Node1",
+                "secure": False
             },
             {
                 "host": LAVALINK_HOST2,
                 "port": int(LAVALINK_PORT2),
-                "password": LAVALINK_PWDS2 
+                "password": LAVALINK_PWDS2, 
+                "identifier": "Node2",
+                "secure": False
             },
             {
                 "host": LAVALINK_HOST3,
                 "port": int(LAVALINK_PORT3),
-                "password": LAVALINK_PWDS3
+                "password": LAVALINK_PWDS3,
+                "identifier": "Node3",
+                "secure": False
             }
         ]
 
     async def connect_nodes(self, bot):
 
         await bot.wait_until_ready()
-        
+
         for server in self.servers:
             try:
                 node = await wavelink.NodePool.create_node(
@@ -59,6 +65,8 @@ class LavalinkManager:
                     host=server["host"],
                     port=server["port"],
                     password=server["password"]
+                    identifier=server["identifier"],
+                    secure=server["secure"]
                 )
                 self.nodes.append(node)
                 if not self.current_node:
@@ -74,6 +82,8 @@ class LavalinkManager:
         # Choisit le nœud avec le moins de charge
         available_nodes = [node for node in self.nodes if node.is_available]
         if not available_nodes:
+            print(Fore.RED + "[LAVALINK] Aucun nœud Lavalink disponible!" + Style.RESET_ALL)
+            logging.error("[LAVALINK] Aucun nœud Lavalink disponible!")
             return None
             
         return min(available_nodes, key=lambda n: n.stats.playing_players)
@@ -86,4 +96,15 @@ class LavalinkManager:
         node = await self.get_best_node()
         if not node:
             return None
-        return await node.get_player(guild_id)
+        try:
+            return await node.get_player(guild_id)
+        except Exception as e:
+            logging.error(f"[LAVALINK] Erreur lors de l'obtention du player pour le guild {guild_id}: {e}")
+            return None
+        
+    async def switch_node(self, node: wavelink.Node):
+        logging.warning(f"[LAVALINK] Le nœud actuel {node.identifier} est indisponible !")
+        new_node = await self.get_best_node()
+        if new_node and new_node != self.current_node:
+            self.current_node = new_node
+            logging.info(f"[LAVALINK] Changement vers le nœud {new_node.identifier}")

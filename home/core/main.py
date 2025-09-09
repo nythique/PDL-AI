@@ -14,7 +14,8 @@ import os
 import time
 import discord
 import logging
-import asyncio 
+import asyncio
+import wavelink 
 import colorama 
 
 from datetime import datetime
@@ -27,22 +28,29 @@ from config.settings import UNAUTHO_WORDS, SYSTEM_DB
 
 from home.gen.smart import ollama
 from home.cluster.ram.ddr import ddr1
-# from home.gen.music import MusicManager
+from home.gen.music import MusicPlayer
 
 from plugins.processing.recognition.orc import OCRProcessor as ocr 
 from plugins.integrating.storing.database import Database
+from plugins.integrating.hosting.node_lavalink import LavalinkManager
 
 from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
 
 #========================================================================================================
 # ==================================== INITIALISATION DES PARAMETRES DES MODULES ========================
 colorama.init()
+#-------------------------------
 db = Database(SYSTEM_DB)
+#------------------------------
 nlp = ollama()
 keyWord = settings.NAME_IA
 user_memory = ddr1()
+#------------------------------
 ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
-music_manager = None
+#------------------------------
+lavalink_manager = LavalinkManager()
+music_player = MusicPlayer(lavalink_manager)
+#------------------------------
 bot = None
 status = None
 
@@ -153,19 +161,21 @@ async def before_clear_inactive_users():
 
 @tasks.loop(seconds=10)
 async def check_empty_voice_channels():
-    """Vérifie si le bot est seul en vocal et le fait quitter"""
     try:
-        for voice_client in bot.voice_clients: # type: ignore
+        for voice_client in bot.voice_clients: 
             if voice_client.channel:
-                members_in_channel = [member for member in voice_client.channel.members if not member.bot]
-                
-                if len(members_in_channel) == 0:
+                members = [m for m in voice_client.channel.members if not m.bot]
+                if not members:
+                    guild_id = voice_client.guild.id
+                    player = await lavalink_manager.get_player(guild_id)
+                    if player:
+                        await player.stop()
+                        await player.disconnect()
                     await voice_client.disconnect()
-                    print(Fore.YELLOW + f"[INFO] Bot déconnecté du salon vocal vide : {voice_client.channel.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Bot déconnecté du salon vocal vide : {voice_client.channel.name}")
+                    logging.info(f"[VOICE] Déconnecté du salon vocal vide dans le serveur {voice_client.guild.name} (ID: {voice_client.guild.id})")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Erreur lors de la vérification des salons vocaux vides : {e}" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Erreur lors de la vérification des salons vocaux vides : {e}")
+        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de la vérification des salons vocaux" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Une erreur s'est produite lors de la vérification des salons vocaux : {e}")
 
 @check_empty_voice_channels.before_loop
 async def before_check_empty_voice_channels():
@@ -211,9 +221,14 @@ def display_banner():
 def register_commands(bot_instance):
     global bot, music_manager
     bot = bot_instance
-    music_manager = MusicManager(bot)
     display_banner()
     logging.info("[INFO] Connexion aux API discord...")
+    try:
+        lavalink_manager.connect_nodes(bot)
+    except Exception as e:
+        print(Fore.RED + f"[ERROR] Erreur de connexion aux nœuds Lavalink : {e}" + Style.RESET_ALL)
+        logging.error(f"[ERROR] Erreur de connexion aux nœuds Lavalink : {e}")
+
     @bot.event
     async def on_ready():
         try:
@@ -225,6 +240,7 @@ def register_commands(bot_instance):
                 clear_inactive_users.start()
             if not check_empty_voice_channels.is_running():
                 check_empty_voice_channels.start()
+
             try:
                 global status
                 status = cycle(db.get_bot_status())
@@ -275,205 +291,37 @@ def register_commands(bot_instance):
         keyWord_true = any(keyword in message.content for keyword in keyWord)
         reference_true = message.reference and message.reference.resolved and message.reference.resolved.author == bot.user # type: ignore
         
+        # ------------------------------ Gestion des commandes interactives vocales --------------------------------
         for cmd, keywords in music_commands.items():
             if any(keyword in content.lower() for keyword in keywords):
                 music_command = cmd
                 break
-        # ------------------------------ Gestion des commandes interactives vocales --------------------------------
-        """
-        if music_command and (mention_true or keyWord_true or reference_true):
-            try:
-                if music_command == "help_music":
-                    embed = music_manager.create_music_embed( # type: ignore
-                        "Option musicale",
-                        \"""
-                        s
-                        **Lecture :**
-                        • `pdl joue [nom de la musique]` 
-                        • `pdl lance [nom de la musique]`
-                        
-                        **Contrôle :**
-                        • `pdl stop` - Arrête la musique
-                        • `pdl pause` - Met en pause
-                        • `pdl reprend` - Reprend la lecture
-                                         
-                        **Exemples :**
-                        • `pdl joue relaxing piano`
-                        • `pdl lance bad bitch rap`
-                        
-                        **Musiques disponibles : Autant que disponoble sur youtube.
-                        \""",
-                        discord.Color.green()
-                    ) 
-                    await message.reply(embed=embed)
+        try:
+                if any(cmd in message.content.lower() for cmd in music_commands["play"]):
+                    query = message.content.split("lance la musique")[-1].strip()
+                    await music_player.play_music(message, query)
                     return
 
-                elif music_command == "stop":
-                    if bot.voice_clients: # type: ignore
-                        for voice_client in bot.voice_clients: # type: ignore
-                            if await music_manager.stop_playback(voice_client.channel.guild.id): # type: ignore
-                                await message.reply("J'ai arrêté la musique !.")
-                                return
-                        await message.reply(f"Il n'y a rien à arrêter {message.author.name}.")
-                    else:
-                        await message.reply(f"T'es pas en vocal avec moi {message.author.name}.")
+                elif any(cmd in message.content.lower() for cmd in music_commands["stop"]):
+                    await music_player.stop_music(message)
                     return
 
-                elif music_command == "pause":
-                    if bot.voice_clients: # type: ignore
-                        for voice_client in bot.voice_clients: # type: ignore
-                            if await music_manager.pause_playback(voice_client.channel.guild.id): # type: ignore
-                                await message.reply("Je te laisse reprendre ton soufle.")
-                                return
-                        await message.reply("Tu aimes bien la desinformation.")
-                    else:
-                        await message.reply(f"T'es pas en vocal avec moi {message.author.name}.")
+                elif any(cmd in message.content.lower() for cmd in music_commands["pause"]):
+                    await music_player.pause_music(message)
                     return
 
-                elif music_command == "resume":
-                    if bot.voice_clients: # type: ignore
-                        for voice_client in bot.voice_clients: # type: ignore
-                            if await music_manager.resume_playback(voice_client.channel.guild.id): # type: ignore
-                                await message.reply("La partie reprend 😏")
-                                return
-                        await message.reply("Il y avait quoi en pause déjà ? RIEN !")
-                    else:
-                        await message.reply(f"T'es pas en vocal avec moi {message.author.name}.")
+                elif any(cmd in message.content.lower() for cmd in music_commands["resume"]):
+                    await music_player.resume_music(message)
                     return
-
-                elif music_command == "volume":
-                    words = content.split()
-                    volume = None
-                    
-                    for i, word in enumerate(words):
-                        if any(keyword in word.lower() for keyword in music_commands["volume"]):
-                            if i + 1 < len(words):
-                                try:
-                                    volume = int(words[i + 1])
-                                    break
-                                except ValueError:
-                                    pass
-                    
-                    if volume is None or volume < 0 or volume > 100:
-                        await message.reply(f"Un volume de {volume}, 💀 Je pourrai pas t'aider.")
-                        return
-
-                    if bot.voice_clients: # type: ignore
-                        for voice_client in bot.voice_clients: # type: ignore
-                            if await music_manager.set_volume(voice_client.channel.guild.id, volume): # type: ignore
-                                await message.reply(f"J'ai adjusté le volume à {volume}% 😎.")
-                                return
-                        await message.reply("Bon bah, t'as pas de chance, j'ai pas réeussi à changer le volume 😜.")
-                    else:
-                        await message.reply(f"T'es pas en vocal avec moi {message.author.name}.")
-                    return
-
-                elif music_command == "play":
-                    words = content.split()
-                    music_query = None
-
-                    for i, word in enumerate(words):
-                        if any(keyword in word.lower() for keyword in music_commands["play"]):
-                            if i + 1 < len(words):
-                                music_query = " ".join(words[i + 1:])
-                                break
-
-                    if not music_query:
-                        await message.reply("Je dois jouer quoi ? soit compréhensible !")
-                        return
-
-                    if not message.author.voice or not message.author.voice.channel:
-                        await message.reply("Rejoins un salon vocal pour écouter de la musique avec moi 😤.")
-                        return
-
+                
+                elif any(cmd in message.content.lower() for cmd in music_commands["volume"]):
                     try:
-                        print(Fore.CYAN + f"[MUSIC] Recherche de la musique: {music_query}" + Style.RESET_ALL)
-                        logging.info(f"[MUSIC] Recherche de la musique: {music_query}")
-
-                        # Vérification de la connexion du bot au salon vocal
-                        voice_client = discord.utils.get(bot.voice_clients, guild=message.guild)
-                        if voice_client and voice_client.channel == message.author.voice.channel:
-                            # Déjà connecté au bon salon, pas besoin de rejoindre
-                            joined = True
-                        else:
-                            # Pas connecté ou pas dans le bon salon, on tente de rejoindre
-                            joined = await music_manager.join_voice_channel(message.author.voice.channel) # type: ignore
-
-                        if joined:
-                            if await music_manager.play_track(message.author.voice.channel.guild.id, music_query): # type: ignore
-                                await message.reply(f"Lecture de : {music_query} 🎵")
-                                print(Fore.GREEN + f"[MUSIC] Musique lancée avec succès: {music_query}" + Style.RESET_ALL)
-                                logging.info(f"[MUSIC] Musique lancée avec succès: {music_query}")
-                            else:
-                                await message.reply("Je n'ai pas pu lancer la musique, désolé !")
-                                logging.error(f"[MUSIC] Erreur lors de la lecture de la musique pour: {music_query}")
-                        else:
-                            await message.reply("Je n'ai pas pu te rejoindre en vocal.")
-                            logging.error(f"[MUSIC] Impossible de rejoindre le salon vocal: {message.author.voice.channel.name}")
-
-                    except Exception as e:
-                        await message.reply(f"Petite ou grosse erreur lorsque je recherchais la musique. Fais un ``/set report`` pour le signaler 🥲.")
-                        print(Fore.RED + f"[MUSIC] Erreur lors de la recherche: {e}" + Style.RESET_ALL)
-                        logging.error(f"[MUSIC] Erreur lors de la recherche de '{music_query}': {e}")
+                        volume = int(message.content.split("à")[-1].strip())
+                        await music_player.set_volume(message, volume)
+                    except ValueError:
+                        await message.channel.send("Volume invalide (0-100)")
                     return
 
-                elif music_command == "list_music":
-                    try:
-                        embed = music_manager.get_track_list_embed() # type: ignore
-                        await message.reply(embed=embed)
-                        print(Fore.GREEN + f"[MUSIC] Liste des musiques affichée pour {message.author.name}" + Style.RESET_ALL)
-                        logging.info(f"[MUSIC] Liste des musiques affichée pour {message.author.name}")
-                    except Exception as e:
-                        await message.reply("Erreur lors de l'affichage de la liste des musiques 😔")
-                        print(Fore.RED + f"[MUSIC] Erreur lors de l'affichage de la liste: {e}" + Style.RESET_ALL)
-                        logging.error(f"[MUSIC] Erreur lors de l'affichage de la liste: {e}")
-                    return
-
-            except Exception as e:
-                await message.reply("J'ai pas correctement compris ta demande . On réseille ?")
-                logging.error(f"[MUSIC] Erreur lors de la commande musicale : {e}")
-                return
-
-        if voc_exit_true and (mention_true or keyWord_true or reference_true):
-            try:
-                if bot.voice_clients: # type: ignore
-                    for voice_client in bot.voice_clients: # type: ignore
-                        await voice_client.disconnect()
-                    await message.reply(f"J'ai quitté le salon vocal 🤧.")
-                    logging.info(f"[INFO] Le bot a quitté le salon vocal sur demande de {message.author.name}")
-                    return
-                else:
-                    await message.reply(f"Je ne suis pas connecté en vocal !")
-                    return
-            except Exception as e:
-                await message.reply(f"Je ne peux pas quitter le salon vocal ! Envoie un `/set report` pour me signaler l'erreur.")
-                logging.error(f"[ERROR] Une erreur s'est produite lors de la déconnexion vocale : {e}")
-                return
-
-        if voc_orde_true and (mention_true or keyWord_true or reference_true):
-            try:
-                if message.author.voice and message.author.voice.channel:
-                    voc_channel = message.author.voice.channel
-                    if not any(Vc.channel == voc_channel for Vc in bot.voice_clients): # type: ignore
-                        if await music_manager.join_voice_channel(voc_channel):
-                            await message.reply(f"Je t'ai rejoint dans le salon vocal !")
-                            logging.info(f"[INFO] Le bot a rejoint le salon vocal : {voc_channel.name}")
-                            return
-                        else:
-                            await message.reply("Je n'ai pas pu te rejoindre dans le salon vocal !")
-                            return
-                    else:
-                        await message.reply(f"Je suis déjà dans un salon vocal !")
-                        return
-                else:
-                    await message.reply(f"Rejoins un salon vocal pour que je puisse te rejoindre !")
-                    logging.warning(f"[WARNING] L'utilisateur {message.author.name} n'est pas dans un salon vocal !")
-                    return
-            except Exception as e:
-                await message.reply(f"Je ne peux pas te rejoindre dans un salon vocal ! Envoie un `/set report` pour me signaler l'erreur.")
-                logging.error(f"[ERROR] Une erreur s'est produite lors de la reconnaissance de l'ordre de voc : {e}")
-                return
-        """
         # ----------------------------------- Gestion des commandes interactices spéciales -----------------------------------
         if any(key in content.lower() for key in ordre_restart) and (mention_true or keyWord_true or reference_true):
             if message.author.id in settings.ROOT_USER:
@@ -601,38 +449,21 @@ def register_commands(bot_instance):
         if isinstance(error, commands.CommandNotFound):
             return
 
-    # =========================================================================================================
-    # ==================================== GESTION DES ÉVÉNEMENTS VOCAUX ======================================  
-    """
-    @bot.event
-    async def on_voice_state_update(member, before, after):
-        try:
-            if before.channel and not after.channel:
-                for voice_client in bot.voice_clients: # type: ignore
-                    if voice_client.channel == before.channel:
-                        remaining_members = [m for m in before.channel.members if not m.bot]
-                        
-                        if len(remaining_members) == 0:
-                            await voice_client.disconnect()
-                            print(Fore.YELLOW + f"[INFO] Bot déconnecté automatiquement du salon vocal vide : {before.channel.name}" + Style.RESET_ALL)
-                            logging.info(f"[INFO] Bot déconnecté automatiquement du salon vocal vide : {before.channel.name}")
-                        break
-        except Exception as e:
-            print(Fore.RED + f"[ERROR] Erreur lors de la gestion de l'événement voice_state_update : {e}" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Erreur lors de la gestion de l'événement voice_state_update : {e}")
+# =========================================================================================================
+# ==================================== GESTION DES ÉVÉNEMENTS LAVALINK ======================================  
+@bot.event
+async def on_wavelink_node_ready(node: wavelink.Node):
+    print(Fore.GREEN + f"[LAVALINK] Node {node.identifier} prêt!" + Style.RESET_ALL)
+    logging.info(f"[LAVALINK] Node {node.identifier} prêt!")
 
-    @bot.event
-    async def on_disconnect():
-        periodic_tasks = [status_swap, save_memory_periodically, clear_inactive_users, check_empty_voice_channels]
-        for task in periodic_tasks:
-            if task.is_running():
-                try:
-                    print(Fore.YELLOW + f"[INFO] Arrêt de la tâche périodique : {task.get_task().get_name()}..." + Style.RESET_ALL)
-                    logging.info(f"[INFO] Arrêt de la tâche périodique : {task.get_task().get_name()}...")
-                    task.cancel()
-                except Exception as e:
-                    print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}" + Style.RESET_ALL)
-                    logging.error(f"[ERROR] Une erreur s'est produite lors de l'arrêt de la tâche {task}: {e}")
-        print(Fore.YELLOW + "[INFO] Toutes les tâches périodiques ont été arrêtées." + Style.RESET_ALL)
-        logging.info("[INFO] Toutes les tâches périodiques ont été arrêtées.")
-        """
+@bot.event
+async def on_wavelink_track_end(player: wavelink.Player, track: wavelink.Track, reason):
+    try:
+        await music_player.handle_track_end(player)
+    except Exception as e:
+        logging.error(f"[MUSIC] Erreur de fin de piste: {e}")
+
+@bot.event
+async def on_wavelink_node_unavailable(node: wavelink.Node):
+    print(Fore.RED + f"[LAVALINK] Node {node.identifier} déconnecté!" + Style.RESET_ALL)
+    logging.warning(f"[LAVALINK] Node {node.identifier} déconnecté!")
