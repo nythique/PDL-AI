@@ -64,7 +64,7 @@ class LavalinkManager:
                     bot=bot,
                     host=server["host"],
                     port=server["port"],
-                    password=server["password"]
+                    password=server["password"],
                     identifier=server["identifier"],
                     secure=server["secure"]
                 )

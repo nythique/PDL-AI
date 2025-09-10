@@ -1,7 +1,11 @@
 import logging
 import asyncio
+import discord
 import wavelink
 import colorama
+
+from discord import app_commands
+from discord.interactions import Interaction
 
 from typing import Dict, Optional
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
@@ -30,74 +34,75 @@ class MusicPlayer:
         self.guild_queues: Dict[int, list] = {}
         self.volume_levels: Dict[int, int] = {}  
 
-    async def _ensure_voice(self, ctx) -> bool:
-        if not ctx.author.voice:
-            await ctx.send("Vous devez être dans un salon vocal!")
+    async def _ensure_voice(self, interaction) -> bool:
+        if not interaction.user.voice:
+            await interaction.response.send_message("❌ Vous devez être dans un salon vocal !", ephemeral=True)
             return False
         
-        player = await self.lavalink.get_player(ctx.guild.id)
+        player = await self.lavalink.get_player(interaction.guild.id)
         if not player:
-            await ctx.send("Impossible de se connecter au serveur de musique.")
+            await interaction.response.send_message("❌ Impossible de se connecter au serveur de musique.", ephemeral=True)
             return False
 
         if not player.is_connected:
             try:
-                await player.connect(ctx.author.voice.channel)
+                await player.connect(interaction.user.voice.channel)
             except Exception as e:
                 logging.error(f"[MUSIC] Erreur de connexion au salon vocal: {e}")
-                await ctx.send("Impossible de rejoindre le salon vocal.")
+                await interaction.response.send_message("❌ Impossible de rejoindre le salon vocal.", ephemeral=True)
                 return False
 
         return True
 
-    async def play_music(self, ctx, query: str):
+    async def play_music(self, interaction, query: str):
         """Gestion de la lecture musicale"""
         try:
-            if not await self._ensure_voice(ctx):
+            if not await self._ensure_voice(interaction):
                 return
 
-            player = await self.lavalink.get_player(ctx.guild.id)
+            player = await self.lavalink.get_player(interaction.guild.id)
             if not player:
                 return
 
             # Initialisation de la file d'attente si nécessaire
-            if ctx.guild.id not in self.guild_queues:
-                self.guild_queues[ctx.guild.id] = []
-                self.volume_levels[ctx.guild.id] = 100
+            if interaction.guild.id not in self.guild_queues:
+                self.guild_queues[interaction.guild.id] = []
+                self.volume_levels[interaction.guild.id] = 100
 
             # Recherche de la piste
             try:
                 tracks = await wavelink.YouTubeTrack.search(query)
                 if not tracks:
-                    await ctx.send("Aucune musique trouvée.")
+                    await interaction.response.send_message("❌ Aucune musique trouvée.", ephemeral=True)
                     return
 
                 track = tracks[0]
             except Exception as e:
                 logging.error(f"[MUSIC] Erreur de recherche: {e}")
-                await ctx.send("Erreur lors de la recherche de la musique.")
+                await interaction.response.send_message("❌ Erreur lors de la recherche de la musique.", ephemeral=True)
                 return
 
             # Gestion de la lecture
             if player.is_playing():
-                self.guild_queues[ctx.guild.id].append(track)
-                await ctx.send(f"Ajouté à la file d'attente: {track.title}")
+                self.guild_queues[interaction.guild.id].append(track)
+                await interaction.response.send_message(f"✅ Ajouté à la file d'attente: **{track.title}**")
             else:
                 await player.play(track)
-                await player.set_volume(self.volume_levels[ctx.guild.id])
-                await ctx.send(f"Lecture en cours: {track.title}")
+                await player.set_volume(self.volume_levels[interaction.guild.id])
+                await interaction.response.send_message(f"🎵 Lecture en cours: **{track.title}**")
 
         except Exception as e:
             logging.error(f"[MUSIC] Erreur lors de la lecture: {e}")
-            await ctx.send("Une erreur s'est produite lors de la lecture.")
+            await interaction.response.send_message("❌ Une erreur s'est produite lors de la lecture.", ephemeral=True)
 
-    async def stop_music(self, ctx):
+    async def stop_music(self, interaction):
         """Arrête la musique et vide la file d'attente"""
         try:
-            player = await self.lavalink.get_player(ctx.guild.id)
+            player = await self.lavalink.get_player(interaction.guild.id)
             if player and player.is_playing():
-                self.guild_queues[ctx.guild.id].clear()
+                self.guild_queues[interaction.guild.id].clear()
                 await player.stop()
+                await interaction.response.send_message("⏹️ Musique arrêtée et file d'attente vidée.")
                 await ctx.send("Musique arrêtée.")
             else:
                 await ctx.send("Aucune musique en cours de lecture.")

@@ -321,6 +321,11 @@ def register_commands(bot_instance):
                     except ValueError:
                         await message.channel.send("Volume invalide (0-100)")
                     return
+        except Exception as e:
+                logging.error(f"[ERROR] Erreur lors du traitement de la commande musicale : {e}")
+                await message.channel.send("Une erreur s'est produite lors du traitement de la commande musicale.")
+                return
+    
 
         # ----------------------------------- Gestion des commandes interactices spéciales -----------------------------------
         if any(key in content.lower() for key in ordre_restart) and (mention_true or keyWord_true or reference_true):

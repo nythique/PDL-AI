@@ -21,14 +21,14 @@ dependencies = [
     "PyNacl",
     "aiohttp",
     "asyncio-mqtt",
-    "yt-dlp",
     "SpeechRecognition",
     "gtts",
     "pydub",
     "pytest",
     "pytest-asyncio",
     "requests",
-    "websockets"
+    "websockets",
+    "wavelink>=3.0.0"
 ]
 
 [build-system]
