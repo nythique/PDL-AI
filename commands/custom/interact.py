@@ -33,5 +33,9 @@ music_commands = {
     "pause": ["pause la musique", "stop la musique"],
     "resume": ["reprend la music", "continue la musique"],
     "volume": ["augmente le volume à", "met le volume à", "Volume à", "volumes à"],
+    "queue": ["affiche la queue", "affiche la liste des chansons", "queue", "liste des chansons"],
+    "skip": ["passe la chanson", "passe la musique", "skip la chanson", "skip la musique"],
+    "shuffle": ["mélange la queue", "mélange la liste des chansons", "shuffle la queue", "shuffle la liste des chansons"],
+    "nowplaying": ["affiche la chanson en cours", "affiche la musique en cours", "nowplaying", "now playing"],
 }
 
