@@ -30,7 +30,7 @@ from home.gen.smart import ollama
 from home.cluster.ram.ddr import ddr1
 from home.gen.music import MusicPlayer
 
-from plugins.processing.recognition.orc import OCRProcessor as ocr 
+from plugins.processing.recognition.ocr import OCRProcessor as ocr 
 from plugins.integrating.storing.database import Database
 from plugins.integrating.hosting.node_lavalink import LavalinkManager
 

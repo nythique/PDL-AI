@@ -25,11 +25,12 @@ from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SYSTEM_DB
 #======================================================================================
 # ================= INITIALISATION DES PARAMETRES DE LOGS & CASES =====================
 
-ROOT_USERS_KEY = "Root Users"
-BOT_STATUS_KEY = "Bot Status"
-ALLOWED_CHANNELS_KEY = "Allowed Channels"
-BOT_STATS_KEY = "Bot Stats"
-USER_RANKINGS_KEY = "user_rankings"
+USER_OPERATORS_KEY = "user_operators"
+USER_STATISTICS_KEY = "user_statistics"
+BOT_STATUS_KEY = "bot_status"
+BOT_STATISTICS_KEY = "bot_statistics"
+ALLOWED_CHANNELS_KEY = "allowed_channels"
+
 
 logger = logging.getLogger('database')
 logger.setLevel(logging.INFO)
@@ -90,17 +91,17 @@ class Database:
     def get_default_data(self):
         """Retourne la structure par défaut de la base de données"""
         return {
-            ROOT_USERS_KEY: [969287987672268840, 767678057770385438, 679664711788396552, 1233020939898327092],
-            BOT_STATUS_KEY: [
-                "Je suis le G.O.A.T"
-            ],
-            ALLOWED_CHANNELS_KEY: [1370867677333291149, 1232303023955378199],
-            BOT_STATS_KEY: {
-                "messages_sent": 0,
-                "commands_executed": 0,
-                "uptime": 0
+            USER_OPERATORS_KEY: [],
+            USER_STATISTICS_KEY: {
+                ""
             },
-            USER_RANKINGS_KEY: {}
+            BOT_STATUS_KEY: [],
+            BOT_STATISTICS_KEY: {
+                "messages_number": 0,
+                "servers_number": 0,
+                "users_number": 0
+            },
+            ALLOWED_CHANNELS_KEY: [],
         }
 
     def save_data(self):
@@ -130,8 +131,8 @@ class Database:
             if not isinstance(user_id, (int, str)):
                 raise ValueError("user_id doit être un entier ou une chaîne")
             user_id = str(user_id)
-            if user_id not in self.data[ROOT_USERS_KEY]:
-                self.data[ROOT_USERS_KEY].append(user_id)
+            if user_id not in self.data[USER_OPERATORS_KEY]:
+                self.data[USER_OPERATORS_KEY].append(user_id)
                 self.save_data()
                 logger.info(f"Utilisateur root ajouté: {user_id}")
 
@@ -139,8 +140,8 @@ class Database:
         """Supprime un utilisateur root avec validation"""
         with self._lock:
             user_id = str(user_id)
-            if user_id in self.data[ROOT_USERS_KEY]:
-                self.data[ROOT_USERS_KEY].remove(user_id)
+            if user_id in self.data[USER_OPERATORS_KEY]:
+                self.data[USER_OPERATORS_KEY].remove(user_id)
                 self.save_data()
                 logger.info(f"Utilisateur root supprimé: {user_id}")
 
@@ -159,14 +160,14 @@ class Database:
             channel_id = str(channel_id)
             if channel_id not in self.data[ALLOWED_CHANNELS_KEY]:
                 self.data[ALLOWED_CHANNELS_KEY].append(channel_id)
-                success = self.save_data()
-                if success:
-                    self.data = self.load_data()  # Rechargement des données
+                try:
+                    self.load_data()  
                     logger.info(f"Canal ajouté aux autorisés: {channel_id}")
                     return True
-                else:
-                    logger.error(f"Échec de la sauvegarde après ajout du canal {channel_id}")
-                    return False
+                    
+                except Exception as e:
+                        logger.error(f"Échec de la sauvegarde: {e}, après l'ajout du salon.")
+                        return False
 
     def remove_allowed_channel(self, channel_id):
         """Supprime un canal autorisé"""
@@ -180,9 +181,9 @@ class Database:
     def update_bot_stats(self, stat_name, value):
         """Met à jour les statistiques du bot avec validation"""
         with self._lock:
-            if stat_name not in self.data[BOT_STATS_KEY]:
+            if stat_name not in self.data[BOT_STATISTICS_KEY]:
                 raise ValueError(f"Statistique inconnue: {stat_name}")
-            self.data[BOT_STATS_KEY][stat_name] = value
+            self.data[BOT_STATISTICS_KEY][stat_name] = value
             self.save_data()
             logger.info(f"Statistique mise à jour - {stat_name}: {value}")
 
@@ -192,7 +193,7 @@ class Database:
             user_id = str(user_id)
             if not isinstance(points, (int, float)):
                 raise ValueError("Les points doivent être un nombre")
-            self.data[USER_RANKINGS_KEY][user_id] = points
+            self.data[USER_STATISTICS_KEY][user_id] = points
             self.save_data()
             logger.info(f"Classement mis à jour - Utilisateur {user_id}: {points} points")
 
@@ -200,7 +201,7 @@ class Database:
         with self._lock:
             self.data = self.load_data()  # Rechargement des données
             user_id = str(user_id)
-            return self.data[USER_RANKINGS_KEY].get(user_id, 0)
+            return self.data[USER_STATISTICS_KEY].get(user_id, 0)
 
     def get_top_users(self, limit=10):
         self.data = self.load_data()
@@ -208,7 +209,7 @@ class Database:
             if not isinstance(limit, int) or limit < 1:
                 raise ValueError("La limite doit être un entier positif")
             sorted_users = sorted(
-                self.data[USER_RANKINGS_KEY].items(),
+                self.data[USER_STATISTICS_KEY].items(),
                 key=lambda x: x[1],
                 reverse=True
             )
@@ -217,7 +218,7 @@ class Database:
     def get_all_root_users(self):
         with self._lock:
             self.data = self.load_data()  # Rechargement des données
-            return self.data.get(ROOT_USERS_KEY, [])
+            return self.data.get(USER_OPERATORS_KEY, [])
         
     def get_allowed_channels(self):
         with self._lock:
@@ -238,21 +239,21 @@ class Database:
     def get_bot_stats(self):
         self.data = self.load_data()
         with self._lock:
-            return self.data.get(BOT_STATS_KEY, {})
+            return self.data.get(BOT_STATISTICS_KEY, {})
         
     def reset_user_ranking(self, user_id):
         """Remet à zéro le classement d'un utilisateur"""
         with self._lock:
             user_id = str(user_id)
-            if user_id in self.data[USER_RANKINGS_KEY]:
-                del self.data[USER_RANKINGS_KEY][user_id]
+            if user_id in self.data[USER_STATISTICS_KEY]:
+                del self.data[USER_STATISTICS_KEY][user_id]
                 self.save_data()
                 logger.info(f"Classement réinitialisé pour l'utilisateur: {user_id}")
         
     def clear_all_rankings(self):
         """Supprime tous les classements utilisateurs"""
         with self._lock:
-            self.data[USER_RANKINGS_KEY] = {}
+            self.data[USER_STATISTICS_KEY] = {}
             self.save_data()
             logger.info("Tous les classements ont été supprimés")
     
@@ -270,15 +271,17 @@ class Database:
         """Vérifie l'intégrité des données et initialise les valeurs manquantes"""
         with self._lock:
             default_values = {
-                ROOT_USERS_KEY: [],
-                BOT_STATUS_KEY: ["En maintenance"],
-                ALLOWED_CHANNELS_KEY: [],
-                BOT_STATS_KEY: {
-                    "messages_sent": 0,
-                    "commands_executed": 0,
-                    "uptime": 0
+                USER_OPERATORS_KEY: [],
+                USER_STATISTICS_KEY: {
+                    ""
                 },
-                USER_RANKINGS_KEY: {}
+                BOT_STATUS_KEY: [],
+                BOT_STATISTICS_KEY: {
+                    "messages_number": 0,
+                    "servers_number": 0,
+                    "users_number": 0
+                },
+                ALLOWED_CHANNELS_KEY: [],
             }
             
             for key, default_value in default_values.items():
@@ -288,55 +291,3 @@ class Database:
             
             self.save_data()
             logger.info("Validation de l'intégrité des données terminée")
-
-    def migrate_data(self, version):
-        """Migre les données vers une nouvelle structure
-        
-        Args:
-            version (str): Version cible de la structure ('1.0', '2.0', etc.)
-        """
-        with self._lock:
-            current_version = self.data.get('version', '1.0')
-            
-            if current_version == version:
-                logger.info(f"La base de données est déjà en version {version}")
-                return
-
-            # Sauvegarde avant migration
-            backup_path = f"{self.db_file}.backup_{current_version}"
-            self.backup_database(backup_path)
-            
-            try:
-                if version == '2.0' and current_version == '1.0':
-                    # Exemple de migration de 1.0 vers 2.0
-                    if 'user_rankings' in self.data:
-                        # Restructuration du classement utilisateur
-                        new_rankings = {}
-                        for user_id, points in self.data['user_rankings'].items():
-                            new_rankings[user_id] = {
-                                'points': points,
-                                'last_update': time.time(),
-                                'achievements': []
-                            }
-                        self.data[USER_RANKINGS_KEY] = new_rankings
-                        
-                    # Ajout de nouvelles statistiques
-                    self.data[BOT_STATS_KEY].update({
-                        'voice_time': 0,
-                        'commands_per_day': {}
-                    })
-                    
-                    self.data['version'] = '2.0'
-                    logger.info("Migration vers la version 2.0 réussie")
-                
-                # Ajouter d'autres migrations ici (2.0 -> 3.0, etc.)
-                
-                self.save_data()
-                
-            except Exception as e:
-                logger.error(f"Erreur lors de la migration: {e}")
-                # Restauration de la sauvegarde en cas d'erreur
-                shutil.copy2(backup_path, self.db_file)
-                logger.info("Restauration de la sauvegarde après échec de migration")
-                raise
-
