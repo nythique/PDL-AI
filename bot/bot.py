@@ -1,7 +1,8 @@
-import logging, asyncio
+import logging
+import asyncio
+from colorama import Fore, Style
 from home.core.client import create_bot
 from home.core.main import register_commands
-from colorama import Fore, Style
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')

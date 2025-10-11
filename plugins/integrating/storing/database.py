@@ -9,28 +9,18 @@
 # Licence: GNU AFFERO GENERAL PUBLIC LICENSE
 # ==================================================================================
 # ========================= IMPORTATIONS ===========================================
-import json
 import os
 import sys
+import json
 import time
-import asyncio
 import logging
+import threading
 import logging.handlers
-import colorama
-import shutil
-from threading import RLock
-from colorama import Fore, Style
+from datetime import date
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SYSTEM_DB
 
 #======================================================================================
-# ================= INITIALISATION DES PARAMETRES DE LOGS & CASES =====================
-
-USER_OPERATORS_KEY = "user_operators"
-USER_STATISTICS_KEY = "user_statistics"
-BOT_STATUS_KEY = "bot_status"
-BOT_STATISTICS_KEY = "bot_statistics"
-ALLOWED_CHANNELS_KEY = "allowed_channels"
-
+# ================= INITIALISATION DES PARAMETRES DE LOGGING ==========================
 
 logger = logging.getLogger('database')
 logger.setLevel(logging.INFO)
@@ -57,237 +47,303 @@ logger.addHandler(error_handler)
 
 # =====================================================================================
 # ======================= GESTIONNAIRE DE LA BASE DE DONNEES ==========================
-class Database:
-    def __init__(self, db_file = SYSTEM_DB):
-        self.db_file = db_file
-        self._lock = RLock()
-        self.data = self.load_data()
-        self.validate_data_integrity()  # Vérifie l'intégrité dès le chargement
 
-    def load_data(self):
-        """Charge les données depuis le fichier JSON avec gestion des erreurs"""
-        if os.path.exists(self.db_file) and os.path.getsize(self.db_file) > 0:
-            try:
-                with open(self.db_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                logger.info(f"Base de données chargée depuis {self.db_file}")
-                return data
-            except json.JSONDecodeError as e:
-                logger.error(f"Erreur de décodage JSON: {e}")
-                default_data = self.get_default_data()
-                self.data = default_data
-                self.save_data()
-                return default_data
-            except Exception as e:
-                logger.error(f"Erreur lors du chargement de la base de données: {e}")
-                return self.get_default_data()
-        else:
-            logger.warning(f"Fichier {self.db_file} non trouvé, création d'une nouvelle base")
-            default_data = self.get_default_data()
-            self.data = default_data
-            self.save_data()
-            return default_data
+class database:
 
-    def get_default_data(self):
-        """Retourne la structure par défaut de la base de données"""
-        return {
-            USER_OPERATORS_KEY: [],
-            USER_STATISTICS_KEY: {
-                ""
-            },
-            BOT_STATUS_KEY: [],
-            BOT_STATISTICS_KEY: {
-                "messages_number": 0,
-                "servers_number": 0,
-                "users_number": 0
-            },
-            ALLOWED_CHANNELS_KEY: [],
-        }
+    def __init__(self, data = SYSTEM_DB):
+        self.data=data
+        self.loading=self.loadData()
 
-    def save_data(self):
-        """Sauvegarde les données de manière atomique avec gestion des verrous"""
-        with self._lock:
-            temp_file = f"{self.db_file}.tmp"
-            try:
-                with open(temp_file, 'w', encoding='utf-8') as f:
-                    json.dump(self.data, f, indent=4, ensure_ascii=False)
-                os.replace(temp_file, self.db_file)
-                logger.info("Base de données sauvegardée avec succès")
-                return True
-            except TypeError as e:
-                logger.error(f"Erreur lors de la sauvegarde: {e}")
-                if os.path.exists(temp_file):
-                    os.remove(temp_file)
-                return False
-            except Exception as e:
-                logger.error(f"Erreur lors de la suppression du fichier temporaire: {e}")
-                if os.path.exists(temp_file):
-                    os.remove(temp_file)
-                return False
-
-    def add_root_user(self, user_id):
-        """Ajoute un utilisateur root avec validation"""
-        with self._lock:
-            if not isinstance(user_id, (int, str)):
-                raise ValueError("user_id doit être un entier ou une chaîne")
-            user_id = str(user_id)
-            if user_id not in self.data[USER_OPERATORS_KEY]:
-                self.data[USER_OPERATORS_KEY].append(user_id)
-                self.save_data()
-                logger.info(f"Utilisateur root ajouté: {user_id}")
-
-    def remove_root_user(self, user_id):
-        """Supprime un utilisateur root avec validation"""
-        with self._lock:
-            user_id = str(user_id)
-            if user_id in self.data[USER_OPERATORS_KEY]:
-                self.data[USER_OPERATORS_KEY].remove(user_id)
-                self.save_data()
-                logger.info(f"Utilisateur root supprimé: {user_id}")
-
-    def set_bot_status(self, status):
-        """Définit le statut du bot avec validation"""
-        with self._lock:
-            if not isinstance(status, (str, list)):
-                raise ValueError("Le statut doit être une chaîne ou une liste")
-            self.data[BOT_STATUS_KEY] = status if isinstance(status, list) else [status]
-            self.save_data()
-            logger.info(f"Statut du bot mis à jour: {status}")
-
-    def add_allowed_channel(self, channel_id):
-        """Ajoute un canal autorisé avec validation"""
-        with self._lock:
-            channel_id = str(channel_id)
-            if channel_id not in self.data[ALLOWED_CHANNELS_KEY]:
-                self.data[ALLOWED_CHANNELS_KEY].append(channel_id)
+    def loadData(self):
+        try:
+            logger.info(f"[INFO DATABASE]-> Vérification de l'existance du repertoire des données.")
+            if os.path.exists(self.data) and os.path.getsize(self.data) > 0:
                 try:
-                    self.load_data()  
-                    logger.info(f"Canal ajouté aux autorisés: {channel_id}")
-                    return True
-                    
+                    logger.info(f"[INFO DATABASE]-> Début du chargement des données.")
+                    with open(self.data, 'r', encoding='utf-8') as data:
+                        dataLoading=json.load(data)
+                    logger.info(f"[SUCCÈS DATABASE]-> Succès du chargement des données.")
+                    return dataLoading
                 except Exception as e:
-                        logger.error(f"Échec de la sauvegarde: {e}, après l'ajout du salon.")
-                        return False
-
-    def remove_allowed_channel(self, channel_id):
-        """Supprime un canal autorisé"""
-        with self._lock:
-            channel_id = str(channel_id)
-            if channel_id in self.data[ALLOWED_CHANNELS_KEY]:
-                self.data[ALLOWED_CHANNELS_KEY].remove(channel_id)
-                self.save_data()
-                logger.info(f"Canal retiré des autorisés: {channel_id}")
-
-    def update_bot_stats(self, stat_name, value):
-        """Met à jour les statistiques du bot avec validation"""
-        with self._lock:
-            if stat_name not in self.data[BOT_STATISTICS_KEY]:
-                raise ValueError(f"Statistique inconnue: {stat_name}")
-            self.data[BOT_STATISTICS_KEY][stat_name] = value
-            self.save_data()
-            logger.info(f"Statistique mise à jour - {stat_name}: {value}")
-
-    def update_user_ranking(self, user_id, points):
-        """Met à jour le classement d'un utilisateur"""
-        with self._lock:
-            user_id = str(user_id)
-            if not isinstance(points, (int, float)):
-                raise ValueError("Les points doivent être un nombre")
-            self.data[USER_STATISTICS_KEY][user_id] = points
-            self.save_data()
-            logger.info(f"Classement mis à jour - Utilisateur {user_id}: {points} points")
-
-    def get_user_ranking(self, user_id):
-        with self._lock:
-            self.data = self.load_data()  # Rechargement des données
-            user_id = str(user_id)
-            return self.data[USER_STATISTICS_KEY].get(user_id, 0)
-
-    def get_top_users(self, limit=10):
-        self.data = self.load_data()
-        with self._lock:
-            if not isinstance(limit, int) or limit < 1:
-                raise ValueError("La limite doit être un entier positif")
-            sorted_users = sorted(
-                self.data[USER_STATISTICS_KEY].items(),
-                key=lambda x: x[1],
-                reverse=True
-            )
-            return sorted_users[:limit]
-        
-    def get_all_root_users(self):
-        with self._lock:
-            self.data = self.load_data()  # Rechargement des données
-            return self.data.get(USER_OPERATORS_KEY, [])
-        
-    def get_allowed_channels(self):
-        with self._lock:
-            self.data = self.load_data()  # Rechargement des données
-            return self.data.get(ALLOWED_CHANNELS_KEY, [])
-        
-    def get_bot_status(self):
-        self.data = self.load_data()
-        with self._lock:
-            status = self.data.get(BOT_STATUS_KEY, "En maintenance")
-            if isinstance(status, str):
-                return [status]
-            elif isinstance(status, list):
-                return status
+                    logger.error(f"[ERROR DATABASE]-> {e}, ligne 67.")
             else:
-                return ["En maintenance"]
-        
-    def get_bot_stats(self):
-        self.data = self.load_data()
-        with self._lock:
-            return self.data.get(BOT_STATISTICS_KEY, {})
-        
-    def reset_user_ranking(self, user_id):
-        """Remet à zéro le classement d'un utilisateur"""
-        with self._lock:
-            user_id = str(user_id)
-            if user_id in self.data[USER_STATISTICS_KEY]:
-                del self.data[USER_STATISTICS_KEY][user_id]
-                self.save_data()
-                logger.info(f"Classement réinitialisé pour l'utilisateur: {user_id}")
-        
-    def clear_all_rankings(self):
-        """Supprime tous les classements utilisateurs"""
-        with self._lock:
-            self.data[USER_STATISTICS_KEY] = {}
-            self.save_data()
-            logger.info("Tous les classements ont été supprimés")
+                logger.warning(f"[WARNING DATABASE]-> Réinitialisation de la base des données en cours..")
+                try:
+                    resetDatabase = self.dataStructure()
+                    self.loading = resetDatabase
+                    self.saveData()
+                    logger.info(f"[SUCCÈS DATABASE]-> Réinitialisation de la base des données")
+                    return resetDatabase
+                except Exception as e:
+                    logger.error(f"[ERROR DATABASE]-> {e}, ligne 77.")
+        except Exception as e:
+            logger.error(f"[ERROR DATABASE]-> {e}, ligne 79.")
     
-    def backup_database(self, backup_path):
-        """Crée une sauvegarde de la base de données"""
-        with self._lock:
-            try:
-                shutil.copy2(self.db_file, backup_path)
-                logger.info(f"Sauvegarde créée: {backup_path}")
-            except Exception as e:
-                logger.error(f"Erreur lors de la sauvegarde: {e}")
-                raise
-        
-    def validate_data_integrity(self):
-        """Vérifie l'intégrité des données et initialise les valeurs manquantes"""
-        with self._lock:
-            default_values = {
-                USER_OPERATORS_KEY: [],
-                USER_STATISTICS_KEY: {
-                    ""
-                },
-                BOT_STATUS_KEY: [],
-                BOT_STATISTICS_KEY: {
-                    "messages_number": 0,
-                    "servers_number": 0,
-                    "users_number": 0
-                },
-                ALLOWED_CHANNELS_KEY: [],
+    def dataStructure(self):
+        try:
+            logger.info(f"[INFO DATABASE]-> Appel à la struture de la base de données.")
+            return {
+                "adminList":[],
+                "userBlackList":[],
+                "serverBlackList":[],
+                "channelList":[],
+                "botStatusList":[],
+                "botStats":{
+                    "userNumber": 0,
+                    "serverNumber": 0,
+                    "QueryNumber": 0
+
+                }
             }
-            
-            for key, default_value in default_values.items():
-                if key not in self.data:
-                    self.data[key] = default_value
-                    logger.warning(f"Clé manquante {key} initialisée avec la valeur par défaut")
-            
-            self.save_data()
-            logger.info("Validation de l'intégrité des données terminée")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 98.")
+    
+    def saveData(self):
+        try:
+            logger.info(f"[INFO DATABASE]-> Opération de sauvegarde en cours..")
+            with open(self.data, 'w', encoding='utf-8') as data:
+                json.dump(self.loading, data, indent=4, ensure_ascii=False)
+            logger.info(f"[SUCCÈS DATABASE]-> Opération de sauvegarde réussie.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 107.")
+
+    #-----------Fonctions d'insertions dans la base de données----------------------#
+
+    def addAdmin(self, userID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Ajout d'un nouveau administrateur en cours..")
+            if isinstance(userID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération d'ajout de l'instance du nouveau administrateur lancées.")
+                    if userID not in self.loading["adminList"]:
+                        self.loading["adminList"].append(userID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération d'ajout de l'instance du nouveau administrateur reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant du nouveau administrateur exite déjà dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 125.")
+            else:
+                raise ValueError("userID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 129.")
+    
+    def addUserBlackList(self, userID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Ajout d'un utilisateur banni en cours..")
+            if isinstance(userID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération d'ajout de l'instance d'un utilisateur banni lancées.")
+                    if userID not in self.loading["userBlackList"]:
+                        self.loading["userBlackList"].append(userID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération d'ajout de l'instance d'un utilisateur banni reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant de l'utilisateur banni exite déjà dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 145.")
+            else:
+                raise ValueError("userID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 149.")
+        
+    def addServerBlackList(self, serverID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Ajout d'un serveur banni en cours..")
+            if isinstance(serverID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération d'ajout de l'instance d'un serveur banni lancées.")
+                    if serverID not in self.loading["serverBlackList"]:
+                        self.loading["serverBlackList"].append(serverID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération d'ajout de l'instance d'un serveur banni reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant du serveur banni exite déjà dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 165.")
+            else:
+                raise ValueError("serverID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 169.")
+
+    def addChannelList(self, channelID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Ajout d'un salon valide en cours..")
+            if isinstance(channelID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération d'ajout de l'instance d'un salon valide lancées.")
+                    if channelID not in self.loading["channelList"]:
+                        self.loading["channelList"].append(channelID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération d'ajout de l'instance d'un salon valide reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant du salon valide exite déjà dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 185.")
+            else:
+                raise ValueError("channelID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 189.")
+
+    def addBotStatusList(self, statusSTR):
+        try:
+            logger.info(f"[INFO DATABASE]-> Ajout d'un statut au bot en cours..")
+            if isinstance(statusSTR, (str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération d'ajout d'un statut au bot lancées.")
+                    if statusSTR not in self.loading["botStatusList"]:
+                        self.loading["botStatusList"].append(statusSTR)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération d'ajout d'un statut au bot reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> Le statut exite déjà dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 205.") 
+            else:
+                raise ValueError("statusSTR doit-être une chaîne de caractère.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 209.")
+    
+    def updateBotStats(self, statsName, value):
+        try:
+            logger.info(f"[INFO DATABASE]-> Mise à jour d'une statistique du bot..")
+            if isinstance(statsName, (str)) and isinstance(value, (int)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération de mise à jour des statistiques lancées.")
+                    if statsName in self.loading["botStats"]:
+                        self.loading["botStats"][statsName]=value
+                        self.saveData()
+                        logger.info(f"[INFO DATABASE]-> Opération de mise à jour des statistiques réussie.")
+                    else:
+                        raise ValueError(f"Type de statistique inexistante: {statsName}")
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 224.")         
+            else:
+                raise ValueError(f"{statsName} et {value} doivent-être des chaînes de caractère.")
+        except Exception as a:
+            logger.info(f"[ERROR DATABASE]-> {a}, ligne 228.")
+    
+    #-----------Fonctions de suppression dans la base de données----------------------#
+
+    def removeAdmin(self, userID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Suppression d'un nouveau administrateur en cours..")
+            if isinstance(userID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération de suppression de l'instance d'un administrateur lancées.")
+                    if userID in self.loading["adminList"]:
+                        self.loading["adminList"].remove(userID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération de suppression de l'instance de l'administrateur reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant de l'administrateur n'exite pas dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as e:
+                    logger.error(f"[ERROR DATABASE]-> {e}, ligne 246.")
+        except Exception as e:
+            logger.error(f"[ERROR DATABASE]-> {e}, ligne 248.")
+
+    def removeUserBlackList(self, userID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Libération d'un utilisateur banni en cours..")
+            if isinstance(userID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération de libération de l'instance d'un utilisateur banni lancées.")
+                    if userID in self.loading["userBlackList"]:
+                        self.loading["userBlackList"].remove(userID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération de libération  de l'instance d'un utilisateur banni reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant de l'utilisateur banni n'exite pas dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 264.")
+            else:
+                raise ValueError("userID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 268.")
+        
+    def removeServerBlackList(self, serverID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Libération d'un serveur banni en cours..")
+            if isinstance(serverID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération de libération d'un serveur banni lancées.")
+                    if serverID in self.loading["serverBlackList"]:
+                        self.loading["serverBlackList"].remove(serverID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération de libération d'un serveur banni reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant du serveur banni n'exite pas dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 284.")
+            else:
+                raise ValueError("serverID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 288.")
+
+    def removeChannelList(self, channelID):
+        try:
+            logger.info(f"[INFO DATABASE]-> Retrait d'un salon valide en cours..")
+            if isinstance(channelID, (int, str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération de retrait de l'instance d'un salon valide lancées.")
+                    if channelID in self.loading["channelList"]:
+                        self.loading["channelList"].remove(channelID)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération de retrait de l'instance d'un salon valide reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> L'instant du salon valide n'exite pas dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 304.")
+            else:
+                raise ValueError("channelID doit-être une chaîne de caractère ou un entier.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 308")
+
+    def removeBotStatusList(self, statusSTR):
+        try:
+            logger.info(f"[INFO DATABASE]-> Retrait d'un statut du bot en cours..")
+            if isinstance(statusSTR, (str)):
+                try:
+                    logger.info(f"[INFO DATABSE]-> Opération de retrait d'un statut du bot lancées.")
+                    if statusSTR in self.loading["botStatusList"]:
+                        self.loading["botStatusList"].remove(statusSTR)
+                        self.saveData()
+                        logger.info(f"[SUCCÈS DATABASE]-> Opération de retrait d'un statut du bot reussie.")
+                    else:
+                        logger.info(f"[ECHÈC DATABASE]-> Le statut n'exite pas dans la base de données.")
+                        return f"Echèc de l'opération."
+                except Exception as a:
+                    logger.error(f"[ERROR DATABASE]-> {a}, ligne 324.") 
+            else:
+                raise ValueError("statusSTR doit-être une chaîne de caractère.")
+        except Exception as a:
+            logger.error(f"[ERROR DATABASE]-> {a}, ligne 328.")
+
+    #-----------Fonction de sélection dans la base de données----------------------#
+    
+    def selectData(self, property):
+        try:
+            logger.info(f"[INFO DATABASE]-> Opération de sélection de la donnés {property} en cours ..")
+            db = ["adminList","userBlackList","serverBlackList","channelList","botStatusList","botStats"]
+            if property in db:
+                try:
+                    self.loading=self.loadData()
+                    data = self.loading.get(property, [])
+                    logger.info(f"[SUCCÈS DATABASE]-> Opération de sélection de la donnée {property} réussie.")
+                    return data
+                except Exception as e:
+                    logger.error(f"[ERROR DATABASE]-> {e}, ligne 342.")
+            else:
+                logger.info(f"[ECHÈC DATABASE]-> La donnée {property} n'existe pas dans la base des données.")
+                return f"Echèc de l'opération."
+        except Exception as e:
+            logger.error(f"[ERROR DATABASE]-> {e}, ligne 347.")

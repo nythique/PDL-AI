@@ -4,9 +4,6 @@ services:
     image: pdl-ai:laster
     container_name: pdl-ai
     restart: unless-stopped
-    environment:
-      - DISCORD_TOKEN=${DISCORD_TOKEN}
-      - GROQ_API_KEY=${GROQ_GENERAL}
     volumes:
      - PDL-DB:/app/PDL-AI/home/cluster/rom/system/db.json
      - PDL-LOGS:/app/PDL-AI/logs/

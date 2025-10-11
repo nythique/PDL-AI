@@ -1,47 +1,75 @@
-import GPUtil, psutil, platform, logging
+# ==================================================================================
+# ========================== GESTION MEMOIRE DU BOT DISCORD ========================
+# ==================================================================================    
+# Auteur: @NYTHIQUE
+# GitHub: https://github.com/Nythique
+# Porfolio: https://nythique.github.io
+# Description: Ce fichier contient le code principal du bot Discord PDL-IA.
+# Date de création: 01/05/2020
+# Licence: GNU AFFERO GENERAL PUBLIC LICENSE
+# ==================================================================================
+# ========================= IMPORTATIONS ===========================================
+import psutil
+import GPUtil
+import logging
+import platform
 from datetime import datetime
-from colorama import Fore, Style
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH
 
-info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
+#======================================================================================
+# ================= INITIALISATION DES PARAMETRES DE LOGGING ==========================
+
+logger = logging.getLogger('node_vm')
+logger.setLevel(logging.INFO)
+info_handler = logging.FileHandler(
+    SECURITY_LOG_PATH,
+    encoding='utf-8'
+)
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+    '[%(levelname)s] %(asctime)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 ))
-error_handler = logging.FileHandler(ERROR_LOG_PATH, encoding='utf-8')
+error_handler = logging.FileHandler(
+    ERROR_LOG_PATH,
+    encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+    '[%(levelname)s] %(asctime)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 ))
-logging.getLogger().handlers = []
-logging.getLogger().addHandler(info_handler)
-logging.getLogger().addHandler(error_handler)
-logging.getLogger().setLevel(logging.INFO)
+logger.handlers = []
+logger.addHandler(info_handler)
+logger.addHandler(error_handler)
 
+# =====================================================================================
+# ======================= GESTIONNAIRE DU MONITORING ==================================
 
-def get_hardware_info():
+def hardwareInfo():
     try:
-        hardware_info = {
-            "timestamp": datetime.now().isoformat(),
-            "cpu_usage": psutil.cpu_percent(interval=1),
-            "ram_usage": psutil.virtual_memory().percent,
-            "disk_usage": psutil.disk_usage('/').percent,
-            "network_io": {
-                "bytes_sent": psutil.net_io_counters().bytes_sent,
-                "bytes_recv": psutil.net_io_counters().bytes_recv
+        logger.info(f"[INFO NODE-VM]-> Récuperration des données sur l'hébergeur en cours ..")
+        result = {
+            "timesTamp": datetime.now().isoformat(),
+            "cpuUsage": psutil.cpu_percent(interval=1),
+            "ramUsage": psutil.virtual_memory().percent,
+            "diskUsage": psutil.disk_usage('/').percent,
+            "networkIo": {
+                "bytesSent": psutil.net_io_counters().bytes_sent,
+                "bytesRecv": psutil.net_io_counters().bytes_recv
             },
             "gpus": [
                 {
                     "id": gpu.id,
                     "load": gpu.load * 100,
-                    "memory_used": gpu.memoryUsed,
-                    "memory_total": gpu.memoryTotal
+                    "memoryUsed": gpu.memoryUsed,
+                    "memoryTotal": gpu.memoryTotal
                 } for gpu in GPUtil.getGPUs()
             ],
             "platform": platform.platform(),
             "processor": platform.processor()
         }
-        return hardware_info
+        logger.info(f"[SUCCÈS NODE-VM]-> Récuperration des données sur l'hébergeur en terminée.")
+        return result
     except Exception as e:
-        logging.error(f"Erreur lors de la récupération des informations matérielles: {e}")
+        logger.error(f"[ERROR NODE-VM]-> {e}, ligne 57.")
         return None
