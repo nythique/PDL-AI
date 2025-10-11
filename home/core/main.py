@@ -22,8 +22,8 @@ from home.cluster.ram.ddr import ddr1
 from discord.ext import commands, tasks
 from plugins.integrating.storing.database import database
 from plugins.processing.recognition.ocr import OCRProcessor as ocr 
-from config.settings import UNAUTHO_WORDS, SYSTEM_DB, NAME_IA, TESSERACT_PATH
 from config.settings import  STATUS_TIME, ROM_UPDATE_TIME, MEMORY_CLEAR_TIME, PROMPT_SYSTEM, TYPING_TIME
+from config.settings import UNAUTHO_WORDS, SYSTEM_DB, NAME_IA, TESSERACT_PATH, SECURITY_LOG_PATH, ERROR_LOG_PATH
 
 #========================================================================================================
 # ==================================== INITIALISATION DES PARAMETRES DES MODULES ========================

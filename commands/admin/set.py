@@ -1,6 +1,6 @@
 import discord
 import logging
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER, ALERT_CHANNEL
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ALERT_CHANNEL
 from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
@@ -32,7 +32,7 @@ class Set(commands.GroupCog, name="set"):
     async def channel(self, interaction: discord.Interaction, channel: discord.TextChannel):
         try:
             member = interaction.guild.get_member(interaction.user.id)
-            admin_perms = not member or not (member.guild_permissions.administrator or member.id in ROOT_USER)
+            admin_perms = not member or not (member.guild_permissions.administrator or member.id in db.selectData("adminList"))
 
             if admin_perms: 
                 logging.warning(f"[SET] Accès refusé à {interaction.user} ({interaction.user.id}) sur {interaction.guild.id} pour /set channel")
