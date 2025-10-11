@@ -1,5 +1,0 @@
-[ERROR] 2025-09-16 14:13:07 - Erreur lors de la suppression du fichier temporaire: [Errno 2] No such file or directory: 'home/cluster/rom/system/db.json.tmp'
-[ERROR] 2025-09-16 14:13:07 - Erreur lors de la suppression du fichier temporaire: [Errno 2] No such file or directory: 'home/cluster/rom/system/db.json.tmp'
-[ERROR] 2025-09-16 14:13:07 - Erreur lors de la suppression du fichier temporaire: [Errno 2] No such file or directory: 'home/cluster/rom/system/db.json.tmp'
-[ERROR] 2025-09-16 14:13:07 - Erreur lors de la suppression du fichier temporaire: [Errno 2] No such file or directory: 'home/cluster/rom/system/db.json.tmp'
-[ERROR] 2025-09-16 14:13:07 - [ERROR] Erreur lors de l'initialisation de la classe ollama : The api_key client option must be set either by passing api_key to the client or by setting the GROQ_API_KEY environment variable

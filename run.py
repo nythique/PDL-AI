@@ -1,7 +1,7 @@
+import logging 
 from bot.bot import bot
 from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
 from config.settings import DISCORD_TOKEN
-import logging 
 
 info_handler = logging.FileHandler(SECURITY_LOG_PATH, encoding='utf-8')
 info_handler.setLevel(logging.INFO)
