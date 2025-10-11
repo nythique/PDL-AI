@@ -9,158 +9,139 @@
 # Date de création: 01/05/2020
 # Licence: GNU AFFERO GENERAL PUBLIC LICENSE
 # ==================================================================================
-# ========================= IMPORTATIONS ==========================================
+# ========================= IMPORTATIONS ===========================================
 import os
 import time
 import discord
-import logging
 import asyncio
-import wavelink 
-import colorama 
-
-from datetime import datetime
+import logging
 from itertools import cycle
-from discord.ext import commands, tasks
-from colorama import Fore, Style
-
-from config import settings
-from config.settings import UNAUTHO_WORDS, SYSTEM_DB
-
-from home.gen.smart import ollama
+from datetime import datetime
+from home.gen.ollama import ollama
 from home.cluster.ram.ddr import ddr1
-from home.gen.music import MusicPlayer
-
+from discord.ext import commands, tasks
+from plugins.integrating.storing.database import database
 from plugins.processing.recognition.ocr import OCRProcessor as ocr 
-from plugins.integrating.storing.database import Database
-from plugins.integrating.hosting.node_lavalink import LavalinkManager
-
-from commands.custom.interact import ordre_restart, numberMember, voc_ordre, voc_exit, music_commands
+from config.settings import UNAUTHO_WORDS, SYSTEM_DB, NAME_IA, TESSERACT_PATH
+from config.settings import  STATUS_TIME, ROM_UPDATE_TIME, MEMORY_CLEAR_TIME, PROMPT_SYSTEM, TYPING_TIME
 
 #========================================================================================================
 # ==================================== INITIALISATION DES PARAMETRES DES MODULES ========================
-colorama.init()
-#-------------------------------
-db = Database(SYSTEM_DB)
-#------------------------------
-nlp = ollama()
-keyWord = settings.NAME_IA
-user_memory = ddr1()
-#------------------------------
-ocr_analyser = ocr(tesseract_path=settings.TESSERACT_PATH)
-#------------------------------
-lavalink_manager = LavalinkManager()
-music_player = MusicPlayer(lavalink_manager)
-#------------------------------
+
 bot = None
 status = None
+keyWord = NAME_IA
 
-info_handler = logging.FileHandler(settings.SECURITY_LOG_PATH, encoding='utf-8')
+nlp = ollama()
+userMemory = ddr1()
+db = database(SYSTEM_DB)
+ocr_analyser = ocr(tesseract_path=TESSERACT_PATH)
+
+
+#======================================================================================
+# ================= INITIALISATION DES PARAMETRES DE LOGGING ==========================
+
+logger = logging.getLogger('main')
+logger.setLevel(logging.INFO)
+info_handler = logging.FileHandler(
+    SECURITY_LOG_PATH,
+    encoding='utf-8'
+)
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+    '[%(levelname)s] %(asctime)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 ))
-error_handler = logging.FileHandler(settings.ERROR_LOG_PATH, encoding='utf-8')
+error_handler = logging.FileHandler(
+    ERROR_LOG_PATH,
+    encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+    '[%(levelname)s] %(asctime)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 ))
-logging.getLogger().handlers = []
-logging.getLogger().addHandler(info_handler)
-logging.getLogger().addHandler(error_handler)
-logging.getLogger().setLevel(logging.INFO)
+logger.handlers = []
+logger.addHandler(info_handler)
+logger.addHandler(error_handler)
 
 #========================================================================================================
 # ==================================== FONCTIONS UTILES =================================================
-def slowType(text, delay=settings.SLOWTYPE_TIME):
-    for char in text:
-        print(char, end='', flush=True)
-        time.sleep(delay)
 
-@tasks.loop(seconds=settings.STATUS_TIME)
-async def status_swap():
+@tasks.loop(seconds=STATUS_TIME)
+async def statusSwap():
     try:
+        logger.info(f"[INFO MAIN]-> Changement du statut du bot en cours...")
         global status
-        db.load_data()
-        status_list = db.get_bot_status()
-        if not hasattr(status_swap, "cycle") or status_swap.cycle_list != status_list:
-            status_swap.cycle = cycle(status_list)
-            status_swap.cycle_list = status_list
-        current_status = next(status_swap.cycle)
-        await bot.change_presence(activity=discord.CustomActivity(current_status))
-        logging.info(f"[INFO] Statut changé : {current_status}")
+        statusList = db.selectData("botStatusList")
+        if not hasattr(statusSwap, "cycle") or statusSwap.cycle_list != statusList:
+            statusSwap.cycle = cycle(statusList)
+            statusSwap.cycle_list = statusList
+        currentStatus = next(statusSwap.cycle)
+        await bot.change_presence(activity=discord.CustomActivity(currentStatus))
+        logger.info(f"[SUCCÈS MAIN]-> Changement de statut réussi.")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du changement de statut" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Une erreur s'est produite lors du changement de statut : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 82.")
+        print(f"[ERROR MAIN]-> {e}, ligne 83.")
 
-@status_swap.before_loop
-async def before_status_swap():
+@statusSwap.before_loop
+async def beforeStatusSwap(): 
     try:
-        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le changement de statut..." + Style.RESET_ALL)
-        logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer le changement de statut...")
-        await bot.wait_until_ready() # type: ignore
+        logger.info(f"[INFO MAIN]-> En attente que le bot soit prêt pour démarrer le changement de statut...")
+        await bot.wait_until_ready()
+        logger.info(f"[INFO MAIN]-> Attente terminée le changement de statut peut démarrer.")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant le changement de statut" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant le changement de statut : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 92.")
+        print(f"[ERROR MAIN]-> {e}, ligne 93.")
 
-@tasks.loop(minutes=settings.ROM_UPDATE_TIME)
-async def save_memory_periodically():
+@tasks.loop(minutes=ROM_UPDATE_TIME)
+async def saveMemoryPeriodically():
     try:
-        print(Fore.CYAN + "[INFO] Sauvegarde périodique de la mémoire..." + Style.RESET_ALL)
-        logging.info(f"[INFO] Sauvegarde périodique de la mémoire...")
-        if user_memory.modified:
-            user_memory.save_to_file()
-            user_memory.modified = False
-            print(Fore.GREEN + "[INFO] Sauvegarde de la mémoire réussie." + Style.RESET_ALL)
-            logging.info(f"[INFO] Sauvegarde de la mémoire réussie.")
+        logger.info(f"[INFO MAIN]-> Opération de sauvegarde périodique de la mémoire en cours...")
+        if userMemory.modified:
+            userMemory.saveToFile()
+            userMemory.modified = False
+            logger.info(f"[SUCCÈS MAIN]-> Opération de sauvegarde périodique de la mémoire réussie.")
         else:
-            logging.info("[INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée.")
-            print(Fore.YELLOW + "[INFO] Aucune modification détectée dans la mémoire. Sauvegarde ignorée." + Style.RESET_ALL)
+            logging.info("[INFO MAIN]-> Opération de sauvegarde périodique de la mémoire annulée.")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] La sauvegarde périodique de la mémoire a échoué" + Style.RESET_ALL)
-        logging.error(f"[ERROR] La sauvegarde périodique de la mémoire a échoué : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 106.")
+        print(f"[ERROR MAIN]-> {e}, ligne 107.")
 
-@save_memory_periodically.before_loop
-async def before_save_memory():
+@saveMemoryPeriodically.before_loop
+async def beforeSaveMemory():  
     try:
-        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique..." + Style.RESET_ALL)
-        logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer la sauvegarde périodique...")
-        await bot.wait_until_ready() # type: ignore
+        logger.info(f"[INFO MAIN]-> En attente que le bot soit prêt pour démarrer la sauvegarde périodique de la mémoire...")
+        await bot.wait_until_ready()
+        logger.info(f"[INFO MAIN]-> Attente terminée la sauvegarde périodique de la mémoire peut démarrer.")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la sauvegarde périodique" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la sauvegarde périodique : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 116.")
+        print(f"[ERROR MAIN]-> {e}, ligne 117.")
 
-@tasks.loop(minutes=settings.MEMORY_CLEAR_TIME)
-async def clear_inactive_users():
+@tasks.loop(minutes=MEMORY_CLEAR_TIME)
+async def clearInactiveUsers():   
     try:
-        print(Fore.CYAN + "[INFO] Nettoyage intelligent des utilisateurs inactifs..." + Style.RESET_ALL)
-        logging.info(f"[INFO] Nettoyage intelligent des utilisateurs inactifs...")
-        
-        # Utilisez le nettoyage intelligent au lieu du nettoyage simple
-        for user_id in user_memory.conversations.keys():
-            # Évaluation de la performance d'apprentissage
-            user_memory._evaluate_learning_performance()
-            # Nettoyage intelligent de l'historique
-            user_memory._smart_trim_history(user_id)
-        
-        user_memory.save_to_file()
-        print(Fore.GREEN + "[INFO] Nettoyage intelligent des utilisateurs inactifs réussi." + Style.RESET_ALL)
-        logging.info(f"[INFO] Nettoyage intelligent des utilisateurs inactifs réussi.")
+        logger.info(f"[INFO MAIN]-> Nettoyage intelligent des utilisateurs inactifs en cours...")
+        for userID in userMemory.conversations.keys():  
+            userMemory.clearContext()
+        userMemory.saveToFile() 
+        logger.info(f"[SUCCÈS MAIN]-> Nettoyage intelligent des utilisateurs inactifs réussi.")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Le nettoyage des utilisateurs inactifs a échoué : {e}" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Le nettoyage des utilisateurs inactifs a échoué : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 128.")
+        print(f"[ERROR MAIN]-> {e}, ligne 129.")
 
-@clear_inactive_users.before_loop
-async def before_clear_inactive_users():
+@clearInactiveUsers.before_loop
+async def beforeClearInactiveUsers():  
     try:
-        print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer le nettoyage des inactifs..." + Style.RESET_ALL)
-        logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...")
-        await bot.wait_until_ready() # type: ignore
+        logger.info(f"[INFO MAIN]-> En attente que le bot soit prêt pour démarrer le nettoyage des utilisateurs inactifs...")
+        await bot.wait_until_ready()
+        logger.info(f"[INFO MAIN]-> Attente terminée le nettoyage des utilisateurs inactifs peut démarrer.")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant le nettoyage des utilisateurs inactifs" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant le nettoyage des utilisateurs inactifs : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 138.")
+        print(f"[ERROR MAIN]-> {e}, ligne 139.")
 
+"""                 NOTE: Système Lavalink (En développement)
 @tasks.loop(seconds=10)
-async def check_empty_voice_channels():
+async def checkEmptyVoiceChannels():  
     try:
         for voice_client in bot.voice_clients: 
             if voice_client.channel:
@@ -177,8 +158,8 @@ async def check_empty_voice_channels():
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de la vérification des salons vocaux" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de la vérification des salons vocaux : {e}")
 
-@check_empty_voice_channels.before_loop
-async def before_check_empty_voice_channels():
+@checkEmptyVoiceChannels.before_loop
+async def before_checkEmptyVoiceChannels():
     try:
         print(Fore.YELLOW + "[INFO] En attente que le bot soit prêt pour démarrer la vérification des salons vocaux..." + Style.RESET_ALL)
         logging.info(f"[INFO] En attente que le bot soit prêt pour démarrer la vérification des salons vocaux...")
@@ -186,26 +167,27 @@ async def before_check_empty_voice_channels():
     except Exception as e:
         print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux" + Style.RESET_ALL)
         logging.error(f"[ERROR] Une erreur s'est produite lors de l'attente avant la vérification des salons vocaux : {e}")
-
-def display_banner():
-    banner = """
-██████╗ ██████╗  ██╗         █████╗ ██╗
-██╔══██╗██╔══██╗ ██║        ██╔══██╗██║
-██████╔╝██║  ██║ ██║        ███████║██║
-██╔═══╝ ██║  ██║ ██║        ██╔══██║██║
-██║     ██████╔╝ ███████╗██╗██║  ██║██║
-╚═╝     ╚═════╝  ╚══════╝╚═╝╚═╚═╝╚═╝╚═╝
 """
-    version = os.getenv("VERSION")
-    current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    license_message = """
+
+def displayBanner():
+    banner = """
+        ██████╗ ██████╗  ██╗         █████╗ ██╗
+        ██╔══██╗██╔══██╗ ██║        ██╔══██╗██║
+        ██████╔╝██║  ██║ ██║        ███████║██║
+        ██╔═══╝ ██║  ██║ ██║        ██╔══██║██║
+        ██║     ██████╔╝ ███████╗██╗██║  ██║██║
+        ╚═╝     ╚═════╝  ╚══════╝╚═╝╚═╚═╝╚═╝╚═╝
+    """
+    version = os.getenv("VERSION") 
+    currentDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  
+    licenseMessage = """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                                                                  ║
 ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║
 ║   All rights reserved.                                           ║
 ║                                                                  ║
 ║   Version: {version}                                             ║
-║   Bot started on: {current_date}                                 ║
+║   Bot started on: {currentDate}                                  ║
 ║                                                                  ║
 ║   Unauthorized copying, distribution, or modification of this    ║
 ║   software is strictly prohibited. Use is subject to the terms   ║
@@ -213,85 +195,78 @@ def display_banner():
 ║                                                                  ║
 ╚══════════════════════════════════════════════════════════════════╝
 """
-    slowType(Fore.CYAN + banner + Style.RESET_ALL)
-    print(Fore.YELLOW + license_message + Style.RESET_ALL)
+    print(banner)
+    time.sleep(1)
+    print(licenseMessage)
 
 #========================================================================================================
 # ============================= ENREGISTREMENT DES EVENEMENTS TEXTE ET VOCAUX ===========================
-def register_commands(bot_instance):
-    global bot, music_manager
-    bot = bot_instance
-    display_banner()
-    logging.info("[INFO] Connexion aux API discord...")
+def registerCommands(botInstance):
     try:
-        lavalink_manager.connect_nodes(bot)
+        global bot, music_manager
+        bot = botInstance
+        displayBanner()
+        logger.info("[INFO MAIN]-> Démarrage des évènements primcipaux...")
     except Exception as e:
-        print(Fore.RED + f"[ERROR] Erreur de connexion aux nœuds Lavalink : {e}" + Style.RESET_ALL)
-        logging.error(f"[ERROR] Erreur de connexion aux nœuds Lavalink : {e}")
+        logger.error(f"[ERROR MAIN]-> {e}, ligne 210.")
+        print(f"[ERROR MAIN]-> {e}, ligne 210.")
 
     @bot.event
     async def on_ready():
         try:
-            print(Fore.YELLOW + "[INFO] Démarrage des tâches périodiques..." + Style.RESET_ALL)
-            logging.info("[INFO] Démarrage des tâches périodiques...")
-            if not save_memory_periodically.is_running():
-                save_memory_periodically.start()
-            if not clear_inactive_users.is_running():
-                clear_inactive_users.start()
-            if not check_empty_voice_channels.is_running():
-                check_empty_voice_channels.start()
-
+            logger.info("[INFO MAIN]-> Démarrage des tâches périodiques en cours...")
+            if not saveMemoryPeriodically.is_running():
+                saveMemoryPeriodically.start()
+            if not clearInactiveUsers.is_running():
+                clearInactiveUsers.start()
             try:
                 global status
-                status = cycle(db.get_bot_status())
-                if not status_swap.is_running():
-                    status_swap.start()
+                status = cycle(db.selectData("botStatusList"))
+                if not statusSwap.is_running():
+                    statusSwap.start()
             except Exception as e:
-                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut {e}" + Style.RESET_ALL)
-                logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage de la tâche de changement de statut : {e}")
+                logger.error(f"[ERROR MAIN]-> {e}, ligne 227.")
+                print(f"[ERROR MAIN]-> {e}, ligne 228.")
+            logger.info(f"[SUCCÈS MAIN]-> Démarrage des tâches périodiques en terniné.")
         except Exception as e:
-            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques {e}" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Une erreur s'est produite lors du démarrage des tâches périodiques : {e}")
+            logger.error(f"[ERROR MAIN]-> {e}, ligne 231.")
+            print(f"[ERROR MAIN]-> {e}, ligne 232.")
 
         try:   
-            logging.info("[INFO] Démarrage de la tache de synchronisation...")
-            print(Fore.YELLOW + "[INFO] Démarrage de la tache de synchronisation..." + Style.RESET_ALL)
-            client = bot.user # type: ignore
-            synced = await bot.tree.sync() # type: ignore 
-            print(Fore.GREEN + f"[INFO] {len(synced)} commandes synchronisées avec succès !" + Style.RESET_ALL)
-            logging.info(f"[INFO] {len(synced)} commandes synchronisées avec succès !")
-            print(Fore.GREEN + f"[INFO] {len(bot.guilds)} serveurs connectés !" + Style.RESET_ALL) # type: ignore
-            logging.info(f"[INFO] {len(bot.guilds)} serveurs connectés !") # type: ignore
-            print(Fore.GREEN + f"[INFO] Le bot est connecté en tant que {client.name} (ID: {client.id}) !" + Style.RESET_ALL)
-            logging.info(f"[INFO] Le bot est connecté en tant que {client.name} (ID: {client.id}) !")
-            slowType(Fore.LIGHTGREEN_EX + f"[START] Le bot est prêt et en ligne !\n" + Style.RESET_ALL)
-            logging.info(f"[START] Le bot est prêt et en ligne !")
+            logger.info("[INFO MAIN]-> Processus de synchronisation des commandes en cours...")
+            client = bot.user 
+            synced = await bot.tree.sync()
+            logger.info("[INFO MAIN]-> Processus de synchronisation des commandes en terminé.")
+            #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+            print(f"[SUCCÈS MAIN]-> {len(synced)} commandes synchronisées avec succès !")
+            print(f"[INFO MAIN]-> {len(bot.guilds)} serveurs connectés !")
+            print(f"[INFO MAIN]-> Le bot est connecté en tant que {client.name} (ID: {client.id}) !")
+            print(f"[SUCCÈS MAIN]-> {client.name} est prêt et en ligne !\n")
+            #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+            logger.info(f"[INFO MAIN]-> Le bot est connecté en tant que {client.name} (ID: {client.id}) !")
+            logger.info(f"[SUCCÈS MAIN]-> {client.name} est prêt et en ligne !")
         except Exception as e:
-            print(Fore.RED + f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes" + Style.RESET_ALL)
-            logging.error(f"[ERROR] Une erreur s'est produite lors de la synchronisation des commandes : {e}")
+            logger.error(f"[ERROR MAIN]-> {e}, ligne 248.")
     
     # =========================================================================================================
     # ==================================== LOGIQUE DES MESSAGES INTERACTIFS ===================================
     @bot.event
     async def on_message(message):
-        db.load_data()
         if message.author.bot: return 
-        if message.channel.id not in db.get_allowed_channels(): return
+        if message.channel.id not in db.selectData("channelList"): return
         if any(key in message.content for key in UNAUTHO_WORDS):
-            await message.channel.send(f"Je ne peux pas te répondre. Parlons d'autres choses.")
+            await message.channel.send(f"Je ne peux pas te répondre. Tu as utilisé une mauvaise expression.")
             return
         
         content = message.content.strip()
-        user_id = message.author.id
-
-        voc_orde_true = any(key in content for key in voc_ordre)
-        voc_exit_true = any(key in content for key in voc_exit)
-        music_command = None
-        mention_true = bot.user.mention in message.content # type: ignore
-        keyWord_true = any(keyword in message.content for keyword in keyWord)
-        reference_true = message.reference and message.reference.resolved and message.reference.resolved.author == bot.user # type: ignore
+        userID = message.author.id
+ 
+        mentionTrue = bot.user.mention in message.content
+        keyWordTrue = any(keyword in message.content for keyword in keyWord)
+        referenceTrue = message.reference and message.reference.resolved and message.reference.resolved.author == bot.user 
         
-        # ------------------------------ Gestion des commandes interactives vocales --------------------------------
+        # ------------------------------ Gestion des commandes interactives vocales (En Dev)-------------------------------- #
+        """
         for cmd, keywords in music_commands.items():
             if any(keyword in content.lower() for keyword in keywords):
                 music_command = cmd
@@ -325,40 +300,36 @@ def register_commands(bot_instance):
                 logging.error(f"[ERROR] Erreur lors du traitement de la commande musicale : {e}")
                 await message.channel.send("Une erreur s'est produite lors du traitement de la commande musicale.")
                 return
-    
+        """
 
-        # ----------------------------------- Gestion des commandes interactices spéciales -----------------------------------
-        if any(key in content.lower() for key in ordre_restart) and (mention_true or keyWord_true or reference_true):
-            if message.author.id in settings.ROOT_USER:
+        # ----------------------------------- Gestion des commandes interactices spéciales ----------------------------------- #
+        if any(key in content.lower() for key in ordre_restart) and (mentionTrue or keyWordTrue or referenceTrue):
+            if message.author.id in db.selectData("adminList"):
                 try:
-                    await message.reply(f"Je me redémarre, merci de ta patience {message.author.name} 🤧")
-                    print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
-                    await bot.close() # type: ignore
+                    await message.reply(f"Je me redémarre, merci de patienter {message.author.name} 🤧.")
+                    logger.warring(f"[INFO MAIN]-> L'administrateur {message.author.name} à demandé le redémarrage du pdlai.")
+                    await bot.close() 
                 except Exception as e:
-                    await message.reply(f"C'est bien essayé, mais je ne peux pas redémarrer avec tes permissions !")
-                    print(Fore.YELLOW + f"[INFO] Demande de redémarrage du bot par : {message.author.name}" + Style.RESET_ALL)
-                    logging.info(f"[INFO] Demande de redémarrage du bot par : {message.author.name}")
+                    logger.error(f"[ERROR MAIN]-> {e}, ligne 312.")
                     return
+            else:
+                await message.reply(f"C'est bien essayé. Mais tu n'as pas les bonnes permissions pour me faire dormir !")
+                logger.warring(f"[INFO MAIN]-> L'utilisateur {message.author.name} à essayé de faire redémarrer pdlai.")
 
-        if any(key in content.lower() for key in numberMember) and (mention_true or keyWord_true or reference_true):
+        if any(key in content.lower() for key in numberMember) and (mentionTrue or keyWordTrue or referenceTrue):
             try:
                 guild = message.guild
-                member_count = guild.member_count
-                await message.reply(f"Il y a actuellement {member_count} membres sur le serveur.")
-                print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
-                logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
+                memberCount = guild.member_count 
+                await message.reply(f"Il y a actuellement {memberCount} membres sur le serveur.")
                 return
             except Exception as e:
-                await message.reply(f"Je ne peux pas te dire combien de membres il y a sur le serveur !")
-                print(Fore.YELLOW + f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}" + Style.RESET_ALL)
-                logging.info(f"[INFO] Demande de nombre de membres sur le serveur : {message.author.name}")
+                await message.reply(f"Je ne peux pas te dire combien de membres il y a sur le serveur pour l'instant.")
+                logger.error(f"[INFO MAIN]-> {e}, ligne 326.")
                 return           
-        # ----------------------------------- Gestion des messages texte -----------------------------------
+        # ----------------------------------- Gestion des messages texte ---------------------------------------------- #
         if isinstance(message.channel, discord.DMChannel) or bot.user.mention in message.content or any(keyword in message.content for keyword in keyWord) or message.reference and message.reference.resolved and message.reference.resolved.author == bot.user: # type: ignore
             try:
-
-                # ------------------------------------- Gestion des pièces jointes ---------------------------------
+                # ------------------------------------- Gestion des pièces jointes --------------------------------- #
                 if message.attachments:
                     for attachment in message.attachments:
                         if any(attachment.filename.lower().endswith(ext) for ext in ['png', 'jpg', 'jpeg']):
@@ -366,11 +337,9 @@ def register_commands(bot_instance):
                                 extracted_text = await ocr_analyser.process_attachment(attachment)
                                 if extracted_text.strip():
                                     content += f" {extracted_text}"
-                                    print(Fore.CYAN + f"[INFO] Texte extrait ajouté au message" + Style.RESET_ALL)
-                                    logging.info(f"[INFO] Texte extrait ajouté au message : {extracted_text}")
+                                    logger.info(f"[INFO MAIN]-> Texte extrait ajouté au message.")
                                 else:
-                                    print(Fore.YELLOW + "[INFO] Aucun texte détecté dans l'image." + Style.RESET_ALL)
-                                    logging.info("[INFO] Aucun texte détecté dans l'image.")
+                                    logger.info("[INFO MAIN]-> Aucun texte détecté dans l'image.")
                             break
                         # ------------------------------  Gestion des fichiers audio  ----------------------------------
                         """
@@ -379,23 +348,23 @@ def register_commands(bot_instance):
                                 audio_file = await attachment.read()
                                 texte = await speech_to_text(audio_file)
                                 if texte.strip():
-                                    user_context = user_memory.manage(user_id, texte)
+                                    userContext = userMemory.manage(userID, texte)
                                     username = message.author.name
-                                    system_prompt = (
+                                    systemPrompt = (
                                         settings.PROMPT +
                                         f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
                                         "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. Sois naturel et pertinent."
                                     )
                                     messages = []
-                                    messages.append({"role": "system", "content": system_prompt})
-                                    for msg in user_context:
+                                    messages.append({"role": "system", "content": systemPrompt})
+                                    for msg in userContext:
                                         if isinstance(msg, dict) and "role" in msg and "content" in msg:
                                             messages.append({"role": msg["role"], "content": msg["content"]})
                                         else:
                                             messages.append({"role": "user", "content": str(msg)})
                                     messages.append({"role": "user", "content": texte})
                                     response = nlp.get_answer(messages, username=username)
-                                    audio_path = await text_to_speech(response, user_id)
+                                    audio_path = await text_to_speech(response, userID)
                                     if message.author.voice and message.author.voice.channel:
                                         voice_channel = message.author.voice.channel
                                         voice_client = discord.utils.get(bot.voice_clients, guild=voice_channel.guild)
@@ -412,50 +381,45 @@ def register_commands(bot_instance):
                                     await message.reply("Je n'ai pas compris le message vocal.")
                             return
                         """
-                # ------------------------------  Fin gestion des pièces jointes  ----------------------------------
-                # ---------------------------------- Gestion de la conversation -----------------------------------
-                user_context = user_memory.manage(user_id, content)
+                # ---------------------------------- Gestion de la conversation ------------------------------------ #
+                userContext = userMemory.manage(userID, content)
                 username = message.author.name
-                user_id = message.author.id
-
-                system_prompt = (
-                    settings.PROMPT_SYSTEM +
+                userID = message.author.id  
+ 
+                systemPrompt = (
+                    PROMPT_SYSTEM +
                     f"\nL'utilisateur Discord avec qui tu échanges s'appelle : {username}. " +
-                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas systématiquement. " +
+                    "Utilise ce prénom/pseudo dans tes réponses si c'est pertinent, mais ne le répète pas. " +
                     "Sois naturel et pertinent.\n"
                 )
 
                 messages = []
-                messages.append({"role": "system", "content": system_prompt})
-                for msg in user_context: # type: ignore
+                messages.append({"role": "system", "content": systemPrompt})
+                for msg in userContext:
                     if isinstance(msg, dict) and "role" in msg and "content" in msg:
                         messages.append({"role": msg["role"], "content": msg["content"]})
                     else:
                         messages.append({"role": "user", "content": str(msg)})
                 messages.append({"role": "user", "content": content})
-
-                print(Fore.YELLOW + f"[INFO] Une interaction est en cours dans le serveur" + Style.RESET_ALL)
-                logging.info(f"[INFO] Une interaction est en cours dans le serveur")
                 async with message.channel.typing():
-                    await asyncio.sleep(settings.TYPING_TIME)
-                    response = nlp.get_answer(messages, username=username)
+                    await asyncio.sleep(TYPING_TIME)
+                    response = nlp.getAnswer(messages, username=username)
                     await message.reply(response)
                 return
             except Exception as e:
-                await message.reply("Désolé, une erreur s'est produite lors du traitement de votre demande")
-                print(Fore.RED + f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}" + Style.RESET_ALL)
-                logging.error(f"[ERROR] Une erreur s'est produite lors d'une interaction dans le serveur : {e}")  
+                await message.reply("Une erreur cririque s'est produite. Veulliez réessayer plus tard et le signaler si vous le voulez bien (/help).")
+                logging.error(f"[ERROR MAIN]-> {e}, ligne 410.")  
 
-        await bot.process_commands(message) # type: ignore
+        await bot.process_commands(message) 
     
     @bot.event
     async def on_command_error(ctx, error):
-        """Gestion des erreurs de commande préfix"""
         if isinstance(error, commands.CommandNotFound):
             return
 
 # =========================================================================================================
-# ==================================== GESTION DES ÉVÉNEMENTS LAVALINK ======================================  
+# ==================================== GESTION DES ÉVÉNEMENTS LAVALINK ====================================
+""" 
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.Node):
     print(Fore.GREEN + f"[LAVALINK] Node {node.identifier} prêt!" + Style.RESET_ALL)
@@ -472,3 +436,4 @@ async def on_wavelink_track_end(player: wavelink.Player, track: wavelink.Track, 
 async def on_wavelink_node_unavailable(node: wavelink.Node):
     print(Fore.RED + f"[LAVALINK] Node {node.identifier} déconnecté!" + Style.RESET_ALL)
     logging.warning(f"[LAVALINK] Node {node.identifier} déconnecté!")
+"""
