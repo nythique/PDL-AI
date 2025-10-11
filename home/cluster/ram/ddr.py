@@ -13,140 +13,131 @@ import os
 import sys
 import json
 import logging
-import colorama
 import datetime
-import threading
-from colorama import Fore, Style
-from config import settings as statics
+import logging.handlers
+from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, ROM_LIMIT,ROM_PATH, MEMORY_MAX_INACTIVE_TIME
 
 #======================================================================================
 # ======================= INITIALISATION DES PARAMETRES DE LOGS =======================
-info_handler = logging.FileHandler(statics.SECURITY_LOG_PATH, encoding='utf-8')
+
+logger = logging.getLogger('ddr')
+logger.setLevel(logging.INFO)
+info_handler = logging.FileHandler(
+    SECURITY_LOG_PATH,
+    encoding='utf-8'
+)
 info_handler.setLevel(logging.INFO)
 info_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+    '[%(levelname)s] %(asctime)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
-error_handler = logging.FileHandler(statics.ERROR_LOG_PATH, encoding='utf-8')
+error_handler = logging.FileHandler(
+    ERROR_LOG_PATH,
+    encoding='utf-8')
 error_handler.setLevel(logging.ERROR)
 error_handler.setFormatter(logging.Formatter(
-    '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
+    '[%(levelname)s] %(asctime)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 ))
-
-logging.getLogger().handlers = []
-logging.getLogger().addHandler(info_handler)
-logging.getLogger().addHandler(error_handler)
-logging.getLogger().setLevel(logging.INFO)
+logger.handlers = []
+logger.addHandler(info_handler)
+logger.addHandler(error_handler)
 
 #======================================================================================
 # =================== GESTIONNAIRE DE MEMOIRE DDR1 (PREMIERE VERSION) =================
 class ddr1:
-    def __init__(self, max_history=statics.ROM_LIMIT):
+    def __init__(self, maxHistory=ROM_LIMIT):
         try:
-            logging.info("[INFO] Initialisation de la mémoire...")
-            print(Fore.GREEN + "[INFO] Initialisation de la mémoire..." + Style.RESET_ALL)
+            logger.info("[INFO DDR]-> Initialisation de la mémoire en cours...")
             self.conversations = {}
-            self.max_history = max_history
-            self.last_message_time = {}
+            self.maxHistory = maxHistory
+            self.lastMessageTime = {}
             self.modified = False
-            self.load_from_file()
+            self.loadFromFile()
+            logger.info(f"[SUCCÈS DDR]-> Initialisation de la mémoire réussie.")
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de l'initialisation de la mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de l'initialisation de la mémoire" + Style.RESET_ALL)
+            logger.error(f"[ERROR DDR]-> {e}, ligne 59.")
+            print(f"[ERROR DDR]-> {e}, ligne 60.")
 
-    def clear_context(self, inactive_time_threshold=statics.MEMORY_MAX_INACTIVE_TIME * 3600):
-        """Supprime la mémoire des utilisateurs inactifs depuis plus de inactive_time_threshold secondes."""
+    def clearContext(self, inactiveTimeThreshold=MEMORY_MAX_INACTIVE_TIME * 3600):
         try:
-            logging.info("[INFO] Suppression de la mémoire des utilisateurs inactifs...")
-            print(Fore.GREEN + "[INFO] Suppression de la mémoire des utilisateurs inactifs..." + Style.RESET_ALL)
+            logger.info("[INFO DDR]-> Suppression de la mémoire des utilisateurs inactifs en cours...")
             now = datetime.datetime.now()
-            to_remove = []
-            for user_id, last_time in self.last_message_time.items():
-                if (now - last_time).total_seconds() > inactive_time_threshold:
-                    to_remove.append(user_id)
-            for user_id in to_remove:
-                self.conversations.pop(user_id, None)
-                self.last_message_time.pop(user_id, None)
+            toRemove = []
+            for userID, lastTime in self.lastMessageTime.items():
+                if (now - lastTime).total_seconds() > inactiveTimeThreshold:
+                    toRemove.append(userID)
+            for userID in toRemove:
+                self.conversations.pop(userID, None)
+                self.lastMessageTime.pop(userID, None)
                 self.modified = True
-                logging.info(f"[INFO] Mémoire supprimée pour l'utilisateur {user_id}.")
-                print(Fore.YELLOW + f"[INFO] Mémoire supprimée pour l'utilisateur {user_id}." + Style.RESET_ALL)
+                logger.info(f"[SUCCÈS DDR]-> Mémoire de l'utilisateurs {userID} supprimée avec succès.")
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de la suppression de la mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la suppression de la mémoire" + Style.RESET_ALL)
+            logger.error(f"[ERROR]-> {e}, ligne 76.")
+            print(f"[ERROR DDR]-> {e}, ligne 77.")
 
-    def manage(self, user_id, message_content):
-        """Gère la mémoire des utilisateurs en ajoutant un message à l'historique."""
+    def manage(self, userID, messageContent):
         try:
-            logging.info("[INFO] Gestion de la mémoire...")
-            print(Fore.GREEN + "[INFO] Gestion de la mémoire..." + Style.RESET_ALL)
-            user_id = str(user_id)
-            if user_id not in self.conversations:
-                self.conversations[user_id] = []
-            if not self.conversations[user_id] or self.conversations[user_id][-1] != message_content:
-                self.conversations[user_id].append(message_content)
+            logger.info(f"[INFO DDR]-> Gestion de la mémoire de {userID} en cours ...")
+            userID = str(userID)
+            if userID not in self.conversations:
+                self.conversations[userID] = []
+            if not self.conversations[userID] or self.conversations[userID][-1] != messageContent:
+                self.conversations[userID].append(messageContent)
                 self.modified = True
-            self.last_message_time[user_id] = datetime.datetime.now()
-            if self.max_history > 0:
-                self.conversations[user_id] = self.conversations[user_id][-self.max_history:]
-            self.save_to_file()  # Sauvegarde automatique après chaque ajout
-            logging.info(f"[INFO] Mémoire mise à jour pour l'utilisateur {user_id}.")
-            print(Fore.YELLOW + f"[INFO] Mémoire mise à jour pour l'utilisateur {user_id}." + Style.RESET_ALL)
-            return self.conversations[user_id]
+            self.lastMessageTime[userID] = datetime.datetime.now()
+            if self.maxHistory > 0:
+                self.conversations[userID] = self.conversations[userID][-self.maxHistory:]
+            self.saveToFile()
+            logger.info(f"[SUCCÈS DDR]-> Gestion de la mémoire de {userID} réussie.")
+            return self.conversations[userID]
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de la gestion de la mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la gestion de la mémoire" + Style.RESET_ALL)
+            logger.error(f"[ERROR DDR]-> {e}, ligne 95.")
+            print(f"[ERROR DDR]-> {e}, ligne 96.")
 
-    def get_history(self, user_id):
-        """Récupère l'historique des messages d'un utilisateur."""
+    def getHistory(self, userID):
         try:
-            logging.info("[INFO] Récupération de l'historique...")
-            user_id = str(user_id)
-            return self.conversations.get(user_id, [])
+            logger.info(f"[INFO DDR]-> Récupération de l'historique {userID} en cours...")
+            userID = str(userID)
+            result = self.conversations.get(userID, [])
+            logger.info(f"[SUCCÈS DDR]-> Récupération de l'historique {userID} en réussie.")
+            return result 
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de la récupération de l'historique : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la récupération de l'historique" + Style.RESET_ALL)
+            logger.error(f"[ERROR DDR]-> {e}, ligne 106.")
+            print(f"[ERROR DDR]-> {e}, ligne 107.")
 
-    def save_to_file(self):
+    def saveToFile(self):
         try:
-            logging.info("[INFO] Sauvegarde de la mémoire...")
-            print(Fore.GREEN + "[INFO] Sauvegarde de la mémoire..." + Style.RESET_ALL)
-            with open(statics.ROM_PATH, "w", encoding="utf-8") as f:
+            logger.info("[INFO DDR]-> Session de sauvegarde de la mémoire en cours...")
+            with open(ROM_PATH, "w", encoding="utf-8") as data:
                 json.dump({
                     "conversations": self.conversations,
-                    "last_message_time": {k: v.isoformat() for k, v in self.last_message_time.items()}
-                }, f, indent=4, ensure_ascii=False)
+                    "lastMessageTime": {k: v.isoformat() for k, v in self.lastMessageTime.items()}
+                }, data, indent=4, ensure_ascii=False)
             self.modified = False
-            logging.info("[INFO] Mémoire sauvegardée avec succès.")
-            print(Fore.YELLOW + "[INFO] Mémoire sauvegardée avec succès." + Style.RESET_ALL)
+            logger.info(f"[SUCCÈS DDR]-> Session de sauvegarde de la mémoire réussie.")
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de la sauvegarde de la mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la sauvegarde de la mémoire" + Style.RESET_ALL)
+            logger.error(f"[ERROR DDR]-> {e}, ligne 120.")
+            print(f"[ERROR DDR]-> {e}, ligne 121.")
 
-    def load_from_file(self):
-        """Charge la mémoire depuis un fichier JSON."""
+    def loadFromFile(self):
         try:
-            logging.info("[INFO] Vérification du fichier de mémoire...")
-            if not os.path.exists(statics.ROM_PATH):
-                return
-            logging.info("[INFO] Fichier de mémoire verifié.")
+            logger.info("[INFO DDR]-> Vérification de la memoire rom en cours...")
+            if not os.path.exists(ROM_PATH):
+                logger.warring(f"[WARRING DDR]-> La memoire rom n'existe pas !")
+            logger.info("[SUCCÈS DDR]-> Succès de la vérification de la memoire rom.")
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors de la vérification du fichier de mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors de la vérification du fichier de mémoire" + Style.RESET_ALL)
-            return
+            logger.error(f"[ERROR DDR]-> {e}, ligne 130.")
+            print(f"[ERROR DDR]-> {e}, ligne 131.")
         try:
-            logging.info("[INFO] Chargement de la mémoire...")
-            with open(statics.ROM_PATH, "r", encoding="utf-8") as f:
+            logger.info(f"[INFO DDR]-> Chargement de la mémoire en cours...")
+            with open(ROM_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 self.conversations = data.get("conversations", {})
-                self.last_message_time = {
-                    k: datetime.datetime.fromisoformat(v) for k, v in data.get("last_message_time", {}).items()
+                self.lastMessageTime = {
+                    k: datetime.datetime.fromisoformat(v) for k, v in data.get("lastMessageTime", {}).items()
                 }
-            logging.info("[INFO] Mémoire chargée avec succès.")
+            logger.info(f"[SUCCÈS DDR]-> Succès du chargement de la mémoire.")
         except Exception as e:
-            logging.error(f"[ERROR] Erreur lors du chargement de la mémoire : {e}")
-            print(Fore.RED + f"[ERROR] Erreur lors du chargement de la mémoire" + Style.RESET_ALL)
-
-#======================================================================================
-# =================== GESTIONNAIRE DE MEMOIRE DDR2 (DEUXIEME VERSION) =================
-class ddr2:
-    pass
+            logger.error(f"[ERROR DDR]-> {e}, ligne 142.")
+            print(f"[ERROR DDR]-> {e}, ligne 143.")
