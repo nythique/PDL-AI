@@ -254,8 +254,8 @@ def registerCommands(botInstance):
     async def on_message(message):
         db.loadData() 
         if message.author.bot: return 
-        channelData = db.selectData("channelList") or []
-        if not channelData: return
+        #channelData = db.selectData("channelList") or []
+        #if not channelData: return
         if any(key in message.content for key in UNAUTHO_WORDS):
             await message.channel.send(f"Je ne peux pas te répondre. Tu as utilisé une mauvaise expression.")
             return
