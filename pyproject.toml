@@ -28,7 +28,8 @@ dependencies = [
     "pytest-asyncio",
     "requests",
     "websockets",
-    "wavelink>=3.0.0"
+    "wavelink>=3.0.0",
+    "python-dotenv",
 ]
 
 [build-system]

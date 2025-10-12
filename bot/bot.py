@@ -53,7 +53,8 @@ try:
         logger.info("[INFO BOT] Chargement des cogs en cours...")
         async def load_cogs():
             cogs = [
-                "commands.public.ping"
+                "commands.public.ping",
+                "commands.admin.add"
             ]
             for cog in cogs:
                 try:

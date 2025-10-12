@@ -8,6 +8,7 @@ numberMember = [
     "Nombres de membres sur le serveur","nombres de membres sur le serveur", 
     "Nombre de membre","nombre de membre", "number of members on the server"
     ]
+    
 voc_ordre = [
     "rejoint moi en vocal",
     "viens me voir en vocal",

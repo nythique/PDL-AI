@@ -2,7 +2,7 @@
     "adminList":[],
     "userBlackList":[],
     "serverBlackList":[],
-    "channelList":[],
+    "channelList":[1370867677333291149],
     "botStatusList":[],
     "botStats":{
             "userNumber": 0,
