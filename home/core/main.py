@@ -305,6 +305,7 @@ def registerCommands(botInstance):
         """
 
         # ----------------------------------- Gestion des commandes interactices spéciales ----------------------------------- #
+        from commands.custom.interact import ordre_restart, numberMember
         if any(key in content.lower() for key in ordre_restart) and (mentionTrue or keyWordTrue or referenceTrue):
             if message.author.id in db.selectData("adminList"):
                 try:
