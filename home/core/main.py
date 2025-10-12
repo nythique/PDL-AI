@@ -412,6 +412,8 @@ def registerCommands(botInstance):
             except Exception as e:
                 await message.reply("Une erreur cririque s'est produite. Veulliez réessayer plus tard et le signaler si vous le voulez bien (/help).")
                 logging.error(f"[ERROR MAIN]-> {e}, ligne 410.")  
+                print(f"[ERROR MAIN]-> {e}, ligne 411.")
+                return
 
         await bot.process_commands(message) 
     
