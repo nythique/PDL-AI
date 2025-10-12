@@ -252,6 +252,7 @@ def registerCommands(botInstance):
     # ==================================== LOGIQUE DES MESSAGES INTERACTIFS ===================================
     @bot.event
     async def on_message(message):
+        db.loadData() 
         if message.author.bot: return 
         if message.channel.id not in db.selectData("channelList"): return
         if any(key in message.content for key in UNAUTHO_WORDS):

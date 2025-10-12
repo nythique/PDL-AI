@@ -339,7 +339,7 @@ class database:
                     self.loading=self.loadData()
                     data = self.loading.get(property, [])
                     logger.info(f"[SUCCÈS DATABASE]-> Opération de sélection de la donnée {property} réussie.")
-                    return data
+                    return data or []
                 except Exception as e:
                     logger.error(f"[ERROR DATABASE]-> {e}, ligne 342.")
             else:
