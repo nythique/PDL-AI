@@ -1,0 +1,13 @@
+{
+    "adminList":[],
+    "userBlackList":[],
+    "serverBlackList":[],
+    "channelList":[],
+    "botStatusList":[],
+    "botStats":{
+            "userNumber": 0,
+            "serverNumber": 0,
+            "QueryNumber": 0
+
+        }
+}

@@ -180,7 +180,7 @@ def displayBanner():
     """
     version = os.getenv("VERSION") 
     currentDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  
-    licenseMessage = """
+    licenseMessage = f"""
 ╔══════════════════════════════════════════════════════════════════╗
 ║                                                                  ║
 ║   This software is developed by @NYTHIQUE on 01/05/2020.         ║

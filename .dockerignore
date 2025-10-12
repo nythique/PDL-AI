@@ -3,8 +3,7 @@ CONTRIBUTING.md
 README.md
 discord
 bfg.jar
-docker.sh
-.example.env
+docker-installer.sh
 .gitignore
 .github
 .todo-list

@@ -11,6 +11,7 @@
 # ========================= IMPORTATIONS ===========================================
 import os
 from home.cluster.rom.systems import meta
+load_dotenv()
 ROOT_USER = [1396440471881908426] #ID utilisateur root
 # ==================================================================================
 # ========================== CONFIGURATION DU BOT DISCORD ==========================
