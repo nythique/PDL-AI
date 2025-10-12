@@ -114,10 +114,9 @@ class ollama:
              
             if not messages or not isinstance(messages, list):
                 messages = [] 
-            
             try:
                 logger.info(f"[INFO OLLAMA]-> Réquête de l'utilisateur validé.")
-                api_response = self.ask_ollama(question, username, messages=messages)
+                api_response = self.askOllama(question, username, messages=messages)
                 return api_response
             except Exception as e:
                 logger.error(f"[ERROR OLLAMA]-> {e}, ligne 122.")
