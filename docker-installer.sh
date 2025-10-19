@@ -13,31 +13,31 @@
 set -e
 
 echo "==================🚀 Mise à jour du système...=================="
-sudo apt update && sudo apt upgrade -y
+sudo dnf update && sudo dnf upgrade -y
 
 echo "📦 Installation des dépendances Docker..."
-sudo apt install -y \
+sudo dnf install -y \
     ca-certificates \
     curl \
     gnupg \
     lsb-release
 clear
 echo "==================🔐 Ajout de la clé GPG Docker...=================="
-sudo mkdir -p /etc/apt/keyrings
+sudo mkdir -p /etc/dnf/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo gpg --dearmor -o /etc/dnf/keyrings/docker.gpg
 clear
-echo "==================📦 Ajout du dépôt Docker à APT...=================="
+echo "==================📦 Ajout du dépôt Docker à dnf...=================="
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/dnf/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  sudo tee /etc/dnf/sources.list.d/docker.list > /dev/null
 clear
 echo "==================🔄 Mise à jour des paquets avec dépôt Docker...=================="
-sudo apt update
+sudo dnf update
 clear
 echo "==================🐳 Installation de Docker Engine...=================="
-sudo apt install -y \
+sudo dnf install -y \
     docker-ce \
     docker-ce-cli \
     containerd.io \
