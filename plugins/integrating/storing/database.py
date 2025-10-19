@@ -86,7 +86,7 @@ class database:
                 "adminList":[],
                 "userBlackList":[],
                 "serverBlackList":[],
-                "channelList":[],
+                "channelList":[1370867677333291149],
                 "botStatusList":[],
                 "botStats":{
                     "userNumber": 0,
@@ -337,9 +337,9 @@ class database:
             if property in db:
                 try:
                     self.loading=self.loadData()
-                    data = self.loading.get(property, [])
+                    data = self.loading.get(property, []) # Récupère la donnée demandée ou une liste vide si elle n'existe pas
                     logger.info(f"[SUCCÈS DATABASE]-> Opération de sélection de la donnée {property} réussie.")
-                    return data or []
+                    return data # Retourne la donnée demandée sous forme de liste ou de dictionnaire
                 except Exception as e:
                     logger.error(f"[ERROR DATABASE]-> {e}, ligne 342.")
             else:
