@@ -58,7 +58,7 @@ OWNER_ID = (1233020939898327092, 767678057770385438)
 # ========================== PARAMÈTRES CHAT DE L'IA  ===============================
 
 #NOTE: Ne pas modifier si vous ne savez pas ce que vous faites.
-CHAT_KEY = os.getenv("GROQ_GENERAL") 
+CHAT_KEY = os.getenv("GROQ_API_KEY") 
 CHAT_MODEL = "meta-llama/llama-4-maverick-17b-128e-instruct" 
 CHAT_TEMPERATURE = 0.85  
 CHAT_FREQUENCY = 0.2 
