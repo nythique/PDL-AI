@@ -1,9 +1,10 @@
 import discord
 import logging
 
-from plugins.integrating.hosting.node_vm import get_hardware_info
+from plugins.integrating.hosting.node_vm import hardwareInfo as get_hardware_info
 #from plugins.integrating.hosting.node_lavalink import get_lavalink_info
-from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ROOT_USER
+from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH
+from config.settings import OWNER_ID as ROOT_USER
 from discord.ext import commands
 from discord import app_commands
 

@@ -49,7 +49,7 @@ class ollama:
     def __init__(self):
         try:
             logger.info(f"[INFO OLLAMA]-> Initialisation du système ollama en cours...")
-            self.groqClient = Groq(api_key=CHAT_KEY) 
+            self.groqClient = Groq(api_key=CHAT_KEY)
             self.conversationHistory = []
             logger.info(f"[INFO OLLAMA]-> Initialisation du système ollama en réussie.")
         except Exception as e:
