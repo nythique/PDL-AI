@@ -13,14 +13,16 @@
 import time
 import colorama
 import threading
-from database import database
+import os
 from colorama import Style, Fore
-from node_vm import hardwareInfo
+from plugins.integrating.storing.database import database
+from plugins.integrating.hosting.node_vm import hardwareInfo
 #==================================================================================#
 #++++++++++++++++++++++++++ LES INITIALISATION ++++++++++++++++++++++++++++++++++++#
 #==================================================================================#
 colorama.init()
-db=database("unit-tests/data/data.json")
+# DB instance is created only when running this script directly to avoid side-effects on import
+db = None
 #==================================================================================#
 #++++++++++++++++++++++++++ LES FONCTIONS ++++++++++++++++++++++++++++++++++++++#
 #==================================================================================#
@@ -82,12 +84,26 @@ def testNodeVm():
 #==================================================================================#
 #++++++++++++++++++++++++++ LES TESTS UNITAIRES +++++++++++++++++++++++++++++++++++#
 #==================================================================================#
-th1=threading.Thread(target=testDatabase)
-th2=threading.Thread(target=testNodeVm)
+if __name__ == '__main__':
+    # Ensure test DB directory exists
+    test_db_path = os.path.join('unit-tests', 'data', 'data.json')
+    test_db_dir = os.path.dirname(test_db_path)
+    if test_db_dir and not os.path.exists(test_db_dir):
+        try:
+            os.makedirs(test_db_dir, exist_ok=True)
+        except Exception as e:
+            print(Fore.RED + f"[TEST SETUP ERROR]-> Could not create test DB directory: {e}" + Style.RESET_ALL)
+            raise
 
-th1.start()
-th2.start()
+    # initialize DB for tests
+    db = database(test_db_path)
 
-th1.join()
-th2.join()
+    th1 = threading.Thread(target=testDatabase)
+    th2 = threading.Thread(target=testNodeVm)
+
+    th1.start()
+    th2.start()
+
+    th1.join()
+    th2.join()
 

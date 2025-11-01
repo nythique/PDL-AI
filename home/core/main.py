@@ -310,14 +310,14 @@ def registerCommands(botInstance):
             if message.author.id in db.selectData("adminList"):
                 try:
                     await message.reply(f"Je me redémarre, merci de patienter {message.author.name} 🤧.")
-                    logger.warring(f"[INFO MAIN]-> L'administrateur {message.author.name} à demandé le redémarrage du pdlai.")
+                    logger.warning(f"[INFO MAIN]-> L'administrateur {message.author.name} à demandé le redémarrage du pdlai.")
                     await bot.close() 
                 except Exception as e:
                     logger.error(f"[ERROR MAIN]-> {e}, ligne 312.")
                     return
             else:
                 await message.reply(f"C'est bien essayé. Mais tu n'as pas les bonnes permissions pour me faire dormir !")
-                logger.warring(f"[INFO MAIN]-> L'utilisateur {message.author.name} à essayé de faire redémarrer pdlai.")
+                logger.warning(f"[INFO MAIN]-> L'utilisateur {message.author.name} à essayé de faire redémarrer pdlai.")
 
         if any(key in content.lower() for key in numberMember) and (mentionTrue or keyWordTrue or referenceTrue):
             try:

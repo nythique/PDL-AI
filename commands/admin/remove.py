@@ -31,9 +31,10 @@ class Remove(commands.GroupCog, name="remove"):
         # Vérifier d'abord les permissions Discord natives
         if isinstance(member, discord.Member) and member.guild_permissions.administrator:
             return True
-        # Ensuite vérifier les root users depuis la base de données
-        root_users = db.get_all_root_users()  # Cette méthode recharge déjà les données
-        return str(member.id) in root_users  # Conversion en str pour assurer la compatibilité
+        # Ensuite vérifier si l'utilisateur est dans ROOT_USER ou adminList
+        from config.settings import ROOT_USER
+        admin_list = db.selectData("adminList")
+        return member.id in ROOT_USER or member.id in admin_list
 
     @app_commands.command(name="channel", description="ADMIN | Retirer un salon de la liste des salons autorisés")
     @app_commands.describe(channel="Salon à retirer")
@@ -42,9 +43,9 @@ class Remove(commands.GroupCog, name="remove"):
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             return
         try:
-            allowed_channels = db.get_allowed_channels()  # Charge les données une seule fois
+            allowed_channels = db.selectData("channelList")  # Utilise la méthode existante
             if channel.id in allowed_channels:
-                db.remove_allowed_channel(channel.id)  # Cette méthode fait déjà un save_data()
+                db.removeChannelList(channel.id)  # Utilise la méthode existante
                 logging.info(f"[REMOVE] Salon retiré : {channel.name} (ID: {channel.id}) par {interaction.user}.")
                 await interaction.response.send_message(f"Salon retiré : {channel.mention} (ID: {channel.id}) de la liste des salons autorisés.", ephemeral=True)
             else:
@@ -60,13 +61,12 @@ class Remove(commands.GroupCog, name="remove"):
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             return
         try:
-            statuses = db.get_bot_status()
+            statuses = db.selectData("botStatusList")
             if status in statuses:
-                statuses.remove(status)
-                db.set_bot_status(statuses)  # Cette méthode fait déjà un save_data()
+                db.removeBotStatusList(status)
                 logging.info(f"[REMOVE] Statut retiré : {status} par {interaction.user}.")
                 # Recharger les statuts pour confirmer la mise à jour
-                current_statuses = db.get_bot_status()
+                current_statuses = db.selectData("botStatusList")
                 await interaction.response.send_message(f"Statut retiré : `{status}`\nListe actuelle : {current_statuses if current_statuses else 'Aucun statut.'}", ephemeral=True)
             else:
                 await interaction.response.send_message(f"Le statut n'est pas dans la liste.\nStatuts actuels : {statuses}", ephemeral=True)
@@ -76,7 +76,7 @@ class Remove(commands.GroupCog, name="remove"):
 
     @remove_status.autocomplete("status")
     async def status_autocomplete(self, interaction: discord.Interaction, current: str):
-        statuses = db.get_bot_status()
+        statuses = db.selectData("botStatusList")
         return [
             app_commands.Choice(name=s, value=s)
             for s in statuses if current.lower() in s.lower()
@@ -89,13 +89,16 @@ class Remove(commands.GroupCog, name="remove"):
             await interaction.response.send_message("Vous n'avez pas la permission d'utiliser cette commande.", ephemeral=True)
             return
         try:
-            root_users = db.get_all_root_users()
-            if user.id in root_users:
-                db.remove_root_user(user.id)
-                await interaction.response.send_message(f"{user.mention} retiré des root.", ephemeral=True)
-                logging.info(f"[REMOVE ROOT] {user.id} retiré des root par {interaction.user} ({interaction.user.id})")
+            from config.settings import ROOT_USER
+            admin_list = db.selectData("adminList")
+            if user.id in admin_list:
+                db.removeAdmin(user.id)
+                await interaction.response.send_message(f"{user.mention} retiré des administrateurs.", ephemeral=True)
+                logging.info(f"[REMOVE ROOT] {user.id} retiré des administrateurs par {interaction.user} ({interaction.user.id})")
+            elif user.id in ROOT_USER:
+                await interaction.response.send_message(f"{user.mention} est un ROOT_USER et ne peut pas être retiré via cette commande.", ephemeral=True)
             else:
-                await interaction.response.send_message(f"{user.mention} n'est pas root.", ephemeral=True)
+                await interaction.response.send_message(f"{user.mention} n'est pas administrateur.", ephemeral=True)
         except Exception as e:
             logging.error(f"[REMOVE ROOT] Erreur lors du retrait de root : {e}", exc_info=True)
             embed = discord.Embed(

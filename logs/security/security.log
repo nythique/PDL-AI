@@ -1,0 +1,175 @@
+[INFO] 2025-11-01 16:53:29 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[WARNING] 2025-11-01 16:53:29 - [WARNING DATABASE]-> Réinitialisation de la base des données en cours..
+[INFO] 2025-11-01 16:53:29 - [INFO DATABASE]-> Appel à la struture de la base de données.
+[INFO] 2025-11-01 16:53:29 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 16:53:29 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 16:53:29 - [SUCCÈS DATABASE]-> Réinitialisation de la base des données
+[INFO] 2025-11-01 16:53:29 - [INFO DATABASE]-> Ajout d'un nouveau administrateur en cours..
+[INFO] 2025-11-01 16:53:29 - [INFO DATABSE]-> Opération d'ajout de l'instance du nouveau administrateur lancées.
+[INFO] 2025-11-01 16:53:29 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 16:53:29 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 16:53:29 - [SUCCÈS DATABASE]-> Opération d'ajout de l'instance du nouveau administrateur reussie.
+[INFO] 2025-11-01 17:52:06 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[WARNING] 2025-11-01 17:52:06 - [WARNING DATABASE]-> Réinitialisation de la base des données en cours..
+[INFO] 2025-11-01 17:52:06 - [INFO DATABASE]-> Appel à la struture de la base de données.
+[INFO] 2025-11-01 17:52:06 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 17:52:06 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 17:52:06 - [SUCCÈS DATABASE]-> Réinitialisation de la base des données
+[INFO] 2025-11-01 17:52:06 - [INFO DATABASE]-> Ajout d'un nouveau administrateur en cours..
+[INFO] 2025-11-01 17:52:06 - [INFO DATABSE]-> Opération d'ajout de l'instance du nouveau administrateur lancées.
+[INFO] 2025-11-01 17:52:06 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 17:52:06 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 17:52:06 - [SUCCÈS DATABASE]-> Opération d'ajout de l'instance du nouveau administrateur reussie.
+[INFO] 2025-11-01 18:28:55 - [INFO OLLAMA]-> Initialisation du système ollama en cours...
+[INFO] 2025-11-01 18:28:55 - [INFO OLLAMA]-> Initialisation du système ollama en cours...
+[INFO] 2025-11-01 18:28:56 - [INFO OLLAMA]-> Initialisation du système ollama en réussie.
+[INFO] 2025-11-01 18:28:56 - [INFO OLLAMA]-> Initialisation du système ollama en réussie.
+[INFO] 2025-11-01 18:28:56 - [INFO DDR]-> Initialisation de la mémoire en cours...
+[INFO] 2025-11-01 18:28:56 - [INFO DDR]-> Initialisation de la mémoire en cours...
+[INFO] 2025-11-01 18:28:56 - [INFO DDR]-> Vérification de la memoire rom en cours...
+[INFO] 2025-11-01 18:28:56 - [INFO DDR]-> Vérification de la memoire rom en cours...
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DDR]-> Succès de la vérification de la memoire rom.
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DDR]-> Succès de la vérification de la memoire rom.
+[INFO] 2025-11-01 18:28:56 - [INFO DDR]-> Chargement de la mémoire en cours...
+[INFO] 2025-11-01 18:28:56 - [INFO DDR]-> Chargement de la mémoire en cours...
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DDR]-> Succès du chargement de la mémoire.
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DDR]-> Succès du chargement de la mémoire.
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DDR]-> Initialisation de la mémoire réussie.
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DDR]-> Initialisation de la mémoire réussie.
+[INFO] 2025-11-01 18:28:56 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:28:56 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[WARNING] 2025-11-01 18:28:56 - [WARNING DATABASE]-> Réinitialisation de la base des données en cours..
+[WARNING] 2025-11-01 18:28:56 - [WARNING DATABASE]-> Réinitialisation de la base des données en cours..
+[INFO] 2025-11-01 18:28:56 - [INFO DATABASE]-> Appel à la struture de la base de données.
+[INFO] 2025-11-01 18:28:56 - [INFO DATABASE]-> Appel à la struture de la base de données.
+[INFO] 2025-11-01 18:28:56 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:28:56 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DATABASE]-> Réinitialisation de la base des données
+[INFO] 2025-11-01 18:28:56 - [SUCCÈS DATABASE]-> Réinitialisation de la base des données
+[INFO] 2025-11-01 18:45:53 - [INFO OLLAMA]-> Initialisation du système ollama en cours...
+[INFO] 2025-11-01 18:45:53 - [INFO OLLAMA]-> Initialisation du système ollama en cours...
+[INFO] 2025-11-01 18:45:53 - [INFO OLLAMA]-> Initialisation du système ollama en réussie.
+[INFO] 2025-11-01 18:45:53 - [INFO OLLAMA]-> Initialisation du système ollama en réussie.
+[INFO] 2025-11-01 18:45:53 - [INFO DDR]-> Initialisation de la mémoire en cours...
+[INFO] 2025-11-01 18:45:53 - [INFO DDR]-> Initialisation de la mémoire en cours...
+[INFO] 2025-11-01 18:45:53 - [INFO DDR]-> Vérification de la memoire rom en cours...
+[INFO] 2025-11-01 18:45:53 - [INFO DDR]-> Vérification de la memoire rom en cours...
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DDR]-> Succès de la vérification de la memoire rom.
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DDR]-> Succès de la vérification de la memoire rom.
+[INFO] 2025-11-01 18:45:53 - [INFO DDR]-> Chargement de la mémoire en cours...
+[INFO] 2025-11-01 18:45:53 - [INFO DDR]-> Chargement de la mémoire en cours...
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DDR]-> Succès du chargement de la mémoire.
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DDR]-> Succès du chargement de la mémoire.
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DDR]-> Initialisation de la mémoire réussie.
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DDR]-> Initialisation de la mémoire réussie.
+[INFO] 2025-11-01 18:45:53 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:45:53 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:45:53 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:45:53 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:45:53 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:57:42 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[WARNING] 2025-11-01 18:57:42 - [WARNING DATABASE]-> Réinitialisation de la base des données en cours..
+[INFO] 2025-11-01 18:57:42 - [INFO DATABASE]-> Appel à la struture de la base de données.
+[INFO] 2025-11-01 18:57:42 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:43 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:43 - [SUCCÈS DATABASE]-> Réinitialisation de la base des données
+[INFO] 2025-11-01 18:57:43 - [INFO DATABASE]-> Ajout d'un nouveau administrateur en cours..
+[INFO] 2025-11-01 18:57:43 - [INFO DATABSE]-> Opération d'ajout de l'instance du nouveau administrateur lancées.
+[INFO] 2025-11-01 18:57:43 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:43 - [INFO NODE-VM]-> Récuperration des données sur l'hébergeur en cours ..
+[INFO] 2025-11-01 18:57:43 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:43 - [SUCCÈS DATABASE]-> Opération d'ajout de l'instance du nouveau administrateur reussie.
+[INFO] 2025-11-01 18:57:44 - [INFO DATABASE]-> Ajout d'un utilisateur banni en cours..
+[INFO] 2025-11-01 18:57:44 - [INFO DATABSE]-> Opération d'ajout de l'instance d'un utilisateur banni lancées.
+[INFO] 2025-11-01 18:57:44 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:44 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:44 - [SUCCÈS DATABASE]-> Opération d'ajout de l'instance d'un utilisateur banni reussie.
+[INFO] 2025-11-01 18:57:44 - [SUCCÈS NODE-VM]-> Récuperration des données sur l'hébergeur en terminée.
+[INFO] 2025-11-01 18:57:45 - [INFO DATABASE]-> Ajout d'un salon valide en cours..
+[INFO] 2025-11-01 18:57:45 - [INFO DATABSE]-> Opération d'ajout de l'instance d'un salon valide lancées.
+[INFO] 2025-11-01 18:57:45 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:45 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:45 - [SUCCÈS DATABASE]-> Opération d'ajout de l'instance d'un salon valide reussie.
+[INFO] 2025-11-01 18:57:46 - [INFO DATABASE]-> Ajout d'un serveur banni en cours..
+[INFO] 2025-11-01 18:57:46 - [INFO DATABSE]-> Opération d'ajout de l'instance d'un serveur banni lancées.
+[INFO] 2025-11-01 18:57:46 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:46 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:46 - [SUCCÈS DATABASE]-> Opération d'ajout de l'instance d'un serveur banni reussie.
+[INFO] 2025-11-01 18:57:47 - [INFO DATABASE]-> Ajout d'un statut au bot en cours..
+[INFO] 2025-11-01 18:57:47 - [INFO DATABSE]-> Opération d'ajout d'un statut au bot lancées.
+[INFO] 2025-11-01 18:57:47 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:47 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:47 - [SUCCÈS DATABASE]-> Opération d'ajout d'un statut au bot reussie.
+[INFO] 2025-11-01 18:57:48 - [INFO DATABASE]-> Mise à jour d'une statistique du bot..
+[INFO] 2025-11-01 18:57:48 - [INFO DATABSE]-> Opération de mise à jour des statistiques lancées.
+[INFO] 2025-11-01 18:57:48 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:48 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:48 - [INFO DATABASE]-> Opération de mise à jour des statistiques réussie.
+[INFO] 2025-11-01 18:57:49 - [INFO DATABASE]-> Mise à jour d'une statistique du bot..
+[INFO] 2025-11-01 18:57:49 - [INFO DATABSE]-> Opération de mise à jour des statistiques lancées.
+[INFO] 2025-11-01 18:57:49 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:49 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:49 - [INFO DATABASE]-> Opération de mise à jour des statistiques réussie.
+[INFO] 2025-11-01 18:57:50 - [INFO DATABASE]-> Mise à jour d'une statistique du bot..
+[INFO] 2025-11-01 18:57:50 - [INFO DATABSE]-> Opération de mise à jour des statistiques lancées.
+[INFO] 2025-11-01 18:57:50 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:50 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:50 - [INFO DATABASE]-> Opération de mise à jour des statistiques réussie.
+[INFO] 2025-11-01 18:57:51 - [INFO DATABASE]-> Suppression d'un nouveau administrateur en cours..
+[INFO] 2025-11-01 18:57:51 - [INFO DATABSE]-> Opération de suppression de l'instance d'un administrateur lancées.
+[INFO] 2025-11-01 18:57:51 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:51 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:51 - [SUCCÈS DATABASE]-> Opération de suppression de l'instance de l'administrateur reussie.
+[INFO] 2025-11-01 18:57:52 - [INFO DATABASE]-> Libération d'un utilisateur banni en cours..
+[INFO] 2025-11-01 18:57:52 - [INFO DATABSE]-> Opération de libération de l'instance d'un utilisateur banni lancées.
+[INFO] 2025-11-01 18:57:52 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:52 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:52 - [SUCCÈS DATABASE]-> Opération de libération  de l'instance d'un utilisateur banni reussie.
+[INFO] 2025-11-01 18:57:53 - [INFO DATABASE]-> Retrait d'un salon valide en cours..
+[INFO] 2025-11-01 18:57:53 - [INFO DATABSE]-> Opération de retrait de l'instance d'un salon valide lancées.
+[INFO] 2025-11-01 18:57:53 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:53 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:53 - [SUCCÈS DATABASE]-> Opération de retrait de l'instance d'un salon valide reussie.
+[INFO] 2025-11-01 18:57:54 - [INFO DATABASE]-> Libération d'un serveur banni en cours..
+[INFO] 2025-11-01 18:57:54 - [INFO DATABSE]-> Opération de libération d'un serveur banni lancées.
+[INFO] 2025-11-01 18:57:54 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:54 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:54 - [SUCCÈS DATABASE]-> Opération de libération d'un serveur banni reussie.
+[INFO] 2025-11-01 18:57:55 - [INFO DATABASE]-> Retrait d'un statut du bot en cours..
+[INFO] 2025-11-01 18:57:55 - [INFO DATABSE]-> Opération de retrait d'un statut du bot lancées.
+[INFO] 2025-11-01 18:57:55 - [INFO DATABASE]-> Opération de sauvegarde en cours..
+[INFO] 2025-11-01 18:57:55 - [SUCCÈS DATABASE]-> Opération de sauvegarde réussie.
+[INFO] 2025-11-01 18:57:55 - [SUCCÈS DATABASE]-> Opération de retrait d'un statut du bot reussie.
+[INFO] 2025-11-01 18:58:00 - [INFO DATABASE]-> Opération de sélection de la donnés adminList en cours ..
+[INFO] 2025-11-01 18:58:00 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:58:00 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:58:00 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:58:00 - [SUCCÈS DATABASE]-> Opération de sélection de la donnée adminList réussie.
+[INFO] 2025-11-01 18:58:01 - [INFO DATABASE]-> Opération de sélection de la donnés userBlackList en cours ..
+[INFO] 2025-11-01 18:58:01 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:58:01 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:58:01 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:58:01 - [SUCCÈS DATABASE]-> Opération de sélection de la donnée userBlackList réussie.
+[INFO] 2025-11-01 18:58:02 - [INFO DATABASE]-> Opération de sélection de la donnés serverBlackList en cours ..
+[INFO] 2025-11-01 18:58:02 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:58:02 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:58:02 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:58:02 - [SUCCÈS DATABASE]-> Opération de sélection de la donnée serverBlackList réussie.
+[INFO] 2025-11-01 18:58:03 - [INFO DATABASE]-> Opération de sélection de la donnés channelList en cours ..
+[INFO] 2025-11-01 18:58:03 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:58:03 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:58:03 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:58:03 - [SUCCÈS DATABASE]-> Opération de sélection de la donnée channelList réussie.
+[INFO] 2025-11-01 18:58:04 - [INFO DATABASE]-> Opération de sélection de la donnés botStatusList en cours ..
+[INFO] 2025-11-01 18:58:04 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:58:04 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:58:04 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:58:04 - [SUCCÈS DATABASE]-> Opération de sélection de la donnée botStatusList réussie.
+[INFO] 2025-11-01 18:58:05 - [INFO DATABASE]-> Opération de sélection de la donnés botStats en cours ..
+[INFO] 2025-11-01 18:58:05 - [INFO DATABASE]-> Vérification de l'existance du repertoire des données.
+[INFO] 2025-11-01 18:58:05 - [INFO DATABASE]-> Début du chargement des données.
+[INFO] 2025-11-01 18:58:05 - [SUCCÈS DATABASE]-> Succès du chargement des données.
+[INFO] 2025-11-01 18:58:05 - [SUCCÈS DATABASE]-> Opération de sélection de la donnée botStats réussie.

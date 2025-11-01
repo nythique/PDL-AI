@@ -1,5 +1,35 @@
+# Environment
 .env
+
+# Python artifacts
 *.pyc
 __pycache__/
+.pytest_cache/
+.mypy_cache/
+
+# Virtualenvs
+venv/
+env/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Test artifacts / temporary data
+unit-tests/
+unit-tests/data/
+
+# Local test scripts
+debugger.py
+test_config.py
+
+
+# Misc
 bfg.jar
 .todo-list
+.DS_Store
+
+# Build
+dist/
+build/
+*.egg-info

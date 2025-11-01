@@ -19,6 +19,15 @@ import logging.handlers
 from datetime import date
 from config.settings import ERROR_LOG_PATH, SECURITY_LOG_PATH, SYSTEM_DB
 
+# Ensure log and database directories exist to avoid FileHandler/File IO errors on import
+try:
+    for _path in (ERROR_LOG_PATH, SECURITY_LOG_PATH, SYSTEM_DB):
+        dir_path = os.path.dirname(_path)
+        if dir_path and not os.path.exists(dir_path):
+            os.makedirs(dir_path, exist_ok=True)
+except Exception as _e:
+    # If directory creation fails during import, print to stdout but allow import to continue
+    print(f"[WARN database] Could not ensure log/DB directories: {_e}")
 #======================================================================================
 # ================= INITIALISATION DES PARAMETRES DE LOGGING ==========================
 
@@ -51,8 +60,10 @@ logger.addHandler(error_handler)
 class database:
 
     def __init__(self, data = SYSTEM_DB):
-        self.data=data
-        self.loading=self.loadData()
+        self.data = data
+        # lock to protect concurrent read/write to the DB file
+        self._lock = threading.Lock()
+        self.loading = self.loadData()
 
     def loadData(self):
         try:
@@ -60,8 +71,10 @@ class database:
             if os.path.exists(self.data) and os.path.getsize(self.data) > 0:
                 try:
                     logger.info(f"[INFO DATABASE]-> Début du chargement des données.")
-                    with open(self.data, 'r', encoding='utf-8') as data:
-                        dataLoading=json.load(data)
+                    # protect read with lock to avoid race with writes
+                    with self._lock:
+                        with open(self.data, 'r', encoding='utf-8') as data:
+                            dataLoading = json.load(data)
                     logger.info(f"[SUCCÈS DATABASE]-> Succès du chargement des données.")
                     return dataLoading
                 except Exception as e:
@@ -101,8 +114,17 @@ class database:
     def saveData(self):
         try:
             logger.info(f"[INFO DATABASE]-> Opération de sauvegarde en cours..")
-            with open(self.data, 'w', encoding='utf-8') as data:
-                json.dump(self.loading, data, indent=4, ensure_ascii=False)
+            # protect write with lock; write atomically by writing to temp and replacing
+            tmp_path = f"{self.data}.tmp"
+            with self._lock:
+                with open(tmp_path, 'w', encoding='utf-8') as data_file:
+                    json.dump(self.loading, data_file, indent=4, ensure_ascii=False)
+                try:
+                    os.replace(tmp_path, self.data)
+                except Exception:
+                    # fallback to simple write if atomic replace not available
+                    with open(self.data, 'w', encoding='utf-8') as data_file:
+                        json.dump(self.loading, data_file, indent=4, ensure_ascii=False)
             logger.info(f"[SUCCÈS DATABASE]-> Opération de sauvegarde réussie.")
         except Exception as a:
             logger.error(f"[ERROR DATABASE]-> {a}, ligne 107.")

@@ -7,3 +7,10 @@ docker-installer.sh
 .gitignore
 .github
 .todo-list
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+venv/
+.env

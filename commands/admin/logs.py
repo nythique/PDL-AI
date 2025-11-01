@@ -17,10 +17,11 @@ error_handler.setFormatter(logging.Formatter(
     '[%(levelname)s] %(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'
 ))
 
-logging.getLogger().handlers = []
-logging.getLogger().addHandler(info_handler)
-logging.getLogger().addHandler(error_handler)
-logging.getLogger().setLevel(logging.INFO)
+logger = logging.getLogger('debug')
+logger.handlers = []
+logger.addHandler(info_handler)
+logger.addHandler(error_handler)
+logger.setLevel(logging.INFO)
 
 class Admin(commands.Cog):
     def __init__(self, bot):
@@ -34,7 +35,7 @@ class Admin(commands.Cog):
                 "⛔ Vous n'avez pas l'autorisation d'utiliser cette commande.", ephemeral=True
             )
             print(Fore.BLUE + f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {interaction.user.name}" + Style.RESET_ALL)
-            logging.warning(f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {interaction.user.name}")
+            logger.warning(f"[SECURITY] Utilisateur non autorisé a tenté d'accéder aux erreurs : {interaction.user.name}")
             return
 
         log_path = ERROR_LOG_PATH

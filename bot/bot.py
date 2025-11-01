@@ -53,8 +53,21 @@ try:
         logger.info("[INFO BOT] Chargement des cogs en cours...")
         async def load_cogs():
             cogs = [
+                # Commandes Admin
+                "commands.admin.add",
+                "commands.admin.clear",
+                "commands.admin.hoster",
+                "commands.admin.logs",
+                "commands.admin.reboot",
+                "commands.admin.remove",
+                
+                # Commandes Publiques
                 "commands.public.ping",
-                "commands.admin.add"
+                "commands.public.info",
+                "commands.public.report",
+                
+                # Custom Commands
+                "commands.custom.interact"
             ]
             for cog in cogs:
                 try:

@@ -30,7 +30,7 @@ ERROR_LOG_PATH = "logs/error/error.log"
 SECURITY_LOG_PATH = "logs/security/security.log" 
 TEMP_UPLOAD_PATH = "home/cluster/ram/temp/"
 ROM_PATH = "home/cluster/rom/rom.json"
-SYSTEM_DB = "home/cluster/rom/system/db.json"
+SYSTEM_DB = "home/cluster/rom/systems/db.json"
 TESSERACT_PATH = "/usr/bin/tesseract"
 
 # ===================================================================================

@@ -20,7 +20,7 @@ from config.settings import SECURITY_LOG_PATH, ERROR_LOG_PATH, ALERT_CHANNEL, OW
 #======================================================================================
 # ================= INITIALISATION DES PARAMETRES DE LOGGING ==========================
 
-logger = logging.getLogger('database')
+logger = logging.getLogger('add')
 logger.setLevel(logging.INFO)
 info_handler = logging.FileHandler(
     SECURITY_LOG_PATH,

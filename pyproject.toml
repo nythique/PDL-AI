@@ -10,7 +10,6 @@ readme = "README.md"
 
 requires-python = ">=3.11"
 dependencies = [
-    "discord.py",
     "discord.py[voice]>=2.2.0",
     "colorama",
     "pillow",
@@ -18,7 +17,7 @@ dependencies = [
     "groq",
     "GPUtil",
     "psutil",
-    "PyNacl",
+    "PyNaCl",
     "aiohttp",
     "asyncio-mqtt",
     "SpeechRecognition",
