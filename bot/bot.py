@@ -65,9 +65,6 @@ try:
                 "commands.public.ping",
                 "commands.public.info",
                 "commands.public.report",
-                
-                # Custom Commands
-                "commands.custom.interact"
             ]
             for cog in cogs:
                 try:
