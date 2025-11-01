@@ -36,7 +36,18 @@ clear
 
 echo "==================📦 Ajout du dépôt officiel Docker pour Fedora...=================="
 # Le dépôt officiel fournit les paquets Docker pour Fedora
-sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+echo "Tentative d'ajout du dépôt via dnf config-manager..."
+if sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo 2>/dev/null; then
+    echo "Dépôt ajouté via config-manager."
+else
+    echo "config-manager ne supporte pas --add-repo ou a échoué, ajout manuel du fichier de repo..."
+    if sudo curl -fsSL https://download.docker.com/linux/fedora/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo; then
+        echo "Fichier de repo écrit dans /etc/yum.repos.d/docker-ce.repo"
+    else
+        echo "Erreur : impossible d'écrire /etc/yum.repos.d/docker-ce.repo" >&2
+        exit 1
+    fi
+fi
 clear
 
 echo "==================🔄 Mise à jour du cache des paquets...=================="
@@ -52,13 +63,8 @@ sudo systemctl enable --now docker
 sudo systemctl status --no-pager --full docker || true
 clear
 
-TARGET_USER="${SUDO_USER:-$USER}"
-echo "==================👤 Ajout de l'utilisateur ${TARGET_USER} au groupe docker...=================="
-if id "${TARGET_USER}" &>/dev/null; then
-    sudo usermod -aG docker "${TARGET_USER}"
-else
-    echo "Utilisateur ${TARGET_USER} introuvable, saut de l'ajout au groupe docker." >&2
-fi
+echo "==================👤 Ajout de l'utilisateur ${USER} au groupe docker...=================="
+sudo usermod -aG docker "$USER"
 clear
 
 echo "==================✅ Installation terminée" 
